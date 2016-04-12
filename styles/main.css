@@ -1,0 +1,302 @@
+/* main */
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+  font-family: "Avenir", sans-serif;
+  font-size: 14px;
+  margin: 0 auto;
+  width: 1080px;
+  max-width: 95%;
+  height: 100%;
+  padding: 0px 20px;
+  line-height: 1.4em;
+}
+
+.center {
+  width: 1080px;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.center > p,
+.center > h1,
+.center > h2,
+.center > h3,
+.center > ul,
+.center > ol {
+  width: 980px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul,
+ol {
+  padding-left: 1.5em;
+}
+
+/* nav bar */
+#nav-container {
+  position: fixed;
+  width: 1080px;
+  height: 3em;
+  margin: 0 auto;
+  padding: 0.25em 0;
+  background-color: rgba(255, 255, 255, 1);
+  z-index: 1;
+  line-height: 2em;
+  font-size: 16px;
+  /*border-bottom: 2px solid #C0C0C0;*/
+}
+
+nav { /*top navigation bar*/
+  height: 2em;
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto 0.25em auto;
+}
+
+nav ul {
+  margin: 0;
+  height: 2em;
+}
+
+nav li {
+  margin: 0;
+  height: 2em;
+  display: inline-block;
+}
+
+nav li a {
+  padding: 4px 8px 3px 8px;
+  height: 2em;
+  border-radius: 7px;
+}
+
+#nav-border {
+    width: 100%;
+    height: 2px;
+    margin: 0;
+    padding: 0;
+}
+
+#more {
+  cursor: pointer;
+  color: #3399FF;
+}
+
+#more-dropdown {
+  display: none;
+  /*transform: scale(1,0);*/
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  height: calc(10em + 2px);
+  list-style-type: none;
+  background-color: white;
+  border: 1px solid #3399FF;
+  border-radius: 4px 4px 4px 4px;
+  animation: fadein 0.4s;
+  -moz-animation: fadein 0.4s;
+  -webkit-animation: fadein 0.4s;
+  -o-animation: fadein 0.4s;
+}
+
+#more-dropdown li {
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 2em;
+}
+
+#more-dropdown li a {
+  line-height: 1.1em;
+  display: block;
+}
+
+#line-left-long {
+  width: 50%;
+  height: 2px;
+  float: left;
+  background: -webkit-gradient(linear, 10 0, 20% 0, from(white), to(#C0C0C0), color-stop(100%, #C0C0C0));
+  background: -moz-linear-gradient(to left, #C0C0C0, white);
+}
+
+#line-right-long {
+  width: 50%;
+  height: 2px;
+  float: right;
+  background: -webkit-gradient(linear, 285 0, 95% 0, from(#C0C0C0), to(white), color-stop(100%, #C0C0C0));
+  background: -moz-linear-gradient(to right, #C0C0C0, white);
+}
+
+
+/* Content */
+#content {
+  margin: 0;
+  padding-top: 4em;
+  min-height: 90%;
+}
+
+/* Tables */
+table {
+  outline: none;
+  border-collapse: collapse;
+  margin: 1em auto;
+  padding: 0;
+}
+
+tr {
+  border-bottom: solid lightgrey 1px;
+}
+
+tbody > tr:last-child {
+  border-bottom: none;
+}
+
+th {
+  font-weight: bold;
+  background-color: #eeeeff;
+  padding: 4px;
+  margin: 0;
+  text-align: center;
+  vertical-align: top;
+  border-bottom: solid black 1px;
+}
+
+td {
+  padding: 4px;
+  margin: 0;
+  text-align: center;
+  vertical-align: top;
+  background-color: ivory;
+}
+
+
+/* Footer */
+footer {
+  width: 100%;
+  padding: 1em 0;
+  text-align: center;
+  color: #777777;
+}
+
+footer > p {
+    margin: 0.1em 0;
+}
+
+#logo {
+  display: block;
+  margin: 0 auto 0.3em auto;
+  padding: 0.5em;
+  width: 30%;
+  transition: 0.5s;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+#logo:hover {
+  border: 1px solid #3399FF;
+  transition: 0s;
+}
+
+
+
+/* Untriaged */
+
+
+
+
+
+
+
+/*resets*/
+h2, h3, h4, h5, h6, pre, blockquote, form, fieldset {
+  margin: 0.6em 0;
+}
+
+pre {
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 7px;
+}
+
+.clear {
+  clear:both;
+}
+fieldset {
+  border: 1px solid transparent;
+}
+
+
+@media screen and (max-width: 1080px){ /*nav bar for mobile display*/
+  nav{
+    position: fixed;
+    width: 658px;
+    top: 40px;
+    left: 30px;
+    /*line-height: 2;*/
+    /*margin: -57px 0 0 -8px;*/
+    /*padding: 9px 0 6px 0;*/
+    /*background-color: rgba(255, 255, 255, 0);*/
+  }
+}
+
+
+
+
+
+
+
+.here{ /*currently selected nav button*/
+  padding: 4px 8px 4px 8px;
+  border-radius: 7px;
+  background: #3399FF;
+  color: white;
+}
+.here:hover{
+  background: #3399FF;
+  color: white;
+}
+
+
+
+/*image style*/
+.img-holder {
+  width: 50%;
+  margin: 4em auto;
+}
+
+.img-holder img {
+  width: 100%;
+}
+
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/*video*/
+button{
+  width: 650px;
+  height: 450px;
+  border: 1px solid #3399FF;
+  border-radius: 10px;
+}
+
+/*pdf style*/
+object[type="application/pdf"]{
+  border: solid #cccccc 3px;
+  border-radius: 6px;
+  width: 850px;
+  height: 80vh;
+}
+

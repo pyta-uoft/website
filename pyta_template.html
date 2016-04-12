@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>$title$</title>
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="icon" type="image/x-icon" href="$root$images/favicon.ico" />
+  <link rel="stylesheet" href="$root$styles/main.css" />
+  $if(highlighting-css)$
+    <style type="text/css">
+    $highlighting-css$
+    </style>
+  $endif$
+  $for(css)$
+    <link rel="stylesheet" href="$css$" $if(html5)$$else$$$type="text/css" $endif$/>
+  $endfor$
+</head>
+<body>
+  <div id="content">
+    <div class="center">
+<h1 id="title">$title$</h1>
+$body$
+    </div>
+  </div>
+
+  <footer>
+    <div id="cs-logo">
+      <a href="http://web.cs.toronto.edu/">
+        <img id="logo"
+             src="$root$images/csfaculty.jpg" />
+      </a>
+    </div>
+    <p>
+      <a href="https://github.com/pyta-uoft/pyta">Get involved</a>
+    </p>
+    <p>
+      Maintained by <a href="http://www.cs.toronto.edu/~david/">David Liu</a>
+    </p>
+  </footer>
+</body>
+</html>
