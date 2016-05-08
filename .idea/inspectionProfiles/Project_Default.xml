@@ -1,0 +1,18 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="event.Event.customer" />
+          <option value="object.do" />
+          <option value="object.timestamp" />
+          <option value="event.Event._customer" />
+          <option value="puzzle.Puzzle._target" />
+          <option value="puzzle.Puzzle.*" />
+          <option value="sudoku_puzzle.math" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

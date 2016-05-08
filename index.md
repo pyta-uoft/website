@@ -8,6 +8,10 @@ This is some welcome text.
 
 This is some helpful description of the C0111 error.
 
+### C0102: Blacklisted name {#C0102}
+
+
+
 ## Custom errors {#custom}
 
 ### E9999: Forbidden imports {#E9999}
