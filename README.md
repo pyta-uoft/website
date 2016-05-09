@@ -11,6 +11,6 @@ To generate the website, follow these steps:
    The repository has been set up to ignore `gen` already, so you won't
    accidentally commit the generated files. 
 3. In the command line, run
-   `pandoc -o gen/index.html -s --template=pyta_template.html --highlight-style=zenburn index.md`.
+   `pandoc -o gen/index.html -s --template=pyta_template.html --highlight-style=zenburn -V root=../ index.md`.
 
 After this, you should be able to open `gen/index.html` and see the demo webpage.
