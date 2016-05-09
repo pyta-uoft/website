@@ -394,7 +394,15 @@ def ClassWithNoInit:
 
 ### W0222: Different method signature {#W0222}
 
-TODO
+The method signature that is declared should match any children method
+signatures. If the number of arguments change, functions that are called
+may not resolve properly depending on how the certain functions return
+objects. If they return an object that originally was the parent, and then
+update to returning a child class but that child ends up having a different
+signature, this may lead to exceptions being thrown at some point.
+
+When you have a method with the same name, the arguments should stay the
+same.
 
 ```python
 class Parent:
@@ -411,6 +419,8 @@ class Child(Parent):
 	def return_num(self):  # Missing argument (to keep signature identical)
 		return 42
 ```
+
+
 
 ### W0702: Bare exception {#W0702}
 
