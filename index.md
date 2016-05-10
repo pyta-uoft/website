@@ -10,6 +10,7 @@ This is some helpful description of the C0111 error.
 
 
 
+
 ### R0201: No self use {#R0201}
 
 If a method (a function in a class) does not make use of the 'self' (or
@@ -420,7 +421,15 @@ def ClassWithNoInit:
 
 ### W0222: Different method signature {#W0222}
 
-TODO
+The method signature that is declared should match any children method
+signatures. If the number of arguments change, functions that are called
+may not resolve properly depending on how the certain functions return
+objects. If they return an object that originally was the parent, and then
+update to returning a child class but that child ends up having a different
+signature, this may lead to exceptions being thrown at some point.
+
+When you have a method with the same name, the arguments should stay the
+same.
 
 ```python
 class Parent:
