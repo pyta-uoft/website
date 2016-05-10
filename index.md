@@ -145,7 +145,7 @@ class newclass("str"):
 
 ### E0241: Duplicate bases {#E0241}
 
-When inheriting, you should only specifiy a class once to inherit from,
+When inheriting, you should only specify a class once to inherit from,
 multiple times is an error:
 
 ```python
@@ -253,7 +253,7 @@ def bad_raise()
 
 ### E0710: Raising non-exception {#E0710}
 
-You cannot raise an object that is not a descendent of Exception (which implies
+You cannot raise an object that is not a descendant of Exception (which implies
 being a child of BaseException). Anything you raise must at some point descend
 from a class that inherits exception.
 
@@ -446,7 +446,7 @@ When inheriting from a parent, you need to call the parent's _init_
 method using itself as a parameter (or use _super_ if you are more
 familiar with that). The whole goal of extending a class is to be
 a child of the class you extend from, and properties that the parent
-sets in its constructor would not be propagated into the child you'reached
+sets in its constructor would not be propagated into the child you are
 creating.
 
 Therefore you must always call the parent.
@@ -546,7 +546,7 @@ the exception classes in a tuple. You can write an except block in Python
 with multiple classes separated by an _or_ (see example). If you do it the
 second way, the _or_ binary operator will not do what you think it does --
 in fact, the exception on the right side of the _or_ will leak through
-(which is almost surely what you do not want occuring).
+(which is almost surely what you do not want occurring).
 
 ```python
 class MyException(Exception):
