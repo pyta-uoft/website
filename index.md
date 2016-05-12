@@ -35,10 +35,8 @@ For your work in CSC148, we expect you call an object only if it has been
 inferred to a callable object.
 
 ```python
-import random
-
-# random refers to the module here
-print(random()) # Error on this line
+x = 10
+print(x())  # Error on this line
 ```
 
 ### E1111: assignment-from-no-return {#E1111}
@@ -81,57 +79,17 @@ For your work in CSC148, we expect you to pass values for each argument (one for
  each) in a function.
 
 ```python
-class User:
-    def __init__(self, name, age):
-        """
-        Initialize the User.
-
-        @type self: User
-        @type name: str
-        @type age: int
-        @rtype: None
-        """
-        self.name = name
-        self.age = age
-
-User("David", 21, 4)
-```
-
-### E1123: unexpected-keyword-arg {#E1123}
-
-For your work in CSC148, we expect you to pass keyword arguments which
-correspond to the function’s parameter names.
-
-```python
-def foo(a, b):
+def get_sum(x, y):
     """
-    Return a * b
+    Return the sum of x and y.
 
-    @type a: int
-    @type b: int
+    @type x: int
+    @type y: int
     @rtype: int
     """
-    return a * b
+    return x + y
 
-foo(x=1, y=2)  # Error on this line
-```
-
-### E1124: redundant-keyword-arg {#E1124}
-
-For your work in CSC148, we expect you to give one value for a positional argument.
-
-```python
-def get_sum(a, b=2):
-    """
-    Return the sum of x, y and z.
-
-    @type a: int
-    @type b: int
-    @rtype: int
-    """
-    return a + b
-
-get_sum(1, a=2, b=2)  # Error on this line
+get_sum(1, 2, 3)  # Error on this line
 ```
 
 ### E1126: invalid-sequence-index {#E1126}
@@ -167,35 +125,6 @@ def f():
 def g():
     x = f()  # Error on this line
     print(x)
-```
-
-### E1129: not-context-manager {#E1129}
-
-For your work in CSC148, we do not expect to see an instance in a with
-statement doesn’t implement the context manager protocol(__enter__/__exit__).
-
-```python
-def contextmanagerdecorator(cls):
-    class DecoClass(cls):
-        def __enter__(self):
-            """
-            __enter__
-            """
-            pass  # Error on this line
-        def __exit__(self, *n, **kw):
-            """
-            __exit__
-            """
-            pass  # Error on this line
-    return DecoClass
-
-@contextmanagerdecorator
-class RegularClass(object):
-    pass
-
-obj = RegularClass()
-with obj:
-    pass
 ```
 
 ### E1130: invalid-unary-operand-type {#E1130}
@@ -254,33 +183,6 @@ for b in a:
     print(b[0])  # Error on this line
 ```
 
-### E1300: bad-format-character {#E1300}
-
-For your work in CSC148, we expect to see a format string that uses named
-conversion specifiers is used with a dictionary whose keys are all strings
-
-```python
-print("Hello%20World%s" %"!")  # Error on this line
-```
-
-### E1301: truncated-format-string {#E1301}
-
-For your work in CSC148, we do not expect to see a format string terminates
-before the end of a conversion specifier.
-
-```python
-print("%d and %"%1)  # Error on this line
-```
-
-### E1302: mixed-format-string {#E1302}
-
-For your work in CSC148, we do not expect to see a format string contains
-both named (e.g. ‘%(foo)d’) and unnamed (e.g. ‘%d’) conversion specifiers.
-
-```python
-print("%d and %(foo)d"%1)  # Error on this line
-```
-
 ### E1303: format-needs-mapping {#E1303}
 
 For your work in CSC148, we expect to see a format string that uses named
@@ -297,14 +199,6 @@ for obj in objects:
         print(gpl % (obj, con))    # Error on this line
 ```
 
-### E1304: missing-format-string-key {#E1304}
-
-For your work in CSC148, we expect to see a format string that uses named
-fields receive one or more required keywords
-
-```python
-print('hello there %(3)s' % {'5': 'you'})  # Error on this line
-```
 
 ### E1305: too-many-format-args {#E1305}
 
@@ -341,49 +235,12 @@ foo = "tests"
 foo.lstrip("java")  # Error on this line
 ```
 
-### W1300: bad-format-string-key {#W1300}
-
-For your work in CSC148, we expect to see a format string that uses named
-conversion specifiers is used with a dictionary whose keys are all strings.
-
-```python
-s = 'hello there %(3)s' % {3: 'you'}  # Error on this line
-```
-
-### W1301: unused-format-string-key {#W1301}
-
-For your work in CSC148, we expect to see a format string that uses named
-conversion specifiers is used with a dictionary that only contains keys
-required by the format string.
-
-```python
-print('hello there %(3)s' % {'5': 'you'})  # Error on this line
-```
-
-### W1302: bad-format-string {#W1302}
-
-For your work in CSC148, we expect you to use valid format string.
-
-```python
-s = '{!} is a foobar'.format({'badge_name': 'foo'})   # Error on this line
-```
-
 ### W1303: missing-format-argument-key {#W1303}
 
 For your work in CSC148, we expect to see format string that uses named fields
 receive required keywords.
 ```python
 action = '{bond}, {james} {act}'.format(bond='bond', james='james') # Error on this line
-```
-
-### W1304: unused-format-string-argument {#W1304}
-
-For your work in CSC148, we expect to see format string that uses named fields
-is used with arguments that are required by the format string.
-
-```python
-# Error on next line
-action = '{bond}, {james} {bond}'.format(bond='bond', james='james', act='act')
 ```
 
 ### W1305: format-combined-specification {#W1305}
@@ -420,8 +277,7 @@ In CSC148, we do not expect to see a backslash is in a literal string but not
 as an escape.
 
 ```python
-import re
-re.compile("\d{3}")  # Error on this line
+print("\\\\\d{3}")  # Error on this line
 ```
 
 ### C0111: Missing docstring {#C0111}
