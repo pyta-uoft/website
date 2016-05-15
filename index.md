@@ -11,9 +11,16 @@ This is some helpful description of the C0111 error.
 ### C0102 Blacklisted name {#C0102}
 
 This error occurs when a variable name is listed in the black list. The black 
-list includes names like foo, bar, baz, toto, tata, tutu. Students 
-are expected to use good variable names such as i, j, k, ex, Run. The example 
-below uses blacklisted names.
+list includes names:
+ 
+ - foo
+ - bar
+ - baz
+ - toto
+ - tutu
+ - tata
+
+Students are expected to use meaningful variable names.
 
 ```python 
 def pos(obj):
