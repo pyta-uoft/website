@@ -7,10 +7,7 @@ To generate the website, follow these steps:
 
 1. Install `pandoc`. Make sure that after you've installed it, you can open the
    command line and run `pandoc -v` to get the version installed.
-2. Inside the website directory, create a new directory called `gen`.
-   The repository has been set up to ignore `gen` already, so you won't
-   accidentally commit the generated files. 
-3. In the command line, run
-   `pandoc -o gen/index.html -s --template=pyta_template.html --highlight-style=zenburn -V root=../ index.md`.
+2. In the command line, go to the website directory and run
+   `python build.py` (or `python3 build.py` if your default Python version is 2.*).
 
 After this, you should be able to open `gen/index.html` and see the demo webpage.
