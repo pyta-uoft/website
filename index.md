@@ -35,7 +35,7 @@ print(r.area())  # Error on this line
 
 ### E1102: not-callable {#E1102}
 
-We expect you call an object only if it has been inferred to a callable object.
+We expect you to call an object only if it has been inferred to a callable object.
 In the following example, x is a variable with value 10. We should not call x()
  because it is not callable.
 
