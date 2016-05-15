@@ -80,7 +80,9 @@ def is_false(obj):
 
 ### C0113 Unneeded not {#C0113}
 
-This error occurs when a boolean expression contains an unneeded negation.
+This error occurs when a boolean expression contains an unneeded negation. If 
+you are getting this error, the expression can be simplified to not use a 
+negation.
 
 ```python
 def is_true():
@@ -151,7 +153,7 @@ def is_int(obj):
     @type obj: object
     @rtype: bool
     """
-    return type(obj) == "<type 'int'>"
+    return type(obj) == "<type 'int'>"  # Error on this line
 ```
 
 The above can be modified to:
@@ -169,23 +171,32 @@ def is_int(obj):
 ### E0101 Return in init {#E0101}
 
 This error occurs when a return statement is used in the __init__ method. 
-Students are expected to not return anything in the __init__ method.
+Students should not use a return statement in the  __init__ method as it is not 
+directly called by your code. Instead, it is called by the code that 
+initializes objects at runtime. 
 
 ```python
 class Animal:
     """An animal in the zoo.
+
+    === Public Attributes ===
+    @type name: str
     """
-    
     def __init__(self, name):
+        """
+        @type self: Animal
+        @type name: str
+        @rtype: None
+        """
         self.name = name
-        return True
+        return True  # Error on this line
 ```
 
 ### E0102 Function redefined {#E0102}
 
 This error occurs when a function, class or method is redefined. If you are 
 getting this error, you should make sure all the functions, methods and classes 
-have different names.
+you define have different names.
 
 ```python
 def pos(obj):
@@ -193,26 +204,23 @@ def pos(obj):
     @type obj: int
     @rtype: bool
     """
-    if obj < 0:
-        return False
-    else:
-        return True
-        
-        
+    return obj < 0
+
+
 def pos(obj):
     """
     @type obj: int
     @rtype: bool
     """
-    if obj < 1:
-        return False
-    else:
-        return True
+    return obj < 1
 ```
 
 ### E0103 Not in loop {#E0103}
 
-This error occurs when break and continue keywords are used outside loops.
+This error occurs when 'break' and 'continue' keywords are used outside loops. 
+The keyword 'break' is used to exit a loop early and the keyword 'continue' is 
+used to skip an iteration in a loop. Hence both the keywords only belong inside 
+loops.
 
 ```python
 def add(lst):
@@ -224,7 +232,7 @@ def add(lst):
     temp = 0
     for item in lst:
         temp += item
-    break # Error on this line
+    break  # Error on this line
     return temp
 ```
 
@@ -245,7 +253,7 @@ def add(lst):
     for item in lst:
         temp += item
         
-return False # Error on this line
+return False  # Error on this line
 ```
 
 ### E0108 Duplicate argument name {E0108}
@@ -270,8 +278,7 @@ def add(lst, lst):
 ### W0101 Unreachable {#W0101}
 
 This error occurs when there is some code behind a "return" or "raise" 
-statement. This code will never be accessed, therefore correct your code if you 
-are getting this error. 
+statement. This code will never be run.
 
 ```python
 def add(lst):
@@ -283,7 +290,7 @@ def add(lst):
     for item in lst:
         temp += item
     return temp
-    temp += 1 # Error on this line
+    temp += 1  # Error on this line
 ```
 
 ### W0102 Dangerous default value {#W0102}
@@ -318,42 +325,7 @@ def add(lst):
     temp = 0
     for item in lst:
         temp += item
-    temp # Error on this line
-```
-
-### W0105 Pointless string statement {#W0105}
-
-This error occurs when string statement has no effect. This may not be 
-what was intended. This error is a special 
-case of the error W0104.
-
-```python
-def letters(lst):
-    """
-    @type lst: list
-    @rtype: int
-    """
-    temp = ""
-    for letter in lst:
-        temp += letter + " "
-    "end" # Error on this line
-```
-
-### W0106 Expression not assigned {#W0107}
-
-This error occurs when an expression that is not a function call is not 
-assigned to anything.
- 
- ```python
- def add(lst):
-    """
-    @type lst: list
-    @rtype: int
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-    5 + 2 # Error on this line
+    temp  # Error on this line
 ```
 
 ### W0107 Unnecessary pass {#W0107}
@@ -370,7 +342,7 @@ def add(lst):
     temp = 0
     for item in lst:
         temp += item
-        pass # Error on this line
+        pass  # Error on this line
     return temp
 ```
 
@@ -380,13 +352,7 @@ This error occurs when a dictionary expression binds the same key multiple
 times.
 
 ```python
-def check(obj):
-    """
-    @type obj: dict
-    @rtype: bool
-    """
-    ex = {'runner1': '5km', 'runner1': '7km'}
-    return ex == obj
+ex = {'runner1': '5km', 'runner1': '7km'}
 ```
 
 ### W0125 Using constant test {#W0125}
@@ -395,43 +361,21 @@ This error occurs when a conditional statement like an "if" statement uses a
 constant value for its test.
 
 ```python
-def pos():
+def is_false():
     """
     @rtype: bool
     """
-    if 0: # Error on this line
+    if True:
         return False
     else:
         return True
-```
-
-### W0141 Bad builtin {#W0141}
-
-This error occurs when a black listed built-in function such as map, filter, 
-input and so on are used. Python now offers some cleaner alternatives like 
-list comprehension. Students are expected to use only the features covered in 
-lectures, or the ones we have explicitly mentioned for an 
-exercise/lab/assignment.
-
-```python
-def pos(obj):
-    """
-    @type obj: int
-    @rtype: bool
-    """
-    if obj < 0:
-        return False
-    else:
-        return True
-
-if __name__ == '__main__':
-    filter(pos, [1, -4, 5]
 ```
 
 ### W0199 Assert on tuple {#W0199}
 
-This error occurs when an "assert" statement is called like assert (x, y). 
-Maybe assert x, y was intended.
+This error occurs when an "assert" statement is called like `assert (x, y)`. 
+If you want to assert that two expressions are true then, you should use 
+`assert x, y` instead.
 
 ```python
 def check(ex1, ex2):
@@ -440,7 +384,7 @@ def check(ex1, ex2):
     @type y: int
     @rtype: None
     """
-    assert (ex1, ex2) # Error on this line
+    assert (ex1, ex2)  # Error on this line
 ```
 
 ## Custom errors {#custom}
