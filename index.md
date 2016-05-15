@@ -25,6 +25,7 @@ var2 = None
 
 print(var1)
 print(var2)   # Error on this line
+```
 
 
 ### E0611: No name in module {#E0611}
