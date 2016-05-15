@@ -77,7 +77,7 @@ def other_redefinition_example(arg):
 ### E0401: Import error {#E0401}
 
 The module is unable to be imported. Check the spelling of the module name, or
-whether the module is on disc.
+whether the module is in the correct directory.
 
 ```python
 import missing_module  # this module does not exist.
@@ -113,8 +113,9 @@ import math  # importing a module twice
 
 ### W0401: Wildcard import {#W0401}
 
-Only import what you need. Wildcard imports are generally bad because they
-'pollute' the namespace with all the functions. For example:
+Only import what you need. Wildcard imports (shown below) are generally 
+discouraged because they add all the functions from the imported module into the
+global namespace. Problems can occur when identical names conflict.
 
 ```python
 from valid_module import *
@@ -156,7 +157,8 @@ import sys  # "standard modules" should be imported first
 
 ### C0413: Wrong import position {#C0413}
 
-Imports should be placed at the top of the module (below the docstring)....
+Imports should be placed at the top of the module above any other code 
+(below the docstring).
 
 ```python
 my_list = ['a', 'b']
@@ -172,6 +174,14 @@ Imports should be grouped by packages.
 from sys import byteorder  # same packages should be grouped
 from math import floor
 from sys import stdin  # same packages should be grouped
+```
+
+Logically group the imports by same package name:
+
+```python
+from sys import byteorder  # same packages should be grouped
+from sys import stdin  # same packages should be grouped
+from math import floor
 ```
 
 
@@ -230,7 +240,7 @@ class TestStringMethods(unittest.TestCase):
 
 ### R0913: Too many arguments {#R0913}
 
-When too many arguments are passed into a function or method.
+When a function or method is defined with too many arguments.
 
 ```python
 def foo_bar(arg1, arg2, arg3, arg4, arg5, arg6):
@@ -290,7 +300,6 @@ class MyClass(object):
         """
         The are all instance attributes
         """
-
         self.animal = "Dog"  # These are instance attributes...
         self.bread = "Sourdough"
         self.liquid = "Water"
@@ -299,7 +308,59 @@ class MyClass(object):
         self.direction = "Up"
         self.clothing = "Shirt"
         self.number = 3
+```
 
+One solution is to logically decompose into more classes, each with fewer 
+instance attributes. Then we can use composition to access those attributes in 
+another class.
+
+```python
+class Edible(object):
+    """Example with fewer instance attributes.
+    """
+
+    def __init__(self):
+        """Below are the instance attributes:
+        """
+        self.bread = "Sourdough"
+        self.liquid = "Water"
+
+
+class Ownership(object):
+    """Example with fewer instance attributes.
+    """
+
+    def __init__(self):
+        """Below are the instance attributes:
+        """
+        self.animal = "Dog"
+        self.clothing = "Shirt"
+
+
+class Description(object):
+    """Example with fewer instance attributes.
+    """
+
+    def __init__(self):
+        """Below are the instance attributes:
+        """
+        self.colour = "Black"
+        self.shape = "Circle"
+        self.direction = "Up"
+        self.number = 3
+
+
+class Composition(object):
+    """Example showing composition of other classes into instance attributes.
+    """
+
+    def __init__(self):
+        """Construct instance attributes. For example, 
+        self.ownership.animal is "Dog"
+        """
+        self.edible = Edible()
+        self.ownership = Ownership()
+        self.description = Description()
 ```
 
 
@@ -337,13 +398,9 @@ in smaller functions / methods.
 Note: comments do not count as statements
 
 ```python
-def statement(arg):
-    """Dummy function to demonstrate an example within too_many_statements()"""
-    pass
-
 def too_many_statements(arg):
     """There are too many statements in this function."""
-    statement_1 = 1  # lots of statements...
+    statement_1 = 1
     statement_2 = 2
     statement_3 = 3
     statement_4 = 4
@@ -355,52 +412,50 @@ def too_many_statements(arg):
     statement_10 = 10
     statement_11 = 11
     statement_12 = 12
-    statement_13 = 13
-    statement_14 = 14
-    statement_15 = 15
-    statement_16 = 16
-    statement_17 = 17
-    statement_18 = 18
-    statement_19 = 19
-    statement_20 = 20
-    statement_21 = 21
-    statement_22 = 22
-    statement_23 = 23
-    statement_24 = 24
-    statement_25 = 25
-    statement_26 = 26
-    statement_27 = 27
-    statement_28 = 28
-    statement_29 = 29
-    statement_30 = 30
-    statement_31 = 31
-    statement_32 = 32
-    statement_33 = 33
-    statement_34 = 34
-    statement_35 = 35
-    statement_36 = 36
-    statement_37 = 37
-    statement_38 = 38
-    statement_39 = 39
-    statement_40 = 40
 
-    statement("function calls are statements too")
-    statement("function calls are statements too")
-    statement("function calls are statements too")
-    statement("function calls are statements too")
-    statement("function calls are statements too")
-    statement("function calls are statements too")
-    statement("function calls are statements too")
-    statement("function calls are statements too")
+    iter("function calls are statements too")
+    iter("function calls are statements too")
+    iter("function calls are statements too")
+    iter("function calls are statements too")
+    iter("function calls are statements too")
+    len("function calls are statements too")
+    len("function calls are statements too")
+    len("function calls are statements too")
+    len("function calls are statements too")
+    len("function calls are statements too")
+    object("function calls are statements too")
+    object("function calls are statements too")
+    object("function calls are statements too")
+    object("function calls are statements too")
+    object("function calls are statements too")
+    print("function calls are statements too")
+    print("function calls are statements too")
+    print("function calls are statements too")
+    print("function calls are statements too")
+    print("function calls are statements too")
+    type("function calls are statements too")
+    type("function calls are statements too")
+    type("function calls are statements too")
+    type("function calls are statements too")
+    type("function calls are statements too")
+    slice("function calls are statements too")
+    slice("function calls are statements too")
+    slice("function calls are statements too")
+    slice("function calls are statements too")
+    slice("function calls are statements too")
+    tuple("function calls are statements too")
+    tuple("function calls are statements too")
+    tuple("function calls are statements too")
+    tuple("function calls are statements too")
+    tuple("function calls are statements too")
 
     if arg:
-        statments = "this block (including condition) counts as 2 statements."
+        statments = "This block (including condition) counts as 2 statements."
+    else:
+        statments = "This block counts as 1 statement since" + \
+                    "the 'else' and strings on multiple lines" + \
+                    "are not counted towards the statement count."
 ```
-
-
-
-
-
 
 
 ## Custom errors {#custom}
