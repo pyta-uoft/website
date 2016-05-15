@@ -30,10 +30,10 @@ def pos(obj):
 
 ### C0103 Invalid Name {#C0103}
 
-This error occurs when an invalid name is used as a variable name. This type of 
-error is a sign that the variable names should be modified to be of the form: a 
-lowercase letter followed by a lowercase letter or digit. The minimum number of 
-characters should be 2 and the maximum should be 30.
+This error occurs when an invalid name is used as a variable name. All variable 
+names should be of the form: a lowercase letter followed by a lowercase letter 
+or digit. The minimum number of characters should be 2 and the maximum should 
+be 30.
 
 ```python
 def is_equal(obj):
@@ -49,8 +49,7 @@ def is_equal(obj):
 
 This error occurs when a module, function, class or method has no docstring. 
 Some special methods like __init__ don't require a docstring. Students are 
-expected to write docstrings for every module, function, class and method (maybe
- except the special methods with '__').
+expected to write docstrings for every module, function, class and method.
 
 ```python
 def is_true(obj):
@@ -75,8 +74,6 @@ def is_true(obj):
     else:
         return True
 ```
-
-### C0113 Unneeded not {#C0113}
 
 ### C0121 Singleton comparison {#C0121}
 
@@ -235,8 +232,6 @@ def add(lst):
 return False # Error on this line
 ```
 
-### E0107 Nonexistent operator {#E0107}
-
 ### E0108 Duplicate argument name {E0108}
 
 This error occurs if there are duplicate argument names in function 
@@ -255,8 +250,6 @@ def add(lst, lst):
         temp += item
     return temp
 ```
-
-### E0110 Abstract class instantiated {#E0110}
 
 ### W0101 Unreachable {#W0101}
 
@@ -379,41 +372,6 @@ def check(obj):
     """
     ex = {'runner1': '5km', 'runner1': '7km'}
     return ex == obj
-```
-
-### W0120 Useless else on loop {#W0120}
-
-Loops should have an else clause only if they can exit early with a "break" 
-statement. Otherwise, if the loop doesn't have a "break" statement, the loop 
-will run and will eventually become empty. Hence, the else clause has no effect 
-and the code inside the else clause should be on the same indentation level as 
-the loop.
-
-```python
-def add(lst):
-    """ Calculates the sum of the elements in the given list.
-
-    @type lst: list
-    @rtype: None
-    """
-    for item in lst:
-        print(item)
-    else:
-        print("empty list")
-```
-
-The above code can be simplified to:
-
-```python
-def add(lst):
-    """ Calculates the sum of the elements in the given list.
-
-    @type lst: list
-    @rtype: None
-    """
-    for item in lst:
-        print(item)
-    print("empty list")
 ```
 
 ### W0125 Using constant test {#W0125}
