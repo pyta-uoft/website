@@ -11,7 +11,7 @@ This is some helpful description of the C0111 error.
 ### C0102 Blacklisted name {#C0102}
 
 This error occurs when a variable name is listed in the black list. The black 
-list includes names like foo, bar, baz, toto, tata, tutu and so on. Students 
+list includes names like foo, bar, baz, toto, tata, tutu. Students 
 are expected to use good variable names such as i, j, k, ex, Run. The example 
 below uses blacklisted names.
 
@@ -78,8 +78,7 @@ def is_true(obj):
 ### C0121 Singleton comparison {#C0121}
 
 This is an error that occurs when an expression is compared to singleton values 
-like True, False or None. This type of error indicates incorrect comparison 
-tests, so please check your code carefully.
+like True, False or None.
 
 ```python
 def is_true():
@@ -94,26 +93,10 @@ def is_true():
         return True
 ```
 
-### C0122 Misplaced comparison constant {#C0122}
-
-This error occurs when a constant is placed on the left side of a comparison. 
-It is usually a better practice to place it in the right side of the comparison.
-
-```python
-def pos(obj):
-    """
-    @type obj: int
-    @rtype: bool
-    """
-    if 0 > obj:
-        return False
-    else:
-        return True
-```
-
 ### C0123 Unidiomatic type check {#C0123}
 
-This error occurs when type() is used instead of isinstance() for a type check. Students are expected to use isinstance(x, Y) instead of type(x) == Y. The example below demonstrates the same.
+This error occurs when type() is used instead of isinstance() for a type check. 
+Students are expected to use `isinstance(x, Y)` instead of `type(x) == Y`.
 
 ```python
 def is_int(obj):
@@ -150,18 +133,6 @@ class Animal:
     def __init__(self, name):
         self.name = name
         return True
-        
-    def is_animal(self):
-        """
-        @rtype: bool
-        """
-        return isinstance(self.name, str)
-        
-    def getter(self):
-        """
-        @rtype: str
-        """
-        return self.name
 ```
 
 ### E0102 Function redefined {#E0102}
@@ -195,8 +166,7 @@ def pos(obj):
 
 ### E0103 Not in loop {#E0103}
 
-This error occurs when break and continue keywords are used outside loops. If 
-you are getting this error, please check your code carefully.
+This error occurs when break and continue keywords are used outside loops.
 
 ```python
 def add(lst):
@@ -254,8 +224,8 @@ def add(lst, lst):
 ### W0101 Unreachable {#W0101}
 
 This error occurs when there is some code behind a "return" or "raise" 
-statement. This code will never be accessed, therefore check your code 
-carefully if you are getting this error. 
+statement. This code will never be accessed, therefore correct your code if you 
+are getting this error. 
 
 ```python
 def add(lst):
@@ -291,7 +261,7 @@ def add(lst=[]):
 ### W0104 Pointless statement {#W0104}
 
 This error occurs when a statement doesn't have any effect. This may not be 
-what was intended, so please check your code carefully. 
+what was intended.
 
 ```python
 def add(lst):
@@ -308,7 +278,7 @@ def add(lst):
 ### W0105 Pointless string statement {#W0105}
 
 This error occurs when string statement has no effect. This may not be 
-what was intended, so please check your code carefully. This error is a special 
+what was intended. This error is a special 
 case of the error W0104.
 
 ```python
@@ -326,8 +296,7 @@ def letters(lst):
 ### W0106 Expression not assigned {#W0107}
 
 This error occurs when an expression that is not a function call is not 
-assigned to anything. If you are getting this error, please check your code 
-carefully.
+assigned to anything.
  
  ```python
  def add(lst):
@@ -377,8 +346,7 @@ def check(obj):
 ### W0125 Using constant test {#W0125}
 
 This error occurs when a conditional statement like an "if" statement uses a 
-constant value for its test. If this error occurs, please check your code 
-carefully.
+constant value for its test.
 
 ```python
 def pos():
@@ -417,7 +385,7 @@ if __name__ == '__main__':
 ### W0199 Assert on tuple {#W0199}
 
 This error occurs when an "assert" statement is called like assert (x, y). 
-Maybe assert x, y was intended, so please check your code carefully.
+Maybe assert x, y was intended.
 
 ```python
 def check(ex1, ex2):
