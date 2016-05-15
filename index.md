@@ -217,8 +217,8 @@ def pos(obj):
 
 ### E0103 Not in loop {#E0103}
 
-This error occurs when 'break' and 'continue' keywords are used outside loops. 
-The keyword 'break' is used to exit a loop early and the keyword 'continue' is 
+This error occurs when `break` and `continue` keywords are used outside loops. 
+The keyword `break` is used to exit a loop early and the keyword `continue` is 
 used to skip an iteration in a loop. Hence both the keywords only belong inside 
 loops.
 
@@ -238,7 +238,7 @@ def add(lst):
 
 ### E0104 Return outside function {#E0104}
 
-This error occurs when a "return" statement is found outside a function or 
+This error occurs when a `return` statement is found outside a function or 
 method. If you are getting this error, please check the indentation levels in 
 your code carefully.
 
@@ -277,7 +277,7 @@ def add(lst, lst):
 
 ### W0101 Unreachable {#W0101}
 
-This error occurs when there is some code behind a "return" or "raise" 
+This error occurs when there is some code behind a `return` or `raise` 
 statement. This code will never be run.
 
 ```python
@@ -296,25 +296,48 @@ def add(lst):
 ### W0102 Dangerous default value {#W0102}
 
 This error occurs when a mutable value such as a list or dictionary is given a 
-default value in the function or method definition.
+default value in the function or method definition. It is dangerous to give 
+mutable objects a default value only when the function/method modifies the 
+argument. If you modify a default argument it will persist until the next call. 
+Hence your "empty" list or dictionary will start to contain values on calls 
+other than the first call.
 
 ```python
-def add(lst=[]):
-    """ Calculates the sum of the elements in the given list.
+def add1(lst=[]):
+    """ Adds five digits to the end of the list.
 
     @type lst: list
-    @rtype: int
+    @rtype: list
     """
-    temp = 0
-    for item in lst:
-        temp += item
-    return temp
+    temp = 5
+    for i in range(temp):
+        lst.append(i)
+    return lst
+    
+if __name__ == '__main__':
+    print(add1())
+    print(add1())
 ```
+
+Though the output to this is be expected to be:
+
+```[0, 1, 2, 3, 4]
+[0, 1, 2, 3, 4]```
+
+The actual output is:
+
+```[0, 1, 2, 3, 4]
+[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]```
+
+If you want to avoid this situation then, you should use `None` as a default 
+value. Students should be careful when assigning a default value to mutable 
+objects.
 
 ### W0104 Pointless statement {#W0104}
 
-This error occurs when a statement doesn't have any effect. This may not be 
-what was intended.
+This error occurs when a statement doesn't have any effect. This means that 
+when the code for a statement is run, nothing is executed. This may not be what was 
+intended.
 
 ```python
 def add(lst):
@@ -330,7 +353,7 @@ def add(lst):
 
 ### W0107 Unnecessary pass {#W0107}
 
-This error occurs when a "pass" statement is used that can be avoided (or has 
+This error occurs when a `pass` statement is used that can be avoided (or has 
 no effect).
 
 ```python
@@ -357,8 +380,10 @@ ex = {'runner1': '5km', 'runner1': '7km'}
 
 ### W0125 Using constant test {#W0125}
 
-This error occurs when a conditional statement like an "if" statement uses a 
-constant value for its test.
+This error occurs when a conditional statement like an `if` statement uses a 
+constant value for its test. This is bad as the conditional statements using a 
+constant test always evaluate to the same value. In such a case, a conditional 
+statement should not be used. 
 
 ```python
 def is_false():
@@ -374,8 +399,9 @@ def is_false():
 ### W0199 Assert on tuple {#W0199}
 
 This error occurs when an "assert" statement is called like `assert (x, y)`. 
-If you want to assert that two expressions are true then, you should use 
-`assert x, y` instead.
+`assert` acting on a tuple always returns true if the tuple is non-empty, and 
+false if it is empty. If you want to assert that two expressions are true then, 
+you should use `assert x, y` instead.
 
 ```python
 def check(ex1, ex2):
