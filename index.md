@@ -29,10 +29,7 @@ def pos(obj):
     @rtype: bool
     """
     foo = obj
-    if foo < 0:
-        return False
-    else:
-        return True
+    return foo < 0
 ```
 
 ### C0103 Invalid Name {#C0103}
@@ -59,24 +56,53 @@ Some special methods like __init__ don't require a docstring. Students are
 expected to write docstrings for every module, function, class and method.
 
 ```python
-def is_true(obj):
-    if obj is False:
-        return False
-    else:
-        return True
+def is_false(obj):
+
+    return obj is False
 ```
 
 ### C0112 Empty Docstring {#C0112}
 
 This error occurs when a module, function, class or method has an empty 
-docstring. Students are expected to write complete docstrings for every module, 
+docstring like
+```python
+"""
+"""``` 
+Students are expected to write complete docstrings for every module, 
 function, class and method.
 
 ```python
-def is_true(obj):
+def is_false(obj):
     """
     """
-    if obj is False:
+    return obj is False
+```
+
+### C0113 Unneeded not {#C0113}
+
+This error occurs when a boolean expression contains an unneeded negation.
+
+```python
+def is_true():
+    """
+    @rtype: bool
+    """
+    temp = 5
+    if not temp > 3:
+        return False
+    else:
+        return True
+```
+
+The above can be modified to:
+
+```python
+def is_true():
+    """
+    @rtype: bool
+    """
+    temp = 5
+    if temp <= 3:
         return False
     else:
         return True
@@ -90,11 +116,24 @@ like True, False or None.
 ```python
 def is_true():
     """
-    @type obj: int
     @rtype: bool
     """
     temp = 5
-    if temp == True:
+    if temp == None:
+        return False
+    else:
+        return True
+```
+
+The above can be modified to:
+
+```python
+def is_true():
+    """
+    @rtype: bool
+    """
+    temp = 5
+    if temp is None:
         return False
     else:
         return True
