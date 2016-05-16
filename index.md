@@ -34,10 +34,15 @@ def pos(obj):
 
 ### C0103 Invalid Name {#C0103}
 
-This error occurs when an invalid name is used as a variable name. All variable 
-names should be of the form: a lowercase letter followed by a lowercase letter 
-or digit. The minimum number of characters should be 2 and the maximum should 
-be 30.
+This error occurs when a name does not follow the format associated with to its type (constant, variable ...). 
+
+- Variable/Attribute/Method/Argument: All variable/attribute/method/argument names should be of the form: a lowercase letter followed by a lowercase letter or digit. The minimum number of characters should be 2 and the maximum should be 30.
+
+- Constant: All constant names should be of the form: an uppercase letter followed by a uppercase letter or digit.
+
+- Class: All class names should be of the form: an uppercase letter followed by a lowercase letter or uppercase letter or digit.
+
+A special character accepted in all types of names is '_'.
 
 ```python
 def is_equal(obj):
@@ -354,7 +359,8 @@ def add(lst):
 ### W0107 Unnecessary pass {#W0107}
 
 This error occurs when a `pass` statement is used that can be avoided (or has 
-no effect).
+no effect). If you are able to remove the `pass` statement without changing the 
+effect of the program, then the statement is "unnecessary" and can be avoided.
 
 ```python
 def add(lst):
@@ -368,6 +374,9 @@ def add(lst):
         pass  # Error on this line
     return temp
 ```
+
+In the above example, the `pass` statement is "unnecessary" as the program's 
+effect is not changed if `pass` is removed.
 
 ### W0109 Duplicate key {#W0109}
 
