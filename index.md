@@ -177,14 +177,14 @@ indexs which are integers to indicate where to start and stop.
 
 ```python
 a = ['p', 'y', 'T', 'A']
-print(a['p' : 'A'])      # Error on this line
+print(a['p':'A'])      # Error on this line
 ```
 
 Corrected version
 
 ```python
 a = ['p', 'y', 'T', 'A']
-print(a[0: 3])      # Error on this line
+print(a[0:3])
 ```
 
 ### E1128: assignment-from-none {#E1128}
@@ -262,23 +262,6 @@ for b in a:
     print(b[0])  # Error on this line
 ```
 
-### E1303: format-needs-mapping {#E1303}
-
-We expect to see a format string that uses named conversion specifiers is used
-with an argument that is a mapping.
-
-```python
-gpl = "%(id)s : %(atr)s"
-
-objects = [{'id': 1, 'content': [{'atr': 'big', 'no': 2}]},
-           {'id': 2, 'content': [{'atr': 'small', 'no': 3}]}]
-
-for obj in objects:
-    for con in obj['content']:
-        print(gpl % (obj, con))    # Error on this line
-```
-
-
 ### E1305: too-many-format-args {#E1305}
 
 This error occurs when you do not use one argument for a {} for format string.
@@ -301,7 +284,7 @@ name = "Amy"
 age = "17"
 country = "England"
 
-s = "{} who is {} lives in {}".format(name, age, country) # Error on this line
+s = "{} who is {} lives in {}".format(name, age, country)
 ```
 
 ### E1306: too-few-format-args {#E1306}
@@ -317,7 +300,7 @@ s = "{} and {}".format("first")  # Error on this line
 Corrected version
 
 ```python
-s = "{} and {}".format("first", "second")  # Error on this line
+s = "{} and {}".format("first", "second")
 ```
 
 ### E1310: bad-str-strip-call {#E1310}
@@ -352,35 +335,12 @@ s = "{} and {0}".format("a", "b")  # Error on this line
 Corrected version
 
 ```python
-s = "{} and {}".format("a", "b")  # Error on this line
+s = "{} and {}".format("a", "b")
 ```
 or
 
 ```python
-s = "{0} and {1}".format("a", "b")  # Error on this line
-```
-
-### W1306: missing-format-attribute {#W1306}
-
-This error occurs when a format string uses an attribute specifier ({0.length}),
-and the argument passed for formatting does not have that attribute. In the
-following example, we know string does not have attribute length.
-This means that we should never use{string.length} in the format string.
-
-```python
-s = '{.5}'.format('aaabbbccc')  # Error on this line
-```
-
-### W1307: invalid-format-index {#W1307}
-
-This error occurs when a format string uses a lookup specifier ({a[1]}) with
-the argument passed for formatting does not contain that key as an attribute.
-In the following example, there is no key as 'longitude' in geopoint which means
-that there is no value for {0[longitude]} in the format string.
-
-```python
-geopoint = {'latitude':41.123}
-point = '{0[latitude]} {0[longitude]}'.format(geopoint) # Error on this line
+s = "{0} and {1}".format("a", "b")
 ```
 
 ### W1401: anomalous-backslash-in-string {#W1401}
