@@ -369,4 +369,24 @@ import copy   # Error on this line
 
 x = [1, 2, 3]
 y = copy.copy(x)
+
+### E9998: Forbidden IO function {#E9998}
+
+We do not expect to see I/O functions(input, open and print) in your code in
+this course. If you are getting this error, please check your code carefully.
+
+```python
+def hello():
+    """Print a message to the user."""
+
+    # You should not use input action in this assignment
+    name = input("What is your name?")  # Error on this line
+
+    # You should not use print action in this assignment
+    print('hello, ' + name)  # Error on this line
+
+if __name__ == '__main__':
+    hello()
+
+
 ```
