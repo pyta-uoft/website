@@ -1195,3 +1195,13 @@ import copy   # Error on this line
 x = [1, 2, 3]
 y = copy.copy(x)
 ```
+
+### E9991: Dynamic Execution {#E9991}
+
+This error occurs when you use a dynamic execution of code. Use of builtin
+functions exec(), eval() and compile() is not allowed.
+
+```python
+for i in range(0, 2):
+    num = eval('i + 1')   # Error on this line
+```
