@@ -14,8 +14,11 @@ Note: the nested block doesn't doesn't include function or class definition
 as a block, so the example below is considered to have *four* nested blocks,
 not five.
 
+Note: we set a limit of three nested if blocks.
+
 ~~~~ {.python include="../pyta/examples/pylint/R0101_too_many_nested_blocks.py"}
 ~~~~
+
 
 ### R0102: Simplifiable if statement {#R0102}
 
@@ -23,14 +26,8 @@ This error occurs when you have an if statement that can be simplified
 simply by using the value of the condition, rather than putting in extra
 `True` and `False` literals.
 
-```python
-def is_even(num):
-    """Return whether <num> is even or odd."""
-    if num % 2 == 0:
-        return True
-    else:
-        return False
-```
+~~~~ {.python include="../pyta/examples/pylint/R0101_too_many_nested_blocks.py"}
+~~~~
 
 The above example can be simplified to:
 
@@ -46,19 +43,8 @@ def is_even(num):
 This error occurs when the type of a variable changes inside a method or a 
 function. See the examples below.
 
-```python
-def obvious_variable_redefinition(arg):
-    """Redefinition of <variable-name> type from <type_1> to <type_2>"""
-    arg = 1
-    arg = "string"  # redefined variable type
-
-def other_redefinition_example(arg):
-    """Redefinition of <variable-name> type from <type_1> to <type_2>"""
-    if arg == 3:
-        var = "8"
-    else:
-        var = 8  # redefined variable type
-```
+~~~~ {.python include="../pyta/examples/pylint/R0204_redefined_variable_type.py"}
+~~~~
 
 
 ### E0401: Import error {#E0401}
@@ -66,9 +52,8 @@ def other_redefinition_example(arg):
 The module is unable to be imported. Check the spelling of the module name, or
 whether the module is in the correct directory.
 
-```python
-import missing_module  # this module does not exist.
-```
+~~~~ {.python include="../pyta/examples/pylint/E0401_import_error.py"}
+~~~~
 
 There are other forms of import statements that may cause this error, for
 example:
@@ -83,19 +68,16 @@ import missing_module as foo  # this module does not exist.
 A module should not import itself. So for example, if the module is named 
 `W0406_import_self` you cannot import it as follows:
 
-```python
-import W0406_import_self  # importing the same name as the module
-```
+~~~~ {.python include="../pyta/examples/pylint/W0406_import_self.py"}
+~~~~
 
 
 ### W0404: Reimported {#W0404}
 
 A module should not be imported more than once.
 
-```python
-import math
-import math  # importing a module twice
-```
+~~~~ {.python include="../pyta/examples/pylint/W0404_reimported.py"}
+~~~~
 
 
 ### W0401: Wildcard import {#W0401}
@@ -104,9 +86,8 @@ Only import what you need. Wildcard imports (shown below) are generally
 discouraged because they add all the functions from the imported module into the
 global namespace. Problems can occur when identical names conflict.
 
-```python
-from valid_module import *
-```
+~~~~ {.python include="../pyta/examples/pylint/W0401_wildcard_import.py"}
+~~~~
 
 Rather than importing everything with wildcard '*', try importing specific
 functions for example:
@@ -136,10 +117,8 @@ import tyrannosaurus_rex as dino
 Used when PEP8 import order is not respected (do the standard imports first,
 then third-party libraries, then local imports)
 
-```python
-import your_own_module  # your own modules should be imported last.
-import sys  # "standard modules" should be imported first
-```
+~~~~ {.python include="../pyta/examples/pylint/C0411_wrong_import_order.py"}
+~~~~
 
 
 ### C0413: Wrong import position {#C0413}
@@ -147,21 +126,16 @@ import sys  # "standard modules" should be imported first
 Imports should be placed at the top of the module above any other code 
 (below the docstring).
 
-```python
-my_list = ['a', 'b']
-import math  # this import should be at the top.
-```
+~~~~ {.python include="../pyta/examples/pylint/C0413_wrong_import_position.py"}
+~~~~
 
 
 ### C0412: Ungrouped imports {#C0412}
 
 Imports should be grouped by packages.
 
-```python
-from sys import byteorder  # same packages should be grouped
-from math import floor
-from sys import stdin  # same packages should be grouped
-```
+~~~~ {.python include="../pyta/examples/pylint/C0412_ungrouped_imports.py"}
+~~~~
 
 Logically group the imports by same package name:
 
@@ -176,9 +150,8 @@ from math import floor
 
 Don't import multiple modules on one line.
 
-```python
-import sys, math
-```
+~~~~ {.python include="../pyta/examples/pylint/C0410_multiple_imports.py"}
+~~~~
 
 Do this instead:
 
@@ -204,25 +177,8 @@ considered to always be True, since it cannot be anything different.
 The warning message looks like:
 Redundant use of (assertTrue or assertFalse) with constant value <your-constant>
 
-```python
-import unittest
-
-class TestStringMethods(unittest.TestCase):
-    """Simple tests for example purposes."""
-
-    def test_isupper(self):
-        """Simple tests for example purposes."""
-
-        # Valid:
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('bar'.isupper())
-
-        # If a constant is passed as parameter, that condition is always true:
-        self.assertTrue('YES')
-        self.assertTrue(1)
-        self.assertTrue(True)
-        self.assertTrue(False)
-```
+~~~~ {.python include="../pyta/examples/pylint/W1503_redundant_unittest_assert.py"}
+~~~~
 
 
 ### R0913: Too many arguments {#R0913}
@@ -231,11 +187,8 @@ When a function or method is defined with too many arguments.
 
 Note: the limit is 5 arguments.
 
-```python
-def foo_bar(arg1, arg2, arg3, arg4, arg5, arg6):
-    """I have too many arguments"""
-    pass
-```
+~~~~ {.python include="../pyta/examples/pylint/R0913_too_many_arguments.py"}
+~~~~
 
 
 ### R0912: Too many branches {#R0912}
@@ -244,37 +197,8 @@ Used when a function or method has too many branches, making it hard to follow.
 
 Note: the limit is 12 branches.
 
-```python
-def lots_of_branches(arg):
-    """Example to demonstrate max branching."""
-    if arg == 1:
-        pass
-    elif arg == 2:
-        pass
-    elif arg == 3:
-        pass
-    elif arg == 4:
-        pass
-    elif arg == 5:
-        pass
-    elif arg == 6:
-        pass
-    elif arg == 7:
-        pass
-    elif arg == 8:
-        pass
-    elif arg == 9:
-        pass
-    elif arg == 10:
-        pass
-    elif arg == 11:
-        pass
-    elif arg == 12:
-        pass
-    elif arg == 13:
-        pass
-
-```
+~~~~ {.python include="../pyta/examples/pylint/R0912_too_many_branches.py"}
+~~~~
 
 
 ### R0902: Too many instance attributes {#R0902}
@@ -284,24 +208,8 @@ simpler (and so easier to use) class.
 
 Note: the limit is 7 instance attributes.
 
-```python
-class MyClass(object):
-    """Example with too many instance attributes.
-    """
-
-    def __init__(self):
-        """
-        The are all instance attributes
-        """
-        self.animal = "Dog"  # These are instance attributes...
-        self.bread = "Sourdough"
-        self.liquid = "Water"
-        self.colour = "Black"
-        self.shape = "Circle"
-        self.direction = "Up"
-        self.clothing = "Shirt"
-        self.number = 3
-```
+~~~~ {.python include="../pyta/examples/pylint/R0902_too_many_instance_attributes.py"}
+~~~~
 
 One solution is to logically decompose into more classes, each with fewer 
 instance attributes. Then we can use composition to access those attributes in 
@@ -363,26 +271,8 @@ Used when a function or method has too many local variables.
 
 Note: the limit is 15 local variables.
 
-```python
-def too_many_locals():
-    """Example function that has to many local variables."""
-    local_variable_1 = 1
-    local_variable_2 = 2
-    local_variable_3 = 3
-    local_variable_4 = 4
-    local_variable_5 = 5
-    local_variable_6 = 6
-    local_variable_7 = 7
-    local_variable_8 = 8
-    local_variable_9 = 9
-    local_variable_10 = 10
-    local_variable_11 = 11
-    local_variable_12 = 12
-    local_variable_13 = 13
-    local_variable_14 = 14
-    local_variable_15 = 15
-    local_variable_16 = 16
-```
+~~~~ {.python include="../pyta/examples/pylint/R0914_too_many_locals.py"}
+~~~~
 
 
 ### R0915: Too many statements {#R0915}
@@ -392,65 +282,10 @@ in smaller functions / methods.
 
 Note: comments do not count as statements
 
-```python
-def too_many_statements(arg):
-    """There are too many statements in this function."""
-    statement_1 = 1
-    statement_2 = 2
-    statement_3 = 3
-    statement_4 = 4
-    statement_5 = 5
-    statement_6 = 6
-    statement_7 = 7
-    statement_8 = 8
-    statement_9 = 9
-    statement_10 = 10
-    statement_11 = 11
-    statement_12 = 12
+Note: the limit is 50 statements.
 
-    iter("function calls are statements too")
-    iter("function calls are statements too")
-    iter("function calls are statements too")
-    iter("function calls are statements too")
-    iter("function calls are statements too")
-    len("function calls are statements too")
-    len("function calls are statements too")
-    len("function calls are statements too")
-    len("function calls are statements too")
-    len("function calls are statements too")
-    object("function calls are statements too")
-    object("function calls are statements too")
-    object("function calls are statements too")
-    object("function calls are statements too")
-    object("function calls are statements too")
-    print("function calls are statements too")
-    print("function calls are statements too")
-    print("function calls are statements too")
-    print("function calls are statements too")
-    print("function calls are statements too")
-    type("function calls are statements too")
-    type("function calls are statements too")
-    type("function calls are statements too")
-    type("function calls are statements too")
-    type("function calls are statements too")
-    slice("function calls are statements too")
-    slice("function calls are statements too")
-    slice("function calls are statements too")
-    slice("function calls are statements too")
-    slice("function calls are statements too")
-    tuple("function calls are statements too")
-    tuple("function calls are statements too")
-    tuple("function calls are statements too")
-    tuple("function calls are statements too")
-    tuple("function calls are statements too")
-
-    if arg:
-        statments = "This block (including condition) counts as 2 statements."
-    else:
-        statments = "This block counts as 1 statement since" + \
-                    "the 'else' and strings on multiple lines" + \
-                    "are not counted towards the statement count."
-```
+~~~~ {.python include="../pyta/examples/pylint/R0915_too_many_statements.py"}
+~~~~
 
 
 ### C0111: Missing docstring {#C0111}
@@ -472,15 +307,9 @@ list includes names:
 
 Students are expected to use meaningful variable names.
 
-```python 
-def pos(obj):
-    """
-    @type obj: int
-    @rtype: bool
-    """
-    foo = obj
-    return foo < 0
-```
+~~~~ {.python include="../pyta/examples/pylint/C0102_blacklisted_name.py"}
+~~~~
+
 
 ### C0103 Invalid Name {#C0103}
 
@@ -494,15 +323,9 @@ This error occurs when a name does not follow the format associated with to its 
 
 A special character accepted in all types of names is '_'.
 
-```python
-def is_equal(obj):
-    """
-    @type obj: int
-    @rtype: bool
-    """
-    Ex = 5
-    return obj == Ex
-```
+~~~~ {.python include="../pyta/examples/pylint/C0103_invalid_name.py"}
+~~~~
+
 
 ### C0111 Missing Docstring {#C0111}
 
@@ -510,28 +333,25 @@ This error occurs when a module, function, class or method has no docstring.
 Some special methods like __init__ don't require a docstring. Students are 
 expected to write docstrings for every module, function, class and method.
 
-```python
-def is_false(obj):
+~~~~ {.python include="../pyta/examples/pylint/C0111_missing_docstring.py"}
+~~~~
 
-    return obj is False
-```
 
 ### C0112 Empty Docstring {#C0112}
 
 This error occurs when a module, function, class or method has an empty 
-docstring like
+docstring like,
+
 ```python
 """
 """``` 
+
 Students are expected to write complete docstrings for every module, 
 function, class and method.
 
-```python
-def is_false(obj):
-    """
-    """
-    return obj is False
-```
+~~~~ {.python include="../pyta/examples/pylint/C0112_empty_docstring.py"}
+~~~~
+
 
 ### C0113 Unneeded not {#C0113}
 
@@ -539,17 +359,8 @@ This error occurs when a boolean expression contains an unneeded negation. If
 you are getting this error, the expression can be simplified to not use a 
 negation.
 
-```python
-def is_true():
-    """
-    @rtype: bool
-    """
-    temp = 5
-    if not temp > 3:
-        return False
-    else:
-        return True
-```
+~~~~ {.python include="../pyta/examples/pylint/C0113_unneeded_not.py"}
+~~~~
 
 The above can be modified to:
 
@@ -565,22 +376,14 @@ def is_true():
         return True
 ```
 
+
 ### C0121 Singleton comparison {#C0121}
 
 This is an error that occurs when an expression is compared to singleton values 
 like True, False or None.
 
-```python
-def is_true():
-    """
-    @rtype: bool
-    """
-    temp = 5
-    if temp == None:
-        return False
-    else:
-        return True
-```
+~~~~ {.python include="../pyta/examples/pylint/C0121_singleton_comparison.py"}
+~~~~
 
 The above can be modified to:
 
@@ -596,20 +399,14 @@ def is_true():
         return True
 ```
 
+
 ### C0123 Unidiomatic type check {#C0123}
 
 This error occurs when type() is used instead of isinstance() for a type check. 
 Students are expected to use `isinstance(x, Y)` instead of `type(x) == Y`.
 
-```python
-def is_int(obj):
-    """Check is the given object is of type 'int'.
-    
-    @type obj: object
-    @rtype: bool
-    """
-    return type(obj) == "<type 'int'>"  # Error on this line
-```
+~~~~ {.python include="../pyta/examples/pylint/C0123_unidiomatic_typecheck.py"}
+~~~~
 
 The above can be modified to:
 
@@ -623,6 +420,7 @@ def is_int(obj):
     return isinstance(obj, int)
 ```
 
+
 ### E0101 Return in init {#E0101}
 
 This error occurs when a return statement is used in the __init__ method. 
@@ -630,22 +428,9 @@ Students should not use a return statement in the  __init__ method as it is not
 directly called by your code. Instead, it is called by the code that 
 initializes objects at runtime. 
 
-```python
-class Animal:
-    """An animal in the zoo.
+~~~~ {.python include="../pyta/examples/pylint/E0101_return_in_init.py"}
+~~~~
 
-    === Public Attributes ===
-    @type name: str
-    """
-    def __init__(self, name):
-        """
-        @type self: Animal
-        @type name: str
-        @rtype: None
-        """
-        self.name = name
-        return True  # Error on this line
-```
 
 ### E0102 Function redefined {#E0102}
 
@@ -653,22 +438,9 @@ This error occurs when a function, class or method is redefined. If you are
 getting this error, you should make sure all the functions, methods and classes 
 you define have different names.
 
-```python
-def pos(obj):
-    """
-    @type obj: int
-    @rtype: bool
-    """
-    return obj < 0
+~~~~ {.python include="../pyta/examples/pylint/E0102_function_redefined.py"}
+~~~~
 
-
-def pos(obj):
-    """
-    @type obj: int
-    @rtype: bool
-    """
-    return obj < 1
-```
 
 ### E0103 Not in loop {#E0103}
 
@@ -677,19 +449,9 @@ The keyword `break` is used to exit a loop early and the keyword `continue` is
 used to skip an iteration in a loop. Hence both the keywords only belong inside 
 loops.
 
-```python
-def add(lst):
-    """ Calculates the sum of the elements in the given list.
-    
-    @type lst: list
-    @rtype: int
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-    break  # Error on this line
-    return temp
-```
+~~~~ {.python include="../pyta/examples/pylint/E0103_not_in_loop.py"}
+~~~~
+
 
 ### E0104 Return outside function {#E0104}
 
@@ -697,19 +459,9 @@ This error occurs when a `return` statement is found outside a function or
 method. If you are getting this error, please check the indentation levels in 
 your code carefully.
 
-```python
-def add(lst):
-    """ Calculates the sum of the elements in the given list.
-    
-    @type lst: list
-    @rtype: bool
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-        
-return False  # Error on this line
-```
+~~~~ {.python include="../pyta/examples/pylint/E0104_return_outside_function.py"}
+~~~~
+
 
 ### E0108 Duplicate argument name {E0108}
 
@@ -717,36 +469,18 @@ This error occurs if there are duplicate argument names in function
 definitions. If you are getting this error, please make sure all the arguments 
 have distinct names.
 
-```python
-def add(lst, lst):
-    """
-    @type lst: list
-    @type lst: list
-    @rtype: int
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-    return temp
-```
+~~~~ {.python include="../pyta/examples/pylint/E0108_duplicate_argument_name.py"}
+~~~~
+
 
 ### W0101 Unreachable {#W0101}
 
 This error occurs when there is some code behind a `return` or `raise` 
 statement. This code will never be run.
 
-```python
-def add(lst):
-    """
-    @type lst: list
-    @rtype: int
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-    return temp
-    temp += 1  # Error on this line
-```
+~~~~ {.python include="../pyta/examples/pylint/W0101_unreachable.py"}
+~~~~
+
 
 ### W0102 Dangerous default value {#W0102}
 
@@ -757,22 +491,8 @@ argument. If you modify a default argument it will persist until the next call.
 Hence your "empty" list or dictionary will start to contain values on calls 
 other than the first call.
 
-```python
-def add1(lst=[]):
-    """ Adds five digits to the end of the list.
-
-    @type lst: list
-    @rtype: list
-    """
-    temp = 5
-    for i in range(temp):
-        lst.append(i)
-    return lst
-    
-if __name__ == '__main__':
-    print(add1())
-    print(add1())
-```
+~~~~ {.python include="../pyta/examples/pylint/W0102_dangerous_default_value.py"}
+~~~~
 
 Though the output to this is be expected to be:
 
@@ -794,17 +514,9 @@ This error occurs when a statement doesn't have any effect. This means that
 when the code for a statement is run, nothing is executed. This may not be what was 
 intended.
 
-```python
-def add(lst):
-    """
-    @type lst: list
-    @rtype: int
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-    temp  # Error on this line
-```
+~~~~ {.python include="../pyta/examples/pylint/W0104_pointless_statement.py"}
+~~~~
+
 
 ### W0107 Unnecessary pass {#W0107}
 
@@ -812,30 +524,21 @@ This error occurs when a `pass` statement is used that can be avoided (or has
 no effect). If you are able to remove the `pass` statement without changing the 
 effect of the program, then the statement is "unnecessary" and can be avoided.
 
-```python
-def add(lst):
-    """
-    @type lst: list
-    @rtype: int
-    """
-    temp = 0
-    for item in lst:
-        temp += item
-        pass  # Error on this line
-    return temp
-```
+~~~~ {.python include="../pyta/examples/pylint/W0107_unnecessary_pass.py"}
+~~~~
 
 In the above example, the `pass` statement is "unnecessary" as the program's 
 effect is not changed if `pass` is removed.
+
 
 ### W0109 Duplicate key {#W0109}
 
 This error occurs when a dictionary expression binds the same key multiple 
 times.
 
-```python
-ex = {'runner1': '5km', 'runner1': '7km'}
-```
+~~~~ {.python include="../pyta/examples/pylint/W0109_duplicate_key.py"}
+~~~~
+
 
 ### W0125 Using constant test {#W0125}
 
@@ -844,16 +547,9 @@ constant value for its test. This is bad as the conditional statements using a
 constant test always evaluate to the same value. In such a case, a conditional 
 statement should not be used. 
 
-```python
-def is_false():
-    """
-    @rtype: bool
-    """
-    if True:
-        return False
-    else:
-        return True
-```
+~~~~ {.python include="../pyta/examples/pylint/W0125_using_constant_test.py"}
+~~~~
+
 
 ### W0199 Assert on tuple {#W0199}
 
@@ -862,75 +558,46 @@ This error occurs when an "assert" statement is called like `assert (x, y)`.
 false if it is empty. If you want to assert that two expressions are true then, 
 you should use `assert x, y` instead.
 
-```python
-def check(ex1, ex2):
-    """
-    @type x: int
-    @type y: int
-    @rtype: None
-    """
-    assert (ex1, ex2)  # Error on this line
-```
+~~~~ {.python include="../pyta/examples/pylint/W0199_assert_on_tuple.py"}
+~~~~
 
 
 ### E0601: Used before assignment {#E0601}
 
 This error occurs when you are using a variable before its assignment.
 
-```python
-print(a)   # Error on this line
-a = 1
-```
+~~~~ {.python include="../pyta/examples/pylint/E0601_used_before_assignment.py"}
+~~~~
+
 
 ### E0602: Undefined variable {#E0602}
 
 This error occurs when you are using a variable that has not been defined.
 
-```python
-var1 = 1
+~~~~ {.python include="../pyta/examples/pylint/E0602_undefined_variable.py"}
+~~~~
 
-print(var1)
-print(var2)   # Error on this line, var2 has not been defined yet.
-```
 
 ### E0611: No name in module {#E0611}
 
 This error occurs when you are trying to access a variable from an imported
 module, but that variable name could not be found in that referenced module.
 
-```python
-""" mod1.py """   # inside of mod1 module.
+~~~~ {.python include="../pyta/examples/pylint/E0611_no_name_in_module.py"}
+~~~~
 
-__all__ = ['a', 'b']
-
-a = 1
-b = 2 #   Note: There is no variable called c.
-
-""" mod2.py """   # inside of mod1 module.
-
-from mod1 import *
-
-print(mod1.a)
-print(mod1.b)
-print(mod1.c) # But c is used here, which has caused an error.
-```
 
 ### E0632: Unbalanced tuple unpacking {E0632}
 
 This error occurs when you have an unbalance unpacking assignment with a
 sequence.
 
-```python
-def set_values(var1, var2):e
+Note: Number of label(s) on the left side and number of value(s) on the right
+side must always be the same in an unpacking assignment.
 
-    var1 = 1
-    var2 = 2
-    return var1, var2
+~~~~ {.python include="../pyta/examples/pylint/E0632_unbalanced_tuple_unpacking.py"}
+~~~~
 
-var2, var4, var5 = set_values(var1, var2)   # Error on this line. 2 on the
-                                            # right side but only 3 on the
-                                            # left.
-```
 
 ### E0633: Unpacking non sequence {E0633}
 
@@ -938,53 +605,33 @@ This error occurs when the unpacked result is not a sequence. For example,
 if in an unpacking assignment, the unpacked result is None, then it is not
 a sequence and will raise this error.
 
-```python
-def is_none(var1, var2):
-    """Return None if first parameter is None, else return both parameters."""
-    if var1 is None:
-        return None
-    else:
-        return var1, var2
+~~~~ {.python include="../pyta/examples/pylint/E0633_unpacking_non_sequence.py"}
+~~~~
 
-result = is_none(var1, var2)   # Error on this line since function is_none
-                               # might return None.
-```
 
 ### W0611: Unused import {W0611}
 
 This error occurs when you have a imported module that is unused in your code.
 
-```python
-import re   # re is unused here.
+~~~~ {.python include="../pyta/examples/pylint/W0611_unused_import.py"}
+~~~~
 
-def fun():
-    print("re module unused.")
-
-fun()
-```
 
 ### W0612: Unused variable {W0612}
 
 This error occurs when you have a defined variable that is never used.
 
-```python
-def fun():
-    return 1, 2
+~~~~ {.python include="../pyta/examples/pylint/W0612_unused_variable.py"}
+~~~~
 
-var1, var2 = fun()   # var1 is never used.
-print(var1)
-```
 
 ### W0613: Unused argument {W0613}
 
 This error occurs when a function argument is never used in the function.
 
-```python
-def fun(x, y, z):
-    return(x + y)
+~~~~ {.python include="../pyta/examples/pylint/W0613_unused_argument.py"}
+~~~~
 
-number = fun(1, 2, 3)   # 3rd argument is never used in fun.
-```
 
 ### W0621: Redefined outer name {W0621}
 
@@ -993,39 +640,26 @@ already been defined in the outer scope. For example, this error will occurs
 when you have a local name identical to a global name. The local name takes
 precedence. but it hides the global name, makes it no longer accessible.
 
-```python
-var = None   # var defined here in the outer scope/
+~~~~ {.python include="../pyta/examples/pylint/W0621_redefined_outer_name.py"}
+~~~~
 
-def fun():
-    var = open('/file', 'w')   # redefining var that has already been defined
-                               # in the outer scope.
-```
 
 ### W0622: Redefined builtin {W0622}
 
 This error occurs when you are trying to redefine/override a built-in function.
 
-```python
-from __future__ import print_function
-import builtins
+~~~~ {.python include="../pyta/examples/pylint/W0622_redefined_builtin.py"}
+~~~~
 
-def new_print(var):
-    builtins.print("New print statement!")
-
-print = new_print   # Overrides print function.
-```
 
 ### W0631: Undefined loop variable {W0631}
 
 This error occurs when a loop variable is possibly used outside the loop that
 is undefined.
 
-```python
-for i in range(0, 2):   # i is undefined outside the loop.
-    print(i)
+~~~~ {.python include="../pyta/examples/pylint/W0631_undefined_loop_variable.py"}
+~~~~
 
-print(i)   # Using loop variable i outside the loop.
-```
 
 ## Custom errors {#custom}
 
