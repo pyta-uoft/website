@@ -14,16 +14,8 @@ Note: the nested block doesn't doesn't include function or class definition
 as a block, so the example below is considered to have *four* nested blocks,
 not five.
 
-```python
-def my_f(num):
-    if num > 0:
-        if num > 3:
-            if num > 10:
-                if num < 50:
-                    print(num)
-    else:
-        print('done')
-```
+~~~~ {.python include="../pyta/examples/pylint/R0101_too_many_nested_blocks.py"}
+~~~~
 
 ### R0102: Simplifiable if statement {#R0102}
 
