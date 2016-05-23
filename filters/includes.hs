@@ -1,5 +1,5 @@
 #!/usr/bin/env runhaskell
--- file name: includes.hs
+-- source: http://pandoc.org/scripting.html
 -- make sure to install haskell.
 -- update pandoc with: cabal install pandoc
 -- [may first have to run `cabal update` before running `cabal install pandoc`]

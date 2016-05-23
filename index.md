@@ -229,6 +229,8 @@ class TestStringMethods(unittest.TestCase):
 
 When a function or method is defined with too many arguments.
 
+Note: the limit is 5 arguments.
+
 ```python
 def foo_bar(arg1, arg2, arg3, arg4, arg5, arg6):
     """I have too many arguments"""
@@ -239,6 +241,8 @@ def foo_bar(arg1, arg2, arg3, arg4, arg5, arg6):
 ### R0912: Too many branches {#R0912}
 
 Used when a function or method has too many branches, making it hard to follow.
+
+Note: the limit is 12 branches.
 
 ```python
 def lots_of_branches(arg):
@@ -277,6 +281,8 @@ def lots_of_branches(arg):
 
 Used when class has too many instance attributes, try to reduce this to get a
 simpler (and so easier to use) class.
+
+Note: the limit is 7 instance attributes.
 
 ```python
 class MyClass(object):
@@ -354,6 +360,8 @@ class Composition(object):
 ### R0914: Too many locals {#R0914}
 
 Used when a function or method has too many local variables.
+
+Note: the limit is 15 local variables.
 
 ```python
 def too_many_locals():
