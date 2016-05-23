@@ -26,7 +26,7 @@ This error occurs when you have an if statement that can be simplified
 simply by using the value of the condition, rather than putting in extra
 `True` and `False` literals.
 
-~~~~ {.python include="../pyta/examples/pylint/R0101_too_many_nested_blocks.py"}
+~~~~ {.python include="../pyta/examples/pylint/R0102_simplifiable_if_statement.py"}
 ~~~~
 
 The above example can be simplified to:
@@ -183,7 +183,7 @@ Redundant use of (assertTrue or assertFalse) with constant value <your-constant>
 
 ### R0913: Too many arguments {#R0913}
 
-When a function or method is defined with too many arguments.
+The function or method is defined with too many arguments.
 
 Note: the limit is 5 arguments.
 
@@ -193,7 +193,7 @@ Note: the limit is 5 arguments.
 
 ### R0912: Too many branches {#R0912}
 
-Used when a function or method has too many branches, making it hard to follow.
+The function or method has too many branches, making it hard to follow.
 
 Note: the limit is 12 branches.
 
@@ -203,8 +203,8 @@ Note: the limit is 12 branches.
 
 ### R0902: Too many instance attributes {#R0902}
 
-Used when class has too many instance attributes, try to reduce this to get a
-simpler (and so easier to use) class.
+The class has too many instance attributes, try to reduce this to get a
+simpler (and easier to use) class.
 
 Note: the limit is 7 instance attributes.
 
@@ -217,34 +217,28 @@ another class.
 
 ```python
 class Edible(object):
-    """Example with fewer instance attributes.
-    """
+    """Example with fewer instance attributes."""
 
     def __init__(self):
-        """Below are the instance attributes:
-        """
+        """Below are the instance attributes:"""
         self.bread = "Sourdough"
         self.liquid = "Water"
 
 
 class Ownership(object):
-    """Example with fewer instance attributes.
-    """
+    """Example with fewer instance attributes."""
 
     def __init__(self):
-        """Below are the instance attributes:
-        """
+        """Below are the instance attributes:"""
         self.animal = "Dog"
         self.clothing = "Shirt"
 
 
 class Description(object):
-    """Example with fewer instance attributes.
-    """
+    """Example with fewer instance attributes."""
 
     def __init__(self):
-        """Below are the instance attributes:
-        """
+        """Below are the instance attributes:"""
         self.colour = "Black"
         self.shape = "Circle"
         self.direction = "Up"
@@ -252,8 +246,7 @@ class Description(object):
 
 
 class Composition(object):
-    """Example showing composition of other classes into instance attributes.
-    """
+    """Example showing composition of other classes into instance attributes."""
 
     def __init__(self):
         """Construct instance attributes. For example, 
@@ -267,7 +260,7 @@ class Composition(object):
 
 ### R0914: Too many locals {#R0914}
 
-Used when a function or method has too many local variables.
+The function or method has too many local variables.
 
 Note: the limit is 15 local variables.
 
@@ -277,7 +270,7 @@ Note: the limit is 15 local variables.
 
 ### R0915: Too many statements {#R0915}
 
-Used when a function or method has too many statements. You should then split it
+The function or method has too many statements. You should then split it
 in smaller functions / methods.
 
 Note: comments do not count as statements
@@ -344,7 +337,8 @@ docstring like,
 
 ```python
 """
-"""``` 
+"""
+``` 
 
 Students are expected to write complete docstrings for every module, 
 function, class and method.
@@ -496,13 +490,17 @@ other than the first call.
 
 Though the output to this is be expected to be:
 
-```[0, 1, 2, 3, 4]
-[0, 1, 2, 3, 4]```
+```
+[0, 1, 2, 3, 4]
+[0, 1, 2, 3, 4]
+```
 
 The actual output is:
 
-```[0, 1, 2, 3, 4]
-[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]```
+```
+[0, 1, 2, 3, 4]
+[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+```
 
 If you want to avoid this situation then, you should use `None` as a default 
 value. Students should be careful when assigning a default value to mutable 
@@ -619,7 +617,7 @@ This error occurs when you have a imported module that is unused in your code.
 
 ### W0612: Unused variable {W0612}
 
-This error occurs when you have a defined variable that is never used.
+This error occurs when you have defined a variable that is never used.
 
 ~~~~ {.python include="../pyta/examples/pylint/W0612_unused_variable.py"}
 ~~~~
