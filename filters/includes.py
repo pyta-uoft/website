@@ -4,6 +4,7 @@
 Process a CodeBlock and, if class is "include", search for the file in the
 provided paths, and replace the CodeBlock with the (formatted) file contents.
 """
+
 import sys
 import os
 import logging
@@ -32,14 +33,9 @@ def _get_file_content(filename):
         if os.path.isfile(full_file_path):
             # Given the relative path to the file, open it.
             # Automatically closes the file after finishes.
-            try:
-                with open(full_file_path, 'rb') as content_file:
-                    content = content_file.read()
-                    content.decode('utf-8')
-            except IOError as e:
-                # this block will probably never run.
-                logging.error("IOError on: {}".format(full_file_path))
-                sys.exit(1)
+            with open(full_file_path, 'rb') as content_file:
+                content = content_file.read()
+                content.decode('utf-8')
 
             # Break out of loop, and return the content.
             return content
@@ -47,10 +43,9 @@ def _get_file_content(filename):
 
 def include_examples(key, value, format, meta):
     """ Replace code block sections with the code from a file.
-    The file includes the extension, like .py if applicable.
-    Code blocks look like:
-        ~~~~ {.<language_name> include="filename"}
-        ~~~~
+    The file includes the extension. Code blocks look like:
+    ~~~~ {.<language_name> include="filename"}
+    ~~~~
     """
 
     # pandoc encounters a CodeBlock in the markdown file.
