@@ -1129,6 +1129,7 @@ import copy   # Error on this line
 x = [1, 2, 3]
 y = copy.copy(x)
 
+
 ### E9998: Forbidden IO function {#E9998}
 
 We do not expect to see I/O functions(input, open and print) in your code in
@@ -1146,16 +1147,13 @@ def hello():
 
 if __name__ == '__main__':
     hello()
-
-
 ```
+
 
 ### E9991: Dynamic Execution {#E9991}
 
 This error occurs when you use a dynamic execution of code. Use of builtin
 functions exec(), eval() and compile() is not allowed.
 
-```python
-for i in range(0, 2):
-    num = eval('i + 1')   # Error on this line
-```
+~~~~ {.python include="dynamic_execution_checker_example.py"}
+~~~~
