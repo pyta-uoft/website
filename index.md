@@ -16,7 +16,7 @@ not five.
 
 Note: we set a limit of three nested if blocks.
 
-~~~~ {.python include="../pyta/examples/pylint/R0101_too_many_nested_blocks.py"}
+~~~~ {.python include="R0101_too_many_nested_blocks.py"}
 ~~~~
 
 
@@ -26,7 +26,7 @@ This error occurs when you have an if statement that can be simplified
 simply by using the value of the condition, rather than putting in extra
 `True` and `False` literals.
 
-~~~~ {.python include="../pyta/examples/pylint/R0102_simplifiable_if_statement.py"}
+~~~~ {.python include="R0102_simplifiable_if_statement.py"}
 ~~~~
 
 The above example can be simplified to:
@@ -43,7 +43,7 @@ def is_even(num):
 This error occurs when the type of a variable changes inside a method or a 
 function. See the examples below.
 
-~~~~ {.python include="../pyta/examples/pylint/R0204_redefined_variable_type.py"}
+~~~~ {.python include="R0204_redefined_variable_type.py"}
 ~~~~
 
 
@@ -52,7 +52,7 @@ function. See the examples below.
 The module is unable to be imported. Check the spelling of the module name, or
 whether the module is in the correct directory.
 
-~~~~ {.python include="../pyta/examples/pylint/E0401_import_error.py"}
+~~~~ {.python include="E0401_import_error.py"}
 ~~~~
 
 There are other forms of import statements that may cause this error, for
@@ -68,7 +68,7 @@ import missing_module as foo  # this module does not exist.
 A module should not import itself. So for example, if the module is named 
 `W0406_import_self` you cannot import it as follows:
 
-~~~~ {.python include="../pyta/examples/pylint/W0406_import_self.py"}
+~~~~ {.python include="W0406_import_self.py"}
 ~~~~
 
 
@@ -76,7 +76,7 @@ A module should not import itself. So for example, if the module is named
 
 A module should not be imported more than once.
 
-~~~~ {.python include="../pyta/examples/pylint/W0404_reimported.py"}
+~~~~ {.python include="W0404_reimported.py"}
 ~~~~
 
 
@@ -86,7 +86,7 @@ Only import what you need. Wildcard imports (shown below) are generally
 discouraged because they add all the functions from the imported module into the
 global namespace. Problems can occur when identical names conflict.
 
-~~~~ {.python include="../pyta/examples/pylint/W0401_wildcard_import.py"}
+~~~~ {.python include="W0401_wildcard_import.py"}
 ~~~~
 
 Rather than importing everything with wildcard '*', try importing specific
@@ -117,7 +117,7 @@ import tyrannosaurus_rex as dino
 Used when PEP8 import order is not respected (do the standard imports first,
 then third-party libraries, then local imports)
 
-~~~~ {.python include="../pyta/examples/pylint/C0411_wrong_import_order.py"}
+~~~~ {.python include="C0411_wrong_import_order.py"}
 ~~~~
 
 
@@ -126,7 +126,7 @@ then third-party libraries, then local imports)
 Imports should be placed at the top of the module above any other code 
 (below the docstring).
 
-~~~~ {.python include="../pyta/examples/pylint/C0413_wrong_import_position.py"}
+~~~~ {.python include="C0413_wrong_import_position.py"}
 ~~~~
 
 
@@ -134,7 +134,7 @@ Imports should be placed at the top of the module above any other code
 
 Imports should be grouped by packages.
 
-~~~~ {.python include="../pyta/examples/pylint/C0412_ungrouped_imports.py"}
+~~~~ {.python include="C0412_ungrouped_imports.py"}
 ~~~~
 
 Logically group the imports by same package name:
@@ -150,7 +150,7 @@ from math import floor
 
 Don't import multiple modules on one line.
 
-~~~~ {.python include="../pyta/examples/pylint/C0410_multiple_imports.py"}
+~~~~ {.python include="C0410_multiple_imports.py"}
 ~~~~
 
 Do this instead:
@@ -177,7 +177,7 @@ considered to always be True, since it cannot be anything different.
 The warning message looks like:
 Redundant use of (assertTrue or assertFalse) with constant value <your-constant>
 
-~~~~ {.python include="../pyta/examples/pylint/W1503_redundant_unittest_assert.py"}
+~~~~ {.python include="W1503_redundant_unittest_assert.py"}
 ~~~~
 
 
@@ -187,7 +187,7 @@ The function or method is defined with too many arguments.
 
 Note: the limit is 5 arguments.
 
-~~~~ {.python include="../pyta/examples/pylint/R0913_too_many_arguments.py"}
+~~~~ {.python include="R0913_too_many_arguments.py"}
 ~~~~
 
 
@@ -197,7 +197,7 @@ The function or method has too many branches, making it hard to follow.
 
 Note: the limit is 12 branches.
 
-~~~~ {.python include="../pyta/examples/pylint/R0912_too_many_branches.py"}
+~~~~ {.python include="R0912_too_many_branches.py"}
 ~~~~
 
 
@@ -208,7 +208,7 @@ simpler (and easier to use) class.
 
 Note: the limit is 7 instance attributes.
 
-~~~~ {.python include="../pyta/examples/pylint/R0902_too_many_instance_attributes.py"}
+~~~~ {.python include="R0902_too_many_instance_attributes.py"}
 ~~~~
 
 One solution is to logically decompose into more classes, each with fewer 
@@ -264,7 +264,7 @@ The function or method has too many local variables.
 
 Note: the limit is 15 local variables.
 
-~~~~ {.python include="../pyta/examples/pylint/R0914_too_many_locals.py"}
+~~~~ {.python include="R0914_too_many_locals.py"}
 ~~~~
 
 
@@ -277,7 +277,7 @@ Note: comments do not count as statements
 
 Note: the limit is 50 statements.
 
-~~~~ {.python include="../pyta/examples/pylint/R0915_too_many_statements.py"}
+~~~~ {.python include="R0915_too_many_statements.py"}
 ~~~~
 
 
@@ -300,7 +300,7 @@ list includes names:
 
 Students are expected to use meaningful variable names.
 
-~~~~ {.python include="../pyta/examples/pylint/C0102_blacklisted_name.py"}
+~~~~ {.python include="C0102_blacklisted_name.py"}
 ~~~~
 
 
@@ -316,7 +316,7 @@ This error occurs when a name does not follow the format associated with to its 
 
 A special character accepted in all types of names is '_'.
 
-~~~~ {.python include="../pyta/examples/pylint/C0103_invalid_name.py"}
+~~~~ {.python include="C0103_invalid_name.py"}
 ~~~~
 
 
@@ -326,7 +326,7 @@ This error occurs when a module, function, class or method has no docstring.
 Some special methods like __init__ don't require a docstring. Students are 
 expected to write docstrings for every module, function, class and method.
 
-~~~~ {.python include="../pyta/examples/pylint/C0111_missing_docstring.py"}
+~~~~ {.python include="C0111_missing_docstring.py"}
 ~~~~
 
 
@@ -343,7 +343,7 @@ docstring like,
 Students are expected to write complete docstrings for every module, 
 function, class and method.
 
-~~~~ {.python include="../pyta/examples/pylint/C0112_empty_docstring.py"}
+~~~~ {.python include="C0112_empty_docstring.py"}
 ~~~~
 
 
@@ -353,7 +353,7 @@ This error occurs when a boolean expression contains an unneeded negation. If
 you are getting this error, the expression can be simplified to not use a 
 negation.
 
-~~~~ {.python include="../pyta/examples/pylint/C0113_unneeded_not.py"}
+~~~~ {.python include="C0113_unneeded_not.py"}
 ~~~~
 
 The above can be modified to:
@@ -376,7 +376,7 @@ def is_true():
 This is an error that occurs when an expression is compared to singleton values 
 like True, False or None.
 
-~~~~ {.python include="../pyta/examples/pylint/C0121_singleton_comparison.py"}
+~~~~ {.python include="C0121_singleton_comparison.py"}
 ~~~~
 
 The above can be modified to:
@@ -399,7 +399,7 @@ def is_true():
 This error occurs when type() is used instead of isinstance() for a type check. 
 Students are expected to use `isinstance(x, Y)` instead of `type(x) == Y`.
 
-~~~~ {.python include="../pyta/examples/pylint/C0123_unidiomatic_typecheck.py"}
+~~~~ {.python include="C0123_unidiomatic_typecheck.py"}
 ~~~~
 
 The above can be modified to:
@@ -422,7 +422,7 @@ Students should not use a return statement in the  __init__ method as it is not
 directly called by your code. Instead, it is called by the code that 
 initializes objects at runtime. 
 
-~~~~ {.python include="../pyta/examples/pylint/E0101_return_in_init.py"}
+~~~~ {.python include="E0101_return_in_init.py"}
 ~~~~
 
 
@@ -432,7 +432,7 @@ This error occurs when a function, class or method is redefined. If you are
 getting this error, you should make sure all the functions, methods and classes 
 you define have different names.
 
-~~~~ {.python include="../pyta/examples/pylint/E0102_function_redefined.py"}
+~~~~ {.python include="E0102_function_redefined.py"}
 ~~~~
 
 
@@ -443,7 +443,7 @@ The keyword `break` is used to exit a loop early and the keyword `continue` is
 used to skip an iteration in a loop. Hence both the keywords only belong inside 
 loops.
 
-~~~~ {.python include="../pyta/examples/pylint/E0103_not_in_loop.py"}
+~~~~ {.python include="E0103_not_in_loop.py"}
 ~~~~
 
 
@@ -453,7 +453,7 @@ This error occurs when a `return` statement is found outside a function or
 method. If you are getting this error, please check the indentation levels in 
 your code carefully.
 
-~~~~ {.python include="../pyta/examples/pylint/E0104_return_outside_function.py"}
+~~~~ {.python include="E0104_return_outside_function.py"}
 ~~~~
 
 
@@ -463,7 +463,7 @@ This error occurs if there are duplicate argument names in function
 definitions. If you are getting this error, please make sure all the arguments 
 have distinct names.
 
-~~~~ {.python include="../pyta/examples/pylint/E0108_duplicate_argument_name.py"}
+~~~~ {.python include="E0108_duplicate_argument_name.py"}
 ~~~~
 
 
@@ -472,7 +472,7 @@ have distinct names.
 This error occurs when there is some code behind a `return` or `raise` 
 statement. This code will never be run.
 
-~~~~ {.python include="../pyta/examples/pylint/W0101_unreachable.py"}
+~~~~ {.python include="W0101_unreachable.py"}
 ~~~~
 
 
@@ -485,7 +485,7 @@ argument. If you modify a default argument it will persist until the next call.
 Hence your "empty" list or dictionary will start to contain values on calls 
 other than the first call.
 
-~~~~ {.python include="../pyta/examples/pylint/W0102_dangerous_default_value.py"}
+~~~~ {.python include="W0102_dangerous_default_value.py"}
 ~~~~
 
 Though the output to this is be expected to be:
@@ -512,7 +512,7 @@ This error occurs when a statement doesn't have any effect. This means that
 when the code for a statement is run, nothing is executed. This may not be what was 
 intended.
 
-~~~~ {.python include="../pyta/examples/pylint/W0104_pointless_statement.py"}
+~~~~ {.python include="W0104_pointless_statement.py"}
 ~~~~
 
 
@@ -522,7 +522,7 @@ This error occurs when a `pass` statement is used that can be avoided (or has
 no effect). If you are able to remove the `pass` statement without changing the 
 effect of the program, then the statement is "unnecessary" and can be avoided.
 
-~~~~ {.python include="../pyta/examples/pylint/W0107_unnecessary_pass.py"}
+~~~~ {.python include="W0107_unnecessary_pass.py"}
 ~~~~
 
 In the above example, the `pass` statement is "unnecessary" as the program's 
@@ -534,7 +534,7 @@ effect is not changed if `pass` is removed.
 This error occurs when a dictionary expression binds the same key multiple 
 times.
 
-~~~~ {.python include="../pyta/examples/pylint/W0109_duplicate_key.py"}
+~~~~ {.python include="W0109_duplicate_key.py"}
 ~~~~
 
 
@@ -545,7 +545,7 @@ constant value for its test. This is bad as the conditional statements using a
 constant test always evaluate to the same value. In such a case, a conditional 
 statement should not be used. 
 
-~~~~ {.python include="../pyta/examples/pylint/W0125_using_constant_test.py"}
+~~~~ {.python include="W0125_using_constant_test.py"}
 ~~~~
 
 
@@ -556,7 +556,7 @@ This error occurs when an "assert" statement is called like `assert (x, y)`.
 false if it is empty. If you want to assert that two expressions are true then, 
 you should use `assert x, y` instead.
 
-~~~~ {.python include="../pyta/examples/pylint/W0199_assert_on_tuple.py"}
+~~~~ {.python include="W0199_assert_on_tuple.py"}
 ~~~~
 
 
@@ -564,7 +564,7 @@ you should use `assert x, y` instead.
 
 This error occurs when you are using a variable before its assignment.
 
-~~~~ {.python include="../pyta/examples/pylint/E0601_used_before_assignment.py"}
+~~~~ {.python include="E0601_used_before_assignment.py"}
 ~~~~
 
 
@@ -572,7 +572,7 @@ This error occurs when you are using a variable before its assignment.
 
 This error occurs when you are using a variable that has not been defined.
 
-~~~~ {.python include="../pyta/examples/pylint/E0602_undefined_variable.py"}
+~~~~ {.python include="E0602_undefined_variable.py"}
 ~~~~
 
 
@@ -581,7 +581,7 @@ This error occurs when you are using a variable that has not been defined.
 This error occurs when you are trying to access a variable from an imported
 module, but that variable name could not be found in that referenced module.
 
-~~~~ {.python include="../pyta/examples/pylint/E0611_no_name_in_module.py"}
+~~~~ {.python include="E0611_no_name_in_module.py"}
 ~~~~
 
 
@@ -593,7 +593,7 @@ sequence.
 Note: Number of label(s) on the left side and number of value(s) on the right
 side must always be the same in an unpacking assignment.
 
-~~~~ {.python include="../pyta/examples/pylint/E0632_unbalanced_tuple_unpacking.py"}
+~~~~ {.python include="E0632_unbalanced_tuple_unpacking.py"}
 ~~~~
 
 
@@ -603,7 +603,7 @@ This error occurs when the unpacked result is not a sequence. For example,
 if in an unpacking assignment, the unpacked result is None, then it is not
 a sequence and will raise this error.
 
-~~~~ {.python include="../pyta/examples/pylint/E0633_unpacking_non_sequence.py"}
+~~~~ {.python include="E0633_unpacking_non_sequence.py"}
 ~~~~
 
 
@@ -611,7 +611,7 @@ a sequence and will raise this error.
 
 This error occurs when you have a imported module that is unused in your code.
 
-~~~~ {.python include="../pyta/examples/pylint/W0611_unused_import.py"}
+~~~~ {.python include="W0611_unused_import.py"}
 ~~~~
 
 
@@ -619,7 +619,7 @@ This error occurs when you have a imported module that is unused in your code.
 
 This error occurs when you have defined a variable that is never used.
 
-~~~~ {.python include="../pyta/examples/pylint/W0612_unused_variable.py"}
+~~~~ {.python include="W0612_unused_variable.py"}
 ~~~~
 
 
@@ -627,7 +627,7 @@ This error occurs when you have defined a variable that is never used.
 
 This error occurs when a function argument is never used in the function.
 
-~~~~ {.python include="../pyta/examples/pylint/W0613_unused_argument.py"}
+~~~~ {.python include="W0613_unused_argument.py"}
 ~~~~
 
 
@@ -638,7 +638,7 @@ already been defined in the outer scope. For example, this error will occurs
 when you have a local name identical to a global name. The local name takes
 precedence. but it hides the global name, makes it no longer accessible.
 
-~~~~ {.python include="../pyta/examples/pylint/W0621_redefined_outer_name.py"}
+~~~~ {.python include="W0621_redefined_outer_name.py"}
 ~~~~
 
 
@@ -646,7 +646,7 @@ precedence. but it hides the global name, makes it no longer accessible.
 
 This error occurs when you are trying to redefine/override a built-in function.
 
-~~~~ {.python include="../pyta/examples/pylint/W0622_redefined_builtin.py"}
+~~~~ {.python include="W0622_redefined_builtin.py"}
 ~~~~
 
 
@@ -655,7 +655,7 @@ This error occurs when you are trying to redefine/override a built-in function.
 This error occurs when a loop variable is possibly used outside the loop that
 is undefined.
 
-~~~~ {.python include="../pyta/examples/pylint/W0631_undefined_loop_variable.py"}
+~~~~ {.python include="W0631_undefined_loop_variable.py"}
 ~~~~
 
 

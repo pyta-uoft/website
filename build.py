@@ -16,5 +16,5 @@ subprocess.run([
     'root=../',
     'index.md',
     '--filter',
-    'filters/includes.hs'
+    'filters/includes.py'
 ], stdout=subprocess.PIPE)
