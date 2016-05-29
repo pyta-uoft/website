@@ -2,7 +2,7 @@
 
 """
 Process a CodeBlock and, if class is "include", search for the file in the
-provided paths, and replace the CodeBlock with the (formatted) file contents.
+provided paths, and replace the CodeBlock with the file contents.
 """
 
 import sys
