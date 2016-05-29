@@ -33,9 +33,8 @@ def _get_file_content(filename):
         if os.path.isfile(full_file_path):
             # Given the relative path to the file, open it.
             # Automatically closes the file after finishes.
-            with open(full_file_path, 'rb') as content_file:
+            with open(full_file_path, 'r') as content_file:
                 content = content_file.read()
-                content.decode('utf-8')
 
             # Break out of loop, and return the content.
             return content
