@@ -10,8 +10,8 @@ import os
 import logging
 from pandocfilters import toJSONFilter, CodeBlock
 
-# Set the log level, and message format.
-logging.basicConfig(format='', level=logging.DEBUG)
+# Set the log level (DEBUG, ERROR, ...), and message format.
+logging.basicConfig(format='', level=logging.ERROR)
 
 # Define all possible paths for examples defined to be included in the markdown
 # file. For efficiency paths are listed in order of decreasing file amounts.
@@ -27,7 +27,7 @@ def _get_file_content(filename):
     # Check the mentioned directories for file.
     for pathname in PATHS_TO_INCLUDED_CODE:
 
-        full_file_path = pathname + filename
+        full_file_path = pathname + filename + ".py"
 
         # Looks for the file in the list of possible paths.
         if os.path.isfile(full_file_path):
@@ -54,6 +54,10 @@ def include_examples(key, value, format, meta):
         # 'namevals' is a list of the nameval and its value.
         # 'code' is content inside the CodeBlock.
         [[ident, classes, namevals], code] = value
+
+        # Since all CodeBlocks contain python code, we won't define the class
+        # in the markdown as {.python ...}, instead we set the classes here.
+        classes = ['python']
 
         # Find the file, and place its contents into a CodeBlock element.
         for nameval in namevals:
