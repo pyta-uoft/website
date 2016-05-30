@@ -1524,7 +1524,6 @@ carefully.
 
 ```python
 def loop():
-    """always returning in a loop."""
     # always returning in a for loop
     for j in range(0, 2):
         j += 1
@@ -1548,7 +1547,8 @@ def loop():
         else:
             print(1)
         return 4
-
+~~~~ {include="E9996_always_returning"}
+~~~~
 ```
 
 ### E9991: Dynamic Execution {#E9991}
