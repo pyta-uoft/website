@@ -42,7 +42,9 @@ def _get_file_content(filename):
 
 def include_examples(key, value, format, meta):
     """ Replace code block sections with the code from a file.
-    The file includes the extension. Code blocks look like:
+    The filename doesn't use the extension in the include string, although the
+    file must be a python file, with the .py extension.
+    Code blocks look like:
     ~~~~ {include="filename"}
     ~~~~
     """
