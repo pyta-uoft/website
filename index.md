@@ -1135,8 +1135,7 @@ Except blocks are analyzed sequentially (from top to bottom) and the
 block that meets the criteria for catching the exception first will be
 used. This means if you have a more generic exception type before a
 specific exception type, you will never trigger the code in the block
-that is masked by the generic exception. This results in having dead
-code.
+that is hidden by the generic exception.
 
 It is also good practice since you want to narrow down the exception
 type to be as specific as possible, since the more generic exception
@@ -1382,7 +1381,7 @@ a child of the class you extend from, and properties that the parent
 sets in its constructor would not be propagated into the child you are
 creating.
 
-Therefore you must always call the parent.
+Therefore you must always call the parent initializer.
 
 ```python
 class Parent:
