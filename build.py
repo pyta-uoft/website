@@ -14,5 +14,7 @@ subprocess.run([
     '--highlight-style=zenburn',
     '-V',
     'root=../',
-    'index.md'
+    'index.md',
+    '--filter',
+    'filters/includes.py'
 ], stdout=subprocess.PIPE)
