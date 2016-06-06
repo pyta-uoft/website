@@ -1004,6 +1004,14 @@ this course. If you are getting this error, please check your code carefully.
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
+### E9996: Always returning in a loop {#E9996}
+
+We do not expect to see you always return an object or none inside a loop body.
+This will cause the loop to only ever excute once.
+
+~~~~ {include="always_returning_example"}
+~~~~
+
 
 ### E9991: Dynamic Execution {#E9991}
 
