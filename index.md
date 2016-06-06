@@ -264,7 +264,7 @@ This error occurs when a backslash is in a literal string but not as an escape.
 
 ### R0204: Redefined variable type {#R0204}
 
-This error occurs when the type of a variable changes inside a method or a 
+This error occurs when the type of a variable changes inside a method or a
 function. See the examples below.
 
 ~~~~ {include="R0204_redefined_variable_type"}
@@ -289,7 +289,7 @@ import missing_module as foo  # this module does not exist.
 
 ### W0406: Import self {#W0406}
 
-A module should not import itself. So for example, if the module is named 
+A module should not import itself. So for example, if the module is named
 `W0406_import_self` you cannot import it as follows:
 
 ~~~~ {include="W0406_import_self"}
@@ -306,7 +306,7 @@ A module should not be imported more than once.
 
 ### W0401: Wildcard import {#W0401}
 
-Only import what you need. Wildcard imports (shown below) are generally 
+Only import what you need. Wildcard imports (shown below) are generally
 discouraged because they add all the functions from the imported module into the
 global namespace. Problems can occur when identical names conflict.
 
@@ -347,7 +347,7 @@ then third-party libraries, then local imports)
 
 ### C0413: Wrong import position {#C0413}
 
-Imports should be placed at the top of the module above any other code 
+Imports should be placed at the top of the module above any other code
 (below the docstring).
 
 ~~~~ {include="C0413_wrong_import_position"}
@@ -435,8 +435,8 @@ Note: the limit is 7 instance attributes.
 ~~~~ {include="R0902_too_many_instance_attributes"}
 ~~~~
 
-One solution is to logically decompose into more classes, each with fewer 
-instance attributes. Then we can use composition to access those attributes in 
+One solution is to logically decompose into more classes, each with fewer
+instance attributes. Then we can use composition to access those attributes in
 another class.
 
 ```python
@@ -473,7 +473,7 @@ class Composition(object):
     """Example showing composition of other classes into instance attributes."""
 
     def __init__(self):
-        """Construct instance attributes. For example, 
+        """Construct instance attributes. For example,
         self.ownership.animal is "Dog"
         """
         self.edible = Edible()
@@ -512,9 +512,9 @@ This is some helpful description of the C0111 error.
 
 ### C0102 Blacklisted name {#C0102}
 
-This error occurs when a variable name is listed in the black list. The black 
+This error occurs when a variable name is listed in the black list. The black
 list includes names:
- 
+
  - foo
  - bar
  - baz
@@ -530,7 +530,7 @@ Students are expected to use meaningful variable names.
 
 ### C0103 Invalid Name {#C0103}
 
-This error occurs when a name does not follow the format associated with to its type (constant, variable ...). 
+This error occurs when a name does not follow the format associated with to its type (constant, variable ...).
 
 - Variable/Attribute/Method/Argument: All variable/attribute/method/argument names should be of the form: a lowercase letter followed by a lowercase letter or digit. The minimum number of characters should be 2 and the maximum should be 30.
 
@@ -546,8 +546,8 @@ A special character accepted in all types of names is '_'.
 
 ### C0111 Missing Docstring {#C0111}
 
-This error occurs when a module, function, class or method has no docstring. 
-Some special methods like __init__ don't require a docstring. Students are 
+This error occurs when a module, function, class or method has no docstring.
+Some special methods like __init__ don't require a docstring. Students are
 expected to write docstrings for every module, function, class and method.
 
 ~~~~ {include="C0111_missing_docstring"}
@@ -556,15 +556,15 @@ expected to write docstrings for every module, function, class and method.
 
 ### C0112 Empty Docstring {#C0112}
 
-This error occurs when a module, function, class or method has an empty 
+This error occurs when a module, function, class or method has an empty
 docstring like,
 
 ```python
 """
 """
-``` 
+```
 
-Students are expected to write complete docstrings for every module, 
+Students are expected to write complete docstrings for every module,
 function, class and method.
 
 ~~~~ {include="C0112_empty_docstring"}
@@ -573,8 +573,8 @@ function, class and method.
 
 ### C0113 Unneeded not {#C0113}
 
-This error occurs when a boolean expression contains an unneeded negation. If 
-you are getting this error, the expression can be simplified to not use a 
+This error occurs when a boolean expression contains an unneeded negation. If
+you are getting this error, the expression can be simplified to not use a
 negation.
 
 ~~~~ {include="C0113_unneeded_not"}
@@ -597,7 +597,7 @@ def is_true():
 
 ### C0121 Singleton comparison {#C0121}
 
-This is an error that occurs when an expression is compared to singleton values 
+This is an error that occurs when an expression is compared to singleton values
 like True, False or None.
 
 ~~~~ {include="C0121_singleton_comparison"}
@@ -620,7 +620,7 @@ def is_true():
 
 ### C0123 Unidiomatic type check {#C0123}
 
-This error occurs when type() is used instead of isinstance() for a type check. 
+This error occurs when type() is used instead of isinstance() for a type check.
 Students are expected to use `isinstance(x, Y)` instead of `type(x) == Y`.
 
 ~~~~ {include="C0123_unidiomatic_typecheck"}
@@ -631,7 +631,7 @@ The above can be modified to:
 ```python
 def is_int(obj):
     """Check is the given object is of type 'int'.
-    
+
     @type obj: object
     @rtype: bool
     """
@@ -641,10 +641,10 @@ def is_int(obj):
 
 ### E0101 Return in init {#E0101}
 
-This error occurs when a return statement is used in the __init__ method. 
-Students should not use a return statement in the  __init__ method as it is not 
-directly called by your code. Instead, it is called by the code that 
-initializes objects at runtime. 
+This error occurs when a return statement is used in the __init__ method.
+Students should not use a return statement in the  __init__ method as it is not
+directly called by your code. Instead, it is called by the code that
+initializes objects at runtime.
 
 ~~~~ {include="E0101_return_in_init"}
 ~~~~
@@ -652,8 +652,8 @@ initializes objects at runtime.
 
 ### E0102 Function redefined {#E0102}
 
-This error occurs when a function, class or method is redefined. If you are 
-getting this error, you should make sure all the functions, methods and classes 
+This error occurs when a function, class or method is redefined. If you are
+getting this error, you should make sure all the functions, methods and classes
 you define have different names.
 
 ~~~~ {include="E0102_function_redefined"}
@@ -662,9 +662,9 @@ you define have different names.
 
 ### E0103 Not in loop {#E0103}
 
-This error occurs when `break` and `continue` keywords are used outside loops. 
-The keyword `break` is used to exit a loop early and the keyword `continue` is 
-used to skip an iteration in a loop. Hence both the keywords only belong inside 
+This error occurs when `break` and `continue` keywords are used outside loops.
+The keyword `break` is used to exit a loop early and the keyword `continue` is
+used to skip an iteration in a loop. Hence both the keywords only belong inside
 loops.
 
 ~~~~ {include="E0103_not_in_loop"}
@@ -673,8 +673,8 @@ loops.
 
 ### E0104 Return outside function {#E0104}
 
-This error occurs when a `return` statement is found outside a function or 
-method. If you are getting this error, please check the indentation levels in 
+This error occurs when a `return` statement is found outside a function or
+method. If you are getting this error, please check the indentation levels in
 your code carefully.
 
 ~~~~ {include="E0104_return_outside_function"}
@@ -683,8 +683,8 @@ your code carefully.
 
 ### E0108 Duplicate argument name {E0108}
 
-This error occurs if there are duplicate argument names in function 
-definitions. If you are getting this error, please make sure all the arguments 
+This error occurs if there are duplicate argument names in function
+definitions. If you are getting this error, please make sure all the arguments
 have distinct names.
 
 ~~~~ {include="E0108_duplicate_argument_name"}
@@ -693,7 +693,7 @@ have distinct names.
 
 ### W0101 Unreachable {#W0101}
 
-This error occurs when there is some code behind a `return` or `raise` 
+This error occurs when there is some code behind a `return` or `raise`
 statement. This code will never be run.
 
 ~~~~ {include="W0101_unreachable"}
@@ -702,11 +702,11 @@ statement. This code will never be run.
 
 ### W0102 Dangerous default value {#W0102}
 
-This error occurs when a mutable value such as a list or dictionary is given a 
-default value in the function or method definition. It is dangerous to give 
-mutable objects a default value only when the function/method modifies the 
-argument. If you modify a default argument it will persist until the next call. 
-Hence your "empty" list or dictionary will start to contain values on calls 
+This error occurs when a mutable value such as a list or dictionary is given a
+default value in the function or method definition. It is dangerous to give
+mutable objects a default value only when the function/method modifies the
+argument. If you modify a default argument it will persist until the next call.
+Hence your "empty" list or dictionary will start to contain values on calls
 other than the first call.
 
 ~~~~ {include="W0102_dangerous_default_value"}
@@ -726,14 +726,14 @@ The actual output is:
 [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
 ```
 
-If you want to avoid this situation then, you should use `None` as a default 
-value. Students should be careful when assigning a default value to mutable 
+If you want to avoid this situation then, you should use `None` as a default
+value. Students should be careful when assigning a default value to mutable
 objects.
 
 ### W0104 Pointless statement {#W0104}
 
-This error occurs when a statement doesn't have any effect. This means that 
-when the code for a statement is run, nothing is executed. This may not be what was 
+This error occurs when a statement doesn't have any effect. This means that
+when the code for a statement is run, nothing is executed. This may not be what was
 intended.
 
 ~~~~ {include="W0104_pointless_statement"}
@@ -742,20 +742,20 @@ intended.
 
 ### W0107 Unnecessary pass {#W0107}
 
-This error occurs when a `pass` statement is used that can be avoided (or has 
-no effect). If you are able to remove the `pass` statement without changing the 
+This error occurs when a `pass` statement is used that can be avoided (or has
+no effect). If you are able to remove the `pass` statement without changing the
 effect of the program, then the statement is "unnecessary" and can be avoided.
 
 ~~~~ {include="W0107_unnecessary_pass"}
 ~~~~
 
-In the above example, the `pass` statement is "unnecessary" as the program's 
+In the above example, the `pass` statement is "unnecessary" as the program's
 effect is not changed if `pass` is removed.
 
 
 ### W0109 Duplicate key {#W0109}
 
-This error occurs when a dictionary expression binds the same key multiple 
+This error occurs when a dictionary expression binds the same key multiple
 times.
 
 ~~~~ {include="W0109_duplicate_key"}
@@ -764,10 +764,10 @@ times.
 
 ### W0125 Using constant test {#W0125}
 
-This error occurs when a conditional statement like an `if` statement uses a 
-constant value for its test. This is bad as the conditional statements using a 
-constant test always evaluate to the same value. In such a case, a conditional 
-statement should not be used. 
+This error occurs when a conditional statement like an `if` statement uses a
+constant value for its test. This is bad as the conditional statements using a
+constant test always evaluate to the same value. In such a case, a conditional
+statement should not be used.
 
 ~~~~ {include="W0125_using_constant_test"}
 ~~~~
@@ -775,9 +775,9 @@ statement should not be used.
 
 ### W0199 Assert on tuple {#W0199}
 
-This error occurs when an "assert" statement is called like `assert (x, y)`. 
-`assert` acting on a tuple always returns true if the tuple is non-empty, and 
-false if it is empty. If you want to assert that two expressions are true then, 
+This error occurs when an "assert" statement is called like `assert (x, y)`.
+`assert` acting on a tuple always returns true if the tuple is non-empty, and
+false if it is empty. If you want to assert that two expressions are true then,
 you should use `assert x, y` instead.
 
 ~~~~ {include="W0199_assert_on_tuple"}
@@ -1002,6 +1002,14 @@ We do not expect to see I/O functions(input, open and print) in your code in
 this course. If you are getting this error, please check your code carefully.
 
 ~~~~ {include="E9998_forbidden_io_function"}
+~~~~
+
+### E9996: Always returning in a loop {#E9996}
+
+We do not expect to see you always return an object or none inside a loop body.
+This will cause the loop to only ever excute once.
+
+~~~~ {include="always_returning_example"}
 ~~~~
 
 
