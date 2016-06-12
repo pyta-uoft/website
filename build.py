@@ -6,7 +6,7 @@ if os.path.isfile('gen'):
     sys.exit('Error: "gen" already exists as a regular file')
 os.makedirs('gen', exist_ok=True)
 
-subprocess.run([
+completed_process = subprocess.run([
     'pandoc',
     '-o', 'gen/index.html',
     '-s',
@@ -18,3 +18,6 @@ subprocess.run([
     '--filter',
     'filters/includes.py'
 ], stdout=subprocess.PIPE)
+
+if not completed_process.returncode:
+    print("✨ Successfully Built File: index.html✨")
