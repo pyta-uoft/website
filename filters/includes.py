@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Process a CodeBlock and, if class is "include", search for the file in the
