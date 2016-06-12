@@ -62,7 +62,7 @@ body {
 }
 
 .dropdown:hover .dropbtn {
-    background-color: #585858;
+    background-color: rgba(216, 231, 241, 0.95);
 }
 
 a:link    {color:#2E2E2E; background-color:transparent; text-decoration:none}
