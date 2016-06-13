@@ -681,7 +681,7 @@ your code carefully.
 ~~~~
 
 
-### E0108 Duplicate argument name {E0108}
+### E0108 Duplicate argument name {#E0108}
 
 This error occurs if there are duplicate argument names in function 
 definitions. If you are getting this error, please make sure all the arguments 
@@ -809,7 +809,7 @@ module, but that variable name could not be found in that referenced module.
 ~~~~
 
 
-### E0632: Unbalanced tuple unpacking {E0632}
+### E0632: Unbalanced tuple unpacking {#E0632}
 
 This error occurs when you have an unbalance unpacking assignment with a
 sequence.
@@ -818,7 +818,7 @@ sequence.
 ~~~~
 
 
-### E0633: Unpacking non sequence {E0633}
+### E0633: Unpacking non sequence {#E0633}
 
 This error occurs when the unpacked result is not a sequence. For example,
 if in an unpacking assignment, the unpacked result is None, then it is not
@@ -828,7 +828,7 @@ a sequence and will raise this error.
 ~~~~
 
 
-### W0611: Unused import {W0611}
+### W0611: Unused import {#W0611}
 
 This error occurs when you have a imported module that is unused in your code.
 
@@ -836,7 +836,7 @@ This error occurs when you have a imported module that is unused in your code.
 ~~~~
 
 
-### W0612: Unused variable {W0612}
+### W0612: Unused variable {#W0612}
 
 This error occurs when you have a defined variable that is never used.
 
@@ -844,7 +844,7 @@ This error occurs when you have a defined variable that is never used.
 ~~~~
 
 
-### W0613: Unused argument {W0613}
+### W0613: Unused argument {#W0613}
 
 This error occurs when a function argument is never used in the function.
 
@@ -852,7 +852,7 @@ This error occurs when a function argument is never used in the function.
 ~~~~
 
 
-### W0621: Redefined outer name {W0621}
+### W0621: Redefined outer name {#W0621}
 
 This error occurs when you are trying to redefine a variable name that has
 already been defined in the outer scope. For example, this error will occurs
@@ -863,7 +863,7 @@ precedence. but it hides the global name, makes it no longer accessible.
 ~~~~
 
 
-### W0622: Redefined builtin {W0622}
+### W0622: Redefined builtin {#W0622}
 
 This error occurs when you are trying to redefine/override a built-in function.
 
@@ -871,7 +871,7 @@ This error occurs when you are trying to redefine/override a built-in function.
 ~~~~
 
 
-### W0631: Undefined loop variable {W0631}
+### W0631: Undefined loop variable {#W0631}
 
 This error occurs when a loop variable is possibly used outside the loop that
 is undefined.
@@ -905,7 +905,7 @@ module, but that variable name could not be found in that referenced module.
 ~~~~
 
 
-### E0632: Unbalanced tuple unpacking {E0632}
+### E0632: Unbalanced tuple unpacking {#E0632}
 
 This error occurs when you have an unbalance unpacking assignment with a
 sequence.
@@ -917,7 +917,7 @@ side must always be the same in an unpacking assignment.
 ~~~~
 
 
-### E0633: Unpacking non sequence {E0633}
+### E0633: Unpacking non sequence {#E0633}
 
 This error occurs when the unpacked result is not a sequence. For example,
 if in an unpacking assignment, the unpacked result is None, then it is not
@@ -927,7 +927,7 @@ a sequence and will raise this error.
 ~~~~
 
 
-### W0611: Unused import {W0611}
+### W0611: Unused import {#W0611}
 
 This error occurs when you have a imported module that is unused in your code.
 
@@ -935,7 +935,7 @@ This error occurs when you have a imported module that is unused in your code.
 ~~~~
 
 
-### W0612: Unused variable {W0612}
+### W0612: Unused variable {#W0612}
 
 This error occurs when you have defined a variable that is never used.
 
@@ -943,7 +943,7 @@ This error occurs when you have defined a variable that is never used.
 ~~~~
 
 
-### W0613: Unused argument {W0613}
+### W0613: Unused argument {#W0613}
 
 This error occurs when a function argument is never used in the function.
 
@@ -951,7 +951,7 @@ This error occurs when a function argument is never used in the function.
 ~~~~
 
 
-### W0621: Redefined outer name {W0621}
+### W0621: Redefined outer name {#W0621}
 
 This error occurs when you are trying to redefine a variable name that has
 already been defined in the outer scope. For example, this error will occurs
@@ -962,7 +962,7 @@ precedence. but it hides the global name, makes it no longer accessible.
 ~~~~
 
 
-### W0622: Redefined builtin {W0622}
+### W0622: Redefined builtin {#W0622}
 
 This error occurs when you are trying to redefine/override a built-in function.
 
@@ -970,7 +970,7 @@ This error occurs when you are trying to redefine/override a built-in function.
 ~~~~
 
 
-### W0631: Undefined loop variable {W0631}
+### W0631: Undefined loop variable {#W0631}
 
 This error occurs when a loop variable is possibly used outside the loop that
 is undefined.
@@ -1002,6 +1002,7 @@ def no_self(num):
     print(num)
 ```
 
+
 ### E0202: Method hidden {#E0202}
 
 If you accidentally mask a method with an attribute, it can cause other code
@@ -1019,6 +1020,7 @@ class Example(object):
 # If you call Example().field(num), it will yield an error since we masked it
 ```
 
+
 ### E0203: Access to member before definition {#E0203}
 
 Before trying to use a member of a class, it should have been defined at
@@ -1031,6 +1033,7 @@ class MyClass:
         print(self.a)  # Haven't defined self.a yet, can't use
         self.a = 5
 ```
+
 
 ### E0211: No method argument {#E0211}
 
@@ -1083,6 +1086,7 @@ class MyClass:
         pass
 ```
 
+
 ### E0239: Inheriting from a non-class {#E0239}
 
 When you inherit, it must come from a class. If you use something that is
@@ -1094,6 +1098,7 @@ this is passing in an object rather than the actual class itself.
 class newclass("str"):
     pass
 ```
+
 
 ### E0241: Duplicate bases {#E0241}
 
@@ -1107,6 +1112,7 @@ class A:
 class B(A, A):  # Only include A once to inherit properly
     pass
 ```
+
 
 ### E0302: Unexpected special method signature {#E0302}
 
@@ -1128,6 +1134,7 @@ class B:
     def __str__(self, a):  # Bad, Python won't know what to put in 'a'.
         return 'string'
 ```
+
 
 ### E0701: Bad exception order {#E0701}
 
@@ -1152,6 +1159,7 @@ def func(num):
 
 ```
 
+
 ### E0702: Raising bad type {#E0702}
 
 You have to raise an object that is an exception, you can't raise anything
@@ -1163,6 +1171,7 @@ Exception class, name it appropriately, and raise that.
 def raise_bad():
     raise 1
 ```
+
 
 ### E0704: Misplaced bare raise {#E0704}
 
@@ -1211,6 +1220,7 @@ def throw_exception():
     raise ClassWithNoExceptionParent()
 ```
 
+
 ### E0711: Bad exception context {#E0711}
 
 NotImplemented is intended to be a return value for methods, such as when you
@@ -1226,6 +1236,7 @@ def call_exception():
     raise NotImplemented()
     # Should be: raise NotImplementedError()
 ```
+
 
 ### E0712: Catching non-exception {#E0712}
 
@@ -1250,6 +1261,7 @@ def throw_exception():
         print('Will not be reached due to erroring out earlier')
 ```
 
+
 ### W0201: Attribute defined outside init {#W0201}
 
 Any attribute you define for a class should be created inside the _init_
@@ -1268,14 +1280,17 @@ class MyClass:
 
 c = MyClass()
 c.other_num = 2  # This should be defined in __init__ first
+```
 
-# You should do this instead:
+You should do this instead:
+
 ```python
 class MyClass:
     def __init__(self):
         self.num = 1
         self.other_num = 2
 ```
+
 
 ### W0211: Bad static member {#W0211}
 
@@ -1298,6 +1313,7 @@ class C:
     def method(self):  # Static methods do not have a 'self'
         self.num += 1
 ```
+
 
 ### W0212: Protected member access {#W0212}
 
@@ -1325,6 +1341,7 @@ c = MyClass()
 print(c._num)
 ```
 
+
 ### W0232: No init method {#W0232}
 
 The _init_ method is invoked when an object is created. Therefore you
@@ -1345,6 +1362,7 @@ def ClassWithNoInit:
     def return_forty_two(self):
         return 42
 ```
+
 
 ### W0222: Different method signature {#W0222}
 
@@ -1372,6 +1390,7 @@ class Child(Parent):
         return 42
 ```
 
+
 ### W0231: Super init not called {#W0231}
 
 When inheriting from a parent, you need to call the parent's _init_
@@ -1393,6 +1412,7 @@ class Child(Parent):
         Parent.__init__(self)  # You must have this
 ```
 
+
 ### W0233: Bad parent init {#W0233}
 
 You should call the _init_ method of the parent, not some arbitrary and
@@ -1413,6 +1433,7 @@ class Child(Parent):
         ClassA.__init__(self)  # Not a child of class A
 ```
 
+
 ### W0702: Bare exception {#W0702}
 
 While you can catch any exception without specifying a class to catch after
@@ -1430,6 +1451,7 @@ def no_catching():
         print('Requires an exception class')
 ```
 
+
 ### W0703: Exception is too generic {#W0703}
 
 Similar to exception error W0702, if your exception is too generic then you
@@ -1444,6 +1466,7 @@ def generic_catch():
     except Exception:
         print('Got exception')
 ```
+
 
 ### W0705: Duplicate except blocks {#W0705}
 
@@ -1462,6 +1485,7 @@ def repeat_except_blocks():
     except Exception:
         print('Duplicate exception block')
 ```
+
 
 ### W0711: Binary op exception {#W0711}
 
@@ -1487,6 +1511,7 @@ def binary_capture():
                 raise MyDoubleException()
         except MyException or MyDoubleException:
                 print('Will not detect MyDoubleException due to how "or" works')
+```
 
 ## Custom errors {#custom}
 
