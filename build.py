@@ -21,4 +21,3 @@ completed_process = subprocess.run([
 
 if not completed_process.returncode:
     print("Successfully Built File: index.html")
-
