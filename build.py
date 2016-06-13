@@ -20,4 +20,5 @@ completed_process = subprocess.run([
 ], stdout=subprocess.PIPE)
 
 if not completed_process.returncode:
-    print("✨ Successfully Built File: index.html✨")
+    print("Successfully Built File: index.html")
+
