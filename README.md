@@ -20,4 +20,8 @@ After this, you should be able to open `gen/index.html` and see the demo webpage
 
 1. For Mac users, open python file `includes.py` under `website/filters`. On the
    first line, change `#!/usr/bin/env python` to `#!/usr/bin/env python3`.
-   Now try building the website again.
+
+2. Check if the file `website/filters` is executable for the current user. If
+   it is not executalbe, run `chomod u+x filters/includes.py` in the command
+   line. Now try building the website again.
+   
