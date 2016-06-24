@@ -7,6 +7,62 @@
   padding: 0;
 }
 
+button.accordion {
+    background-color: rgba(216, 231, 241, 0.95);
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    border: none;
+    width: 18%;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+
+button.accordion:after {
+    content: '\02795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2796";
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    width: 18%;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 500px;
+}
+
+
+.content {
+  position: relative
+  display: block;
+  max-width: 780px;
+  margin-top: 60px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0px 10px;
+}
+
 body {
   background-color: #fafafa;
   font-family: avenir, sans-serif;
@@ -15,14 +71,13 @@ body {
   line-height: 1.3;
 }
 
-.content {
-  display: block;
-  max-width: 780px;
-  margin-top: 60px;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 0px 10px;
-}
+
+
+a:link    {color:#2E2E2E; background-color:transparent; text-decoration:none}
+a:visited {color:#2E9AFE; background-color:transparent; text-decoration:none}
+a:hover   {color:#2E9AFE; background-color:transparent; text-decoration:underline}
+a:active  {color:rgba(216, 231, 241, 0.95); background-color:transparent; text-decoration:underline}
+
 
 h1, h2, h3, h4, h5, h6{
   font-weight: 300;
