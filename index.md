@@ -1,6 +1,6 @@
 % PyTA Help Documentation
 
-This is some welcome text.
+Welcome to PyTA - Your guide to code in a standard way.
 
 ## Pylint errors {#pylint}
 
