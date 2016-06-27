@@ -6,6 +6,16 @@
    margin: 0;
   padding: 0;
 }
+
+#nav{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  position: fixed;
+  overflow: scroll;
+  top: 0;
+  left: 0;
+}
 button.accordion {
     background-color: rgba(216, 231, 241, 0.95);
     color: black;
