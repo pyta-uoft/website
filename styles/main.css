@@ -73,7 +73,7 @@ body {
 .content {
   display: block;
   max-width: 780px;
-  margin-top: 60px;
+  margin-top: 0px;
   margin-right: auto;
   margin-left: auto;
   padding: 0px 10px;
