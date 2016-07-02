@@ -1546,3 +1546,85 @@ functions exec(), eval() and compile() is not allowed.
 
 ~~~~ {include="dynamic_execution_example"}
 ~~~~
+
+## Syntax errors {#custom}
+
+### E0001: Syntax Error {#E0001}
+
+1. Python error message: "Missing parentheses in call to 'print'"
+This error occurs when you do not use parentheses in call to 'print'.
+
+```python
+print 3   # Error on this line
+```
+
+2. Python error message: "SyntaxError: invalid syntax"
+
+a. Forgetting to put a : at the end of an if, elif, else, for, while, class, 
+or def statement.
+
+```python
+if spam == 42  # Error on this line
+    print('Hello!')
+```
+
+b. Using = instead of == inside a condition expression.
+
+```python
+if spam = 42:  # Error on this line
+    print('Hello!')
+```
+
+c. Forgetting a quote to begin or end a string value.
+```python
+print('Hello!) # Error on this line
+```
+
+d. Trying to use a Python keyword for a variable name.
+
+Here are all the keywords you should avoid:
+
+```
+and       del       from      not       while
+as        elif      global    or        with
+assert    else      if        pass      yield
+break     except    import    print
+class     exec      in        raise
+continue  finally   is        return 
+def       for       lambda    try
+```
+
+```python
+class = 'algebra' # Error on this line
+```
+
+e. There is no ++ increment or –- decrement operator. Do not try to increment 
+or decrement a variable with ++ or --.
+
+```python
+spam = 0
+spam++  # Error on this line
+```
+
+f. You can't assign to literal in python. The variable name is always on the 
+left-hand side. That is what gets assigned to.
+
+A literal is a string, number, tuple, list, dict, boolean, or None. 
+
+```python
+a = 12
+12 = a  # Error on this line
+```
+
+g. Unindent does not match any outer indentation level. There might be spaces 
+mixed in with your tabs. Try doing a search&replace to replace all tabs with 
+a few spaces.
+
+```python
+a = 1
+if 2 < 3:
+    if 1 < 2:
+        a = a + 1
+     else:  # Error on this line
+        a = a - 1
+```
