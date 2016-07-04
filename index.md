@@ -1546,13 +1546,6 @@ which causes the loop to only ever excute once.
 ~~~~ {include="always_returning_example"}
 ~~~~
 
-### E9993: Always returning in a loop {#E9993}
-
-This error occurs when you write an invalid range index like (0, 1).
-
-~~~~ {include="invalid_range_index_example"}
-~~~~
-
 ### E9991: Dynamic Execution {#E9991}
 
 This error occurs when you use a dynamic execution of code. Use of builtin
