@@ -289,127 +289,6 @@ function. See the examples below.
 ~~~~
 
 
-### E0401: Import error {#E0401}
-
-The module is unable to be imported. Check the spelling of the module name, or
-whether the module is in the correct directory.
-
-~~~~ {include="E0401_import_error"}
-~~~~
-
-There are other forms of import statements that may cause this error, for
-example:
-
-```python
-import missing_module as foo  # this module does not exist.
-```
-
-
-### W0406: Import self {#W0406}
-
-A module should not import itself. So for example, if the module is named
-`W0406_import_self` you cannot import it as follows:
-
-~~~~ {include="W0406_import_self"}
-~~~~
-
-
-### W0404: Reimported {#W0404}
-
-A module should not be imported more than once.
-
-~~~~ {include="W0404_reimported"}
-~~~~
-
-
-### W0401: Wildcard import {#W0401}
-
-Only import what you need. Wildcard imports (shown below) are generally
-discouraged because they add all the functions from the imported module into the
-global namespace. Problems can occur when identical names conflict.
-
-~~~~ {include="W0401_wildcard_import"}
-~~~~
-
-Rather than importing everything with wildcard '*', try importing specific
-functions for example:
-
-```python
-from module_name import certain_definition
-```
-
-Or, if you need to import many functions, import them the following way, to
-keep them separated in the namespace by module name. Then you can use the
-function like, module_name.function_name
-
-```python
-import module_name
-```
-
-Or, you can create an alias for module names in the way below. Which can be
-used like: dino.function_name
-
-```python
-import tyrannosaurus_rex as dino
-```
-
-
-### C0411: Wrong import order {#C0411}
-
-Used when PEP8 import order is not respected (do the standard imports first,
-then third-party libraries, then local imports).
-
-~~~~ {include="C0411_wrong_import_order"}
-~~~~
-
-
-### C0413: Wrong import position {#C0413}
-
-Imports should be placed at the top of the module above any other code,
-but below the module docstring.
-
-~~~~ {include="C0413_wrong_import_position"}
-~~~~
-
-
-### C0412: Ungrouped imports {#C0412}
-
-Imports should be grouped by packages.
-
-~~~~ {include="C0412_ungrouped_imports"}
-~~~~
-
-Corrected version:
-
-```python
-from sys import byteorder  # same packages should be grouped
-from sys import stdin  # same packages should be grouped
-from math import floor
-```
-
-
-### C0410: Multiple imports {#C0410}
-
-Don't import multiple modules on one line.
-
-~~~~ {include="C0410_multiple_imports"}
-~~~~
-
-Do this instead:
-
-```python
-import sys
-import math
-```
-
-Although, note that you can import multiple functions on a line, when they are
-from the same module, for example:
-
-```python
-from sys import byteorder, stdin
-```
-
-
 ### W1503: Redundant unittest assert {#W1503}
 
 The first argument of `assertTrue` and `assertFalse` is a "condition", which should
@@ -595,16 +474,6 @@ def is_int(obj):
     """
     return isinstance(obj, int)
 ```
-
-
-### E0101: Return in init {#E0101}
-
-This error occurs when a return statement is used in the `__init__` method.
-The purpose of this method is only to initialize the attributes of an object, and
-it does not return anything directly.
-
-~~~~ {include="E0101_return_in_init"}
-~~~~
 
 
 ### E0102: Function redefined {#E0102}
@@ -840,6 +709,145 @@ is undefined.
 ~~~~
 
 
+## Imports
+
+
+### E9999: Forbidden imports {#E9999}
+
+For your work in CSC148, we expect you to use only the Python language
+features we have covered in lectures, or ones that we have explicitly
+mentioned for an exercise/lab/assignment. No other external libraries
+may be used.
+
+```python
+import copy   # Error on this line
+
+x = [1, 2, 3]
+y = copy.copy(x)
+```
+
+
+### E0401: Import error {#E0401}
+
+The module is unable to be imported. Check the spelling of the module name, or
+whether the module is in the correct directory.
+
+~~~~ {include="E0401_import_error"}
+~~~~
+
+There are other forms of import statements that may cause this error, for
+example:
+
+```python
+import missing_module as foo  # this module does not exist.
+```
+
+
+### W0406: Import self {#W0406}
+
+A module should not import itself. So for example, if the module is named
+`W0406_import_self` you cannot import it as follows:
+
+~~~~ {include="W0406_import_self"}
+~~~~
+
+
+### W0404: Reimported {#W0404}
+
+A module should not be imported more than once.
+
+~~~~ {include="W0404_reimported"}
+~~~~
+
+
+### W0401: Wildcard import {#W0401}
+
+Only import what you need. Wildcard imports (shown below) are generally
+discouraged because they add all the functions from the imported module into the
+global namespace. Problems can occur when identical names conflict.
+
+~~~~ {include="W0401_wildcard_import"}
+~~~~
+
+Rather than importing everything with wildcard '*', try importing specific
+functions for example:
+
+```python
+from module_name import certain_definition
+```
+
+Or, if you need to import many functions, import them the following way, to
+keep them separated in the namespace by module name. Then you can use the
+function like, module_name.function_name
+
+```python
+import module_name
+```
+
+Or, you can create an alias for module names in the way below. Which can be
+used like: dino.function_name
+
+```python
+import tyrannosaurus_rex as dino
+```
+
+
+### C0411: Wrong import order {#C0411}
+
+Used when PEP8 import order is not respected (do the standard imports first,
+then third-party libraries, then local imports).
+
+~~~~ {include="C0411_wrong_import_order"}
+~~~~
+
+
+### C0413: Wrong import position {#C0413}
+
+Imports should be placed at the top of the module above any other code,
+but below the module docstring.
+
+~~~~ {include="C0413_wrong_import_position"}
+~~~~
+
+
+### C0412: Ungrouped imports {#C0412}
+
+Imports should be grouped by packages.
+
+~~~~ {include="C0412_ungrouped_imports"}
+~~~~
+
+Corrected version:
+
+```python
+from sys import byteorder  # same packages should be grouped
+from sys import stdin  # same packages should be grouped
+from math import floor
+```
+
+
+### C0410: Multiple imports {#C0410}
+
+Don't import multiple modules on one line.
+
+~~~~ {include="C0410_multiple_imports"}
+~~~~
+
+Do this instead:
+
+```python
+import sys
+import math
+```
+
+Although, note that you can import multiple functions on a line, when they are
+from the same module, for example:
+
+```python
+from sys import byteorder, stdin
+```
+
+
 ### E0611: No name in module {#E0611}
 
 This error occurs when you are trying to access a variable from an imported
@@ -847,29 +855,6 @@ module, but that variable name could not be found in that referenced module.
 
 ~~~~ {include="E0611_no_name_in_module"}
 ~~~~
-
-
-### W0211: Bad static member {#W0211}
-
-Static methods are methods that do not operate on instances. Including
-one inside a class can be done if you feel the logic belongs inside the
-class and should be encapsulated by it for clarity, but static methods
-mean they do not operate on classes, and therefore 'self' is very likely
-a programming error unless you know what you are doing (and even then,
-it is a bad practice).
-
-When you make a static method, you should not name any variable 'self'
-to avoid confusion.
-
-```python
-class C:
-    def __init__(self):
-        self.num = 5
-
-    @staticmethod
-    def method(self):  # Static methods do not have a 'self'
-        self.num += 1
-```
 
 
 ## Classes and objects
@@ -999,6 +984,16 @@ def ClassWithNoInit:
     def return_forty_two(self):
         return 42
 ```
+
+
+### E0101: Return in `__init__` {#E0101}
+
+This error occurs when a return statement is used in the `__init__` method.
+The purpose of this method is only to initialize the attributes of an object, and
+it does not return anything directly.
+
+~~~~ {include="E0101_return_in_init"}
+~~~~
 
 
 ### W0212: Protected member access {#W0212}
@@ -1236,6 +1231,29 @@ def no_self(num):
 ```
 
 
+### W0211: Bad static member {#W0211}
+
+Static methods are methods that do not operate on instances. Including
+one inside a class can be done if you feel the logic belongs inside the
+class and should be encapsulated by it for clarity, but static methods
+mean they do not operate on classes, and therefore 'self' is very likely
+a programming error unless you know what you are doing (and even then,
+it is a bad practice).
+
+When you make a static method, you should not name any variable 'self'
+to avoid confusion.
+
+```python
+class C:
+    def __init__(self):
+        self.num = 5
+
+    @staticmethod
+    def method(self):  # Static methods do not have a 'self'
+        self.num += 1
+```
+
+
 ## Exceptions
 
 
@@ -1446,20 +1464,6 @@ def throw_exception():
 
 
 ## Custom errors {#custom}
-
-### E9999: Forbidden imports {#E9999}
-
-For your work in CSC148, we expect you to use only the Python language
-features we have covered in lectures, or ones that we have explicitly
-mentioned for an exercise/lab/assignment. No other external libraries
-may be used.
-
-```python
-import copy   # Error on this line
-
-x = [1, 2, 3]
-y = copy.copy(x)
-```
 
 
 ### E9998: Forbidden IO function {#E9998}
