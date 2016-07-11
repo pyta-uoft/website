@@ -577,6 +577,11 @@ Some special methods like `__init__` don't require a docstring.
 This error occurs when a module, function, class or method has an empty
 docstring.
 
+```python
+"""
+"""
+```
+
 ~~~~ {include="C0112_empty_docstring"}
 ~~~~
 
@@ -1459,6 +1464,13 @@ statements to do your work, make sure to remove them before submission.
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
+### E9996: Always returning in a loop {#E9996}
+
+This error occurs when you always return none or an object inside a loop body,
+which causes the loop to only ever excute once.
+
+~~~~ {include="always_returning_example"}
+~~~~
 
 ### E9991: Dynamic Execution {#E9991}
 
