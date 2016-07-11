@@ -446,63 +446,6 @@ Note: the checker limit is 12 branches.
 ~~~~
 
 
-### R0902: Too many instance attributes {#R0902}
-
-The class has too many instance attributes, try to reduce this to get a
-simpler (and easier to use) class.
-
-Note: the limit is checker 7 instance attributes.
-
-~~~~ {include="R0902_too_many_instance_attributes"}
-~~~~
-
-One solution is to logically decompose into more classes, each with fewer
-instance attributes. Then we can use composition to access those attributes in
-another class.
-
-```python
-class Edible(object):
-    """Example with fewer instance attributes."""
-
-    def __init__(self):
-        """Below are the instance attributes:"""
-        self.bread = "Sourdough"
-        self.liquid = "Water"
-
-
-class Ownership(object):
-    """Example with fewer instance attributes."""
-
-    def __init__(self):
-        """Below are the instance attributes:"""
-        self.animal = "Dog"
-        self.clothing = "Shirt"
-
-
-class Description(object):
-    """Example with fewer instance attributes."""
-
-    def __init__(self):
-        """Below are the instance attributes:"""
-        self.colour = "Black"
-        self.shape = "Circle"
-        self.direction = "Up"
-        self.number = 3
-
-
-class Composition(object):
-    """Example showing composition of other classes into instance attributes."""
-
-    def __init__(self):
-        """Construct instance attributes. For example,
-        self.ownership.animal is "Dog"
-        """
-        self.edible = Edible()
-        self.ownership = Ownership()
-        self.description = Description()
-```
-
-
 ### R0914: Too many locals {#R0914}
 
 The function or method has too many local variables.
@@ -906,163 +849,6 @@ module, but that variable name could not be found in that referenced module.
 ~~~~
 
 
-### R0201: No self use {#R0201}
-
-If a method (a function in a class) does not make use of the 'self' (or
-first) argument, that means the function is not performing anything that
-is related to the object itself. This means the function could be moved
-outside of the class since none of the code inside makes use of anything
-inside the class it's defined.
-
-```python
-class NoSelfUsage:
-    def __init__(self):
-        self.a = 42
-
-    def no_self(self, num):
-        num = num + 2
-        print(num)
-
-# You would fix it as follows by moving it outside the class:
-def no_self(num):
-    num = num + 2
-    print(num)
-```
-
-
-### E0202: Method hidden {#E0202}
-
-If you accidentally mask a method with an attribute, it can cause other code
-to attempt to invoke what it believes to be a method, which will fail since
-it has become an attribute instead. This will cause the program
-to raise an error.
-
-```python
-class Example(object):
-    def field(self, num):
-        return num
-    def __init__(self):
-        self.field = 'Masking the function with this string'
-
-# If you call Example().field(num), it will yield an error since we masked it
-```
-
-
-### E0203: Access to member before definition {#E0203}
-
-Before trying to use a member of a class, it should have been defined at
-some point. If you try to use it before assigning to it, Python cannot
-resolve the value and an error will occur.
-
-```python
-class MyClass:
-    def __init__(self):
-        print(self.a)  # Haven't defined self.a yet, can't use
-        self.a = 5
-```
-
-
-### E0211: No method argument {#E0211}
-
-Each method in a class needs to have at least one argument (which is usually
-_self_). Python uses this to call methods, and the first argument is populated
-with the object that is calling the method. This is what allows you to access
-the calling object.
-
-For example, the following two are equivalent:
-
-```python
-class A:
-    def __init__(self):
-        pass
-    def method(self):
-        print('Hi')
-
-a = A()
-a.method()   # Calls 'method' on object 'a' (this is how you should do it).
-A.method(a)  # Also calls 'method' on object 'a' in a different way.
-```
-
-Therefore, if you do not provide any arguments, then Python does not know
-how to pass the object to the method, and it will error out. To fix this,
-put _self_ in the parenthesis for the method call.
-
-```python
-class MyClass:
-    def __init__(self):
-        pass
-    def method():
-        print('Missing argument for method definition')
-```
-
-### E0213: Self as the first argument {#E0213}
-
-The first argument should be the exact word 'self'. This is not an error,
-but it's such a common practice that this is considered an error. The
-following is an example of a good, and bad example:
-
-```python
-class MyClass:
-    def __init__(self):
-        pass
-
-    def methodA(something):  # Should be the argument 'self', not 'something'.
-        pass
-
-    def methodB(self):  # Good.
-        pass
-```
-
-
-### E0239: Inheriting from a non-class {#E0239}
-
-When you inherit, it must come from a class. If you use something that is
-not a class, you won't be able to inherit from it. In the following example,
-trying to inherit from a string is not allowed. While a string is a class,
-this is passing in an object rather than the actual class itself.
-
-```python
-class newclass("str"):
-    pass
-```
-
-
-### E0241: Duplicate bases {#E0241}
-
-When inheriting, you should only specify a class once to inherit from,
-multiple times is an error:
-
-```python
-class A:
-    pass
-
-class B(A, A):  # Only include A once to inherit properly
-    pass
-```
-
-
-### E0302: Unexpected special method signature {#E0302}
-
-Occurs when a special method (has underscores on both sides) does not have
-the expected number of arguments. These special methods have an expected
-signature, and if we create a method with the same name and a different
-amount of arguments, it can cause exceptions to be raised.
-
-```python
-class A:
-    def __init__(self):
-        pass
-    def __str__(self):  # Good, this is what is expected.
-        return 'string'
-
-class B:
-    def __init__(self):
-        pass
-    def __str__(self, a):  # Bad, Python won't know what to put in 'a'.
-        return 'string'
-```
-
-
 ### E0701: Bad exception order {#E0701}
 
 Except blocks are analyzed sequentially (from top to bottom) and the
@@ -1189,36 +975,6 @@ def throw_exception():
 ```
 
 
-### W0201: Attribute defined outside init {#W0201}
-
-Any attribute you define for a class should be created inside the `__init__`
-method. Defining it outside is considered bad practice as you might at
-some point in the future introduce the same attribute in the class, and
-any code that sets values outside may cause the program to break or
-behave in unexpected ways.
-
-Therefore you should always define your variables for the instance to
-occur inside the `__init__` method.
-
-```python
-class MyClass:
-    def __init__(self):
-        self.num = 1
-
-c = MyClass()
-c.other_num = 2  # This should be defined in __init__ first
-```
-
-You should do this instead:
-
-```python
-class MyClass:
-    def __init__(self):
-        self.num = 1
-        self.other_num = 2
-```
-
-
 ### W0211: Bad static member {#W0211}
 
 Static methods are methods that do not operate on instances. Including
@@ -1239,124 +995,6 @@ class C:
     @staticmethod
     def method(self):  # Static methods do not have a 'self'
         self.num += 1
-```
-
-
-### W0212: Protected member access {#W0212}
-
-Variables starting with underscores are a convention that means the field should
-not be accessed outside of the calling class. This encapsulation is a
-hint to the user that they should not change the field as it may be
-critical to the proper functioning of the object. Any field that does
-not have an underscore the user may interact with. Furthermore, this also
-applies to methods with underscores since calling them may also cause
-adverse affects.
-
-If you want to access a field with an underscore, check to see why it is
-an underscore and change it to not having an underscore if you discover
-that it does not need to be hidden from the user. If you are using any
-other class from another developer, then you are assumed to not tamper
-with the internals of their class.
-
-```python
-class MyClass:
-    def __init__(self)
-        self._num = 42
-
-# Should not be calling the underscore field:
-c = MyClass()
-print(c._num)
-```
-
-
-### W0232: No init method {#W0232}
-
-The `__init__` method is invoked when an object is created. Therefore you
-should always have some kind of initialization method for your classes.
-Note that this also applies to classes which have parents who do not
-define their own `__init__` methods.
-
-If you find that you do nothing in the initialization method, then you
-should ask yourself why you are creating the object in the first place.
-If an object does not store any values and you want to pass around a set
-of methods, consider having a function that returns a function or look
-into making a class with purely static methods.
-
-```python
-def ClassWithNoInit:
-    # Missing the __init__ method here
-
-    def return_forty_two(self):
-        return 42
-```
-
-
-### W0222: Different method signature {#W0222}
-
-When declaring a method in a child class, if you're going to provide a
-method name that is the same as a method in the parent class, both the
-parent and child should not differ in their signature (the number of
-arguments).
-
-When you have a method with the same name, the arguments should stay the
-same.
-
-```python
-class Parent:
-    def __init__(self):
-        self.num = 2
-
-    def return_num(self, multiple):
-        return self.num * multiple
-
-class Child(Parent):
-    def __init__(self)
-        Parent.__init__(self)
-
-    def return_num(self):  # Missing argument (to keep signature identical)
-        return 42
-```
-
-
-### W0231: Super init not called {#W0231}
-
-When inheriting from a parent, you need to call the parent's `__init__`
-method using itself as a parameter. The whole goal of extending a class is to be
-a child of the class you extend from, and properties that the parent
-sets in its constructor would not be propagated into the child you are
-creating.
-
-Therefore you must always call the parent initializer.
-
-```python
-class Parent:
-    def __init__(self):
-        self.num = 1
-
-class Child(Parent):
-    def __init__(self):
-        Parent.__init__(self)  # You must have this
-```
-
-
-### W0233: Bad parent init {#W0233}
-
-You should call the `__init__` method of the parent, not some arbitrary and
-unrelated class. To fix this, use the `__init__` from the parent of the class
-you are inheriting from.
-
-```python
-class ClassA:
-    def __init__(self):
-        pass
-
-class Parent:
-    def __init__(self):
-        pass
-
-class Child(Parent):
-    def __init__(self):
-        ClassA.__init__(self)  # Not a child of class A
 ```
 
 
@@ -1437,6 +1075,371 @@ def binary_capture():
         except MyException or MyDoubleException:
                 print('Will not detect MyDoubleException due to how "or" works')
 ```
+
+
+## Classes and objects
+
+### R0902: Too many instance attributes {#R0902}
+
+The class has too many instance attributes, try to reduce this to get a
+simpler (and easier to use) class.
+
+Note: the limit is checker 7 instance attributes.
+
+~~~~ {include="R0902_too_many_instance_attributes"}
+~~~~
+
+One solution is to logically decompose into more classes, each with fewer
+instance attributes. Then we can use composition to access those attributes in
+another class.
+
+```python
+class Edible(object):
+    """Example with fewer instance attributes."""
+
+    def __init__(self):
+        """Below are the instance attributes:"""
+        self.bread = "Sourdough"
+        self.liquid = "Water"
+
+
+class Ownership(object):
+    """Example with fewer instance attributes."""
+
+    def __init__(self):
+        """Below are the instance attributes:"""
+        self.animal = "Dog"
+        self.clothing = "Shirt"
+
+
+class Description(object):
+    """Example with fewer instance attributes."""
+
+    def __init__(self):
+        """Below are the instance attributes:"""
+        self.colour = "Black"
+        self.shape = "Circle"
+        self.direction = "Up"
+        self.number = 3
+
+
+class Composition(object):
+    """Example showing composition of other classes into instance attributes."""
+
+    def __init__(self):
+        """Construct instance attributes. For example,
+        self.ownership.animal is "Dog"
+        """
+        self.edible = Edible()
+        self.ownership = Ownership()
+        self.description = Description()
+```
+
+
+### W0222: Different method signature {#W0222}
+
+When declaring a method in a child class, if you're going to provide a
+method name that is the same as a method in the parent class, both the
+parent and child should not differ in their signature (the number of
+arguments).
+
+When you have a method with the same name, the arguments should stay the
+same.
+
+```python
+class Parent:
+    def __init__(self):
+        self.num = 2
+
+    def return_num(self, multiple):
+        return self.num * multiple
+
+class Child(Parent):
+    def __init__(self)
+        Parent.__init__(self)
+
+    def return_num(self):  # Missing argument (to keep signature identical)
+        return 42
+```
+
+
+### W0231: Super init not called {#W0231}
+
+When inheriting from a parent, you need to call the parent's `__init__`
+method using itself as a parameter. The whole goal of extending a class is to be
+a child of the class you extend from, and properties that the parent
+sets in its constructor would not be propagated into the child you are
+creating.
+
+Therefore you must always call the parent initializer.
+
+```python
+class Parent:
+    def __init__(self):
+        self.num = 1
+
+class Child(Parent):
+    def __init__(self):
+        Parent.__init__(self)  # You must have this
+```
+
+
+### W0232: No init method {#W0232}
+
+The `__init__` method is invoked when an object is created. Therefore you
+should always have some kind of initialization method for your classes.
+Note that this also applies to classes which have parents who do not
+define their own `__init__` methods.
+
+If you find that you do nothing in the initialization method, then you
+should ask yourself why you are creating the object in the first place.
+If an object does not store any values and you want to pass around a set
+of methods, consider having a function that returns a function or look
+into making a class with purely static methods.
+
+```python
+def ClassWithNoInit:
+    # Missing the __init__ method here
+
+    def return_forty_two(self):
+        return 42
+```
+
+
+### W0212: Protected member access {#W0212}
+
+Variables starting with underscores are a convention that means the field should
+not be accessed outside of the calling class. This encapsulation is a
+hint to the user that they should not change the field as it may be
+critical to the proper functioning of the object. Any field that does
+not have an underscore the user may interact with. Furthermore, this also
+applies to methods with underscores since calling them may also cause
+adverse affects.
+
+If you want to access a field with an underscore, check to see why it is
+an underscore and change it to not having an underscore if you discover
+that it does not need to be hidden from the user. If you are using any
+other class from another developer, then you are assumed to not tamper
+with the internals of their class.
+
+```python
+class MyClass:
+    def __init__(self)
+        self._num = 42
+
+# Should not be calling the underscore field:
+c = MyClass()
+print(c._num)
+```
+
+### W0233: Bad parent init {#W0233}
+
+You should call the `__init__` method of the parent, not some arbitrary and
+unrelated class. To fix this, use the `__init__` from the parent of the class
+you are inheriting from.
+
+```python
+class ClassA:
+    def __init__(self):
+        pass
+
+class Parent:
+    def __init__(self):
+        pass
+
+class Child(Parent):
+    def __init__(self):
+        ClassA.__init__(self)  # Not a child of class A
+```
+
+
+### W0201: Attribute defined outside init {#W0201}
+
+Any attribute you define for a class should be created inside the `__init__`
+method. Defining it outside is considered bad practice as you might at
+some point in the future introduce the same attribute in the class, and
+any code that sets values outside may cause the program to break or
+behave in unexpected ways.
+
+Therefore you should always define your variables for the instance to
+occur inside the `__init__` method.
+
+```python
+class MyClass:
+    def __init__(self):
+        self.num = 1
+
+c = MyClass()
+c.other_num = 2  # This should be defined in __init__ first
+```
+
+You should do this instead:
+
+```python
+class MyClass:
+    def __init__(self):
+        self.num = 1
+        self.other_num = 2
+```
+
+
+### E0203: Access to member before definition {#E0203}
+
+Before trying to use a member of a class, it should have been defined at
+some point. If you try to use it before assigning to it, Python cannot
+resolve the value and an error will occur.
+
+```python
+class MyClass:
+    def __init__(self):
+        print(self.a)  # Haven't defined self.a yet, can't use
+        self.a = 5
+```
+
+
+### E0202: Method hidden {#E0202}
+
+If you accidentally mask a method with an attribute, it can cause other code
+to attempt to invoke what it believes to be a method, which will fail since
+it has become an attribute instead. This will cause the program
+to raise an error.
+
+```python
+class Example(object):
+    def field(self, num):
+        return num
+    def __init__(self):
+        self.field = 'Masking the function with this string'
+
+# If you call Example().field(num), it will yield an error since we masked it
+```
+
+
+### E0302: Unexpected special method signature {#E0302}
+
+Occurs when a special method (has underscores on both sides) does not have
+the expected number of arguments. These special methods have an expected
+signature, and if we create a method with the same name and a different
+amount of arguments, it can cause exceptions to be raised.
+
+```python
+class A:
+    def __init__(self):
+        pass
+    def __str__(self):  # Good, this is what is expected.
+        return 'string'
+
+class B:
+    def __init__(self):
+        pass
+    def __str__(self, a):  # Bad, Python won't know what to put in 'a'.
+        return 'string'
+```
+
+
+### E0239: Inheriting from a non-class {#E0239}
+
+When you inherit, it must come from a class. If you use something that is
+not a class, you won't be able to inherit from it. In the following example,
+trying to inherit from a string is not allowed. While a string is a class,
+this is passing in an object rather than the actual class itself.
+
+```python
+class newclass("str"):
+    pass
+```
+
+
+### E0241: Duplicate bases {#E0241}
+
+When inheriting, you should only specify a class once to inherit from,
+multiple times is an error:
+
+```python
+class A:
+    pass
+
+class B(A, A):  # Only include A once to inherit properly
+    pass
+```
+
+
+### E0211: No method argument {#E0211}
+
+Each method in a class needs to have at least one argument (which is usually
+`self`). Python uses this to call methods, and the first argument is populated
+with the object that is calling the method. This is what allows you to access
+the calling object.
+
+For example, the following two are equivalent:
+
+```python
+class A:
+    def __init__(self):
+        pass
+    def method(self):
+        print('Hi')
+
+a = A()
+a.method()   # Calls 'method' on object 'a' (this is how you should do it).
+A.method(a)  # Also calls 'method' on object 'a' in a different way.
+```
+
+Therefore, if you do not provide any arguments, then Python does not know
+how to pass the object to the method, and it will error out. To fix this,
+put`_self` in the parenthesis for the method call.
+
+```python
+class MyClass:
+    def __init__(self):
+        pass
+    def method():
+        print('Missing argument for method definition')
+```
+
+
+### E0213: `self` as the first argument {#E0213}
+
+The first argument should be the exact word 'self'. This is not an error,
+but it's such a common practice that this is considered an error. The
+following is an example of a good, and bad example:
+
+```python
+class MyClass:
+    def __init__(self):
+        pass
+
+    def methodA(something):  # Should be the argument 'self', not 'something'.
+        pass
+
+    def methodB(self):  # Good.
+        pass
+```
+
+
+### R0201: No self use {#R0201}
+
+If a method (a function in a class) does not make use of the 'self' (or
+first) argument, that means the function is not performing anything that
+is related to the object itself. This means the function could be moved
+outside of the class since none of the code inside makes use of anything
+inside the class it's defined.
+
+```python
+class NoSelfUsage:
+    def __init__(self):
+        self.a = 42
+
+    def no_self(self, num):
+        num = num + 2
+        print(num)
+
+# You would fix it as follows by moving it outside the class:
+def no_self(num):
+    num = num + 2
+    print(num)
+```
+
 
 ## Custom errors {#custom}
 
