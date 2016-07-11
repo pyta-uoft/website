@@ -849,132 +849,6 @@ module, but that variable name could not be found in that referenced module.
 ~~~~
 
 
-### E0701: Bad exception order {#E0701}
-
-Except blocks are analyzed sequentially (from top to bottom) and the
-block that meets the criteria for catching the exception first will be
-used. This means if you have a more generic exception type before a
-specific exception type, you will never trigger the code in the block
-that is hidden by the generic exception.
-
-It is also good practice since you want to narrow down the exception
-type to be as specific as possible, since the more generic exception
-may catch other types as well.
-
-```python
-def func(num):
-    try:
-        raise ZeroDivisionError()
-    except Exception:
-        print('This is always triggered')
-    except ZeroDivisionError:
-        print('Cannot ever be reached')
-
-```
-
-
-### E0702: Raising bad type {#E0702}
-
-You have to raise an object that is an exception, you can't raise anything
-like a number. If it does not descend at some point from an Exception class,
-it should not be raised. To solve this issue, extend a new class from the
-Exception class, name it appropriately, and raise that.
-
-```python
-def raise_bad():
-    raise 1
-```
-
-
-### E0704: Misplaced bare raise {#E0704}
-
-When you call _raise_, it's usually to throw an exception. If you are inside
-an 'except' block after you catch an exception, you can continue to pass on
-the exception to later code. You may want to do this if your intention is to
-capture a generated exception, then do something before passing it onwards
-(such as maybe closing a file or some other sensitive operation that must
-be done for program integrity that an exception would break). You can do this
-by calling _raise_ on its own without a class as follows:
-
-```python
-def func():
-    try:
-        raise MyException()
-    except MyException:
-        # Do something important here (if needed).
-        # Now, raise again what we just caught.
-        raise
-```
-
-If you call _raise_ outside of an 'except' block, it can't work because there
-is no exception to throw as seen in the following example:
-
-```python
-def bad_raise()
-    # Bad example, needs to be in an 'except' block:
-    raise
-```
-
-### E0710: Raising non-exception {#E0710}
-
-You cannot raise an object that is not a descendant of Exception (which implies
-being a child of BaseException). Anything you raise must at some point descend
-from a class that inherits exception.
-
-The solution is either to create your own exception, or to find a proper
-exception that best describes the problem.
-
-```python
-class ClassWithNoExceptionParent:
-    def __init__(self):
-        pass
-
-def throw_exception():
-    raise ClassWithNoExceptionParent()
-```
-
-
-### E0711: Bad exception context {#E0711}
-
-NotImplemented is intended to be a return value for methods, such as when you
-create your own comparisons (ex: using `__eq__`), when what you actually want
-is to throw the exception. Forgetting the suffix 'Error' is a common mistake
-and do what you intended.
-
-This is also related to another error where raising a non-exception is not
-allowed.
-
-```python
-def call_exception():
-    raise NotImplemented()
-    # Should be: raise NotImplementedError()
-```
-
-
-### E0712: Catching non-exception {#E0712}
-
-If your 'except' class uses a class that does not inherit from BaseException
-at some point, then you are trying to catch an exception that is not a
-well-defined exception. Your code should only try to catch exceptions
-that extend from BaseException. Python requires you to raise exceptions
-that derive from BaseException, and having a class type that does not extend
-from this and being raised will cause a problem.
-
-```python
-# Notice how it does not extend from Exception (or BaseException for that matter)
-class RandomClass:
-    pass
-
-def throw_exception():
-    try
-        n = 5 / 0  # Will throw a ZeroDivisionError
-    except RandomClass:
-        print('The above does not inherit from BaseException')
-    except ZeroDivisionError:
-        print('Will not be reached due to erroring out earlier')
-```
-
-
 ### W0211: Bad static member {#W0211}
 
 Static methods are methods that do not operate on instances. Including
@@ -995,85 +869,6 @@ class C:
     @staticmethod
     def method(self):  # Static methods do not have a 'self'
         self.num += 1
-```
-
-
-### W0702: Bare exception {#W0702}
-
-While you can catch any exception without specifying a class to catch after
-the `except` keyword, this is bad practice since it will mask other exceptions
-that could appear which you do not want to catch.
-
-Always explicitly name the classes you expect to catch.
-
-```python
-def no_catching():
-    try:
-        raise TypeError()
-    except:
-        print('Requires an exception class')
-```
-
-
-### W0703: Exception is too generic {#W0703}
-
-Similar to exception error W0702, if your exception is too generic then you
-may end up burying errors since they will be always caught. Because of this,
-you should not be using `except Exception` as your except block since it can
-catch exceptions you do not want caught.
-
-```python
-def generic_catch():
-    try:
-        a = 5 / 0
-    except Exception:
-        print('Got exception')
-```
-
-
-### W0705: Duplicate except blocks {#W0705}
-
-When you list an exception to be caught, you should not list it again. Only
-have one block for each exception. This does not include having child and
-parent exceptions, but rather it means don't have `exception MyException`,
-and then later on when listing exceptions you have `exception MyException`
-again.
-
-```python
-def repeat_except_blocks():
-    try:
-        raise Exception()
-    except Exception:
-        print('This is triggered')
-    except Exception:
-        print('Duplicate exception block')
-```
-
-
-### W0711: Binary op exception {#W0711}
-
-The proper way to have an except block catch multiple exceptions is to have
-the exception classes in a tuple. You can incorrectly write an except block
-in Python with multiple classes separated by an _or_ (see example). If you do
-it the second way, the _or_ binary operator will not do what you think it does
--- in fact, the exception on the right side of the _or_ will not be caught and
-proceed to be passed up the call stack (which likely will yield an uncaught
-exception, terminating your program).
-
-```python
-class MyException(Exception):
-        pass
-
-class MyDoubleException(Exception):
-        pass
-
-def binary_capture():
-        try:
-                # Not caught, 'or' doesn't do what you think.
-                # Need to do: except (MyException, MyDoubleException):
-                raise MyDoubleException()
-        except MyException or MyDoubleException:
-                print('Will not detect MyDoubleException due to how "or" works')
 ```
 
 
@@ -1438,6 +1233,215 @@ class NoSelfUsage:
 def no_self(num):
     num = num + 2
     print(num)
+```
+
+
+## Exceptions
+
+
+### W0702: Bare exception {#W0702}
+
+While you can catch any exception without specifying a class to catch after
+the `except` keyword, this is bad practice since it will mask other exceptions
+that could appear which you do not want to catch.
+
+Always explicitly name the classes you expect to catch.
+
+```python
+def no_catching():
+    try:
+        raise TypeError()
+    except:
+        print('Requires an exception class')
+```
+
+
+### W0703: Exception is too generic {#W0703}
+
+Similar to exception error W0702, if your exception is too generic then you
+may end up burying errors since they will be always caught. Because of this,
+you should not be using `except Exception` as your except block since it can
+catch exceptions you do not want caught.
+
+```python
+def generic_catch():
+    try:
+        a = 5 / 0
+    except Exception:
+        print('Got exception')
+```
+
+
+### W0705: Duplicate except blocks {#W0705}
+
+When you list an exception to be caught, you should not list it again. Only
+have one block for each exception. This does not include having child and
+parent exceptions, but rather it means don't have `exception MyException`,
+and then later on when listing exceptions you have `exception MyException`
+again.
+
+```python
+def repeat_except_blocks():
+    try:
+        raise Exception()
+    except Exception:
+        print('This is triggered')
+    except Exception:
+        print('Duplicate exception block')
+```
+
+
+### E0701: Bad exception order {#E0701}
+
+Except blocks are analyzed sequentially (from top to bottom) and the
+block that meets the criteria for catching the exception first will be
+used. This means if you have a more generic exception type before a
+specific exception type, you will never trigger the code in the block
+that is hidden by the generic exception.
+
+It is also good practice since you want to narrow down the exception
+type to be as specific as possible, since the more generic exception
+may catch other types as well.
+
+```python
+def func(num):
+    try:
+        raise ZeroDivisionError()
+    except Exception:
+        print('This is always triggered')
+    except ZeroDivisionError:
+        print('Cannot ever be reached')
+
+```
+
+
+### W0711: Binary op exception {#W0711}
+
+The proper way to have an except block catch multiple exceptions is to have
+the exception classes in a tuple. You can incorrectly write an except block
+in Python with multiple classes separated by an _or_ (see example). If you do
+it the second way, the _or_ binary operator will not do what you think it does
+-- in fact, the exception on the right side of the _or_ will not be caught and
+proceed to be passed up the call stack (which likely will yield an uncaught
+exception, terminating your program).
+
+```python
+class MyException(Exception):
+        pass
+
+class MyDoubleException(Exception):
+        pass
+
+def binary_capture():
+        try:
+                # Not caught, 'or' doesn't do what you think.
+                # Need to do: except (MyException, MyDoubleException):
+                raise MyDoubleException()
+        except MyException or MyDoubleException:
+                print('Will not detect MyDoubleException due to how "or" works')
+```
+
+
+### E0704: Misplaced bare raise {#E0704}
+
+When you call _raise_, it's usually to throw an exception. If you are inside
+an 'except' block after you catch an exception, you can continue to pass on
+the exception to later code. You may want to do this if your intention is to
+capture a generated exception, then do something before passing it onwards
+(such as maybe closing a file or some other sensitive operation that must
+be done for program integrity that an exception would break). You can do this
+by calling _raise_ on its own without a class as follows:
+
+```python
+def func():
+    try:
+        raise MyException()
+    except MyException:
+        # Do something important here (if needed).
+        # Now, raise again what we just caught.
+        raise
+```
+
+If you call _raise_ outside of an 'except' block, it can't work because there
+is no exception to throw as seen in the following example:
+
+```python
+def bad_raise()
+    # Bad example, needs to be in an 'except' block:
+    raise
+```
+
+
+### E0702: Raising bad type {#E0702}
+
+You have to raise an object that is an exception, you can't raise anything
+like a number. If it does not descend at some point from an Exception class,
+it should not be raised. To solve this issue, extend a new class from the
+Exception class, name it appropriately, and raise that.
+
+```python
+def raise_bad():
+    raise 1
+```
+
+
+### E0710: Raising non-exception {#E0710}
+
+You cannot raise an object that is not a descendant of Exception (which implies
+being a child of BaseException). Anything you raise must at some point descend
+from a class that inherits exception.
+
+The solution is either to create your own exception, or to find a proper
+exception that best describes the problem.
+
+```python
+class ClassWithNoExceptionParent:
+    def __init__(self):
+        pass
+
+def throw_exception():
+    raise ClassWithNoExceptionParent()
+```
+
+
+### E0711: Bad exception context {#E0711}
+
+`NotImplemented` is intended to be a return value for methods, such as when you
+create your own comparisons (ex: using `__eq__`), when what you actually want
+is to throw the exception. Forgetting the suffix 'Error' is a common mistake
+and do what you intended.
+
+This is also related to another error where raising a non-exception is not
+allowed.
+
+```python
+def call_exception():
+    raise NotImplemented()
+    # Should be: raise NotImplementedError()
+```
+
+
+### E0712: Catching non-exception {#E0712}
+
+If your 'except' class uses a class that does not inherit from BaseException
+at some point, then you are trying to catch an exception that is not a
+well-defined exception. Your code should only try to catch exceptions
+that extend from BaseException. Python requires you to raise exceptions
+that derive from BaseException, and having a class type that does not extend
+from this and being raised will cause a problem.
+
+```python
+# Notice how it does not extend from Exception (or BaseException for that matter)
+class RandomClass:
+    pass
+
+def throw_exception():
+    try
+        n = 5 / 0  # Will throw a ZeroDivisionError
+    except RandomClass:
+        print('The above does not inherit from BaseException')
+    except ZeroDivisionError:
+        print('Will not be reached due to erroring out earlier')
 ```
 
 
