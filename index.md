@@ -2,173 +2,6 @@
 
 Welcome to PyTA - Your guide to code in a standard way.
 
-## Pylint errors {#pylint}
-
-
-### E1305: Too many format args {#E1305}
-
-This error occurs when you use the `format` method on a string, but call it
-with more arguments than the number of `{}` in the string.
-This error is similar to E1121, meanwhile opposite to E1306.
-
-~~~~ {include="E1305_too_many_format_args"}
-~~~~
-
-Corrected version:
-
-```python
-name = "Amy"
-age = "17"
-country = "England"
-
-s = "{} who is {} lives in {}".format(name, age, country)
-```
-
-
-### E1306: Too few format args {#E1306}
-
-This error occurs when you use the `format` method on a string, but call it
-with fewer arguments than the number of `{}` in the string.
-This error is similar to E1120, meanwhile opposite to E1305.
-
-~~~~ {include="E1306_too_few_format_args"}
-~~~~
-
-Corrected version
-
-```python
-s = "{} and {}".format("first", "second")
-```
-
-
-### E1310: Bad str strip call {#E1310}
-
-This error occurs when you call `strip`, `lstrip`, or `rstrip`, but give it
-an argument string which contains duplicate characters.
-
-The argument string should contain the *distinct* characters that you want to
-remove from the end(s) of a string.
-
-~~~~ {include="E1310_bad_str_strip_call"}
-~~~~
-
-
-### W1303: Missing format argument key {#W1303}
-
-This error occurs when a format string that uses named fields does not
-receive required keywords. This error is similar to E1120 and E1306. In the
-following example, we should assign three values for bond, james and act.
-
-~~~~ {include="W1303_missing_format_argument_key"}
-~~~~
-
-
-### W1305: Format combined specification {#W1305}
-
-This error occurs when a format string contains both automatic field numbering
-(e.g. ‘{}’) and manual field specification (e.g. ‘{0}’).
-For example, we should not use {} and {index} at the same time.
-
-~~~~ {include="W1305_format_combined_specification"}
-~~~~
-
-Corrected versions:
-
-```python
-s = "{} and {}".format("a", "b")
-```
-or
-
-```python
-s = "{0} and {1}".format("a", "b")
-```
-
-
-### W1401: Anomalous backslash in string {#W1401}
-
-This error occurs when a backslash is in a literal string but not as an escape.
-
-~~~~ {include="W1401_anomalous_backslash_in_string"}
-~~~~
-
-
-### W1503: Redundant unittest assert {#W1503}
-
-The first argument of `assertTrue` and `assertFalse` is a "condition", which should
-evaluate to True or False.
-
-These methods evaluate the condition to check whether the test passes or fails.
-The conditions should depend on the code that you are testing, and should not
-be a constant literal like `True` or `4`. Otherwise, the test will always have
-the same result, regardless of whether your code is correct.
-
-~~~~ {include="W1503_redundant_unittest_assert"}
-~~~~
-
-
-### C0123: Unidiomatic type check {#C0123}
-
-This error occurs when type() is used instead of isinstance() for a type check.
-Use `isinstance(x, Y)` instead of `type(x) == Y`.
-
-~~~~ {include="C0123_unidiomatic_typecheck"}
-~~~~
-
-The above can be modified to:
-
-```python
-def is_int(obj):
-    """Check if the given object is of type 'int'.
-
-    @type obj: object
-    @rtype: bool
-    """
-    return isinstance(obj, int)
-```
-
-
-### W0102: Dangerous default value {#W0102}
-
-This error occurs when a mutable value such as a list or dictionary is given a
-default value in the function or method definition. It is dangerous to give
-mutable objects a default value only when the function/method modifies the
-argument. If you modify a default argument, those changes will remain for the
-next time the function is called.
-
-Hence your "empty" list or dictionary will start to contain values on calls
-other than the first call.
-
-~~~~ {include="W0102_dangerous_default_value"}
-~~~~
-
-Though the output to this is be expected to be:
-
-```
-[0, 1, 2, 3, 4]
-[0, 1, 2, 3, 4]
-```
-
-The actual output is:
-
-```
-[0, 1, 2, 3, 4]
-[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
-```
-
-If you want to avoid this situation then, you should use `None` as a default
-value, and then check for this default value inside the function body.
-
-### W0199: Assert on tuple {#W0199}
-
-This error occurs when an "assert" statement is called like `assert (x, y)`.
-`assert` acting on a tuple always returns true if the tuple is non-empty, and
-false if it is empty. If you want to assert that two expressions are true then,
-you should use `assert x, y` instead.
-
-~~~~ {include="W0199_assert_on_tuple"}
-~~~~
-
-
 ## Improper Python usage
 
 
@@ -1492,6 +1325,174 @@ Use of builtin functions `exec`, `eval`, and `compile` is not allowed.
 
 ~~~~ {include="dynamic_execution_example"}
 ~~~~
+
+
+## Miscellaneous
+
+
+### E1305: Too many format args {#E1305}
+
+This error occurs when you use the `format` method on a string, but call it
+with more arguments than the number of `{}` in the string.
+This error is similar to E1121, meanwhile opposite to E1306.
+
+~~~~ {include="E1305_too_many_format_args"}
+~~~~
+
+Corrected version:
+
+```python
+name = "Amy"
+age = "17"
+country = "England"
+
+s = "{} who is {} lives in {}".format(name, age, country)
+```
+
+
+### E1306: Too few format args {#E1306}
+
+This error occurs when you use the `format` method on a string, but call it
+with fewer arguments than the number of `{}` in the string.
+This error is similar to E1120, meanwhile opposite to E1305.
+
+~~~~ {include="E1306_too_few_format_args"}
+~~~~
+
+Corrected version
+
+```python
+s = "{} and {}".format("first", "second")
+```
+
+
+### E1310: Bad str strip call {#E1310}
+
+This error occurs when you call `strip`, `lstrip`, or `rstrip`, but give it
+an argument string which contains duplicate characters.
+
+The argument string should contain the *distinct* characters that you want to
+remove from the end(s) of a string.
+
+~~~~ {include="E1310_bad_str_strip_call"}
+~~~~
+
+
+### W1303: Missing format argument key {#W1303}
+
+This error occurs when a format string that uses named fields does not
+receive required keywords. This error is similar to E1120 and E1306. In the
+following example, we should assign three values for bond, james and act.
+
+~~~~ {include="W1303_missing_format_argument_key"}
+~~~~
+
+
+### W1305: Format combined specification {#W1305}
+
+This error occurs when a format string contains both automatic field numbering
+(e.g. ‘{}’) and manual field specification (e.g. ‘{0}’).
+For example, we should not use {} and {index} at the same time.
+
+~~~~ {include="W1305_format_combined_specification"}
+~~~~
+
+Corrected versions:
+
+```python
+s = "{} and {}".format("a", "b")
+```
+or
+
+```python
+s = "{0} and {1}".format("a", "b")
+```
+
+
+### W1401: Anomalous backslash in string {#W1401}
+
+This error occurs when a backslash is in a literal string but not as an escape.
+
+~~~~ {include="W1401_anomalous_backslash_in_string"}
+~~~~
+
+
+### W1503: Redundant unittest assert {#W1503}
+
+The first argument of `assertTrue` and `assertFalse` is a "condition", which should
+evaluate to True or False.
+
+These methods evaluate the condition to check whether the test passes or fails.
+The conditions should depend on the code that you are testing, and should not
+be a constant literal like `True` or `4`. Otherwise, the test will always have
+the same result, regardless of whether your code is correct.
+
+~~~~ {include="W1503_redundant_unittest_assert"}
+~~~~
+
+
+### C0123: Unidiomatic type check {#C0123}
+
+This error occurs when type() is used instead of isinstance() for a type check.
+Use `isinstance(x, Y)` instead of `type(x) == Y`.
+
+~~~~ {include="C0123_unidiomatic_typecheck"}
+~~~~
+
+The above can be modified to:
+
+```python
+def is_int(obj):
+    """Check if the given object is of type 'int'.
+
+    @type obj: object
+    @rtype: bool
+    """
+    return isinstance(obj, int)
+```
+
+
+### W0102: Dangerous default value {#W0102}
+
+This error occurs when a mutable value such as a list or dictionary is given a
+default value in the function or method definition. It is dangerous to give
+mutable objects a default value only when the function/method modifies the
+argument. If you modify a default argument, those changes will remain for the
+next time the function is called.
+
+Hence your "empty" list or dictionary will start to contain values on calls
+other than the first call.
+
+~~~~ {include="W0102_dangerous_default_value"}
+~~~~
+
+Though the output to this is be expected to be:
+
+```
+[0, 1, 2, 3, 4]
+[0, 1, 2, 3, 4]
+```
+
+The actual output is:
+
+```
+[0, 1, 2, 3, 4]
+[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+```
+
+If you want to avoid this situation then, you should use `None` as a default
+value, and then check for this default value inside the function body.
+
+### W0199: Assert on tuple {#W0199}
+
+This error occurs when an "assert" statement is called like `assert (x, y)`.
+`assert` acting on a tuple always returns true if the tuple is non-empty, and
+false if it is empty. If you want to assert that two expressions are true then,
+you should use `assert x, y` instead.
+
+~~~~ {include="W0199_assert_on_tuple"}
+~~~~
+
 
 ## Syntax errors {#custom}
 
