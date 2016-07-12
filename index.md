@@ -4,38 +4,6 @@ Welcome to PyTA - Your guide to code in a standard way.
 
 ## Pylint errors {#pylint}
 
-### R0101: Too many nested blocks {#R0101}
-
-This error occurs when you have more than three levels of nested blocks in your code.
-This type of nesting is a sign that your function is too complex,
-and should be broken down using helper functions.
-
-Note: this checker doesn't include function or class definition
-as a block, so the example below is considered to have *four* nested blocks,
-not five.
-
-Note: we set a limit of three nested if blocks.
-
-~~~~ {include="R0101_too_many_nested_blocks"}
-~~~~
-
-
-### R0102: Simplifiable if statement {#R0102}
-
-This error occurs when you have an `if` statement that can be simplified
-simply by using the value of the condition, rather than putting in extra
-`True` and `False` literals.
-
-~~~~ {include="R0102_simplifiable_if_statement"}
-~~~~
-
-The above example can be simplified to:
-
-```python
-def is_even(num):
-    """Return whether <num> is even or odd."""
-    return num % 2 == 0
-```
 
 ### E1305: Too many format args {#E1305}
 
@@ -138,51 +106,6 @@ the same result, regardless of whether your code is correct.
 ~~~~
 
 
-### R0913: Too many arguments {#R0913}
-
-The function or method is defined with too many arguments.
-This is a sign that the function/method is too complex, and should be split up.
-
-Note: the checker limit is 5 arguments.
-
-~~~~ {include="R0913_too_many_arguments"}
-~~~~
-
-
-### R0912: Too many branches {#R0912}
-
-The function or method has too many branches, making it hard to follow.
-This is a sign that the function/method is too complex, and should be split up.
-
-Note: the checker limit is 12 branches.
-
-~~~~ {include="R0912_too_many_branches"}
-~~~~
-
-
-### R0914: Too many locals {#R0914}
-
-The function or method has too many local variables.
-
-Note: the checker limit is 15 local variables.
-
-~~~~ {include="R0914_too_many_locals"}
-~~~~
-
-
-### R0915: Too many statements {#R0915}
-
-The function or method has too many statements. You should then split it
-in smaller functions/methods.
-
-Note: comments do not count as statements.
-
-Note: the checker limit is 50 statements.
-
-~~~~ {include="R0915_too_many_statements"}
-~~~~
-
-
 ### C0102: Blacklisted name {#C0102}
 
 This error occurs when a variable name is listed in the black list. The black
@@ -241,53 +164,6 @@ docstring.
 
 ~~~~ {include="C0112_empty_docstring"}
 ~~~~
-
-
-### C0113: Unneeded not {#C0113}
-
-This error occurs when a boolean expression contains an unneeded negation. If
-you are getting this error, the expression can be simplified to not use a
-negation.
-
-~~~~ {include="C0113_unneeded_not"}
-~~~~
-
-The above can be modified to:
-
-```python
-def is_true():
-    """
-    @rtype: bool
-    """
-    temp = 5
-    if temp <= 3:
-        return False
-    else:
-        return True
-```
-
-
-### C0121: Singleton comparison {#C0121}
-
-This is an error that occurs when an expression is compared to singleton values
-like True, False or None.
-
-~~~~ {include="C0121_singleton_comparison"}
-~~~~
-
-The above can be modified to:
-
-```python
-def is_true():
-    """
-    @rtype: bool
-    """
-    temp = 5
-    if temp is None:
-        return False
-    else:
-        return True
-```
 
 
 ### C0123: Unidiomatic type check {#C0123}
@@ -393,47 +269,12 @@ The actual output is:
 If you want to avoid this situation then, you should use `None` as a default
 value, and then check for this default value inside the function body.
 
-### W0104: Pointless statement {#W0104}
-
-This error occurs when a statement doesn't have any effect.
-This means that the statement could be removed without changing the behaviour
-of the program.
-This is likely not what was intended.
-
-~~~~ {include="W0104_pointless_statement"}
-~~~~
-
-
-### W0107: Unnecessary pass {#W0107}
-
-This error occurs when a `pass` statement is used that can be avoided (or has
-no effect). If you are able to remove the `pass` statement without changing the
-effect of the program, then the statement is "unnecessary" and can be avoided.
-
-~~~~ {include="W0107_unnecessary_pass"}
-~~~~
-
-In the above example, the `pass` statement is "unnecessary" as the program's
-effect is not changed if `pass` is removed.
-
-
 ### W0109: Duplicate key {#W0109}
 
 This error occurs when a dictionary expression binds the same key multiple
 times.
 
 ~~~~ {include="W0109_duplicate_key"}
-~~~~
-
-
-### W0125: Using constant test {#W0125}
-
-This error occurs when a conditional statement like an `if` statement uses a
-constant value for its test. This is bad as the conditional statements using a
-constant test always evaluate to the same value. In such a case, a conditional
-statement should not be used, because the same branch will always execute.
-
-~~~~ {include="W0125_using_constant_test"}
 ~~~~
 
 
@@ -464,22 +305,6 @@ This error occurs when you are using a variable that has not been defined.
 ~~~~
 
 
-### W0612: Unused variable {#W0612}
-
-This error occurs when you have a defined variable that is never used.
-
-~~~~ {include="W0612_unused_variable"}
-~~~~
-
-
-### W0613: Unused argument {#W0613}
-
-This error occurs when a function argument is never used in the function.
-
-~~~~ {include="W0613_unused_argument"}
-~~~~
-
-
 ### W0621: Redefined outer name {#W0621}
 
 This error occurs when you are trying to redefine a variable name that has
@@ -506,6 +331,185 @@ is undefined.
 
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
+
+
+## Code complexity
+
+### R0102: Simplifiable if statement {#R0102}
+
+This error occurs when you have an `if` statement that can be simplified
+simply by using the value of the condition, rather than putting in extra
+`True` and `False` literals.
+
+~~~~ {include="R0102_simplifiable_if_statement"}
+~~~~
+
+The above example can be simplified to:
+
+```python
+def is_even(num):
+    """Return whether <num> is even or odd."""
+    return num % 2 == 0
+```
+
+
+### C0113: Unneeded not {#C0113}
+
+This error occurs when a boolean expression contains an unneeded negation. If
+you are getting this error, the expression can be simplified to not use a
+negation.
+
+~~~~ {include="C0113_unneeded_not"}
+~~~~
+
+The above can be modified to:
+
+```python
+def is_true():
+    """
+    @rtype: bool
+    """
+    temp = 5
+    if temp <= 3:
+        return False
+    else:
+        return True
+```
+
+
+### C0121: Singleton comparison {#C0121}
+
+This is an error that occurs when an expression is compared to singleton values
+like True, False or None.
+
+~~~~ {include="C0121_singleton_comparison"}
+~~~~
+
+The above can be modified to:
+
+```python
+def is_true():
+    """
+    @rtype: bool
+    """
+    temp = 5
+    if temp is None:
+        return False
+    else:
+        return True
+```
+
+
+### W0125: Using constant test {#W0125}
+
+This error occurs when a conditional statement like an `if` statement uses a
+constant value for its test. This is bad as the conditional statements using a
+constant test always evaluate to the same value. In such a case, a conditional
+statement should not be used, because the same branch will always execute.
+
+~~~~ {include="W0125_using_constant_test"}
+~~~~
+
+
+### R0912: Too many branches {#R0912}
+
+The function or method has too many branches, making it hard to follow.
+This is a sign that the function/method is too complex, and should be split up.
+
+Note: the checker limit is 12 branches.
+
+~~~~ {include="R0912_too_many_branches"}
+~~~~
+
+
+### R0101: Too many nested blocks {#R0101}
+
+This error occurs when you have more than three levels of nested blocks in your code.
+This type of nesting is a sign that your function is too complex,
+and should be broken down using helper functions.
+
+Note: this checker doesn't include function or class definition
+as a block, so the example below is considered to have *four* nested blocks,
+not five.
+
+Note: we set a limit of three nested if blocks.
+
+~~~~ {include="R0101_too_many_nested_blocks"}
+~~~~
+
+
+### R0913: Too many arguments {#R0913}
+
+The function or method is defined with too many arguments.
+This is a sign that the function/method is too complex, and should be split up.
+
+Note: the checker limit is 5 arguments.
+
+~~~~ {include="R0913_too_many_arguments"}
+~~~~
+
+
+### R0914: Too many locals {#R0914}
+
+The function or method has too many local variables.
+
+Note: the checker limit is 15 local variables.
+
+~~~~ {include="R0914_too_many_locals"}
+~~~~
+
+
+### R0915: Too many statements {#R0915}
+
+The function or method has too many statements. You should then split it
+in smaller functions/methods.
+
+Note: comments do not count as statements.
+
+Note: the checker limit is 50 statements.
+
+~~~~ {include="R0915_too_many_statements"}
+~~~~
+
+
+### W0612: Unused variable {#W0612}
+
+This error occurs when you have a defined variable that is never used.
+
+~~~~ {include="W0612_unused_variable"}
+~~~~
+
+
+### W0613: Unused argument {#W0613}
+
+This error occurs when a function argument is never used in the function.
+
+~~~~ {include="W0613_unused_argument"}
+~~~~
+
+
+### W0104: Pointless statement {#W0104}
+
+This error occurs when a statement doesn't have any effect.
+This means that the statement could be removed without changing the behaviour
+of the program.
+This is likely not what was intended.
+
+~~~~ {include="W0104_pointless_statement"}
+~~~~
+
+
+### W0107: Unnecessary pass {#W0107}
+
+This error occurs when a `pass` statement is used that can be avoided (or has
+no effect). If you are able to remove the `pass` statement without changing the
+effect of the program, then the statement is "unnecessary" and can be avoided.
+
+~~~~ {include="W0107_unnecessary_pass"}
+~~~~
+
+In the above example, the `pass` statement is "unnecessary" as the program's
+effect is not changed if `pass` is removed.
 
 
 ## Type errors
