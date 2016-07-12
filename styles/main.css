@@ -125,12 +125,12 @@ code {
 pre code {
   font-family: 'Inconsolata';
   font-size: 14px;
-  padding: 6px 0px;
+  padding: 6px;
   border-radius: 4px;
   background: none;
   white-space: pre;
   display: block;
-  margin: 20px;
+  overflow-x: auto;
 }
 
 form input, form textarea {
