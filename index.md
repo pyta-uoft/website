@@ -106,66 +106,6 @@ the same result, regardless of whether your code is correct.
 ~~~~
 
 
-### C0102: Blacklisted name {#C0102}
-
-This error occurs when a variable name is listed in the black list. The black
-list includes names:
-
- - foo
- - bar
- - baz
- - toto
- - tutu
- - tata
-
-You should always use meaningful variable names.
-
-~~~~ {include="C0102_blacklisted_name"}
-~~~~
-
-
-### C0103: Invalid Name {#C0103}
-
-This error occurs when a name does not follow the format associated with to its type (constant, variable ...).
-
-- Variable/Attribute/Method/Argument: All variable/attribute/method/argument names should be in
-**lowercase_with_underscores**.
-
-- Constant: All constant names should be in **ALL_CAPS_WITH_UNDERSCORES**.
-
-- Class: All class names should be in **CamelCase**.
-
-A special character accepted in all types of names is '_'.
-
-Numbers are allowed in all names, but names should not begin with a number.
-
-~~~~ {include="C0103_invalid_name"}
-~~~~
-
-
-### C0111: Missing Docstring {#C0111}
-
-This error occurs when a module, function, class or method has no docstring.
-Some special methods like `__init__` don't require a docstring.
-
-~~~~ {include="C0111_missing_docstring"}
-~~~~
-
-
-### C0112: Empty Docstring {#C0112}
-
-This error occurs when a module, function, class or method has an empty
-docstring.
-
-```python
-"""
-"""
-```
-
-~~~~ {include="C0112_empty_docstring"}
-~~~~
-
-
 ### C0123: Unidiomatic type check {#C0123}
 
 This error occurs when type() is used instead of isinstance() for a type check.
@@ -187,16 +127,6 @@ def is_int(obj):
 ```
 
 
-### E0102: Function redefined {#E0102}
-
-This error occurs when a function, class or method is redefined. If you are
-getting this error, you should make sure all the functions, methods and classes
-you define have different names.
-
-~~~~ {include="E0102_function_redefined"}
-~~~~
-
-
 ### E0103: Not in loop {#E0103}
 
 This error occurs when `break` and `continue` keywords are used outside loops.
@@ -215,16 +145,6 @@ method. If you are getting this error, please check the indentation levels in
 your code carefully.
 
 ~~~~ {include="E0104_return_outside_function"}
-~~~~
-
-
-### E0108: Duplicate argument name {#E0108}
-
-This error occurs if there are duplicate parameter names in function
-definitions. All parameters must have distinct names so you can refer to each
-one separately in the function body.
-
-~~~~ {include="E0108_duplicate_argument_name"}
 ~~~~
 
 
@@ -302,25 +222,6 @@ This error occurs when you are using a variable before its assignment.
 This error occurs when you are using a variable that has not been defined.
 
 ~~~~ {include="E0602_undefined_variable"}
-~~~~
-
-
-### W0621: Redefined outer name {#W0621}
-
-This error occurs when you are trying to redefine a variable name that has
-already been defined in the outer scope. For example, this error will occurs
-when you have a local name identical to a global name. The local name takes
-precedence. but it hides the global name, makes it no longer accessible.
-
-~~~~ {include="W0621_redefined_outer_name"}
-~~~~
-
-
-### W0622: Redefined builtin {#W0622}
-
-This error occurs when you are trying to redefine a built-in function.
-
-~~~~ {include="W0622_redefined_builtin"}
 ~~~~
 
 
@@ -696,6 +597,107 @@ if in an unpacking assignment, the unpacked result is None, then it is not
 a sequence and will raise this error.
 
 ~~~~ {include="E0633_unpacking_non_sequence"}
+~~~~
+
+
+## Documentation and naming
+
+### C0111: Missing Docstring {#C0111}
+
+This error occurs when a module, function, class or method has no docstring.
+Some special methods like `__init__` don't require a docstring.
+
+~~~~ {include="C0111_missing_docstring"}
+~~~~
+
+
+### C0112: Empty Docstring {#C0112}
+
+This error occurs when a module, function, class or method has an empty
+docstring.
+
+```python
+"""
+"""
+```
+
+~~~~ {include="C0112_empty_docstring"}
+~~~~
+
+
+### C0102: Blacklisted name {#C0102}
+
+This error occurs when a variable name is listed in the black list. The black
+list includes names:
+
+ - foo
+ - bar
+ - baz
+ - toto
+ - tutu
+ - tata
+
+You should always use meaningful variable names.
+
+~~~~ {include="C0102_blacklisted_name"}
+~~~~
+
+
+### C0103: Invalid Name {#C0103}
+
+This error occurs when a name does not follow the format associated with to its type (constant, variable ...).
+
+- Variable/Attribute/Method/Argument: All variable/attribute/method/argument names should be in
+**lowercase_with_underscores**.
+
+- Constant: All constant names should be in **ALL_CAPS_WITH_UNDERSCORES**.
+
+- Class: All class names should be in **CamelCase**.
+
+A special character accepted in all types of names is '_'.
+
+Numbers are allowed in all names, but names should not begin with a number.
+
+~~~~ {include="C0103_invalid_name"}
+~~~~
+
+
+### E0102: Function redefined {#E0102}
+
+This error occurs when a function, class or method is redefined. If you are
+getting this error, you should make sure all the functions, methods and classes
+you define have different names.
+
+~~~~ {include="E0102_function_redefined"}
+~~~~
+
+
+### E0108: Duplicate argument name {#E0108}
+
+This error occurs if there are duplicate parameter names in function
+definitions. All parameters must have distinct names so you can refer to each
+one separately in the function body.
+
+~~~~ {include="E0108_duplicate_argument_name"}
+~~~~
+
+
+### W0621: Redefined outer name {#W0621}
+
+This error occurs when you are trying to redefine a variable name that has
+already been defined in the outer scope. For example, this error will occurs
+when you have a local name identical to a global name. The local name takes
+precedence. but it hides the global name, makes it no longer accessible.
+
+~~~~ {include="W0621_redefined_outer_name"}
+~~~~
+
+
+### W0622: Redefined builtin {#W0622}
+
+This error occurs when you are trying to redefine a built-in function.
+
+~~~~ {include="W0622_redefined_builtin"}
 ~~~~
 
 
