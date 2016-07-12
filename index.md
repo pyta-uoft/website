@@ -37,162 +37,6 @@ def is_even(num):
     return num % 2 == 0
 ```
 
-### E1101: No member {#E1101}
-
-This error occurs when you use dot notation (`my_var.x`) to access an attribute
-or to call a method which does not exist for the given value.
-
-~~~~ {include="E1101_no_member"}
-~~~~
-
-
-### E1102: Not callable {#E1102}
-
-This error occurs when you try to call a value which is not a function.
-In the following example, we should not call `x()` because `x` refers to
-a value which is an integer, not a function.
-
-~~~~ {include="E1102_not_callable"}
-~~~~
-
-
-### E1111: Assignment from no return {#E1111}
-
-This error occurs when you assign a variable the return value of a function call,
-but the function never returns anything.
-This error is similar to E1128. In the following example,
-f() does not return anything. As a result, `x` always gets the value `None`.
-
-~~~~ {include="E1111_assignment_from_no_return"}
-~~~~
-
-
-### E1120: No value for parameter {#E1120}
-
-A function must be called with one argument value per parameter in its header.
-This error indicates you called a function with too few arguments.
-In the following example, there should be three values passed to the function
-instead of two.
-
-~~~~ {include="E1120_no_value_for_parameter"}
-~~~~
-
-Corrected version:
-
-```python
-get_sum(1, 2, 3)
-```
-
-
-### E1121: Too many function args {#E1121}
-
-A function must be called with one argument value per parameter in its header.
-This error indicates you called a function with too many arguments.
-
-~~~~ {include="E1121_too_many_function_args"}
-~~~~
-
-Corrected version:
-
-```python
-get_sum(1, 2)
-```
-
-
-### E1126: Invalid sequence index {#E1126}
-
-This error occurs when a list or tuple is indexed using the square bracket notation
-`my_list[...]`, but the value of the index is not an integer.
-
-Remember that the index tells the *position* in the list/tuple of the item to get.
-
-~~~~ {include="E1126_invalid_sequence_index"}
-~~~~
-
-Corrected version:
-
-```python
-a = ['p', 'y', 'T', 'A']
-print(a[0])
-```
-
-
-### E1127: Invalid slice index {#E1127}
-
-This error occurs when a list or tuple is sliced using the square bracket notation
-`my_list[... : ...]`, but the two values on the left and right of the colon
-are not integers.
-
-Remember that the slice numbers tell the *start* and *stop* positions for
-the slice in the list/tuple to get.
-
-~~~~ {include="E1127_invalid_slice_index"}
-~~~~
-
-Corrected version:
-
-```python
-a = ['p', 'y', 'T', 'A']
-print(a[0:3])
-```
-
-
-### E1128: Assignment from none {#E1128}
-
-This error occurs when you assign a variable the return value of a function call,
-but the function always returns `None`.
-This error is similar to E1111.
-In the following example, `f` always returns `None`. As a result, `x` will always
-get the value `None`.
-
-~~~~ {include="E1128_assignment_from_none"}
-~~~~
-
-
-### E1130: Invalid unary operand type {#E1130}
-
-This error occurs when the unary operand on the objects does not support this
-type of operation. For example, we should never add string to integer.
-
-~~~~ {include="E1130_invalid_unary_operand_type"}
-~~~~
-
-
-### E1131: Unsupported binary operation {#E1131}
-
-This error occurs when you use a binary arithmetic operator like `+` or `*`,
-but the left and right sides are not compatible types.
-For example, a dictionary cannot be added to a list.
-
-~~~~ {include="E1131_unsupported_binary_operation"}
-~~~~
-
-
-### E1135: Unsupported membership test {#E1135}
-
-This error occurs when you use the membership test `a in b`, but the `b`'s type
-does not support this type of check.
-
-The standard Python types which support this check are strings, lists, tuples,
-and dictionaries.
-
-~~~~ {include="E1135_unsupported_membership_test"}
-~~~~
-
-
-### E1136: Unsubscriptable object {#E1136}
-
-This error occurs when you try to index a value using square brackets (`a[...]`),
-but the type of `a` does not support indexing (or "subscripting").
-
-The standard Python types which support indexing are strings, lists, tuples,
-and dictionaries.
-
-
-~~~~ {include="E1136_unsubscriptable_object"}
-~~~~
-
-
 ### E1305: Too many format args {#E1305}
 
 This error occurs when you use the `format` method on a string, but call it
@@ -277,15 +121,6 @@ s = "{0} and {1}".format("a", "b")
 This error occurs when a backslash is in a literal string but not as an escape.
 
 ~~~~ {include="W1401_anomalous_backslash_in_string"}
-~~~~
-
-
-### R0204: Redefined variable type {#R0204}
-
-This error occurs when the type of a variable changes inside a method or a
-function. See the examples below.
-
-~~~~ {include="R0204_redefined_variable_type"}
 ~~~~
 
 
@@ -629,42 +464,6 @@ This error occurs when you are using a variable that has not been defined.
 ~~~~
 
 
-### E0611: No name in module {#E0611}
-
-This error occurs when you are trying to access a variable from an imported
-module, but that variable name could not be found in that referenced module.
-
-~~~~ {include="E0611_no_name_in_module"}
-~~~~
-
-
-### E0632: Unbalanced tuple unpacking {#E0632}
-
-This error occurs when you have an unbalance unpacking assignment with a
-sequence.
-
-~~~~ {include="E0632_unbalanced_tuple_unpacking"}
-~~~~
-
-
-### E0633: Unpacking non sequence {#E0633}
-
-This error occurs when the unpacked result is not a sequence. For example,
-if in an unpacking assignment, the unpacked result is None, then it is not
-a sequence and will raise this error.
-
-~~~~ {include="E0633_unpacking_non_sequence"}
-~~~~
-
-
-### W0611: Unused import {#W0611}
-
-This error occurs when you have a imported module that is unused in your code.
-
-~~~~ {include="W0611_unused_import"}
-~~~~
-
-
 ### W0612: Unused variable {#W0612}
 
 This error occurs when you have a defined variable that is never used.
@@ -706,6 +505,193 @@ This error occurs when a loop variable is possibly used outside the loop that
 is undefined.
 
 ~~~~ {include="W0631_undefined_loop_variable"}
+~~~~
+
+
+## Type errors
+
+
+### E1101: No member {#E1101}
+
+This error occurs when you use dot notation (`my_var.x`) to access an attribute
+or to call a method which does not exist for the given value.
+
+~~~~ {include="E1101_no_member"}
+~~~~
+
+
+### E1102: Not callable {#E1102}
+
+This error occurs when you try to call a value which is not a function.
+In the following example, we should not call `x()` because `x` refers to
+a value which is an integer, not a function.
+
+~~~~ {include="E1102_not_callable"}
+~~~~
+
+
+### E1111: Assignment from no return {#E1111}
+
+This error occurs when you assign a variable the return value of a function call,
+but the function never returns anything.
+This error is similar to E1128. In the following example,
+f() does not return anything. As a result, `x` always gets the value `None`.
+
+~~~~ {include="E1111_assignment_from_no_return"}
+~~~~
+
+
+### E1120: No value for parameter {#E1120}
+
+A function must be called with one argument value per parameter in its header.
+This error indicates you called a function with too few arguments.
+In the following example, there should be three values passed to the function
+instead of two.
+
+~~~~ {include="E1120_no_value_for_parameter"}
+~~~~
+
+Corrected version:
+
+```python
+get_sum(1, 2, 3)
+```
+
+
+### E1121: Too many function args {#E1121}
+
+A function must be called with one argument value per parameter in its header.
+This error indicates you called a function with too many arguments.
+
+~~~~ {include="E1121_too_many_function_args"}
+~~~~
+
+Corrected version:
+
+```python
+get_sum(1, 2)
+```
+
+
+### E1126: Invalid sequence index {#E1126}
+
+This error occurs when a list or tuple is indexed using the square bracket notation
+`my_list[...]`, but the value of the index is not an integer.
+
+Remember that the index tells the *position* in the list/tuple of the item to get.
+
+~~~~ {include="E1126_invalid_sequence_index"}
+~~~~
+
+Corrected version:
+
+```python
+a = ['p', 'y', 'T', 'A']
+print(a[0])
+```
+
+
+### E1127: Invalid slice index {#E1127}
+
+This error occurs when a list or tuple is sliced using the square bracket notation
+`my_list[... : ...]`, but the two values on the left and right of the colon
+are not integers.
+
+Remember that the slice numbers tell the *start* and *stop* positions for
+the slice in the list/tuple to get.
+
+~~~~ {include="E1127_invalid_slice_index"}
+~~~~
+
+Corrected version:
+
+```python
+a = ['p', 'y', 'T', 'A']
+print(a[0:3])
+```
+
+
+### E1128: Assignment from none {#E1128}
+
+This error occurs when you assign a variable the return value of a function call,
+but the function always returns `None`.
+This error is similar to E1111.
+In the following example, `f` always returns `None`. As a result, `x` will always
+get the value `None`.
+
+~~~~ {include="E1128_assignment_from_none"}
+~~~~
+
+
+### E1130: Invalid unary operand type {#E1130}
+
+This error occurs when the unary operand on the objects does not support this
+type of operation. For example, we should never add string to integer.
+
+~~~~ {include="E1130_invalid_unary_operand_type"}
+~~~~
+
+
+### E1131: Unsupported binary operation {#E1131}
+
+This error occurs when you use a binary arithmetic operator like `+` or `*`,
+but the left and right sides are not compatible types.
+For example, a dictionary cannot be added to a list.
+
+~~~~ {include="E1131_unsupported_binary_operation"}
+~~~~
+
+
+### E1135: Unsupported membership test {#E1135}
+
+This error occurs when you use the membership test `a in b`, but the `b`'s type
+does not support this type of check.
+
+The standard Python types which support this check are strings, lists, tuples,
+and dictionaries.
+
+~~~~ {include="E1135_unsupported_membership_test"}
+~~~~
+
+
+### E1136: Unsubscriptable object {#E1136}
+
+This error occurs when you try to index a value using square brackets (`a[...]`),
+but the type of `a` does not support indexing (or "subscripting").
+
+The standard Python types which support indexing are strings, lists, tuples,
+and dictionaries.
+
+
+~~~~ {include="E1136_unsubscriptable_object"}
+~~~~
+
+
+### R0204: Redefined variable type {#R0204}
+
+This error occurs when the type of a variable changes inside a method or a
+function. See the examples below.
+
+~~~~ {include="R0204_redefined_variable_type"}
+~~~~
+
+
+### E0632: Unbalanced tuple unpacking {#E0632}
+
+This error occurs when you have an unbalance unpacking assignment with a
+sequence.
+
+~~~~ {include="E0632_unbalanced_tuple_unpacking"}
+~~~~
+
+
+### E0633: Unpacking non sequence {#E0633}
+
+This error occurs when the unpacked result is not a sequence. For example,
+if in an unpacking assignment, the unpacked result is None, then it is not
+a sequence and will raise this error.
+
+~~~~ {include="E0633_unpacking_non_sequence"}
 ~~~~
 
 
@@ -854,6 +840,14 @@ This error occurs when you are trying to access a variable from an imported
 module, but that variable name could not be found in that referenced module.
 
 ~~~~ {include="E0611_no_name_in_module"}
+~~~~
+
+
+### W0611: Unused import {#W0611}
+
+This error occurs when you have a imported module that is unused in your code.
+
+~~~~ {include="W0611_unused_import"}
 ~~~~
 
 
