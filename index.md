@@ -127,37 +127,6 @@ def is_int(obj):
 ```
 
 
-### E0103: Not in loop {#E0103}
-
-This error occurs when `break` and `continue` keywords are used outside loops.
-The keyword `break` is used to exit a loop early and the keyword `continue` is
-used to skip an iteration in a loop. Hence both the keywords only belong inside
-loops.
-
-~~~~ {include="E0103_not_in_loop"}
-~~~~
-
-
-### E0104: Return outside function {#E0104}
-
-This error occurs when a `return` statement is found outside a function or
-method. If you are getting this error, please check the indentation levels in
-your code carefully.
-
-~~~~ {include="E0104_return_outside_function"}
-~~~~
-
-
-### W0101: Unreachable {#W0101}
-
-This error occurs when there is some code after a `return` or `raise`
-statement. This code will never be run, and should be removed.
-Or, you should check your return statements carefully.
-
-~~~~ {include="W0101_unreachable"}
-~~~~
-
-
 ### W0102: Dangerous default value {#W0102}
 
 This error occurs when a mutable value such as a list or dictionary is given a
@@ -189,15 +158,6 @@ The actual output is:
 If you want to avoid this situation then, you should use `None` as a default
 value, and then check for this default value inside the function body.
 
-### W0109: Duplicate key {#W0109}
-
-This error occurs when a dictionary expression binds the same key multiple
-times.
-
-~~~~ {include="W0109_duplicate_key"}
-~~~~
-
-
 ### W0199: Assert on tuple {#W0199}
 
 This error occurs when an "assert" statement is called like `assert (x, y)`.
@@ -207,6 +167,9 @@ you should use `assert x, y` instead.
 
 ~~~~ {include="W0199_assert_on_tuple"}
 ~~~~
+
+
+## Improper Python usage
 
 
 ### E0601: Used before assignment {#E0601}
@@ -231,6 +194,46 @@ This error occurs when a loop variable is possibly used outside the loop that
 is undefined.
 
 ~~~~ {include="W0631_undefined_loop_variable"}
+~~~~
+
+
+### E0103: Not in loop {#E0103}
+
+This error occurs when `break` and `continue` keywords are used outside loops.
+The keyword `break` is used to exit a loop early and the keyword `continue` is
+used to skip an iteration in a loop. Hence both the keywords only belong inside
+loops.
+
+~~~~ {include="E0103_not_in_loop"}
+~~~~
+
+
+### E0104: Return outside function {#E0104}
+
+This error occurs when a `return` statement is found outside a function or
+method. If you are getting this error, please check the indentation levels in
+your code carefully.
+
+~~~~ {include="E0104_return_outside_function"}
+~~~~
+
+
+### W0101: Unreachable {#W0101}
+
+This error occurs when there is some code after a `return` or `raise`
+statement. This code will never be run, and should be removed.
+Or, you should check your return statements carefully.
+
+~~~~ {include="W0101_unreachable"}
+~~~~
+
+
+### W0109: Duplicate key {#W0109}
+
+This error occurs when a dictionary expression binds the same key multiple
+times.
+
+~~~~ {include="W0109_duplicate_key"}
 ~~~~
 
 
