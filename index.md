@@ -1467,7 +1467,7 @@ Use of builtin functions `exec`, `eval`, and `compile` is not allowed.
 ~~~~ {include="dynamic_execution_example"}
 ~~~~
 
-## Syntax errors {#custom}
+## Syntax errors {#syntax}
 
 ### E0001: Syntax Error {#E0001}
 
