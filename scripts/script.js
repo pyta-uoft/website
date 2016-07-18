@@ -47,7 +47,7 @@ HeaderToNav.prototype.buildElements = function() {
     });
 
     // wrap 'li' items in 'ul' and 'nav'.
-    this.addToDom = '<nav id="side">&#9776;PyTA Menu<span id="toggleButton"></span><ul id="show">' + 
+    this.addToDom = '<nav id="side"><ul>' + 
                     this.addToDom + '</ul></nav>'
     return this;
 }
