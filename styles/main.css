@@ -109,6 +109,11 @@ a:hover, a:focus {
   transition: 0s;
 }
 
+a:link    {color:#A9A9A9; background-color:transparent; text-decoration:none}
+a:visited {color: black; background-color:transparent; text-decoration:none}
+a:hover   {color:#A9A9A9; background-color:transparent; text-decoration:underline}
+a:active  {color:yellow; background-color:transparent; text-decoration:underline}
+
 .clear {
   clear:both;
 }
