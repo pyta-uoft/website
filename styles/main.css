@@ -272,7 +272,7 @@ nav#side {
     position: fixed;
     background: #fafafa;
     margin: 2px;
-    top: 0;
+    top: 50px;
     left: 0;
     width:250px;
     height: 100%;
