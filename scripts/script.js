@@ -7,7 +7,6 @@ $(document).ready(function(){
     nav.getElementArray('h2, h3').buildElements().insert('body');
 });
 
-
 /* Register event handlers.
  */
 $('body').on('click', '#toggleButton', toggleSideNav);
@@ -48,8 +47,8 @@ HeaderToNav.prototype.buildElements = function() {
     });
 
     // wrap 'li' items in 'ul' and 'nav'.
-    this.addToDom = '<nav id="side"><span id="toggleButton">&#9776;</span><ul id="show">' + 
-                    this.addToDom + '</ul></nav>';
+    this.addToDom = '<nav id="side"><span id="toggleButton">&#9776;PyTA Menu</span><ul id="show">' + 
+                    this.addToDom + '</ul></nav>'
     return this;
 }
 
@@ -61,7 +60,7 @@ HeaderToNav.prototype.buildElements = function() {
 HeaderToNav.prototype.insert = function(element) {
     var element = element || 'body';
     $(element).prepend(this.addToDom);
-     adjustContent();  // temporarily turned off.
+    adjustContent();  // temporarily turned off.
     return this;
 }
 
@@ -83,7 +82,3 @@ function toggleSideNav() {
 function adjustContent() {
     $('.content').css('margin-left', $('#side').width() + "px");
 }
-
-
-
-
