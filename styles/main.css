@@ -267,6 +267,48 @@ nav.expanded {
   background-color: #ccc;
 }
 
+/* Side Navigation */
+nav#side {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.93);
+    margin: 2px;
+    top: 0;
+    left: 0;
+    width:250px;
+    height: 100%;
+    overflow-y: scroll;
+    display: show;
+}
+
+nav#side ul {
+    list-style: none;
+    margin: 2px;
+    margin-bottom: 50px;
+}
+
+nav#side li {
+    cursor: pointer;
+    text-align: left;
+    list-style: none;
+    margin: 2px;
+    margin-bottom: 20px;   
+}
+
+nav#side a {
+}
+
+
+nav#side li.navCategory a {
+    color: black;
+    margin: 2px;
+    font-size: 140%;
+}
+
+#toggleButton {
+    word-spacing: 3px;
+    font-size: 1.5em;
+    text-shadow: 0px 1px 1px #0072ff;
+}
 
 /* Footer */
 footer {
