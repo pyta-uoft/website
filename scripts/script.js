@@ -61,7 +61,7 @@ HeaderToNav.prototype.buildElements = function() {
 HeaderToNav.prototype.insert = function(element) {
     var element = element || 'body';
     $(element).prepend(this.addToDom);
-    // adjustContent();  // temporarily turned off.
+     adjustContent();  // temporarily turned off.
     return this;
 }
 
@@ -72,7 +72,7 @@ HeaderToNav.prototype.insert = function(element) {
  */
 function toggleSideNav() {
     // Your code here...
-    $("show").toggle("active");
+    $("#show").toggle();
     adjustContent();  // temporarily turned off.
 }
 
