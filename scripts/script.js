@@ -47,7 +47,7 @@ HeaderToNav.prototype.buildElements = function() {
     });
 
     // wrap 'li' items in 'ul' and 'nav'.
-    this.addToDom = '<nav id="side"><span id="toggleButton">&#9776;PyTA Menu</span><ul id="show">' + 
+    this.addToDom = '<nav id="side">&#9776;PyTA Menu<span id="toggleButton"></span><ul id="show">' + 
                     this.addToDom + '</ul></nav>'
     return this;
 }
@@ -71,7 +71,7 @@ HeaderToNav.prototype.insert = function(element) {
  */
 function toggleSideNav() {
     // Your code here...
-    $("#show").toggle();
+    $("#side").toggle();
     adjustContent();  // temporarily turned off.
 }
 
