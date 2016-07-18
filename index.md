@@ -762,21 +762,8 @@ arguments).
 When you have a method with the same name, the arguments should stay the
 same.
 
-```python
-class Parent:
-    def __init__(self):
-        self.num = 2
-
-    def return_num(self, multiple):
-        return self.num * multiple
-
-class Child(Parent):
-    def __init__(self)
-        Parent.__init__(self)
-
-    def return_num(self):  # Missing argument (to keep signature identical)
-        return 42
-```
+~~~~ {include="W0222_signature_differs"}
+~~~~
 
 
 ### W0231: Super init not called {#W0231}
@@ -787,17 +774,8 @@ a child of the class you extend from, and properties that the parent
 sets in its constructor would not be propagated into the child you are
 creating.
 
-Therefore you must always call the parent initializer.
-
-```python
-class Parent:
-    def __init__(self):
-        self.num = 1
-
-class Child(Parent):
-    def __init__(self):
-        Parent.__init__(self)  # You must have this
-```
+~~~~ {include="W0231_super_init_not_called"}
+~~~~
 
 
 ### W0232: No init method {#W0232}
@@ -813,13 +791,8 @@ If an object does not store any values and you want to pass around a set
 of methods, consider having a function that returns a function or look
 into making a class with purely static methods.
 
-```python
-def ClassWithNoInit:
-    # Missing the __init__ method here
-
-    def return_forty_two(self):
-        return 42
-```
+~~~~ {include="W0232_no_init"}
+~~~~
 
 
 ### E0101: Return in `__init__` {#E0101}
@@ -848,15 +821,9 @@ that it does not need to be hidden from the user. If you are using any
 other class from another developer, then you are assumed to not tamper
 with the internals of their class.
 
-```python
-class MyClass:
-    def __init__(self)
-        self._num = 42
+~~~~ {include="W0212_protected_access"}
+~~~~
 
-# Should not be calling the underscore field:
-c = MyClass()
-print(c._num)
-```
 
 ### W0233: Bad parent init {#W0233}
 
@@ -864,19 +831,8 @@ You should call the `__init__` method of the parent, not some arbitrary and
 unrelated class. To fix this, use the `__init__` from the parent of the class
 you are inheriting from.
 
-```python
-class ClassA:
-    def __init__(self):
-        pass
-
-class Parent:
-    def __init__(self):
-        pass
-
-class Child(Parent):
-    def __init__(self):
-        ClassA.__init__(self)  # Not a child of class A
-```
+~~~~ {include="W0233_non_parent_init"}
+~~~~
 
 
 ### W0201: Attribute defined outside init {#W0201}
@@ -890,14 +846,8 @@ behave in unexpected ways.
 Therefore you should always define your variables for the instance to
 occur inside the `__init__` method.
 
-```python
-class MyClass:
-    def __init__(self):
-        self.num = 1
-
-c = MyClass()
-c.other_num = 2  # This should be defined in __init__ first
-```
+~~~~ {include="W0201_attribute_defined_outside_init"}
+~~~~
 
 You should do this instead:
 
@@ -915,12 +865,8 @@ Before trying to use a member of a class, it should have been defined at
 some point. If you try to use it before assigning to it, Python cannot
 resolve the value and an error will occur.
 
-```python
-class MyClass:
-    def __init__(self):
-        print(self.a)  # Haven't defined self.a yet, can't use
-        self.a = 5
-```
+~~~~ {include="E0203_access_member_before_definition"}
+~~~~
 
 
 ### E0202: Method hidden {#E0202}
@@ -948,19 +894,8 @@ the expected number of arguments. These special methods have an expected
 signature, and if we create a method with the same name and a different
 amount of arguments, it can cause exceptions to be raised.
 
-```python
-class A:
-    def __init__(self):
-        pass
-    def __str__(self):  # Good, this is what is expected.
-        return 'string'
-
-class B:
-    def __init__(self):
-        pass
-    def __str__(self, a):  # Bad, Python won't know what to put in 'a'.
-        return 'string'
-```
+~~~~ {include="E0302_unexpected_special_method_signature"}
+~~~~
 
 
 ### E0239: Inheriting from a non-class {#E0239}
@@ -970,10 +905,8 @@ not a class, you won't be able to inherit from it. In the following example,
 trying to inherit from a string is not allowed. While a string is a class,
 this is passing in an object rather than the actual class itself.
 
-```python
-class newclass("str"):
-    pass
-```
+~~~~ {include="E0239_inherit_non_class"}
+~~~~
 
 
 ### E0241: Duplicate bases {#E0241}
@@ -999,17 +932,9 @@ the calling object.
 
 For example, the following two are equivalent:
 
-```python
-class A:
-    def __init__(self):
-        pass
-    def method(self):
-        print('Hi')
+~~~~ {include="E0211_no_method_argument"}
+~~~~
 
-a = A()
-a.method()   # Calls 'method' on object 'a' (this is how you should do it).
-A.method(a)  # Also calls 'method' on object 'a' in a different way.
-```
 
 Therefore, if you do not provide any arguments, then Python does not know
 how to pass the object to the method, and it will error out. To fix this,
@@ -1030,17 +955,8 @@ The first argument should be the exact word 'self'. This is not an error,
 but it's such a common practice that this is considered an error. The
 following is an example of a good, and bad example:
 
-```python
-class MyClass:
-    def __init__(self):
-        pass
-
-    def methodA(something):  # Should be the argument 'self', not 'something'.
-        pass
-
-    def methodB(self):  # Good.
-        pass
-```
+~~~~ {include="E0213_no_self_argument"}
+~~~~
 
 
 ### R0201: No self use {#R0201}
@@ -1051,20 +967,8 @@ is related to the object itself. This means the function could be moved
 outside of the class since none of the code inside makes use of anything
 inside the class it's defined.
 
-```python
-class NoSelfUsage:
-    def __init__(self):
-        self.a = 42
-
-    def no_self(self, num):
-        num = num + 2
-        print(num)
-
-# You would fix it as follows by moving it outside the class:
-def no_self(num):
-    num = num + 2
-    print(num)
-```
+~~~~ {include="R0201_no_self_use"}
+~~~~
 
 
 ### W0211: Bad static member {#W0211}
@@ -1101,13 +1005,8 @@ that could appear which you do not want to catch.
 
 Always explicitly name the classes you expect to catch.
 
-```python
-def no_catching():
-    try:
-        raise TypeError()
-    except:
-        print('Requires an exception class')
-```
+~~~~ {include="W0702_bare_except"}
+~~~~
 
 
 ### W0703: Exception is too generic {#W0703}
@@ -1117,13 +1016,8 @@ may end up burying errors since they will be always caught. Because of this,
 you should not be using `except Exception` as your except block since it can
 catch exceptions you do not want caught.
 
-```python
-def generic_catch():
-    try:
-        a = 5 / 0
-    except Exception:
-        print('Got exception')
-```
+~~~~ {include="W0703_broad_except"}
+~~~~
 
 
 ### W0705: Duplicate except blocks {#W0705}
@@ -1134,15 +1028,8 @@ parent exceptions, but rather it means don't have `exception MyException`,
 and then later on when listing exceptions you have `exception MyException`
 again.
 
-```python
-def repeat_except_blocks():
-    try:
-        raise Exception()
-    except Exception:
-        print('This is triggered')
-    except Exception:
-        print('Duplicate exception block')
-```
+~~~~ {include="W0705_duplicate_except"}
+~~~~
 
 
 ### E0701: Bad exception order {#E0701}
@@ -1157,16 +1044,8 @@ It is also good practice since you want to narrow down the exception
 type to be as specific as possible, since the more generic exception
 may catch other types as well.
 
-```python
-def func(num):
-    try:
-        raise ZeroDivisionError()
-    except Exception:
-        print('This is always triggered')
-    except ZeroDivisionError:
-        print('Cannot ever be reached')
-
-```
+~~~~ {include="E0701_bad_except_order"}
+~~~~
 
 
 ### W0711: Binary op exception {#W0711}
@@ -1179,21 +1058,8 @@ it the second way, the _or_ binary operator will not do what you think it does
 proceed to be passed up the call stack (which likely will yield an uncaught
 exception, terminating your program).
 
-```python
-class MyException(Exception):
-        pass
-
-class MyDoubleException(Exception):
-        pass
-
-def binary_capture():
-        try:
-                # Not caught, 'or' doesn't do what you think.
-                # Need to do: except (MyException, MyDoubleException):
-                raise MyDoubleException()
-        except MyException or MyDoubleException:
-                print('Will not detect MyDoubleException due to how "or" works')
-```
+~~~~ {include="W0711_binary_op_exception"}
+~~~~
 
 
 ### E0704: Misplaced bare raise {#E0704}
@@ -1233,10 +1099,8 @@ like a number. If it does not descend at some point from an Exception class,
 it should not be raised. To solve this issue, extend a new class from the
 Exception class, name it appropriately, and raise that.
 
-```python
-def raise_bad():
-    raise 1
-```
+~~~~ {include="E0702_raising_bad_type"}
+~~~~
 
 
 ### E0710: Raising non-exception {#E0710}
@@ -1248,14 +1112,8 @@ from a class that inherits exception.
 The solution is either to create your own exception, or to find a proper
 exception that best describes the problem.
 
-```python
-class ClassWithNoExceptionParent:
-    def __init__(self):
-        pass
-
-def throw_exception():
-    raise ClassWithNoExceptionParent()
-```
+~~~~ {include="E0710_raising_non_exception"}
+~~~~
 
 
 ### E0711: Bad exception context {#E0711}
@@ -1268,11 +1126,8 @@ and do what you intended.
 This is also related to another error where raising a non-exception is not
 allowed.
 
-```python
-def call_exception():
-    raise NotImplemented()
-    # Should be: raise NotImplementedError()
-```
+~~~~ {include="E0711_not_implemented_error"}
+~~~~
 
 
 ### E0712: Catching non-exception {#E0712}
@@ -1284,19 +1139,8 @@ that extend from BaseException. Python requires you to raise exceptions
 that derive from BaseException, and having a class type that does not extend
 from this and being raised will cause a problem.
 
-```python
-# Notice how it does not extend from Exception (or BaseException for that matter)
-class RandomClass:
-    pass
-
-def throw_exception():
-    try
-        n = 5 / 0  # Will throw a ZeroDivisionError
-    except RandomClass:
-        print('The above does not inherit from BaseException')
-    except ZeroDivisionError:
-        print('Will not be reached due to erroring out earlier')
-```
+~~~~ {include="E0712_catching_non_exception"}
+~~~~
 
 
 ## Custom errors {#custom}
