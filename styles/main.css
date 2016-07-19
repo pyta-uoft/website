@@ -112,7 +112,7 @@ a:hover, a:focus {
 }
 
 a:link    {color:black; background-color:transparent; text-decoration:none}
-a:visited {color:#A9A9A9; background-color:transparent; text-decoration:none}
+a:visited {color:black; background-color:transparent; text-decoration:none}
 a:hover   {color:black; background-color:transparent; text-decoration:underline}
 a:active  {color:yellow; background-color:transparent; text-decoration:underline}
 
@@ -193,7 +193,7 @@ em {
   height: 42px;
   width: 100%;
   display: block;
-  background-color: black;
+  overflow: hidden;
   font-size: 16px;
 }
 
@@ -276,10 +276,10 @@ nav.expanded {
 
 /* Side Navigation */
 nav#side {
+    white-space: pre-line;
     position: relative;
-    background: #fafafa;
-    margin: 2px;
-    top: 0px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoBLkQhzYBu2uMQkcPgVtj2a-3UxeyrKE09ipYAPDgQkq49kcrRw");
+    margin-top: 5px;
     left: 0;
     width:200px;
     height: 100%;
