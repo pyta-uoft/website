@@ -278,7 +278,7 @@ nav.expanded {
 nav#side {
     white-space: pre-line;
     position: relative;
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoBLkQhzYBu2uMQkcPgVtj2a-3UxeyrKE09ipYAPDgQkq49kcrRw");
+    background-color: #fafafa;
     margin-top: 5px;
     left: 0;
     width:200px;
