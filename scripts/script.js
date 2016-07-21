@@ -42,7 +42,7 @@ HeaderToNav.prototype.buildElements = function() {
         // 'h2' headers are section categories used to group the messages.
         // 'h3' headers are the message items.
         var catClass = $(this).is('h2') ? ' class="navCategory"' : '';
-        that.addToDom += '<li class="index"' + catClass + '><a href="' + id + '">' + text + 
+        that.addToDom += '<li' + catClass + '><a href="' + id + '">' + text + 
                          '</a></li>';
     });
 
