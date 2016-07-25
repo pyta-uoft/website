@@ -7,6 +7,61 @@
   padding: 0;
 }
 
+#nav{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  position: fixed;
+  overflow: scroll;
+  top: 0;
+  left: 0;
+}
+button.accordion {
+    background-color: rgba(216, 231, 241, 0.95);
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    border: none;
+    width: 18%;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+
+button.accordion:after {
+    content: '\02795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2796";
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    width: 18%;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+
+div.panel.show {
+    opacity: 1;
+    overflow: scroll;
+    max-height: 500px;
+}
+
 body {
   background-color: #fafafa;
   font-family: avenir, sans-serif;
@@ -18,7 +73,7 @@ body {
 .content {
   display: block;
   max-width: 780px;
-  margin-top: 60px;
+  margin-top: 0px;
   margin-right: auto;
   margin-left: auto;
   padding: 0px 10px;
