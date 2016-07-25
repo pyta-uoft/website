@@ -88,7 +88,9 @@ ul {
 }
 
 li {
-  margin-left: 30px;
+  margin-left: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 a {
@@ -182,7 +184,7 @@ em {
 .nav-container {
   z-index: 10;
   position: fixed;
-  top: 30px;
+  top: 25px;
   height: 42px;
   width: 100%;
   display: block;
@@ -223,42 +225,6 @@ nav.expanded {
     display: none;
 }
 
-.dropdown-list {
-  background-color: rgba(216, 231, 241, 0.95);
-  display: none;
-  position: absolute;
-  top: 42px;
-  height: 42px;
-  padding: 6px;
-  max-width: 780px;
-}
-
-.dropdown:hover {
-  border-radius: 6px;
-  background-color: #E9F6FB;
-}
-
-.down-arrow {
-  right: -14px;
-  color: #0a0;
-  font-size: 16px;
-}
-
-.down-arrow:focus {
-  color: white;
-}
-
-.dropdown-choice {
-  padding: 6px 8px 4px;
-  display: block;
-}
-
-.dropdown-choice:hover {
-  padding-top: 6px;
-  padding-bottom: 4px;
-  border-radius: 8px;
-}
-
 .line {
   height: 1px;
   width: 100%;
@@ -272,7 +238,7 @@ div#nav {
     white-space: pre-line;
     position: relative;
     background-color: #fafafa;
-    margin-top: 5px;
+    margin-top: 3px;
     left: 0;
     width:210px;
     height: 100%;
@@ -308,7 +274,7 @@ nav#side li {
 
 #nav a {
     list-style: disc;
-    margin-left: 15px;
+    margin-left: 5px;
 }
 
 
