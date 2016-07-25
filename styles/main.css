@@ -8,7 +8,7 @@
 }
 
 button.accordion {
-    background-color: #fafafa;
+    background-color: rgba(216, 231, 241, 0.95);
     color: black;
     cursor: pointer;
     text-align: center;
@@ -39,7 +39,7 @@ button.accordion.active:after {
 
 div.panel {
     padding: 0 18px;
-    background-color: #fafafa;
+    background-color: rgba(216, 231, 241, 0.95);
     max-height: 0;
     overflow: hidden;
     width: 193px;
@@ -237,7 +237,7 @@ nav.expanded {
 div#nav {
     white-space: pre-line;
     position: relative;
-    background-color: #fafafa;
+    background-color: rgba(216, 231, 241, 0.95);
     margin-top: 3px;
     left: 0;
     width:210px;
@@ -250,8 +250,9 @@ div#nav {
 #frame {
     position: fixed;
     background: #fafafa;
-    margin: 2px;
-    top: 30px;
+    margin-left: 2px;
+    margin-right: 2px;
+    top: 0px;
     left: 0;
     width:210px;
     height: 100%;
