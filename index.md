@@ -778,23 +778,6 @@ creating.
 ~~~~
 
 
-### W0232: No init method {#W0232}
-
-The `__init__` method is invoked when an object is created. Therefore you
-should always have some kind of initialization method for your classes.
-Note that this also applies to classes which have parents who do not
-define their own `__init__` methods.
-
-If you find that you do nothing in the initialization method, then you
-should ask yourself why you are creating the object in the first place.
-If an object does not store any values and you want to pass around a set
-of methods, consider having a function that returns a function or look
-into making a class with purely static methods.
-
-~~~~ {include="W0232_no_init"}
-~~~~
-
-
 ### E0101: Return in `__init__` {#E0101}
 
 This error occurs when a return statement is used in the `__init__` method.
