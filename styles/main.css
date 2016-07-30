@@ -7,37 +7,30 @@
   padding: 0;
 }
 
-#nav{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  position: fixed;
-  overflow: scroll;
-  top: 0;
-  left: 0;
-}
 button.accordion {
     background-color: rgba(216, 231, 241, 0.95);
-    color: black;
+    color: rgba(216, 231, 241, 0.95);
     cursor: pointer;
-    padding: 18px;
-    border: none;
-    width: 18%;
     text-align: center;
+    border: none;
     outline: none;
-    font-size: 15px;
     transition: 0.4s;
-}
+    width: 193px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    font-size: 120%;
+    }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
+    background-color: rgba(216, 231, 241, 0.95);
 }
 
 
 button.accordion:after {
     content: '\02795';
     font-size: 13px;
-    color: #777;
+    color: #3399FF;
     float: right;
     margin-left: 5px;
 }
@@ -48,18 +41,24 @@ button.accordion.active:after {
 
 div.panel {
     padding: 0 18px;
-    background-color: white;
+    background-color: rgba(216, 231, 241, 0.95);
     max-height: 0;
     overflow: hidden;
-    width: 18%;
+    width: 193px;
     transition: 0.6s ease-in-out;
     opacity: 0;
+    margin-left: 0px;
+    list-style: none;
 }
 
 div.panel.show {
     opacity: 1;
-    overflow: scroll;
-    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: show;
+    width: 193px;
+    max-height: 200%;
+    list-style: none;
+    margin-left: 0px;
 }
 
 body {
@@ -68,6 +67,9 @@ body {
   color: #444;
   font-size: 14px;
   line-height: 1.3;
+  left: 100px;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .content {
@@ -93,13 +95,17 @@ ul {
 }
 
 li {
-  margin-left: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  list-style: none;
+  text-align: left;
 }
 
 a {
   padding: 2px 0px;
   border-radius: 4px;
-  color: #3399FF;
   text-decoration: none;
   transition: 0.1s;
 }
@@ -108,6 +114,11 @@ a:hover, a:focus {
   background: #E9F6FB;
   transition: 0s;
 }
+
+a:link    {color:black; background-color:transparent; text-decoration:none}
+a:visited {color:black; background-color:transparent; text-decoration:none}
+a:hover   {color:black; background-color:transparent; text-decoration:underline}
+a:active  {color:#fafafa; background-color:transparent; text-decoration:underline}
 
 .clear {
   clear:both;
@@ -182,11 +193,11 @@ em {
 .nav-container {
   z-index: 10;
   position: fixed;
-  top: 0px;
+  top: 25px;
   height: 42px;
   width: 100%;
   display: block;
-  background-color: rgba(216, 231, 241, 0.95);
+  overflow: hidden;
   font-size: 16px;
 }
 
@@ -223,42 +234,6 @@ nav.expanded {
     display: none;
 }
 
-.dropdown-list {
-  background-color: rgba(216, 231, 241, 0.95);
-  display: none;
-  position: absolute;
-  top: 42px;
-  height: 42px;
-  padding: 6px;
-  max-width: 780px;
-}
-
-.dropdown:hover {
-  border-radius: 6px;
-  background-color: #E9F6FB;
-}
-
-.down-arrow {
-  right: -14px;
-  color: #0a0;
-  font-size: 16px;
-}
-
-.down-arrow:focus {
-  color: white;
-}
-
-.dropdown-choice {
-  padding: 6px 8px 4px;
-  display: block;
-}
-
-.dropdown-choice:hover {
-  padding-top: 6px;
-  padding-bottom: 4px;
-  border-radius: 8px;
-}
-
 .line {
   height: 1px;
   width: 100%;
@@ -266,6 +241,65 @@ nav.expanded {
   top: 42px;
   background-color: #ccc;
 }
+
+/* Side Navigation */
+div#nav {
+    white-space: pre-line;
+    position: relative;
+    background-color: rgba(216, 231, 241, 0.95);
+    margin-top: 0px;
+    margin-left: 0;
+    width:210px;
+    height: 100%;
+    display: show;
+    overflow-y: show;
+    overflow-x: hidden;
+    position:relative;
+}
+
+#frame {
+    position: fixed;
+    background: transparent;
+    margin-left: 2px;
+    margin-right: 2px;
+    top: 0px;
+    left: 0;
+    width:210px;
+    height: 100%;
+    display: show;
+    overflow: hidden;}
+
+nav#side ul {
+    list-style: none;
+    margin: 2px;
+    margin-bottom: 50px;
+}
+
+
+nav#side li {
+    cursor: pointer;
+    text-align: left;
+    list-style: none;
+    margin: 1px;
+    margin-bottom: 20px; 
+}
+
+#nav a {
+    list-style: none;
+    margin-left: 5px;
+}
+
+
+
+#toggleButton {
+    color: black;
+    top: 0px;
+    left: 210px;
+    font-size: 1.5em;
+    text-shadow: 0px 1px 1px #0072ff;
+    position: fixed;
+}
+
 
 
 /* Footer */
@@ -399,4 +433,5 @@ table li {
     padding-left: 5px;
     content: "▼";
   }
+
 }
