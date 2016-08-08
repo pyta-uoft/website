@@ -8,8 +8,8 @@
 }
 
 button.accordion {
-    background-color: rgba(216, 231, 241, 0.95);
-    color: rgba(216, 231, 241, 0.95);
+    background-color: #87CEFA;
+    color: #87CEFA;
     cursor: pointer;
     text-align: center;
     border: none;
@@ -23,7 +23,7 @@ button.accordion {
     }
 
 button.accordion.active, button.accordion:hover {
-    background-color: rgba(216, 231, 241, 0.95);
+    background-color: #87CEFA;
 }
 
 
@@ -41,7 +41,7 @@ button.accordion.active:after {
 
 div.panel {
     padding: 0 18px;
-    background-color: rgba(216, 231, 241, 0.95);
+    background-color: #87CEFA;
     max-height: 0;
     overflow: hidden;
     width: 193px;
@@ -246,7 +246,7 @@ nav.expanded {
 div#nav {
     white-space: pre-line;
     position: relative;
-    background-color: rgba(216, 231, 241, 0.95);
+    background-color: #87CEFA;
     margin-top: 0px;
     margin-left: 0;
     width:210px;
