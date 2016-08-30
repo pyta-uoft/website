@@ -1,13 +1,17 @@
 % PyTA Help Documentation
 
-Welcome to PyTA - Your guide to code in a standard way.
+Welcome to the **PyTA documentation website**, which describes in greater detail the errors that PyTA checks for.
+If anything is unclear, incorrect, or missing, please don't hesitate to send an email to [david at cs dot toronto dot edu].
+
 
 ## Improper Python usage
 
+These errors generally indicate a misuse of variables, control flow, or
+other Python features in your code.
 
 ### E0601: Used before assignment {#E0601}
 
-This error occurs when you are using a variable before its assignment.
+This error occurs when you are using a variable before it has been assigned a value.
 
 ~~~~ {include="E0601_used_before_assignment"}
 ~~~~
@@ -23,8 +27,8 @@ This error occurs when you are using a variable that has not been defined.
 
 ### W0631: Undefined loop variable {#W0631}
 
-This error occurs when a loop variable is possibly used outside the loop that
-is undefined.
+This error occurs when a loop variable is used outside the `for` loop where it
+was defined.
 
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
@@ -32,10 +36,13 @@ is undefined.
 
 ### E0103: Not in loop {#E0103}
 
-This error occurs when `break` and `continue` keywords are used outside loops.
+This error occurs when the `break` or `continue` keyword is used outside a loop.
 The keyword `break` is used to exit a loop early and the keyword `continue` is
 used to skip an iteration in a loop. Hence both the keywords only belong inside
 loops.
+
+A common source of this error is when the `break` or `continue` is not indented
+properly (it must be indented to be considered part of the loop body).
 
 ~~~~ {include="E0103_not_in_loop"}
 ~~~~
@@ -44,8 +51,9 @@ loops.
 ### E0104: Return outside function {#E0104}
 
 This error occurs when a `return` statement is found outside a function or
-method. If you are getting this error, please check the indentation levels in
-your code carefully.
+method.
+A common source of this error is when the `return` is not indented
+properly (it must be indented to be considered part of the loop body).
 
 ~~~~ {include="E0104_return_outside_function"}
 ~~~~
@@ -54,8 +62,8 @@ your code carefully.
 ### W0101: Unreachable {#W0101}
 
 This error occurs when there is some code after a `return` or `raise`
-statement. This code will never be run, and should be removed.
-Or, you should check your return statements carefully.
+statement. This code will never be run, and so either it should be removed,
+or the function is returning too early.
 
 ~~~~ {include="W0101_unreachable"}
 ~~~~
@@ -63,10 +71,190 @@ Or, you should check your return statements carefully.
 
 ### W0109: Duplicate key {#W0109}
 
-This error occurs when a dictionary expression binds the same key multiple
-times.
+This error occurs when a dictionary expression stores the same key multiple times.
 
 ~~~~ {include="W0109_duplicate_key"}
+~~~~
+
+
+## Type errors
+
+These errors are some of the most common errors we encounter in Python.
+They generally have to do with using a value of one type where another type is required.
+
+### E1101: No member {#E1101}
+
+This error occurs when you use dot notation (`my_var.x`) to access an attribute
+or to call a method which does not exist for the given value.
+
+This can happen for both built-in types like `str`, as well as classes that you define yourself.
+This error often results in an **AttributeError** when you run your program.
+
+~~~~ {include="E1101_no_member"}
+~~~~
+
+
+### E1102: Not callable {#E1102}
+
+This error occurs when you try to call a value which is not a function.
+In the following example, we should not call `x()` because `x` refers to
+a value which is an integer, not a function.
+
+~~~~ {include="E1102_not_callable"}
+~~~~
+
+
+### E1111: Assignment from no return {#E1111}
+
+This error occurs when you assign a variable to the return value of a function call,
+but the function never returns anything.
+This error is similar to E1128. In the following example,
+f() does not return anything. As a result, `x` always gets the value `None`.
+
+~~~~ {include="E1111_assignment_from_no_return"}
+~~~~
+
+
+### E1120: No value for parameter {#E1120}
+
+A function must be called with one argument value per parameter in its header.
+This error indicates you called a function with too few arguments.
+In the following example, there should be three values passed to the function
+instead of two.
+
+~~~~ {include="E1120_no_value_for_parameter"}
+~~~~
+
+Corrected version:
+
+```python
+get_sum(1, 2, 3)
+```
+
+
+### E1121: Too many function args {#E1121}
+
+A function must be called with one argument value per parameter in its header.
+This error indicates you called a function with too many arguments.
+
+~~~~ {include="E1121_too_many_function_args"}
+~~~~
+
+Corrected version:
+
+```python
+get_sum(1, 2)
+```
+
+
+### E1126: Invalid sequence index {#E1126}
+
+This error occurs when a list or tuple is indexed using the square bracket notation
+`my_list[...]`, but the value of the index is not an integer.
+
+Remember that the index tells the *position* in the list/tuple of the item to get.
+
+~~~~ {include="E1126_invalid_sequence_index"}
+~~~~
+
+Corrected version:
+
+```python
+a = ['p', 'y', 'T', 'A']
+print(a[0])
+```
+
+
+### E1127: Invalid slice index {#E1127}
+
+This error occurs when a list or tuple is sliced using the square bracket notation
+`my_list[... : ...]`, but the two values on the left and right of the colon
+are not integers.
+
+Remember that the slice numbers tell the *start* and *stop* positions for
+the slice in the list/tuple to get.
+
+~~~~ {include="E1127_invalid_slice_index"}
+~~~~
+
+Corrected version:
+
+```python
+a = ['p', 'y', 'T', 'A']
+print(a[0:3])
+```
+
+
+### E1128: Assignment from None {#E1128}
+
+This error occurs when you assign a variable the return value of a function call,
+but the function always returns `None`.
+This error is similar to E1111.
+In the following example, `f` always returns `None`. As a result, `x` will always
+get the value `None`.
+
+~~~~ {include="E1128_assignment_from_none"}
+~~~~
+
+
+### E1130: Invalid unary operand type {#E1130}
+
+This error occurs when the unary operand on the objects does not support this
+type of operation. For example, we should never add string to integer.
+
+~~~~ {include="E1130_invalid_unary_operand_type"}
+~~~~
+
+
+### E1131: Unsupported binary operation {#E1131}
+
+This error occurs when you use a binary arithmetic operator like `+` or `*`,
+but the left and right sides are not compatible types.
+For example, a dictionary cannot be added to a list.
+
+~~~~ {include="E1131_unsupported_binary_operation"}
+~~~~
+
+
+### E1135: Unsupported membership test {#E1135}
+
+This error occurs when you use the membership test `a in b`, but the `b`'s type
+does not support this type of check.
+
+The standard Python types which support this check are strings, lists, tuples,
+and dictionaries.
+
+~~~~ {include="E1135_unsupported_membership_test"}
+~~~~
+
+
+### E1136: Unsubscriptable object {#E1136}
+
+This error occurs when you try to index a value using square brackets (`a[...]`),
+but the type of `a` does not support indexing (or "subscripting").
+
+The standard Python types which support indexing are strings, lists, tuples,
+and dictionaries.
+
+~~~~ {include="E1136_unsubscriptable_object"}
+~~~~
+
+
+### E0632: Unbalanced tuple unpacking {#E0632}
+
+This error occurs when you are trying to assign to multiple variables at once,
+but the right side has too few values in the sequence.
+
+~~~~ {include="E0632_unbalanced_tuple_unpacking"}
+~~~~
+
+
+### E0633: Unpacking non-sequence {#E0633}
+
+This error occurs when you are trying to assign to multiple variables at once,
+but the right side is not a sequence, and so can't be unpacked.
+
+~~~~ {include="E0633_unpacking_non_sequence"}
 ~~~~
 
 
@@ -249,199 +437,16 @@ In the above example, the `pass` statement is "unnecessary" as the program's
 effect is not changed if `pass` is removed.
 
 
-## Type errors
-
-
-### E1101: No member {#E1101}
-
-This error occurs when you use dot notation (`my_var.x`) to access an attribute
-or to call a method which does not exist for the given value.
-
-~~~~ {include="E1101_no_member"}
-~~~~
-
-
-### E1102: Not callable {#E1102}
-
-This error occurs when you try to call a value which is not a function.
-In the following example, we should not call `x()` because `x` refers to
-a value which is an integer, not a function.
-
-~~~~ {include="E1102_not_callable"}
-~~~~
-
-
-### E1111: Assignment from no return {#E1111}
-
-This error occurs when you assign a variable the return value of a function call,
-but the function never returns anything.
-This error is similar to E1128. In the following example,
-f() does not return anything. As a result, `x` always gets the value `None`.
-
-~~~~ {include="E1111_assignment_from_no_return"}
-~~~~
-
-
-### E1120: No value for parameter {#E1120}
-
-A function must be called with one argument value per parameter in its header.
-This error indicates you called a function with too few arguments.
-In the following example, there should be three values passed to the function
-instead of two.
-
-~~~~ {include="E1120_no_value_for_parameter"}
-~~~~
-
-Corrected version:
-
-```python
-get_sum(1, 2, 3)
-```
-
-
-### E1121: Too many function args {#E1121}
-
-A function must be called with one argument value per parameter in its header.
-This error indicates you called a function with too many arguments.
-
-~~~~ {include="E1121_too_many_function_args"}
-~~~~
-
-Corrected version:
-
-```python
-get_sum(1, 2)
-```
-
-
-### E1126: Invalid sequence index {#E1126}
-
-This error occurs when a list or tuple is indexed using the square bracket notation
-`my_list[...]`, but the value of the index is not an integer.
-
-Remember that the index tells the *position* in the list/tuple of the item to get.
-
-~~~~ {include="E1126_invalid_sequence_index"}
-~~~~
-
-Corrected version:
-
-```python
-a = ['p', 'y', 'T', 'A']
-print(a[0])
-```
-
-
-### E1127: Invalid slice index {#E1127}
-
-This error occurs when a list or tuple is sliced using the square bracket notation
-`my_list[... : ...]`, but the two values on the left and right of the colon
-are not integers.
-
-Remember that the slice numbers tell the *start* and *stop* positions for
-the slice in the list/tuple to get.
-
-~~~~ {include="E1127_invalid_slice_index"}
-~~~~
-
-Corrected version:
-
-```python
-a = ['p', 'y', 'T', 'A']
-print(a[0:3])
-```
-
-
-### E1128: Assignment from none {#E1128}
-
-This error occurs when you assign a variable the return value of a function call,
-but the function always returns `None`.
-This error is similar to E1111.
-In the following example, `f` always returns `None`. As a result, `x` will always
-get the value `None`.
-
-~~~~ {include="E1128_assignment_from_none"}
-~~~~
-
-
-### E1130: Invalid unary operand type {#E1130}
-
-This error occurs when the unary operand on the objects does not support this
-type of operation. For example, we should never add string to integer.
-
-~~~~ {include="E1130_invalid_unary_operand_type"}
-~~~~
-
-
-### E1131: Unsupported binary operation {#E1131}
-
-This error occurs when you use a binary arithmetic operator like `+` or `*`,
-but the left and right sides are not compatible types.
-For example, a dictionary cannot be added to a list.
-
-~~~~ {include="E1131_unsupported_binary_operation"}
-~~~~
-
-
-### E1135: Unsupported membership test {#E1135}
-
-This error occurs when you use the membership test `a in b`, but the `b`'s type
-does not support this type of check.
-
-The standard Python types which support this check are strings, lists, tuples,
-and dictionaries.
-
-~~~~ {include="E1135_unsupported_membership_test"}
-~~~~
-
-
-### E1136: Unsubscriptable object {#E1136}
-
-This error occurs when you try to index a value using square brackets (`a[...]`),
-but the type of `a` does not support indexing (or "subscripting").
-
-The standard Python types which support indexing are strings, lists, tuples,
-and dictionaries.
-
-
-~~~~ {include="E1136_unsubscriptable_object"}
-~~~~
-
-
-### R0204: Redefined variable type {#R0204}
-
-This error occurs when the type of a variable changes inside a method or a
-function. See the examples below.
-
-~~~~ {include="R0204_redefined_variable_type"}
-~~~~
-
-
-### E0632: Unbalanced tuple unpacking {#E0632}
-
-This error occurs when you have an unbalance unpacking assignment with a
-sequence.
-
-~~~~ {include="E0632_unbalanced_tuple_unpacking"}
-~~~~
-
-
-### E0633: Unpacking non sequence {#E0633}
-
-This error occurs when the unpacked result is not a sequence. For example,
-if in an unpacking assignment, the unpacked result is None, then it is not
-a sequence and will raise this error.
-
-~~~~ {include="E0633_unpacking_non_sequence"}
-~~~~
-
-
 ## Documentation and naming
+
+Good documentation and identifiers are essential for writing software.
+PyTA helps check to make sure you haven't forgotten to document anything,
+as well as a basic check on the formatting of your identifiers.
 
 ### C0111: Missing Docstring {#C0111}
 
 This error occurs when a module, function, class or method has no docstring.
-Some special methods like `__init__` don't require a docstring.
+Special methods like `__init__` don't require a docstring.
 
 ~~~~ {include="C0111_missing_docstring"}
 ~~~~
@@ -463,8 +468,8 @@ docstring.
 
 ### C0102: Blacklisted name {#C0102}
 
-This error occurs when a variable name is listed in the black list. The black
-list includes names:
+This error occurs when a variable name is chosen to be a typical generic name,
+rather than a meaningful one. Here are the blacklisted names to avoid:
 
  - foo
  - bar
@@ -472,8 +477,6 @@ list includes names:
  - toto
  - tutu
  - tata
-
-You should always use meaningful variable names.
 
 ~~~~ {include="C0102_blacklisted_name"}
 ~~~~
@@ -491,7 +494,6 @@ This error occurs when a name does not follow the format associated with to its 
 - Class: All class names should be in **CamelCase**.
 
 A special character accepted in all types of names is '_'.
-
 Numbers are allowed in all names, but names should not begin with a number.
 
 ~~~~ {include="C0103_invalid_name"}
@@ -539,6 +541,8 @@ This error occurs when you are trying to redefine a built-in function.
 
 ## Imports
 
+There are standards governing how you should organize your imports,
+or even possibly which modules you may import at all.
 
 ### E9999: Forbidden imports {#E9999}
 
@@ -571,6 +575,15 @@ import missing_module as foo  # this module does not exist.
 ```
 
 
+### E0611: No name in module {#E0611}
+
+This error occurs when you are trying to access a variable from an imported
+module, but that variable name could not be found in that referenced module.
+
+~~~~ {include="E0611_no_name_in_module"}
+~~~~
+
+
 ### W0406: Import self {#W0406}
 
 A module should not import itself. So for example, if the module is named
@@ -597,32 +610,27 @@ global namespace. Problems can occur when identical names conflict.
 ~~~~ {include="W0401_wildcard_import"}
 ~~~~
 
-Rather than importing everything with wildcard '*', try importing specific
-functions for example:
+Rather than importing everything with wildcard *, try importing specific
+functions:
 
 ```python
 from module_name import certain_definition
 ```
 
 Or, if you need to import many functions, import them the following way, to
-keep them separated in the namespace by module name. Then you can use the
-function like, module_name.function_name
+keep them separated in the namespace by module name. Then you can refer to the
+function as `module_name.function_name`.
 
 ```python
 import module_name
-```
 
-Or, you can create an alias for module names in the way below. Which can be
-used like: dino.function_name
-
-```python
-import tyrannosaurus_rex as dino
+module_name.function_name()
 ```
 
 
 ### C0411: Wrong import order {#C0411}
 
-Used when PEP8 import order is not respected (do the standard imports first,
+Used when PEP8 import order is not respected (do the standard library imports first,
 then third-party libraries, then local imports).
 
 ~~~~ {include="C0411_wrong_import_order"}
@@ -674,15 +682,6 @@ from the same module, for example:
 ```python
 from sys import byteorder, stdin
 ```
-
-
-### E0611: No name in module {#E0611}
-
-This error occurs when you are trying to access a variable from an imported
-module, but that variable name could not be found in that referenced module.
-
-~~~~ {include="E0611_no_name_in_module"}
-~~~~
 
 
 ### W0611: Unused import {#W0611}
@@ -766,35 +765,6 @@ same.
 ~~~~
 
 
-### W0231: Super init not called {#W0231}
-
-When inheriting from a parent, you need to call the parent's `__init__`
-method using itself as a parameter. The whole goal of extending a class is to be
-a child of the class you extend from, and properties that the parent
-sets in its constructor would not be propagated into the child you are
-creating.
-
-~~~~ {include="W0231_super_init_not_called"}
-~~~~
-
-
-### W0232: No init method {#W0232}
-
-The `__init__` method is invoked when an object is created. Therefore you
-should always have some kind of initialization method for your classes.
-Note that this also applies to classes which have parents who do not
-define their own `__init__` methods.
-
-If you find that you do nothing in the initialization method, then you
-should ask yourself why you are creating the object in the first place.
-If an object does not store any values and you want to pass around a set
-of methods, consider having a function that returns a function or look
-into making a class with purely static methods.
-
-~~~~ {include="W0232_no_init"}
-~~~~
-
-
 ### E0101: Return in `__init__` {#E0101}
 
 This error occurs when a return statement is used in the `__init__` method.
@@ -807,19 +777,12 @@ it does not return anything directly.
 
 ### W0212: Protected member access {#W0212}
 
-Variables starting with underscores are a convention that means the field should
+Variable names starting with underscores are a convention that means the field should
 not be accessed outside of the calling class. This encapsulation is a
 hint to the user that they should not change the field as it may be
-critical to the proper functioning of the object. Any field that does
-not have an underscore the user may interact with. Furthermore, this also
+critical to the proper functioning of the object. Furthermore, this also
 applies to methods with underscores since calling them may also cause
 adverse affects.
-
-If you want to access a field with an underscore, check to see why it is
-an underscore and change it to not having an underscore if you discover
-that it does not need to be hidden from the user. If you are using any
-other class from another developer, then you are assumed to not tamper
-with the internals of their class.
 
 ~~~~ {include="W0212_protected_access"}
 ~~~~
@@ -828,7 +791,7 @@ with the internals of their class.
 ### W0233: Bad parent init {#W0233}
 
 You should call the `__init__` method of the parent, not some arbitrary and
-unrelated class. To fix this, use the `__init__` from the parent of the class
+unrelated class. To fix this, use the `__init__` from the lass
 you are inheriting from.
 
 ~~~~ {include="W0233_non_parent_init"}
@@ -838,13 +801,8 @@ you are inheriting from.
 ### W0201: Attribute defined outside init {#W0201}
 
 Any attribute you define for a class should be created inside the `__init__`
-method. Defining it outside is considered bad practice as you might at
-some point in the future introduce the same attribute in the class, and
-any code that sets values outside may cause the program to break or
-behave in unexpected ways.
-
-Therefore you should always define your variables for the instance to
-occur inside the `__init__` method.
+method. Defining it outside this method is considered bad practice,
+as it makes it harder to keep track of what attributes the class actually has.
 
 ~~~~ {include="W0201_attribute_defined_outside_init"}
 ~~~~
@@ -862,8 +820,7 @@ class MyClass:
 ### E0203: Access to member before definition {#E0203}
 
 Before trying to use a member of a class, it should have been defined at
-some point. If you try to use it before assigning to it, Python cannot
-resolve the value and an error will occur.
+some point. If you try to use it before assigning to it, E0an error will occur.
 
 ~~~~ {include="E0203_access_member_before_definition"}
 ~~~~
@@ -877,19 +834,21 @@ it has become an attribute instead. This will cause the program
 to raise an error.
 
 ```python
-class Example(object):
+class Example:
     def field(self, num):
         return num
+
     def __init__(self):
         self.field = 'Masking the function with this string'
 
-# If you call Example().field(num), it will yield an error since we masked it
+e = Example()
+e.field(num)   # Error since we masked it
 ```
 
 
 ### E0302: Unexpected special method signature {#E0302}
 
-Occurs when a special method (has underscores on both sides) does not have
+Occurs when a special method (has double underscores on both sides) does not have
 the expected number of arguments. These special methods have an expected
 signature, and if we create a method with the same name and a different
 amount of arguments, it can cause exceptions to be raised.
@@ -938,12 +897,13 @@ For example, the following two are equivalent:
 
 Therefore, if you do not provide any arguments, then Python does not know
 how to pass the object to the method, and it will error out. To fix this,
-put`_self` in the parenthesis for the method call.
+put `self` in the parenthesis for the method call.
 
 ```python
 class MyClass:
     def __init__(self):
         pass
+
     def method():
         print('Missing argument for method definition')
 ```
@@ -951,8 +911,10 @@ class MyClass:
 
 ### E0213: `self` as the first argument {#E0213}
 
-The first argument should be the exact word 'self'. This is not an error,
-but it's such a common practice that this is considered an error. The
+The first parameter should be the exact word `self`.
+Naming the first parameter something else is not technically an error,
+but using "self" is such a common practice that PyTA checks for this.
+The
 following is an example of a good, and bad example:
 
 ~~~~ {include="E0213_no_self_argument"}
@@ -1116,7 +1078,7 @@ exception that best describes the problem.
 ~~~~
 
 
-### E0711: Bad exception context {#E0711}
+### E0711: NotImplemented raised {#E0711}
 
 `NotImplemented` is intended to be a return value for methods, such as when you
 create your own comparisons (ex: using `__eq__`), when what you actually want
@@ -1126,7 +1088,7 @@ and do what you intended.
 This is also related to another error where raising a non-exception is not
 allowed.
 
-~~~~ {include="E0711_not_implemented_error"}
+~~~~ {include="E0711_notimplemented_raised"}
 ~~~~
 
 
@@ -1343,80 +1305,73 @@ you should use `assert x, y` instead.
 ### E0001: Syntax Error {#E0001}
 
 1. Python error message: "Missing parentheses in call to 'print'"
-This error occurs when you do not use parentheses in call to 'print'.
-Note that this was a major change from Python 2 to Python 3.
-
+You must call the `print` function when you want to output text from your program.
+Note that this was a major change from Python 2 to Python 3 (before, `print`
+was just a keyword, not a function).
 ```python
 print 3   # Error on this line
 ```
 
 2. Python error message: "SyntaxError: invalid syntax"
 
-a. Forgetting to put a colon at the end of an if, elif, else, for, while, class,
-or def statement.
-
-```python
-if spam == 42  # Error on this line
-    print('Hello!')
-```
-
-b. Using = instead of == inside a condition expression.
-
-```python
-if spam = 42:  # Error on this line
-    print('Hello!')
-```
-
-c. Forgetting a quote to begin or end a string value.
-```python
-print('Hello!) # Error on this line
-```
-
-d. Trying to use a Python keyword for a variable name.
-
-Here are all the keywords you should avoid:
-
-```
-and       del       from      not       while
-as        elif      global    or        with
-assert    else      if        pass      yield
-break     except    import    print
-class     exec      in        raise
-continue  finally   is        return
-def       for       lambda    try
-```
-
-For example:
-
-```python
-class = 'algebra' # Error on this line
-```
-
-e. There is no ++ increment or –- decrement operator. Do not try to increment
-or decrement a variable with ++ or --.
-
-```python
-spam = 0
-spam++  # Error on this line
-```
-
-f. You can't assign to literal in python. The variable name is always on the
-left-hand side of the equals sign. That is what gets assigned to.
-
-```python
-a = 12
-12 = a  # Error on this line
-```
-
-g. Unindent does not match any outer indentation level. There might be spaces
-mixed in with your tabs. Try doing a search-and-replace to replace all tabs with
-a few spaces.
-
-```python
-a = 1
-if 2 < 3:
-    if 1 < 2:
-        a = a + 1
-     else:  # Error on this line
-        a = a - 1
-```
+    a. Forgetting to put a colon at the end of an if, elif, else, for, while, class,
+    or def statement.
+    ```python
+    if spam == 42  # Error on this line
+        print('Hello!')
+    ```
+    
+    b. Using = instead of == inside a condition expression.
+    ```python
+    if spam = 42:  # Error on this line
+        print('Hello!')
+    ```
+    
+    c. Forgetting a quote to begin or end a string value.
+    ```python
+    print('Hello!) # Error on this line
+    ```
+    
+    d. Trying to use a Python keyword for a variable name.
+        Here are all the keywords you should avoid:
+        ```
+        and       del       from      not       while
+        as        elif      global    or        with
+        assert    else      if        pass      yield
+        break     except    import    print
+        class     exec      in        raise
+        continue  finally   is        return
+        def       for       lambda    try
+        ```
+        
+        For example:
+        
+        ```python
+        class = 'algebra' # Error on this line
+        ```
+        
+    e. There is no ++ increment or –- decrement operator. Do not try to increment
+    or decrement a variable with ++ or --.
+    ```python
+    spam = 0
+    spam++  # Error on this line
+    ```
+    
+    f. You can't assign to a literal in python. The variable name is always on the
+    left-hand side of the equals sign. That is what gets assigned to.
+    ```python
+    a = 12
+    12 = a  # Error on this line
+    ```
+    
+    g. Unindent does not match any outer indentation level. There might be spaces
+    mixed in with your tabs. Try doing a search-and-replace to replace all tabs with
+    a few spaces.
+    ```python
+    a = 1
+    if 2 < 3:
+        if 1 < 2:
+            a = a + 1
+         else:         # Error on this line
+            a = a - 1
+    ```
