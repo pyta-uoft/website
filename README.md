@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="./images/pyta_logo_markdown.png?raw=true" alt="pyta logo" width="120">
+</p>
+
 # PyTA Help Website
 
 This is the source of the website which students can consult for common error
