@@ -22,6 +22,7 @@ completed_process = subprocess.run([
 
 copy_tree('images', 'gen/images')  # overwrite existing location with copy_tree.
 copy_tree('styles', 'gen/styles')
+copy_tree('scripts', 'gen/scripts')
 
 if not completed_process.returncode:
     print('Successful Build. Open gen/index.html to see the website.')
