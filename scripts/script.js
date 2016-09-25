@@ -9,15 +9,16 @@ $(document).ready(function(){
 
 /* Register event handlers.
  */
-$('body').on('click', '#toggleButton', toggleSideNav);
-$('body').on('click', '.accordion', collapseLi);
+$('body').on('click', '#toggleButton', navToggle);
 
 
-var HeaderToNav = function() {
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* Base function for adding navigation bar.
+ */
+function HeaderToNav() {
     this.elementsToNav = null;
     this.addToDom = '';  // string representation of elements to add to DOM.
 }
-
 
 /* For each header, add the jQuery element to an array.
  * Use all h2/h3 headers: 'h2' are categories, 'h3' are message items.
@@ -36,70 +37,66 @@ HeaderToNav.prototype.getElementArray = function (itemsToUse) {
  */
 HeaderToNav.prototype.buildElements = function() {
     var that = this;  // reference 'this' scope for different scope below.
-    var temp_dom = '';
     this.elementsToNav.each(function(){
         var text = $(this).text();
         var id = '#' + $(this).attr('id');
 
         // 'h2' headers are section categories used to group the messages.
         // 'h3' headers are the message items.
-        var catClass = $(this).is('h2') ? ' class="accordion"' : ''; 
-        if(catClass ==' class="accordion"'){
-          // Check if the content is empty. If not, wrap the content inside the
-          // nav category.
-          if(temp_dom != '')
-          {
-           that.addToDom += '<div class="panel"><ul>' + temp_dom + '</ul></div>';
-           temp_dom = '';
-          }
-        that.addToDom += '<button' + catClass + '><a href="' + id + '">' + text + 
-            '</a></button>';
-                          }
-        else{
-        temp_dom += '<li><a href="' + id + '">' + text + '</a></li>';}
-        
-     })
-     that.addToDom += '<div class="panel"><ul>' + temp_dom + '</ul></div>';
- 
-     // wrap 'li' items in 'ul' and 'nav'.
-     this.addToDom = '<div id="frame"><div id="nav">' + 
-                     this.addToDom + '</div></div>'
-     return this;
-}
+        var catClass = $(this).is('h2') ? ' class="navCategory"' : '';
+        that.addToDom += '<li' + catClass + '><a href="' + id + '">' + text +
+                         '</a></li>';
+    });
 
-
-/* Insert (costly operation) given elements into DOM. 
- * Default: prepend to 'body'.
- * @param   element     (existing) DOM element to prepend into.
- */
-HeaderToNav.prototype.insert = function(element) {
-    var element = element || 'body';
-    $(element).prepend(this.addToDom);
-    adjustContent();  // temporarily turned off.
+    // wrap 'li' items in 'ul' and 'nav'.
+    this.addToDom = '<nav id="side"><div id="toggleButton"><span></span></div><ul>' +
+                    this.addToDom + '</ul></nav>';
     return this;
 }
 
 
-/* 
- * Toggle (show/hide) the navigation when icon is clicked.
- * The navigation should collapse 'out of the way' to small box when not needed.
+/* Insert (costly operation) given elements into DOM.
+ * Default: prepend to 'body'.
+ * @param   element     (existing) DOM element to prepend into.
  */
-function toggleSideNav() {
-    // Your code here...
-    $("div#nav").toggle();
-    adjustContent();  // temporarily turned off.
-}
-
-/* 
- * Get the width of the navigation and set the margin-left of 'div.content' by
- * that amount, so the nav and content are not obstructing, side-by-side.
- */
-function adjustContent() {
-    $('.content').css('margin-left', $('#side').width() + "px");
+HeaderToNav.prototype.insert = function(element) {
+    element = element || 'body';
+    $(element).prepend(this.addToDom);
+    navToggle();
+    return this;
 }
 
 
-function collapseLi(){
-    this.classList.toggle("active");
-    this.nextElementSibling.classList.toggle("show");
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+    Navigation bar (show/hide) when icon is clicked.
+    The navigation collapses 'out of the way' when not needed.
+    The margin-left property of 'div.content' is conditionally adjusted to
+    prevent obstruction.
+    On small screens:
+      • open nav with overlay instead of narrowing content.
+      • close the nav without overlay, to prevent covering content.
+    Note: toggling 2 or more things is less robust (nondeterministic), and
+    avoided for this reason.
+ */
+function navToggle() {
+    // corresponds to '.content, #side' widths, and a small buffer
+    var minScreenWidth = 780 + 50 + 30;
+    if ($('nav#side ul').is(':visible')) { // Close side nav.
+        $('nav#side ul').hide();
+        $('#toggleButton span').removeClass('iconSideNavControl');
+        if ($(window).width() < minScreenWidth) {
+            // Prevent obstruction of content on small screens.
+            $('.content').css('margin-left', $('nav#side').outerWidth() + "px");
+        } else {
+            $('.content').css('margin-left', 'auto');
+        }
+    } else {  // Show side nav.
+        $('nav#side ul').show();
+        $('#toggleButton span').addClass('iconSideNavControl');
+        if ($(window).width() >= minScreenWidth) {
+            // Overlay instead of narrowing content on small screens.
+            $('.content').css('margin-left', $('nav#side').outerWidth() + "px");
+        }
+    }
 }

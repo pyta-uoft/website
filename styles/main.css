@@ -276,30 +276,106 @@ nav#side ul {
 }
 
 
+/* Side Navigation */
+nav#side {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.93);
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: scroll;
+    border-right: 1px solid #d7d7d7;
+    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+    /*background: #00d0ff;*/
+}
+
+nav#side ul {
+    list-style: none;
+    max-width: 250px;
+    margin: 0;
+    margin-bottom: 40px;
+
+}
+
 nav#side li {
-    cursor: pointer;
-    text-align: left;
-    list-style: none;
-    margin: 1px;
-    margin-bottom: 20px; 
+    margin-left: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 
-#nav a {
-    list-style: none;
-    margin-left: 5px;
+nav#side li.navCategory {
+
 }
 
+nav#side a {
+    display: block;
+    padding: 1px 10px;;
+}
+nav#side a:hover {
 
+}
+
+nav#side li.navCategory a {
+    padding-top: 8px;
+    color: black;
+    font-size: 140%;
+}
 
 #toggleButton {
-    color: black;
-    top: 0px;
-    left: 210px;
-    font-size: 1.5em;
-    text-shadow: 0px 1px 1px #0072ff;
-    position: fixed;
+    font-size: 3em;
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+    display: flex;
+    margin: 10px 10px 0px 10px;
 }
 
+#toggleButton:hover span {
+    opacity: 1;
+}
+
+#toggleButton span,
+#toggleButton span:before,
+#toggleButton span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 3px;
+    width: inherit;
+    background: #85ccff;
+    position: absolute;
+    display: block;
+    content: '';
+    opacity: 0.7;
+    transition: all 200ms ease-in-out;
+}
+
+/*toggled: state 1*/
+#toggleButton span {
+    background: #2f6efa;
+}
+
+#toggleButton span:before {
+    top: 8px;
+}
+
+#toggleButton span:after {
+    top: 16px;
+    background: #3e70ff;
+}
+
+/*toggled: state 2*/
+#toggleButton span.iconSideNavControl {
+    transform: rotate(45deg);
+    transform-origin: 0px 5px;
+}
+
+#toggleButton span.iconSideNavControl:before {
+    background: transparent;
+}
+
+#toggleButton span.iconSideNavControl:after {
+    transform: rotate(-90deg);
+    transform-origin: 5.5px -6px;
+}
 
 
 /* Footer */
@@ -433,5 +509,4 @@ table li {
     padding-left: 5px;
     content: "▼";
   }
-
 }
