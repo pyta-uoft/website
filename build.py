@@ -28,3 +28,5 @@ copy_tree('styles', 'gen/styles')
 
 if not completed_process.returncode:
     print('Successful Build. Open gen/index.html to see the website.')
+elif sys.platform == 'darwin':
+    print('Did you set /usr/bin/env python3 in includes.py?')
