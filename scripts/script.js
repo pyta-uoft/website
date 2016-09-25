@@ -49,7 +49,7 @@ HeaderToNav.prototype.buildElements = function() {
     });
 
     // wrap 'li' items in 'ul' and 'nav'.
-    this.addToDom = '<nav id="side"><div id="toggleButton"><span></span></div><ul>' +
+    this.addToDom = '<nav id="side"><div id="toggleButton"><span class="iconSideNavControl"></span></div><ul>' +
                     this.addToDom + '</ul></nav>';
     return this;
 }
@@ -80,23 +80,13 @@ HeaderToNav.prototype.insert = function(element) {
     avoided for this reason.
  */
 function navToggle() {
-    // corresponds to '.content, #side' widths, and a small buffer
-    var minScreenWidth = 780 + 50 + 30;
-    if ($('nav#side ul').is(':visible')) { // Close side nav.
-        $('nav#side ul').hide();
-        $('#toggleButton span').removeClass('iconSideNavControl');
-        if ($(window).width() < minScreenWidth) {
-            // Prevent obstruction of content on small screens.
-            $('.content').css('margin-left', $('nav#side').outerWidth() + "px");
-        } else {
-            $('.content').css('margin-left', 'auto');
-        }
-    } else {  // Show side nav.
-        $('nav#side ul').show();
-        $('#toggleButton span').addClass('iconSideNavControl');
-        if ($(window).width() >= minScreenWidth) {
-            // Overlay instead of narrowing content on small screens.
-            $('.content').css('margin-left', $('nav#side').outerWidth() + "px");
-        }
-    }
+    $('nav#side ul').toggle();
+    $('#toggleButton span').toggleClass('iconSideNavControl');
+    // if ($('nav#side ul').is(':visible')) { // Close side nav.
+    //     $('nav#side ul').hide();
+    //     $('#toggleButton span').removeClass('iconSideNavControl');
+    // } else {  // Show side nav.
+    //     $('nav#side ul').show();
+    //     $('#toggleButton span').addClass('iconSideNavControl');
+    // }
 }
