@@ -16,14 +16,12 @@ This error occurs when you are using a variable before it has been assigned a va
 ~~~~ {include="E0601_used_before_assignment"}
 ~~~~
 
-
 ### E0602: Undefined variable {#E0602}
 
 This error occurs when you are using a variable that has not been defined.
 
 ~~~~ {include="E0602_undefined_variable"}
 ~~~~
-
 
 ### W0631: Undefined loop variable {#W0631}
 
@@ -32,6 +30,8 @@ was defined.
 
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
+
+Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. This practice is discouraged, however, as it can lead to obscure and hard-to-detect bugs. For more information, see the Eli Bendersky's blog post: [The scope of index variables in Python's for loops](http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/).
 
 
 ### E0103: Not in loop {#E0103}
@@ -71,11 +71,16 @@ or the function is returning too early.
 
 ### W0109: Duplicate key {#W0109}
 
-This error occurs when a dictionary expression stores the same key multiple times.
+This error occurs when a dictionary literal sets the same key multiple times.
+
+Dictionaries map unique keys to values. When different values are assigned to the same key, the last assignment takes precedence. This is rarely what the user wants when they are constructing a dictionary.
 
 ~~~~ {include="W0109_duplicate_key"}
 ~~~~
 
+```python
+print(ex)  # prints {'runner1': '7km'}
+```
 
 ## Type errors
 
@@ -85,7 +90,7 @@ They generally have to do with using a value of one type where another type is r
 ### E1101: No member {#E1101}
 
 This error occurs when you use dot notation (`my_var.x`) to access an attribute
-or to call a method which does not exist for the given value.
+or to call a method which does not exist for the given object.
 
 This can happen for both built-in types like `str`, as well as classes that you define yourself.
 This error often results in an **AttributeError** when you run your program.
@@ -96,19 +101,19 @@ This error often results in an **AttributeError** when you run your program.
 
 ### E1102: Not callable {#E1102}
 
-This error occurs when you try to call a value which is not a function.
-In the following example, we should not call `x()` because `x` refers to
-a value which is an integer, not a function.
+This error occurs when you try to call a value which is not a function, method, or callable object.
+In the following example, we should not call `x()` because `x` points to an integer, and calling an integer has no meaning.
 
 ~~~~ {include="E1102_not_callable"}
 ~~~~
 
+If you would like to make an instance of a particular class callable, you should implement the [`__call__(self[, args...])`](https://docs.python.org/3/reference/datamodel.html#object.__call__) method.
 
 ### E1111: Assignment from no return {#E1111}
 
 This error occurs when you assign a variable to the return value of a function call,
 but the function never returns anything.
-This error is similar to E1128. In the following example,
+This error is similar to [E1128](#E1128). In the following example,
 f() does not return anything. As a result, `x` always gets the value `None`.
 
 ~~~~ {include="E1111_assignment_from_no_return"}
@@ -189,7 +194,7 @@ print(a[0:3])
 
 This error occurs when you assign a variable the return value of a function call,
 but the function always returns `None`.
-This error is similar to E1111.
+This error is similar to [E1111](#E1111).
 In the following example, `f` always returns `None`. As a result, `x` will always
 get the value `None`.
 
@@ -1320,18 +1325,18 @@ print 3   # Error on this line
     if spam == 42  # Error on this line
         print('Hello!')
     ```
-    
+
     b. Using = instead of == inside a condition expression.
     ```python
     if spam = 42:  # Error on this line
         print('Hello!')
     ```
-    
+
     c. Forgetting a quote to begin or end a string value.
     ```python
     print('Hello!) # Error on this line
     ```
-    
+
     d. Trying to use a Python keyword for a variable name.
         Here are all the keywords you should avoid:
         ```
@@ -1343,27 +1348,27 @@ print 3   # Error on this line
         continue  finally   is        return
         def       for       lambda    try
         ```
-        
+
         For example:
-        
+
         ```python
         class = 'algebra' # Error on this line
         ```
-        
+
     e. There is no ++ increment or –- decrement operator. Do not try to increment
     or decrement a variable with ++ or --.
     ```python
     spam = 0
     spam++  # Error on this line
     ```
-    
+
     f. You can't assign to a literal in python. The variable name is always on the
     left-hand side of the equals sign. That is what gets assigned to.
     ```python
     a = 12
     12 = a  # Error on this line
     ```
-    
+
     g. Unindent does not match any outer indentation level. There might be spaces
     mixed in with your tabs. Try doing a search-and-replace to replace all tabs with
     a few spaces.
