@@ -152,7 +152,7 @@ get_sum(1, 2)
 This error occurs when a list or tuple is indexed using the square bracket notation
 `my_list[...]`, but the value of the index is not an integer.
 
-Remember that the index tells the *position* in the list/tuple of the item to get.
+Remember that the index indicates the *position* of the item in the list/tuple.
 
 ~~~~ {include="E1126_invalid_sequence_index"}
 ~~~~
