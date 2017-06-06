@@ -31,7 +31,7 @@ was defined.
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
 
-Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. This practice is discouraged, however, as it can lead to obscure and hard-to-detect bugs. For more information, see the Eli Bendersky's blog post: [The scope of index variables in Python's for loops](http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/).
+Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. This practice is discouraged, however, as it can lead to obscure and hard-to-detect bugs. For more information, see the Eli Bendersky's blog post: [The scope of index variables in Python's for loops][1].
 
 
 ### E0103: Not in loop {#E0103}
@@ -1379,3 +1379,6 @@ print 3   # Error on this line
          else:         # Error on this line
             a = a - 1
     ```
+
+
+[1]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
