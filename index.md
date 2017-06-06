@@ -102,7 +102,7 @@ This error often results in an **AttributeError** when you run your program.
 ### E1102: Not callable {#E1102}
 
 This error occurs when you try to call a value which is not a function, method, or callable object.
-In the following example, we should not call `x()` because `x` points to an integer, and calling an integer has no meaning.
+In the following example, we should not call `x()` because `x` refers to an integer, and calling an integer has no meaning.
 
 ~~~~ {include="E1102_not_callable"}
 ~~~~
