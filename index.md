@@ -107,7 +107,6 @@ In the following example, we should not call `x()` because `x` points to an inte
 ~~~~ {include="E1102_not_callable"}
 ~~~~
 
-If you would like to make an instance of a particular class callable, you should implement the [`__call__(self[, args...])`](https://docs.python.org/3/reference/datamodel.html#object.__call__) method.
 
 ### E1111: Assignment from no return {#E1111}
 
