@@ -106,14 +106,14 @@ a value which is an integer, not a function.
 
 ### E1111: Assignment from no return {#E1111}
 
-This error occurs when you assign a variable to the return value of a function call,
-but the function never returns anything.
-This error is similar to E1128. In the following example,
-f() does not return anything. As a result, `x` always gets the value `None`.
+This error occurs when you assign a variable to the return value of a function call, but the function never returns anything. This error is similar to [E1128](#E1128).
+
+In the following example, `add_fruit` modifies `fruit_basket` inplace and does not return anything. As a result, `new_fruit_basket` always gets the value `None`.
 
 ~~~~ {include="E1111_assignment_from_no_return"}
 ~~~~
 
+You should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
 
 ### E1120: No value for parameter {#E1120}
 
@@ -1320,18 +1320,18 @@ print 3   # Error on this line
     if spam == 42  # Error on this line
         print('Hello!')
     ```
-    
+
     b. Using = instead of == inside a condition expression.
     ```python
     if spam = 42:  # Error on this line
         print('Hello!')
     ```
-    
+
     c. Forgetting a quote to begin or end a string value.
     ```python
     print('Hello!) # Error on this line
     ```
-    
+
     d. Trying to use a Python keyword for a variable name.
         Here are all the keywords you should avoid:
         ```
@@ -1343,27 +1343,27 @@ print 3   # Error on this line
         continue  finally   is        return
         def       for       lambda    try
         ```
-        
+
         For example:
-        
+
         ```python
         class = 'algebra' # Error on this line
         ```
-        
+
     e. There is no ++ increment or –- decrement operator. Do not try to increment
     or decrement a variable with ++ or --.
     ```python
     spam = 0
     spam++  # Error on this line
     ```
-    
+
     f. You can't assign to a literal in python. The variable name is always on the
     left-hand side of the equals sign. That is what gets assigned to.
     ```python
     a = 12
     12 = a  # Error on this line
     ```
-    
+
     g. Unindent does not match any outer indentation level. There might be spaces
     mixed in with your tabs. Try doing a search-and-replace to replace all tabs with
     a few spaces.
