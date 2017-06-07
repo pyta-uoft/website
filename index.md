@@ -197,8 +197,7 @@ In the following example, `add_fruit` always returns `None`.  As a result, `new_
 
 ### E1130: Invalid unary operand type {#E1130}
 
-This error occurs when the unary operand on the objects does not support this
-type of operation. For example, we should never add string to integer.
+This error occurs when you use a [unary operator][2] (`+`, `-`, `~`) on an object which does not support this operator. For example, a list does not support negation.
 
 ~~~~ {include="E1130_invalid_unary_operand_type"}
 ~~~~
@@ -1373,3 +1372,7 @@ print 3   # Error on this line
          else:         # Error on this line
             a = a - 1
     ```
+
+
+
+[2]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
