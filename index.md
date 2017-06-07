@@ -171,8 +171,8 @@ This error occurs when a list or tuple is sliced using the square bracket notati
 `my_list[... : ...]`, but the two values on the left and right of the colon
 are not integers.
 
-Remember that the slice numbers tell the *start* and *stop* positions for
-the slice in the list/tuple to get.
+Remember that the slice numbers indicate the *start* and *stop* positions for
+the slice in the list/tuple.
 
 ~~~~ {include="E1127_invalid_slice_index"}
 ~~~~
