@@ -187,11 +187,9 @@ print(a[0:3])
 
 ### E1128: Assignment from None {#E1128}
 
-This error occurs when you assign a variable the return value of a function call,
-but the function always returns `None`.
-This error is similar to E1111.
-In the following example, `f` always returns `None`. As a result, `x` will always
-get the value `None`.
+This error occurs when you assign a variable the return value of a function call, but the function always returns `None`. This error is similar to [E1111](#E1111).
+
+In the following example, `add_fruit` always returns `None`.  As a result, `new_fruit_basket` will always get the value `None`.
 
 ~~~~ {include="E1128_assignment_from_none"}
 ~~~~
