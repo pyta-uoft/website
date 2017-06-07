@@ -238,7 +238,7 @@ and dictionaries.
 ### E0632: Unbalanced tuple unpacking {#E0632}
 
 This error occurs when you are trying to assign to multiple variables at once,
-but the right side has too few values in the sequence.
+but the right side has too few or too many values in the sequence.
 
 ~~~~ {include="E0632_unbalanced_tuple_unpacking"}
 ~~~~
