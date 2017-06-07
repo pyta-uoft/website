@@ -213,10 +213,10 @@ This error occurs when you use a [binary arithmetic operator][3] like `+` or `*`
 
 ### E1135: Unsupported membership test {#E1135}
 
-This error occurs when you use the membership test `a in b`, but the `b`'s type
-does not support this type of check.
+This error occurs when you use the membership test `a in b`, but the type of `b`
+does not support membership tests.
 
-The standard Python types which support this check are strings, lists, tuples,
+The standard Python types which support membership tests are strings, lists, tuples,
 and dictionaries.
 
 ~~~~ {include="E1135_unsupported_membership_test"}
