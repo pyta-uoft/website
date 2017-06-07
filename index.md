@@ -205,9 +205,7 @@ This error occurs when you use a [unary operator][2] (`+`, `-`, `~`) on an objec
 
 ### E1131: Unsupported binary operation {#E1131}
 
-This error occurs when you use a binary arithmetic operator like `+` or `*`,
-but the left and right sides are not compatible types.
-For example, a dictionary cannot be added to a list.
+This error occurs when you use a [binary arithmetic operator][3] like `+` or `*`, but the left and right sides are not compatible types. For example, a dictionary cannot be added to a list.
 
 ~~~~ {include="E1131_unsupported_binary_operation"}
 ~~~~
@@ -1348,7 +1346,7 @@ print 3   # Error on this line
         ```
 
     e. There is no ++ increment or –- decrement operator. Do not try to increment
-    or decrement a variable with ++ or --.
+    or decrement a variable with ++ or --.~~~~
     ```python
     spam = 0
     spam++  # Error on this line
@@ -1376,3 +1374,4 @@ print 3   # Error on this line
 
 
 [2]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
+[3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
