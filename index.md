@@ -108,12 +108,12 @@ a value which is an integer, not a function.
 
 This error occurs when you assign a variable to the return value of a function call, but the function never returns anything. This error is similar to [E1128](#E1128).
 
-In the following example, `add_fruit` modifies `fruit_basket` inplace and does not return anything. As a result, `new_fruit_basket` always gets the value `None`.
+In the following example, `add_fruit` mutates `fruit_basket` and does not return anything. As a result, `new_fruit_basket` always gets the value `None`.
 
 ~~~~ {include="E1111_assignment_from_no_return"}
 ~~~~
 
-You should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
+We should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
 
 ### E1120: No value for parameter {#E1120}
 
