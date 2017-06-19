@@ -363,7 +363,7 @@ Note: we set a limit of three nested if blocks.
 ### Too many arguments (R0913) {#R0913}
 
 The function or method is defined with too many arguments.
-This is a sign that the function/method is too complex, and should be split up.
+This is a sign that the function/method is too complex, and should be split up, or that some of the arguments are related, and should be combined and passed as a single object.
 
 Note: the checker limit is 5 arguments.
 
