@@ -261,9 +261,7 @@ but the right side is not a sequence, and so can't be unpacked.
 
 ### Simplifiable if statement (R0102) {#R0102}
 
-This error occurs when you have an `if` statement that can be simplified
-simply by using the value of the condition, rather than putting in extra
-`True` and `False` literals.
+This error occurs when you have an `if ... else` statement that can be simplified by using the value of the condition instead of additional `True` and `False` literals.
 
 ~~~~ {include="R0102_simplifiable_if_statement"}
 ~~~~
