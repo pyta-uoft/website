@@ -423,9 +423,7 @@ This is likely not what was intended.
 
 ### Unnecessary pass (W0107) {#W0107}
 
-This error occurs when a `pass` statement is used that can be avoided (or has
-no effect). If you are able to remove the `pass` statement without changing the
-effect of the program, then the statement is "unnecessary" and can be avoided.
+This error occurs when a [`pass` statement][4] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python. Some examples of appropriate uses of `pass` can be found [here][5].
 
 ~~~~ {include="W0107_unnecessary_pass"}
 ~~~~
@@ -1377,3 +1375,5 @@ print 3   # Error on this line
 [1]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
 [2]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
 [3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
+[4]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
+[5]: https://stackoverflow.com/a/22612774/2063031
