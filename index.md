@@ -348,7 +348,7 @@ Note: the checker limit is 12 branches.
 
 This error occurs when you have more than three levels of nested blocks in your code.
 This type of nesting is a sign that your function is too complex,
-and should be broken down using helper functions.
+and should be broken down using helper functions or [generators][6].
 
 Note: this checker doesn't include function or class definition
 as a block, so the example below is considered to have *four* nested blocks,
@@ -1377,3 +1377,4 @@ print 3   # Error on this line
 [3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
 [4]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
 [5]: https://stackoverflow.com/a/22612774/2063031
+[6]: https://docs.python.org/3/tutorial/classes.html#generators
