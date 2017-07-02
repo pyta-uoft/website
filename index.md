@@ -110,14 +110,14 @@ In the following example, we should not call `x()` because `x` refers to an inte
 
 ### Assignment from no return (E1111) {#E1111}
 
-This error occurs when you assign a variable to the return value of a function call,
-but the function never returns anything.
-This error is similar to [E1128](#E1128). In the following example,
-f() does not return anything. As a result, `x` always gets the value `None`.
+This error occurs when you assign a variable to the return value of a function call, but the function never returns anything. This error is similar to [E1128](#E1128).
+
+In the following example, `add_fruit` mutates `fruit_basket` and does not return anything. As a result, `new_fruit_basket` always gets the value `None`.
 
 ~~~~ {include="E1111_assignment_from_no_return"}
 ~~~~
 
+We should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
 
 ### No value for parameter (E1120) {#E1120}
 
@@ -156,7 +156,7 @@ get_sum(1, 2)
 This error occurs when a list or tuple is indexed using the square bracket notation
 `my_list[...]`, but the value of the index is not an integer.
 
-Remember that the index tells the *position* in the list/tuple of the item to get.
+Remember that the index indicates the *position* of the item in the list/tuple.
 
 ~~~~ {include="E1126_invalid_sequence_index"}
 ~~~~
@@ -175,8 +175,8 @@ This error occurs when a list or tuple is sliced using the square bracket notati
 `my_list[... : ...]`, but the two values on the left and right of the colon
 are not integers.
 
-Remember that the slice numbers tell the *start* and *stop* positions for
-the slice in the list/tuple to get.
+Remember that the slice numbers indicate the *start* and *stop* positions for
+the slice in the list/tuple.
 
 ~~~~ {include="E1127_invalid_slice_index"}
 ~~~~
@@ -191,11 +191,9 @@ print(a[0:3])
 
 ### Assignment from None (E1128) {#E1128}
 
-This error occurs when you assign a variable the return value of a function call,
-but the function always returns `None`.
-This error is similar to [E1111](#E1111).
-In the following example, `f` always returns `None`. As a result, `x` will always
-get the value `None`.
+This error occurs when you assign a variable the return value of a function call, but the function always returns `None`. This error is similar to [E1111](#E1111).
+
+In the following example, `add_fruit` always returns `None`.  As a result, `new_fruit_basket` will always get the value `None`.
 
 ~~~~ {include="E1128_assignment_from_none"}
 ~~~~
@@ -203,8 +201,7 @@ get the value `None`.
 
 ### Invalid unary operand type (E1130) {#E1130}
 
-This error occurs when the unary operand on the objects does not support this
-type of operation. For example, we should never add string to integer.
+This error occurs when you use a [unary operator][2] (`+`, `-`, `~`) on an object which does not support this operator. For example, a list does not support negation.
 
 ~~~~ {include="E1130_invalid_unary_operand_type"}
 ~~~~
@@ -212,9 +209,7 @@ type of operation. For example, we should never add string to integer.
 
 ### Unsupported binary operation (E1131) {#E1131}
 
-This error occurs when you use a binary arithmetic operator like `+` or `*`,
-but the left and right sides are not compatible types.
-For example, a dictionary cannot be added to a list.
+This error occurs when you use a [binary arithmetic operator][3] like `+` or `*`, but the left and right sides are not compatible types. For example, a dictionary cannot be added to a list.
 
 ~~~~ {include="E1131_unsupported_binary_operation"}
 ~~~~
@@ -222,10 +217,10 @@ For example, a dictionary cannot be added to a list.
 
 ### Unsupported membership test (E1135) {#E1135}
 
-This error occurs when you use the membership test `a in b`, but the `b`'s type
-does not support this type of check.
+This error occurs when you use the membership test `a in b`, but the type of `b`
+does not support membership tests.
 
-The standard Python types which support this check are strings, lists, tuples,
+The standard Python types which support membership tests are strings, lists, tuples,
 and dictionaries.
 
 ~~~~ {include="E1135_unsupported_membership_test"}
@@ -247,7 +242,7 @@ and dictionaries.
 ### Unbalanced tuple unpacking (E0632) {#E0632}
 
 This error occurs when you are trying to assign to multiple variables at once,
-but the right side has too few values in the sequence.
+but the right side has too few or too many values in the sequence.
 
 ~~~~ {include="E0632_unbalanced_tuple_unpacking"}
 ~~~~
@@ -1355,7 +1350,7 @@ print 3   # Error on this line
         ```
 
     e. There is no ++ increment or –- decrement operator. Do not try to increment
-    or decrement a variable with ++ or --.
+    or decrement a variable with ++ or --.~~~~
     ```python
     spam = 0
     spam++  # Error on this line
@@ -1382,3 +1377,5 @@ print 3   # Error on this line
 
 
 [1]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
+[2]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
+[3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
