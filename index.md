@@ -308,15 +308,11 @@ like True, False or None.
 The above can be modified to:
 
 ```python
-def is_true():
-    """
-    @rtype: bool
-    """
-    temp = 5
-    if temp is None:
-        return False
+def square(number):
+    if number is None:
+        return None
     else:
-        return True
+        return number**2
 ```
 
 
