@@ -347,18 +347,48 @@ Note: the checker limit is 12 branches.
 ### Too many nested blocks (R0101) {#R0101}
 
 This error occurs when you have more than three levels of nested blocks in your code.
-This type of nesting is a sign that your function is too complex,
-and should be broken down using helper functions or [generators][6].
+Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][6].
 
-Note: this checker doesn't include function or class definition
-as a block, so the example below is considered to have *four* nested blocks,
-not five.
-
-Note: we set a limit of three nested if blocks.
+**Note**: this checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
 ~~~~ {include="R0101_too_many_nested_blocks"}
 ~~~~
 
+The code above can be fixed using a helper function:
+
+```python
+def drop_none(lst):
+    new_lst = []
+    for element in lst:
+        if element is not None:
+            new_lst.append(element)
+    return new_lst
+
+
+def cross_join(x_list, y_list, z_list):
+    cross_join_list = []
+    for x in drop_none(x_list):
+        for y in drop_none(y_list):
+            for z in drop_none(z_list):
+                cross_join_list.append((x, y, z))
+    return cross_join_list
+```
+
+or using list comprehension:
+
+```python
+def cross_join(x_list, y_list, z_list):
+    cross_join_list = [
+        (x, y, z)
+        for x in x_list
+        if x is not None
+        for y in y_list
+        if y is not None
+        for z in z_list
+        if z is not None
+    ]
+    return cross_join_list
+```
 
 ### Too many arguments (R0913) {#R0913}
 
@@ -1377,4 +1407,4 @@ print 3   # Error on this line
 [3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
 [4]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
 [5]: https://stackoverflow.com/a/22612774/2063031
-[6]: https://docs.python.org/3/tutorial/classes.html#generators
+[6]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
