@@ -289,15 +289,11 @@ negation.
 The above can be modified to:
 
 ```python
-def is_true():
-    """
-    @rtype: bool
-    """
-    temp = 5
-    if temp <= 3:
-        return False
-    else:
-        return True
+number = 5
+if number < 0:
+    number_category = 'negative'
+else:
+    number_category = 'non-negative'
 ```
 
 
