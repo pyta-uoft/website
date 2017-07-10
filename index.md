@@ -468,7 +468,7 @@ docstring.
 ### Blacklisted name (C0102) {#C0102}
 
 This error occurs when a variable name is chosen to be a typical generic name,
-rather than a meaningful one. Here are the blacklisted names to avoid:
+rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
  - foo
  - bar
@@ -481,19 +481,18 @@ rather than a meaningful one. Here are the blacklisted names to avoid:
 ~~~~
 
 
-### Invalid Name (C0103) {#C0103}
+### Invalid name (C0103) {#C0103}
 
-This error occurs when a name does not follow the format associated with to its type (constant, variable ...).
+This error occurs when a name does not follow the [Python Naming Convention] associated with its type (constant, variable, etc.).
 
-- Variable/Attribute/Method/Argument: All variable/attribute/method/argument names should be in
-**lowercase_with_underscores**.
+- Names of variables, attributes, methods, and arguments should be in **`lowercase_with_underscores`**.
 
-- Constant: All constant names should be in **ALL_CAPS_WITH_UNDERSCORES**.
+- Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
 
-- Class: All class names should be in **CamelCase**.
+- Names of classes should be in **`CamelCase`**.
 
 A special character accepted in all types of names is '_'.
-Numbers are allowed in all names, but names should not begin with a number.
+Numbers are allowed in all names, but names must not begin with a number.
 
 ~~~~ {include="C0103_invalid_name"}
 ~~~~
@@ -522,9 +521,11 @@ one separately in the function body.
 ### Redefined outer name (W0621) {#W0621}
 
 This error occurs when you are trying to redefine a variable name that has
-already been defined in the outer scope. For example, this error will occurs
+already been defined in the outer scope. For example, this error will occur
 when you have a local name identical to a global name. The local name takes
-precedence. but it hides the global name, makes it no longer accessible.
+precedence, but it hides the global name, making it no longer accessible.
+
+Note that the outer name is not accessible *anywhere* in the function where it is redefined, even before the redefinition.
 
 ~~~~ {include="W0621_redefined_outer_name"}
 ~~~~
@@ -532,7 +533,7 @@ precedence. but it hides the global name, makes it no longer accessible.
 
 ### Redefined builtin (W0622) {#W0622}
 
-This error occurs when you are trying to redefine a built-in function.
+This error occurs when you are trying to redefine a [built-in function][Built-in Functions].
 
 ~~~~ {include="W0622_redefined_builtin"}
 ~~~~
@@ -570,7 +571,7 @@ There are other forms of import statements that may cause this error, for
 example:
 
 ```python
-import missing_module as foo  # this module does not exist.
+import missing_module as foo  # this module does not exist
 ```
 
 
@@ -602,34 +603,29 @@ A module should not be imported more than once.
 
 ### Wildcard import (W0401) {#W0401}
 
-Only import what you need. Wildcard imports (shown below) are generally
-discouraged because they add all the functions from the imported module into the
-global namespace. Problems can occur when identical names conflict.
+Only import what you need. Wildcard imports (shown below) are generally discouraged, as they add all the objects from the imported module into the global namespace, and make it difficult to tell in which module a particular class, function or constant was defined. This may cause problems, for example, when multiple modules have objects with identical names.
 
 ~~~~ {include="W0401_wildcard_import"}
 ~~~~
 
-Rather than importing everything with wildcard *, try importing specific
-functions:
+Rather than importing everything with wildcard *, specify the names of the objects which you would like to import:
 
 ```python
-from module_name import certain_definition
+from module_name import SOME_CONSTANT, SomeClass, some_function
 ```
 
-Or, if you need to import many functions, import them the following way, to
-keep them separated in the namespace by module name. Then you can refer to the
-function as `module_name.function_name`.
+Or, if you need to import many objects from a particular module, import the module itself, and use it as a namespace for the required objects:
 
 ```python
 import module_name
 
-module_name.function_name()
+c = module_name.SomeClass()
 ```
 
 
 ### Wrong import order (C0411) {#C0411}
 
-Used when PEP8 import order is not respected (do the standard library imports first,
+Used when [PEP8 import order][PEP8 Imports] is not respected (do the standard library imports first,
 then third-party libraries, then local imports).
 
 ~~~~ {include="C0411_wrong_import_order"}
@@ -655,8 +651,7 @@ Imports should be grouped by packages.
 Corrected version:
 
 ```python
-from sys import byteorder  # same packages should be grouped
-from sys import stdin  # same packages should be grouped
+from sys import byteorder, stdin  # same packages should be grouped
 from math import floor
 ```
 
@@ -685,7 +680,7 @@ from sys import byteorder, stdin
 
 ### Unused import (W0611) {#W0611}
 
-This error occurs when you have a imported module that is unused in your code.
+This error occurs when you import a module which is not used anywhere in your code.
 
 ~~~~ {include="W0611_unused_import"}
 ~~~~
@@ -1379,3 +1374,7 @@ print 3   # Error on this line
 [1]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
 [2]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
 [3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
+
+[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
+[Built-in Functions]: https://docs.python.org/3/library/functions.html
+[PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
