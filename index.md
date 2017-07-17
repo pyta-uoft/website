@@ -764,15 +764,7 @@ class Composition(object):
 
 ### Different method signature (W0222) {#W0222}
 
-When a child class overrides a method of the parent class, the new method should have the same signature as the method which it is overriding. In other words, the names and the order of the arguments should be the same in the two methods.
-
-When declaring a method in a child class, if you're going to provide a
-method name that is the same as a method in the parent class, both the
-parent and child should not differ in their signature (the number of
-arguments).
-
-When you have a method with the same name, the arguments should stay the
-same.
+When a child class overrides a method of the parent class, the new method should have the same signature as the method which it is overriding. In other words, the names and the order of the parameters should be the same in the two methods.
 
 ~~~~ {include="W0222_signature_differs"}
 ~~~~
@@ -780,21 +772,16 @@ same.
 
 ### Return in `__init__` (E0101) {#E0101}
 
-This error occurs when a return statement is used in the [`__init__` method][__init__].
-The purpose of this method is to initialize the attributes of the object which is being instantiated.
+This error occurs when the [`__init__`][object.__init__] method contains a return statement.
+
+The purpose of the `__init__` method is to initialize the attributes of an object. `__init__` is called by the special method [`__new__`][object.__new__] when a new object is being instantiated, and `__new__` will raise a `TypeError` if `__init__` returns anything other than `None`.
 
 ~~~~ {include="E0101_return_in_init"}
 ~~~~
 
-
 ### Protected member access (W0212) {#W0212}
 
-Variable names starting with underscores are a convention that means the field should
-not be accessed outside of the calling class. This encapsulation is a
-hint to the user that they should not change the field as it may be
-critical to the proper functioning of the object. Furthermore, this also
-applies to methods with underscores since calling them may also cause
-adverse affects.
+Variable names starting with underscores are a convention that means the field should not be accessed outside of the calling class. This encapsulation is a hint to the user that they should not change the field, as it may be critical to the proper functioning of the object. Furthermore, this also applies to methods with underscores, since calling them may also cause adverse effects.
 
 ~~~~ {include="W0212_protected_access"}
 ~~~~
@@ -807,7 +794,7 @@ You should call the `__init__` method of the parent, not of some arbitrary and u
 ~~~~ {include="W0233_non_parent_init"}
 ~~~~
 
-To fix this, use the `__init__` from the class you are inheriting from, or use `super()`.
+To fix this, call the `__init__` method of the parent class, or use [`super()`][super].
 
 ```python
 # Call the `__init__` method on the correct parent class
@@ -842,14 +829,17 @@ You should do this instead:
 class MyClass:
     def __init__(self):
         self.num = 1
-        self.other_num = 2
+        self.other_num = None
+
+    def set_other_num(self, other_num):
+        self.other_num = other_num
 ```
 
 
 ### Access to member before definition (E0203) {#E0203}
 
 Before trying to use a member of a class, it should have been defined at
-some point. If you try to use it before assigning to it, E0an error will occur.
+some point. If you try to use it before assigning to it, an error will occur.
 
 ~~~~ {include="E0203_access_member_before_definition"}
 ~~~~
@@ -877,10 +867,7 @@ e.field(num)   # Error since we masked it
 
 ### Unexpected special method signature (E0302) {#E0302}
 
-Occurs when a special method (has double underscores on both sides) does not have
-the expected number of arguments. These special methods have an expected
-signature, and if we create a method with the same name and a different
-amount of arguments, it can cause exceptions to be raised.
+Occurs when a special method (aka ["dunder method"][Python double-under, double-wonder], because it has double underscores or "dunders" on both sides) does not have the expected number of parameters. Special methods have an expected signature, and if we create a method with the same name and a different number of parameters, it can break existing code and lead to exceptions.
 
 ~~~~ {include="E0302_unexpected_special_method_signature"}
 ~~~~
@@ -1442,6 +1429,7 @@ def check(condition, message):
 [str.strip]: https://docs.python.org/3/library/stdtypes.html#str.strip
 [str.lstrip]: https://docs.python.org/3/library/stdtypes.html#str.lstrip
 [str.rstrip]: https://docs.python.org/3/library/stdtypes.html#str.rstrip
+[super]: https://docs.python.org/3/library/functions.html#super
 
 # Python docs
 [`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
@@ -1460,3 +1448,4 @@ def check(condition, message):
 [Super Considered Super!]: https://youtu.be/EiOglTERPEo
 [The scope of index variables in Python's for loops]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
 [What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
+[Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
