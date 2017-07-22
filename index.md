@@ -1347,97 +1347,106 @@ def check(condition, message):
 
 ### Syntax Error (E0001) {#E0001}
 
-1. Python error message: "*SyntaxError: Missing parentheses in call to 'print'*".
+1. *SyntaxError: Missing parentheses in call to 'print'*
 
-    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside round brackets. In previous versions of Python, `print` had been a keyword.
+    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
 
-    ```python
-    print "Hello world!"   # Error on this line
-    print("Hello world!")  # Correct version
-    ```
+    ~~~~ {include="missing_parentheses_in_call_to_print"}
+    ~~~~
 
-2. Python error message: "*SyntaxError: invalid syntax*". Some of the common causes of this error include:
+2. *SyntaxError: can't assign to literal*
 
-    a. Forgetting a colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
 
-        ```python
-        if spam == 42  # Error on this line
-            print('Hello!')
+    ~~~~ {include="assignment_to_literal"}
+    ~~~~
+
+3. *SyntaxError: invalid syntax*
+
+    Some of the common causes of this error include:
+
+    a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+
+        ~~~~ {include="missing_colon"}
+        ~~~~
+
+    b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+
+        ~~~~ {include="assignment_inside_condition"}
+        ~~~~
+
+    c. Missing quote at the beginning or the end of a string literal.
+
+        ~~~~ {include="missing_quote"}
+        ~~~~
+
+    d. Assignment to a Python keyword.
+
+        ~~~~ {include="assignment_to_keyword"}
+        ~~~~
+
+        The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
+
+        ```
+        False      class      finally    is         return
+        None       continue   for        lambda     try
+        True       def        from       nonlocal   while
+        and        del        global     not        with
+        as         elif       if         or         yield
+        assert     else       import     pass
+        break      except     in         raise
         ```
 
-    b. Using the assignment operator `=` instead of the equality operator `==` inside a condition expression.
+    f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
 
-        ```python
-        if spam = 42:  # Error on this line
-            print('Hello!')
-        ```
+        ~~~~ {include="undefined_operator"}
+        ~~~~
 
-    c. Forgetting a quote to begin or end a string literal.
+### Indentation Error (E0002) {#E0002}
 
-        ```python
-        print('Hello!)  # Error on this line
-        ```
+a. *IndentationError: unindent does not match any outer indentation level*
 
-    d. Trying to use a Python keyword for a variable name.
-        Here are all the keywords you should avoid:
+    You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
-        ```
-        and       del       from      not       while
-        as        elif      global    or        with
-        assert    else      if        pass      yield
-        break     except    import    print
-        class     exec      in        raise
-        continue  finally   is        return
-        def       for       lambda    try
-        ```
+    ~~~~ {include="unindent_does_not_match_indentation"}
+    ~~~~
 
-        For example:
+    Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
-        ```python
-        class = 'algebra'  # Error on this line
-        ```
+b. *IndentationError: unexpected indent*
 
-    e. There is no increment by one `++` or decrement by one `--` operator in Python. The same functionality can be accomplished by writing ` += 1` or ` -= 1`.
+    In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
-        ```python
-        spam = 0
-        spam++  # Error on this line
-        ```
-
-    f. You can't assign to a literal in Python. There must always be a variable name on the     left-hand side of the equals sign.
-
-        ```python
-        a = 12
-        12 = a  # Error on this line
-        ```
-
-    g. Unindent does not match any outer indentation level. Make sure that you are always using the same number of spaces to indent your code (typically four). Also make sure that you are never indenting your code with tabs, and replace any existing tabs with four spaces.
-
-        ```python
-        num_even = 0
-        num_odd = 0
-        for i in range(100):
-            if i % 2 == 0:
-                num_even += 1
-             else:  # Error on this line; five spaces before `else:` instead of four
-                num_odd += 1
-        ```
+    ~~~~ {include="unexpected_indent"}
+    ~~~~
 
 
-# Python objects
+
+
+<!-- Python objects -->
 [__init__]: https://docs.python.org/3/reference/datamodel.html#object.__init__
 [str.strip]: https://docs.python.org/3/library/stdtypes.html#str.strip
 [str.lstrip]: https://docs.python.org/3/library/stdtypes.html#str.lstrip
 [str.rstrip]: https://docs.python.org/3/library/stdtypes.html#str.rstrip
 [super]: https://docs.python.org/3/library/functions.html#super
 
-# Python docs
+<!-- Python docs -->
 [`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
-[Binary arithmetic operations]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
 [Built-in Functions]: https://docs.python.org/3/library/functions.html
+
+[Binary arithmetic operations]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
+[Compound statements]: https://docs.python.org/3/reference/compound_stmts.html
+[Keywords]: https://docs.python.org/3/reference/lexical_analysis.html#keywords
+[Literals]: https://docs.python.org/3/reference/lexical_analysis.html#literals
+[Operators]: https://docs.python.org/3/reference/lexical_analysis.html#operators
+[Delimiters]: https://docs.python.org/3/reference/lexical_analysis.html#delimiters
+
 [Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
 
-# Everything else
+<!-- PEP8 -->
+[PEP8: Indentation]: https://www.python.org/dev/peps/pep-0008/#indentation
+
+<!-- everything else -->
 [Common Gotchas - Mutable Default Arguments]: http://python-guide-pt-br.readthedocs.io/en/latest/writing/gotchas/#mutable-default-arguments
 [Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
 [list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
