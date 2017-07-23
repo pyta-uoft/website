@@ -313,6 +313,10 @@ def square(number):
         return number**2
 ```
 
+**See also**:
+
+- [The story of None, True and False (and an explanation of literals, keywords and builtins thrown in)][The story of None, True and False]
+
 
 ### Using constant test (W0125) {#W0125}
 
@@ -445,7 +449,7 @@ This is likely not what was intended.
 
 ### Unnecessary pass (W0107) {#W0107}
 
-This error occurs when a [`pass` statement][`pass` statements] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python. Some examples of appropriate uses of `pass` can be found [here][StackOverflow: Reasons for `pass`].
+This error occurs when a [`pass` statement][`pass` statements] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python. Some examples of appropriate uses of `pass` can be found [here][StackOverflow: How To Use The Pass Statement In Python].
 
 ~~~~ {include="W0107_unnecessary_pass"}
 ~~~~
@@ -810,9 +814,10 @@ class Child(Parent):
 
 **See also**:
 
-- [What does 'super' do in Python?]
 - [Super considered super!]
 - [Python's super considered harmful]
+- [StackOverflow: What does 'super' do in Python?]
+
 
 ### Attribute defined outside init (W0201) {#W0201}
 
@@ -1126,27 +1131,28 @@ from this and being raised will cause a problem.
 
 ### Forbidden IO function (E9998) {#E9998}
 
-We do not expect to see I/O functions (input, open and print) in your code in
-this course unless explicitly required. If you have used debugging print
-statements to do your work, make sure to remove them before submission.
+We do not expect to see I/O functions ([`input`], [`open`] and [`print`]) in your code in this course unless explicitly required. If you use print statements to debug your code, make sure to remove them before submission.
 
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
 ### Always returning in a loop (E9996) {#E9996}
 
-This error occurs when you always return none or an object inside a loop body,
-which causes the loop to only ever excute once.
+This error occurs when you *always* return something inside a loop body, which makes the loop execute only once.
 
 ~~~~ {include="always_returning_example"}
 ~~~~
 
 ### Dynamic Execution (E9991) {#E9991}
 
-Use of builtin functions `exec`, `eval`, and `compile` is not allowed.
+Use of builtin functions [`exec`], [`eval`], and [`compile`] is not allowed.
 
 ~~~~ {include="dynamic_execution_example"}
 ~~~~
+
+**See also**:
+
+- [StackOverflow: What's the difference between eval, exec, and compile in Python?]
 
 
 ## Miscellaneous
@@ -1448,6 +1454,12 @@ def check(condition, message):
 [str.lstrip]: https://docs.python.org/3/library/stdtypes.html#str.lstrip
 [str.rstrip]: https://docs.python.org/3/library/stdtypes.html#str.rstrip
 [super]: https://docs.python.org/3/library/functions.html#super
+[`input`]: https://docs.python.org/3/library/functions.html#input
+[`open`]: https://docs.python.org/3/library/functions.html#open
+[`print`]: https://docs.python.org/3/library/functions.html#print
+[`exec`]: https://docs.python.org/3/library/functions.html#exec
+[`eval`]: https://docs.python.org/3/library/functions.html#eval
+[`compile`]: https://docs.python.org/3/library/functions.html#compile
 
 <!-- Python docs -->
 [`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
@@ -1464,20 +1476,22 @@ def check(condition, message):
 [Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
 
 <!-- PEP8 -->
+[PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
 [PEP8: Indentation]: https://www.python.org/dev/peps/pep-0008/#indentation
+[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
 
 <!-- StackOverflow -->
+[StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
 [StackOverflow: pep8 warning on regex string in Python, Eclipse]: https://stackoverflow.com/a/19030982/2063031
+[StackOverflow: What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
+[StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
 
 <!-- everything else -->
 [Common Gotchas - Mutable Default Arguments]: http://python-guide-pt-br.readthedocs.io/en/latest/writing/gotchas/#mutable-default-arguments
 [Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
 [list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
-[PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
-[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
+[Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
 [Python's Super Considered Harmful]: https://fuhm.net/super-harmful/
-[StackOverflow: Reasons for `pass`]: https://stackoverflow.com/a/22612774/2063031
 [Super Considered Super!]: https://youtu.be/EiOglTERPEo
 [The scope of index variables in Python's for loops]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
-[What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
-[Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
+[The story of None, True and False]: http://python-history.blogspot.ca/2013/11/story-of-none-true-false.html
