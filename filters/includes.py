@@ -16,7 +16,11 @@ logging.basicConfig(format='', level=logging.ERROR)
 # Define all possible paths for examples defined to be included in the markdown
 # file. For efficiency paths are listed in order of decreasing file amounts.
 # Must end in backslash.
-PATHS_TO_INCLUDED_CODE = ["../pyta/examples/pylint/", "../pyta/examples/"]
+PATHS_TO_INCLUDED_CODE = [
+    "../pyta/examples/pylint/",
+    "../pyta/examples/syntax_errors/",
+    "../pyta/examples/",
+]
 
 
 def _get_file_content(filename):

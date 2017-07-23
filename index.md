@@ -31,7 +31,7 @@ was defined.
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
 
-Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. This practice is discouraged, however, as it can lead to obscure and hard-to-detect bugs. For more information, see the Eli Bendersky's blog post: [The scope of index variables in Python's for loops][1].
+Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. This practice is discouraged, however, as it can lead to obscure and hard-to-detect bugs. For more information, see the Eli Bendersky's blog post: [The scope of index variables in Python's for loops].
 
 
 ### Not in loop (E0103) {#E0103}
@@ -201,7 +201,7 @@ In the following example, `add_fruit` always returns `None`.  As a result, `new_
 
 ### Invalid unary operand type (E1130) {#E1130}
 
-This error occurs when you use a [unary operator][2] (`+`, `-`, `~`) on an object which does not support this operator. For example, a list does not support negation.
+This error occurs when you use a [unary operator][Unary arithmetic and bitwise operations] (`+`, `-`, `~`) on an object which does not support this operator. For example, a list does not support negation.
 
 ~~~~ {include="E1130_invalid_unary_operand_type"}
 ~~~~
@@ -209,7 +209,7 @@ This error occurs when you use a [unary operator][2] (`+`, `-`, `~`) on an objec
 
 ### Unsupported binary operation (E1131) {#E1131}
 
-This error occurs when you use a [binary arithmetic operator][3] like `+` or `*`, but the left and right sides are not compatible types. For example, a dictionary cannot be added to a list.
+This error occurs when you use a [binary arithmetic operator][Binary arithmetic operations] like `+` or `*`, but the left and right sides are not compatible types. For example, a dictionary cannot be added to a list.
 
 ~~~~ {include="E1131_unsupported_binary_operation"}
 ~~~~
@@ -339,7 +339,7 @@ Note: the checker limit is 12 branches.
 ### Too many nested blocks (R0101) {#R0101}
 
 This error occurs when you have more than three levels of nested blocks in your code.
-Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][6].
+Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
 
 **Note**: this checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
@@ -445,7 +445,7 @@ This is likely not what was intended.
 
 ### Unnecessary pass (W0107) {#W0107}
 
-This error occurs when a [`pass` statement][4] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python. Some examples of appropriate uses of `pass` can be found [here][5].
+This error occurs when a [`pass` statement][`pass` statements] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python. Some examples of appropriate uses of `pass` can be found [here][StackOverflow: Reasons for `pass`].
 
 ~~~~ {include="W0107_unnecessary_pass"}
 ~~~~
@@ -708,15 +708,14 @@ This error occurs when you import a module which is not used anywhere in your co
 
 ### Too many instance attributes (R0902) {#R0902}
 
-The class has too many instance attributes, try to reduce this to get a
-simpler (and easier to use) class.
+The class has too many instance attributes, which suggests that it is too complicated and tries to do too many things.
 
-Note: the limit is checker 7 instance attributes.
+**Note**: the checker limit is 7 instance attributes.
 
 ~~~~ {include="R0902_too_many_instance_attributes"}
 ~~~~
 
-One solution is to logically decompose into more classes, each with fewer
+One solution is to logically decompose the class into multiple classes, each with fewer
 instance attributes. Then we can use composition to access those attributes in
 another class.
 
@@ -765,13 +764,7 @@ class Composition(object):
 
 ### Different method signature (W0222) {#W0222}
 
-When declaring a method in a child class, if you're going to provide a
-method name that is the same as a method in the parent class, both the
-parent and child should not differ in their signature (the number of
-arguments).
-
-When you have a method with the same name, the arguments should stay the
-same.
+When a child class overrides a method of the parent class, the new method should have the same signature as the method which it is overriding. In other words, the names and the order of the parameters should be the same in the two methods.
 
 ~~~~ {include="W0222_signature_differs"}
 ~~~~
@@ -779,22 +772,16 @@ same.
 
 ### Return in `__init__` (E0101) {#E0101}
 
-This error occurs when a return statement is used in the `__init__` method.
-The purpose of this method is only to initialize the attributes of an object, and
-it does not return anything directly.
+This error occurs when the [`__init__`][object.__init__] method contains a return statement.
+
+The purpose of the `__init__` method is to initialize the attributes of an object. `__init__` is called by the special method [`__new__`][object.__new__] when a new object is being instantiated, and `__new__` will raise a `TypeError` if `__init__` returns anything other than `None`.
 
 ~~~~ {include="E0101_return_in_init"}
 ~~~~
 
-
 ### Protected member access (W0212) {#W0212}
 
-Variable names starting with underscores are a convention that means the field should
-not be accessed outside of the calling class. This encapsulation is a
-hint to the user that they should not change the field as it may be
-critical to the proper functioning of the object. Furthermore, this also
-applies to methods with underscores since calling them may also cause
-adverse affects.
+Variable names starting with underscores are a convention that means the field should not be accessed outside of the calling class. This encapsulation is a hint to the user that they should not change the field, as it may be critical to the proper functioning of the object. Furthermore, this also applies to methods with underscores, since calling them may also cause adverse effects.
 
 ~~~~ {include="W0212_protected_access"}
 ~~~~
@@ -802,13 +789,30 @@ adverse affects.
 
 ### Bad parent init (W0233) {#W0233}
 
-You should call the `__init__` method of the parent, not some arbitrary and
-unrelated class. To fix this, use the `__init__` from the lass
-you are inheriting from.
+You should call the `__init__` method of the parent, not of some arbitrary and unrelated class.
 
 ~~~~ {include="W0233_non_parent_init"}
 ~~~~
 
+To fix this, call the `__init__` method of the parent class, or use [`super()`][super].
+
+```python
+# Call the `__init__` method on the correct parent class
+class Child(Parent):
+    def __init__(self):
+        Parent.__init__(self)
+
+# Or use `super()`
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+```
+
+**See also**:
+
+- [What does 'super' do in Python?]
+- [Super considered super!]
+- [Python's super considered harmful]
 
 ### Attribute defined outside init (W0201) {#W0201}
 
@@ -825,14 +829,17 @@ You should do this instead:
 class MyClass:
     def __init__(self):
         self.num = 1
-        self.other_num = 2
+        self.other_num = None
+
+    def set_other_num(self, other_num):
+        self.other_num = other_num
 ```
 
 
 ### Access to member before definition (E0203) {#E0203}
 
 Before trying to use a member of a class, it should have been defined at
-some point. If you try to use it before assigning to it, E0an error will occur.
+some point. If you try to use it before assigning to it, an error will occur.
 
 ~~~~ {include="E0203_access_member_before_definition"}
 ~~~~
@@ -860,10 +867,7 @@ e.field(num)   # Error since we masked it
 
 ### Unexpected special method signature (E0302) {#E0302}
 
-Occurs when a special method (has double underscores on both sides) does not have
-the expected number of arguments. These special methods have an expected
-signature, and if we create a method with the same name and a different
-amount of arguments, it can cause exceptions to be raised.
+Occurs when a special method (aka ["dunder method"][Python double-under, double-wonder], because it has double underscores or "dunders" on both sides) does not have the expected number of parameters. Special methods have an expected signature, and if we create a method with the same name and a different number of parameters, it can break existing code and lead to exceptions.
 
 ~~~~ {include="E0302_unexpected_special_method_signature"}
 ~~~~
@@ -1172,12 +1176,12 @@ s = "{} who is {} lives in {}".format(name, age, country)
 
 This error occurs when you use the `format` method on a string, but call it
 with fewer arguments than the number of `{}` in the string.
-This error is similar to E1120, meanwhile opposite to E1305.
+This error is similar to [E1120](#E1120), meanwhile opposite to [E1305](#E1305).
 
 ~~~~ {include="E1306_too_few_format_args"}
 ~~~~
 
-Corrected version
+Corrected version:
 
 ```python
 s = "{} and {}".format("first", "second")
@@ -1186,8 +1190,7 @@ s = "{} and {}".format("first", "second")
 
 ### Bad str strip call (E1310) {#E1310}
 
-This error occurs when you call `strip`, `lstrip`, or `rstrip`, but give it
-an argument string which contains duplicate characters.
+This error occurs when you call [`strip`][str.strip], [`lstrip`][str.lstrip], or [`rstrip`][str.rstrip], but give it an argument string which contains duplicate characters.
 
 The argument string should contain the *distinct* characters that you want to
 remove from the end(s) of a string.
@@ -1272,130 +1275,186 @@ def is_int(obj):
 
 ### Dangerous default value (W0102) {#W0102}
 
-This error occurs when a mutable value such as a list or dictionary is given a
-default value in the function or method definition. It is dangerous to give
-mutable objects a default value only when the function/method modifies the
-argument. If you modify a default argument, those changes will remain for the
-next time the function is called.
+This warning occurs when a mutable object, such as a list or dictionary, is provided as a default argument inside a function or a method definition. Default arguments are instantiated only once, at the time when the function or the method is defined (i.e. when the interpreter parses the `def ...` block). If the default argument is modified, it will remain modified in all subsequent calls of the function or method.
 
-Hence your "empty" list or dictionary will start to contain values on calls
-other than the first call.
+This leads to a common "gotcha" in Python, where an "empty" list or dictionary, specified as the default argument, start containing values on calls other than the first call.
 
 ~~~~ {include="W0102_dangerous_default_value"}
 ~~~~
 
-Though the output to this is be expected to be:
+Many new users of Python would expect the output of the code above to be:
 
 ```
 [0, 1, 2, 3, 4]
 [0, 1, 2, 3, 4]
 ```
 
-The actual output is:
+However, the actual output is:
 
 ```
 [0, 1, 2, 3, 4]
 [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
 ```
 
-If you want to avoid this situation then, you should use `None` as a default
-value, and then check for this default value inside the function body.
+If you want to prevent this surprising behavior, you should use `None` as the default argument, and then check for `None` inside the function body. For example, the following code prints the expected output:
+
+```python
+def make_list(n, lst=None):
+    if lst is None:
+        lst = []
+    for i in range(n):
+        lst.append(i)
+    print(lst)
+
+
+print(make_list(5))
+print(make_list(5))
+```
+
+**See also**:
+
+- [Common Gotchas - Mutable Default Arguments]
+- [Default Parameter Values in Python]
 
 ### Assert on tuple (W0199) {#W0199}
 
-This error occurs when an "assert" statement is called like `assert (x, y)`.
-`assert` acting on a tuple always returns true if the tuple is non-empty, and
-false if it is empty. If you want to assert that two expressions are true then,
-you should use `assert x, y` instead.
+This error occurs when an "assert" statement is called with a tuple as the first argument. `assert` acting on a tuple passes if and only if the tuple is non-empty. This is likely *not* what the programmer had intended.
 
 ~~~~ {include="W0199_assert_on_tuple"}
 ~~~~
 
+If you would like to assert multiple conditions, you should join those conditions using the `and` operator, or use individual assert statements for each condition.
 
-## Syntax errors {#custom}
+```python
+def check(condition1, condition2, condition3):
+    # Option 1
+    assert (condition1 and condition2 and condition3)
+    # Option 2
+    assert condition1
+    assert condition2
+    assert condition3
+```
+
+If you would like `assert` to show a special error message when the assertion fails, you should provide that message as the second argument.
+
+```python
+def check(condition, message):
+    assert condition, message  # the message is optional
+```
+
+
+## Syntax errors {#syntax}
 
 ### Syntax Error (E0001) {#E0001}
 
-1. Python error message: "Missing parentheses in call to 'print'"
-You must call the `print` function when you want to output text from your program.
-Note that this was a major change from Python 2 to Python 3 (before, `print`
-was just a keyword, not a function).
-```python
-print 3   # Error on this line
-```
+1. *SyntaxError: Missing parentheses in call to 'print'*
 
-2. Python error message: "SyntaxError: invalid syntax"
+    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
 
-    a. Forgetting to put a colon at the end of an if, elif, else, for, while, class,
-    or def statement.
-    ```python
-    if spam == 42  # Error on this line
-        print('Hello!')
-    ```
+    ~~~~ {include="missing_parentheses_in_call_to_print"}
+    ~~~~
 
-    b. Using = instead of == inside a condition expression.
-    ```python
-    if spam = 42:  # Error on this line
-        print('Hello!')
-    ```
+2. *SyntaxError: can't assign to literal*
 
-    c. Forgetting a quote to begin or end a string value.
-    ```python
-    print('Hello!) # Error on this line
-    ```
+    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
 
-    d. Trying to use a Python keyword for a variable name.
-        Here are all the keywords you should avoid:
+    ~~~~ {include="assignment_to_literal"}
+    ~~~~
+
+3. *SyntaxError: invalid syntax*
+
+    Some of the common causes of this error include:
+
+    a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+
+        ~~~~ {include="missing_colon"}
+        ~~~~
+
+    b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+
+        ~~~~ {include="assignment_inside_condition"}
+        ~~~~
+
+    c. Missing quote at the beginning or the end of a string literal.
+
+        ~~~~ {include="missing_quote"}
+        ~~~~
+
+    d. Assignment to a Python keyword.
+
+        ~~~~ {include="assignment_to_keyword"}
+        ~~~~
+
+        The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
+
         ```
-        and       del       from      not       while
-        as        elif      global    or        with
-        assert    else      if        pass      yield
-        break     except    import    print
-        class     exec      in        raise
-        continue  finally   is        return
-        def       for       lambda    try
+        False      class      finally    is         return
+        None       continue   for        lambda     try
+        True       def        from       nonlocal   while
+        and        del        global     not        with
+        as         elif       if         or         yield
+        assert     else       import     pass
+        break      except     in         raise
         ```
 
-        For example:
+    f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
 
-        ```python
-        class = 'algebra' # Error on this line
-        ```
+        ~~~~ {include="undefined_operator"}
+        ~~~~
 
-    e. There is no ++ increment or –- decrement operator. Do not try to increment
-    or decrement a variable with ++ or --.~~~~
-    ```python
-    spam = 0
-    spam++  # Error on this line
-    ```
+### Indentation Error (E0002) {#E0002}
 
-    f. You can't assign to a literal in python. The variable name is always on the
-    left-hand side of the equals sign. That is what gets assigned to.
-    ```python
-    a = 12
-    12 = a  # Error on this line
-    ```
+1. *IndentationError: unindent does not match any outer indentation level*
 
-    g. Unindent does not match any outer indentation level. There might be spaces
-    mixed in with your tabs. Try doing a search-and-replace to replace all tabs with
-    a few spaces.
-    ```python
-    a = 1
-    if 2 < 3:
-        if 1 < 2:
-            a = a + 1
-         else:         # Error on this line
-            a = a - 1
-    ```
+    You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
+
+    ~~~~ {include="unindent_does_not_match_indentation"}
+    ~~~~
+
+    Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
+
+2. *IndentationError: unexpected indent*
+
+    In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
+
+    ~~~~ {include="unexpected_indent"}
+    ~~~~
 
 
-[1]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
-[2]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
-[3]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
-[4]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
-[5]: https://stackoverflow.com/a/22612774/2063031
-[6]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
 
-[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
+
+<!-- Python objects -->
+[__init__]: https://docs.python.org/3/reference/datamodel.html#object.__init__
+[str.strip]: https://docs.python.org/3/library/stdtypes.html#str.strip
+[str.lstrip]: https://docs.python.org/3/library/stdtypes.html#str.lstrip
+[str.rstrip]: https://docs.python.org/3/library/stdtypes.html#str.rstrip
+[super]: https://docs.python.org/3/library/functions.html#super
+
+<!-- Python docs -->
+[`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
 [Built-in Functions]: https://docs.python.org/3/library/functions.html
+
+[Binary arithmetic operations]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
+[Compound statements]: https://docs.python.org/3/reference/compound_stmts.html
+[Keywords]: https://docs.python.org/3/reference/lexical_analysis.html#keywords
+[Literals]: https://docs.python.org/3/reference/lexical_analysis.html#literals
+[Operators]: https://docs.python.org/3/reference/lexical_analysis.html#operators
+[Delimiters]: https://docs.python.org/3/reference/lexical_analysis.html#delimiters
+
+[Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
+
+<!-- PEP8 -->
+[PEP8: Indentation]: https://www.python.org/dev/peps/pep-0008/#indentation
+
+<!-- everything else -->
+[Common Gotchas - Mutable Default Arguments]: http://python-guide-pt-br.readthedocs.io/en/latest/writing/gotchas/#mutable-default-arguments
+[Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
+[list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
 [PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
+[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
+[Python's Super Considered Harmful]: https://fuhm.net/super-harmful/
+[StackOverflow: Reasons for `pass`]: https://stackoverflow.com/a/22612774/2063031
+[Super Considered Super!]: https://youtu.be/EiOglTERPEo
+[The scope of index variables in Python's for loops]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
+[What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
+[Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
