@@ -1404,7 +1404,7 @@ def check(condition, message):
 
 ### Indentation Error (E0002) {#E0002}
 
-a. *IndentationError: unindent does not match any outer indentation level*
+1. *IndentationError: unindent does not match any outer indentation level*
 
     You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
@@ -1413,7 +1413,7 @@ a. *IndentationError: unindent does not match any outer indentation level*
 
     Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
-b. *IndentationError: unexpected indent*
+2. *IndentationError: unexpected indent*
 
     In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
