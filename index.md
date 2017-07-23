@@ -1156,7 +1156,6 @@ Use of builtin functions `exec`, `eval`, and `compile` is not allowed.
 
 This error occurs when you use the `format` method on a string, but call it
 with more arguments than the number of `{}` in the string.
-This error is similar to E1121, meanwhile opposite to E1306.
 
 ~~~~ {include="E1305_too_many_format_args"}
 ~~~~
@@ -1171,12 +1170,14 @@ country = "England"
 s = "{} who is {} lives in {}".format(name, age, country)
 ```
 
+This error is similar to [E1121](#E1121).
+
+
 
 ### Too few format args (E1306) {#E1306}
 
 This error occurs when you use the `format` method on a string, but call it
 with fewer arguments than the number of `{}` in the string.
-This error is similar to [E1120](#E1120), meanwhile opposite to [E1305](#E1305).
 
 ~~~~ {include="E1306_too_few_format_args"}
 ~~~~
@@ -1187,43 +1188,52 @@ Corrected version:
 s = "{} and {}".format("first", "second")
 ```
 
-
-### Bad str strip call (E1310) {#E1310}
-
-This error occurs when you call [`strip`][str.strip], [`lstrip`][str.lstrip], or [`rstrip`][str.rstrip], but give it an argument string which contains duplicate characters.
-
-The argument string should contain the *distinct* characters that you want to
-remove from the end(s) of a string.
-
-~~~~ {include="E1310_bad_str_strip_call"}
-~~~~
+This error is similar to [E1120](#E1120).
 
 
 ### Missing format argument key (W1303) {#W1303}
 
-This error occurs when a format string that uses named fields does not
-receive required keywords. This error is similar to E1120 and E1306. In the
-following example, we should assign three values for bond, james and act.
+This error occurs when a format string that uses named fields does not receive required keywords. In the following example, we should assign three values for `last_name`, `first_name` and `age`.
 
 ~~~~ {include="W1303_missing_format_argument_key"}
 ~~~~
 
+Corrected version:
+
+```python
+s = '{last_name}, {fist_name} - {age}'.format(last_name='bond', first_name='james', age=37)
+```
+
+This error is similar to [E1120](#E1120) and [E1306](#E1120).
+
+
+### Bad str strip call (E1310) {#E1310}
+
+This error occurs when you call [`strip`][str.strip], [`lstrip`][str.lstrip], or [`rstrip`][str.rstrip], but pass an argument string which contains duplicate characters. The argument string should contain the *distinct* characters that you want to remove from the end(s) of a string.
+
+~~~~ {include="E1310_bad_str_strip_call"}
+~~~~
+
+It is a common mistake to think that `mystring.strip(chars)` removes the substring `chars` from the beginning end end of `mystring`. It actually removes all characters in `chars` from the beginning and end of `mystring`, *irrespective of their order*!
+If you pass an argument string with duplicate characters to `mystring.strip`, you are likely misinterpreting what this method is doing.
+
 
 ### Format combined specification (W1305) {#W1305}
 
-This error occurs when a format string contains both automatic field numbering
-(e.g. ‘{}’) and manual field specification (e.g. ‘{0}’).
-For example, we should not use {} and {index} at the same time.
+This error occurs when a format string contains both automatic field numbering (e.g. `{}`) and manual field specification (e.g. `{0}`).
+
+For example, we should not use `{}` and `{index}` at the same time.
 
 ~~~~ {include="W1305_format_combined_specification"}
 ~~~~
 
-Corrected versions:
+Corrected version:
 
 ```python
 s = "{} and {}".format("a", "b")
 ```
-or
+
+or:
 
 ```python
 s = "{0} and {1}".format("a", "b")
@@ -1232,10 +1242,22 @@ s = "{0} and {1}".format("a", "b")
 
 ### Anomalous backslash in string (W1401) {#W1401}
 
-This error occurs when a backslash is in a literal string but not as an escape.
+This error occurs when a string literal contains a backslash which is not part of an escape sequence.
 
 ~~~~ {include="W1401_anomalous_backslash_in_string"}
 ~~~~
+
+In order to make it explicit that the backslash character represents a backslash, you should escape the backslash with another backslash, or create a *raw string* by prefixing the string literal with the letter `r`.
+
+```python
+re.findall('(\\d+)\\D*', '123 Main St.')  # OK
+re.findall(r'(\d+)\D*', '123 Main St.')  # OK
+```
+
+**See also**:
+
+- [String and Bytes literals]
+- [StackOverflow: pep8 warning on regex string in Python, Eclipse]
 
 
 ### Redundant unittest assert (W1503) {#W1503}
@@ -1254,8 +1276,7 @@ the same result, regardless of whether your code is correct.
 
 ### Unidiomatic type check (C0123) {#C0123}
 
-This error occurs when type() is used instead of isinstance() for a type check.
-Use `isinstance(x, Y)` instead of `type(x) == Y`.
+This error occurs when `type` is used instead of `isinstance` to perform a type check. Use `isinstance(x, Y)` instead of `type(x) == Y`.
 
 ~~~~ {include="C0123_unidiomatic_typecheck"}
 ~~~~
@@ -1272,12 +1293,12 @@ def is_int(obj):
     return isinstance(obj, int)
 ```
 
+This error is similar to [C0121](#C0121).
+
 
 ### Dangerous default value (W0102) {#W0102}
 
-This warning occurs when a mutable object, such as a list or dictionary, is provided as a default argument inside a function or a method definition. Default arguments are instantiated only once, at the time when the function or the method is defined (i.e. when the interpreter parses the `def ...` block). If the default argument is modified, it will remain modified in all subsequent calls of the function or method.
-
-This leads to a common "gotcha" in Python, where an "empty" list or dictionary, specified as the default argument, start containing values on calls other than the first call.
+This warning occurs when a mutable object, such as a list or dictionary, is provided as a default argument inside a function or a method definition. Default arguments are instantiated only once, at the time when the function or the method is defined (i.e. when the interpreter parses the `def ...` block). If the default argument is modified, it will remain modified in all subsequent calls of the function or method. This leads to a common "gotcha" in Python, where an "empty" list or dictionary, specified as the default argument, starts containing values on calls other than the first call.
 
 ~~~~ {include="W0102_dangerous_default_value"}
 ~~~~
@@ -1318,12 +1339,12 @@ print(make_list(5))
 
 ### Assert on tuple (W0199) {#W0199}
 
-This error occurs when an "assert" statement is called with a tuple as the first argument. `assert` acting on a tuple passes if and only if the tuple is non-empty. This is likely *not* what the programmer had intended.
+This error occurs when an `assert` statement is called with a tuple as the first argument. `assert` acting on a tuple passes if and only if the tuple is non-empty. This is likely *not* what the programmer had intended.
 
 ~~~~ {include="W0199_assert_on_tuple"}
 ~~~~
 
-If you would like to assert multiple conditions, you should join those conditions using the `and` operator, or use individual assert statements for each condition.
+If you would like to assert multiple conditions, you should join those conditions using the `and` operator, or use individual `assert` statements for each condition.
 
 ```python
 def check(condition1, condition2, condition3):
@@ -1421,8 +1442,6 @@ def check(condition, message):
     ~~~~
 
 
-
-
 <!-- Python objects -->
 [__init__]: https://docs.python.org/3/reference/datamodel.html#object.__init__
 [str.strip]: https://docs.python.org/3/library/stdtypes.html#str.strip
@@ -1440,11 +1459,15 @@ def check(condition, message):
 [Literals]: https://docs.python.org/3/reference/lexical_analysis.html#literals
 [Operators]: https://docs.python.org/3/reference/lexical_analysis.html#operators
 [Delimiters]: https://docs.python.org/3/reference/lexical_analysis.html#delimiters
+[String and Bytes literals]: https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
 
 [Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
 
 <!-- PEP8 -->
 [PEP8: Indentation]: https://www.python.org/dev/peps/pep-0008/#indentation
+
+<!-- StackOverflow -->
+[StackOverflow: pep8 warning on regex string in Python, Eclipse]: https://stackoverflow.com/a/19030982/2063031
 
 <!-- everything else -->
 [Common Gotchas - Mutable Default Arguments]: http://python-guide-pt-br.readthedocs.io/en/latest/writing/gotchas/#mutable-default-arguments
