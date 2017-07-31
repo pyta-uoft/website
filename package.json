@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "python build.py",
-    "test": "remark index.md && linkchecker gen/index.html",
+    "test": "remark index.md && linkchecker -v gen/index.html",
     "dev": "concurrently --kill-others \"nodemon\" \"browser-sync start -c bs-config.js\"",
     "deploy": "gh-pages -d gen"
   },
