@@ -776,12 +776,13 @@ When a child class overrides a method of the parent class, the new method should
 
 ### Return in `__init__` (E0101) {#E0101}
 
-This error occurs when the [`__init__`][object.__init__] method contains a return statement.
+This error occurs when the [`__init__`] method contains a return statement.
 
-The purpose of the `__init__` method is to initialize the attributes of an object. `__init__` is called by the special method [`__new__`][object.__new__] when a new object is being instantiated, and `__new__` will raise a `TypeError` if `__init__` returns anything other than `None`.
+The purpose of the `__init__` method is to initialize the attributes of an object. `__init__` is called by the special method [`__new__`] when a new object is being instantiated, and `__new__` will raise a `TypeError` if `__init__` returns anything other than `None`.
 
 ~~~~ {include="E0101_return_in_init"}
 ~~~~
+
 
 ### Protected member access (W0212) {#W0212}
 
@@ -1456,7 +1457,8 @@ def check(condition, message):
 
 
 <!-- Python objects -->
-[__init__]: https://docs.python.org/3/reference/datamodel.html#object.__init__
+[`__init__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
+[`__new__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
 [str.strip]: https://docs.python.org/3/library/stdtypes.html#str.strip
 [str.lstrip]: https://docs.python.org/3/library/stdtypes.html#str.lstrip
 [str.rstrip]: https://docs.python.org/3/library/stdtypes.html#str.rstrip
