@@ -2,11 +2,10 @@ sudo: false
 language: python
 python:
   - "3.6"
-addons:
-  apt:
-    packages:
-      - linkchecker
 install:
+  # Need a newer version of linkchecker then available from the apt channel
+  - "wget http://ftp.debian.org/debian/pool/main/l/linkchecker/linkchecker_9.3-1+deb8u1_amd64.deb"
+  - "sudo dpkg -i linkchecker_9.3-1+deb8u1_amd64.deb"
   - "pip install pylint funcparserlib colorama jinja2 pycodestyle hypothesis"
   - "nvm install --lts"
   - "npm install"
