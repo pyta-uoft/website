@@ -1201,7 +1201,7 @@ This error is similar to [E1120](#E1120).
 
 ### Missing format argument key (W1303) {#W1303}
 
-This error occurs when a format string that uses named fields does not receive required keywords. In the following example, we should assign three values for `last_name`, `first_name` and `age`.
+This error occurs when a format string that uses named fields does not receive the required keywords. In the following example, we should assign three values for `last_name`, `first_name`, and `age`.
 
 ~~~~ {include="W1303_missing_format_argument_key"}
 ~~~~
