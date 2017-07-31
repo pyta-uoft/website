@@ -11,9 +11,9 @@ install:
 before_script:
   - "(cd .. && git clone https://github.com/pyta-uoft/pyta)"
 script:
-  - "npm build"
-  - "npm test"
+  - "npm run build"
+  - "npm run test"
 after_success:
-  - "npm deploy"
+  - "npm run deploy"
 notifications:
   email: false
