@@ -9,6 +9,7 @@ addons:
 install:
   - "pip install pylint funcparserlib colorama jinja2 pycodestyle hypothesis"
   - "nvm install --lts"
+  - "npm install"
 before_script:
   - "(cd .. && git clone https://github.com/pyta-uoft/pyta)"
 script:
