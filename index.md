@@ -1222,7 +1222,7 @@ This error occurs when you call [`strip`][str.strip], [`lstrip`][str.lstrip], or
 ~~~~ {include="E1310_bad_str_strip_call"}
 ~~~~
 
-It is a common mistake to think that `mystring.strip(chars)` removes the substring `chars` from the beginning end end of `mystring`. It actually removes all characters in `chars` from the beginning and end of `mystring`, *irrespective of their order*!
+It is a common mistake to think that `mystring.strip(chars)` removes the substring `chars` from the beginning and end of `mystring`. It actually removes all characters in `chars` from the beginning and end of `mystring`, *irrespective of their order*!
 If you pass an argument string with duplicate characters to `mystring.strip`, you are likely misinterpreting what this method is doing.
 
 
