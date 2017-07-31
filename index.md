@@ -785,7 +785,9 @@ The purpose of the `__init__` method is to initialize the attributes of an objec
 
 ### Protected member access (W0212) {#W0212}
 
-Variable names starting with underscores are a convention that means the field should not be accessed outside of the calling class. This encapsulation is a hint to the user that they should not change the field, as it may be critical to the proper functioning of the object. Furthermore, this also applies to methods with underscores, since calling them may also cause adverse effects.
+Attributes and methods whose name starts with an underscore should be considered "private" and should not be accessed outside of the calling class.
+
+Private attributes and methods can be modified, added, or removed by the maintainer of the class at any time, which makes external code which uses those attributes or methods very fragile. Furthermore, modifying a private attribute or calling a private method may lead to undefined behavior from the parent class.
 
 ~~~~ {include="W0212_protected_access"}
 ~~~~
