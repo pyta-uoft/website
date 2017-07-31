@@ -1,14 +1,17 @@
 language: python
 python:
   - "3.6"
-install:
+before_install:
   - sudo apt-get -qq update
+install:
+  # Packages for building the website
   - sudo apt-get install -y pandoc
+  - pip3 install pandocfilters pylint
   # Need a newer version of linkchecker then available from the apt channel
-  - wget http://ftp.debian.org/debian/pool/main/l/linkchecker/linkchecker_9.3-1+deb8u1_amd64.deb
-  - sudo dpkg -i linkchecker_9.3-1+deb8u1_amd64.deb
+  - sudo apt install python-pip python-setuptools
+  - pip2 install git+git://github.com/linkcheck/linkchecker.git@v9.3.1
+  # Node.js
   - nvm install --lts
-  - pip install pandocfilters pylint
   - npm install
 script:
   - (cd .. && git clone https://github.com/pyta-uoft/pyta)
