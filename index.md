@@ -795,7 +795,7 @@ Private attributes and methods can be modified, added, or removed by the maintai
 
 ### Bad parent init (W0233) {#W0233}
 
-You should call the `__init__` method of the parent, not of some arbitrary and unrelated class.
+You should call the `__init__` method of the parent, not of some unrelated class.
 
 ~~~~ {include="W0233_non_parent_init"}
 ~~~~
