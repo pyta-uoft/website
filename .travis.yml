@@ -1,0 +1,20 @@
+sudo: false
+language: python
+python:
+  - "3.6"
+addons:
+  apt:
+    packages:
+      - linkchecker
+install:
+  - "pip install pylint funcparserlib colorama jinja2 pycodestyle hypothesis"
+  - "nvm install --lts"
+before_script:
+  - "(cd .. && git clone https://github.com/pyta-uoft/website)"
+script:
+  - "npm build"
+  - "npm test"
+after_success:
+  - "npm deploy"
+notifications:
+  email: false

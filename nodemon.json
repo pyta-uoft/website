@@ -1,0 +1,15 @@
+{
+  "verbose": true,
+  "watch": [
+    ".",
+    "../",
+    "../pyta"
+  ],
+  "ignore": [
+    ".git",
+    "node_modules",
+    "gen"
+  ],
+  "ext": "md,py,css,js",
+  "exec": "python build.py && sleep 1 && browser-sync reload -p 3001"
+}
