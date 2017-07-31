@@ -785,12 +785,12 @@ The purpose of the `__init__` method is to initialize the attributes of an objec
 
 ### Protected member access (W0212) {#W0212}
 
-Attributes and methods whose name starts with an underscore should be considered "private" and should not be accessed outside of the calling class.
-
-Private attributes and methods can be modified, added, or removed by the maintainer of the class at any time, which makes external code which uses those attributes or methods very fragile. Furthermore, modifying a private attribute or calling a private method may lead to undefined behavior from the parent class.
+Attributes and methods whose name starts with an underscore should be considered "private" and should not be accessed outside of the class in which they are defined.
 
 ~~~~ {include="W0212_protected_access"}
 ~~~~
+
+Private attributes and methods can be modified, added, or removed by the maintainer of the class at any time, which makes external code which uses those attributes or methods fragile. Furthermore, modifying a private attribute or calling a private method may lead to undefined behavior from the class.
 
 
 ### Bad parent init (W0233) {#W0233}
@@ -1250,22 +1250,27 @@ s = "{0} and {1}".format("a", "b")
 
 ### Anomalous backslash in string (W1401) {#W1401}
 
-This error occurs when a string literal contains a backslash which is not part of an escape sequence.
+This error occurs when a string literal contains a backslash that is not part of an escape sequence.
 
 ~~~~ {include="W1401_anomalous_backslash_in_string"}
 ~~~~
 
-In order to make it explicit that the backslash character represents a backslash, you should escape the backslash with another backslash, or create a *raw string* by prefixing the string literal with the letter `r`.
+The following is a [list of recognized escape sequences][String and Bytes literals] in Python string literals.
 
-```python
-re.findall('(\\d+)\\D*', '123 Main St.')  # OK
-re.findall(r'(\d+)\D*', '123 Main St.')  # OK
+```txt
+\newline    \a          \r          \xhh
+\\          \b          \t          \N{name}
+\'          \f          \v          \uxxxx
+\"          \n          \ooo        \Uxxxxxxxx
 ```
 
-**See also**:
+If a backslash character is not used to start one of the escape sequences listed above, you should make this explicit by escaping the backslash with another backslash.
 
-- [String and Bytes literals]
-- [StackOverflow: pep8 warning on regex string in Python, Eclipse]
+```python
+print('This is a tab: \t')
+print('This is a newline: \n')
+print('This is not an escape sequence: \\d')
+```
 
 
 ### Redundant unittest assert (W1503) {#W1503}
@@ -1484,7 +1489,6 @@ def check(condition, message):
 
 <!-- StackOverflow -->
 [StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
-[StackOverflow: pep8 warning on regex string in Python, Eclipse]: https://stackoverflow.com/a/19030982/2063031
 [StackOverflow: What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
 [StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
 
