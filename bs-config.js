@@ -27,8 +27,8 @@ module.exports = {
         "ignoreInitial": true
     },
     "server": {
-  baseDir: "gen",
-  index: "index.html"
+        baseDir: "gen",
+        index: "index.html"
     },
     "proxy": false,
     "port": 3001,
