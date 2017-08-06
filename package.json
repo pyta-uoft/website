@@ -1,0 +1,34 @@
+{
+  "name": "pyta-website",
+  "version": "1.0.0",
+  "description": "Website for the PyTA linter tool",
+  "main": "app.js",
+  "scripts": {
+    "build": "python build.py",
+    "lint": "remark index.md -f > /dev/null",
+    "checklinks": "linkchecker -v --check-extern gen/index.html",
+    "test": "npm run lint && npm run checklinks",
+    "dev": "concurrently --kill-others \"nodemon\" \"browser-sync start -c bs-config.js\"",
+    "deploy": "gh-pages -d gen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pyta-uoft/website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pyta-uoft/website/issues"
+  },
+  "homepage": "https://www.cs.toronto.edu/~david/pyta/",
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "concurrently": "^3.5.0",
+    "gh-pages": "^1.0.0",
+    "nodemon": "^1.11.0",
+    "remark": "^8.0.0",
+    "remark-cli": "^4.0.0",
+    "remark-lint": "^6.0.0",
+    "remark-preset-lint-recommended": "^3.0.0"
+  }
+}

@@ -1,7 +1,7 @@
 % PyTA Help Documentation
 
 Welcome to the **PyTA documentation website**, which describes in greater detail the errors that PyTA checks for.
-If anything is unclear, incorrect, or missing, please don't hesitate to send an email to [david at cs dot toronto dot edu].
+If anything is unclear, incorrect, or missing, please don't hesitate to send an email to \[david at cs dot toronto dot edu\].
 
 
 ## Improper Python usage
@@ -492,12 +492,12 @@ docstring.
 This error occurs when a variable name is chosen to be a typical generic name,
 rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
- - foo
- - bar
- - baz
- - toto
- - tutu
- - tata
+- foo
+- bar
+- baz
+- toto
+- tutu
+- tata
 
 ~~~~ {include="C0102_blacklisted_name"}
 ~~~~
@@ -1384,76 +1384,76 @@ def check(condition, message):
 
 1. *SyntaxError: Missing parentheses in call to 'print'*
 
-    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
+  In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
 
-    ~~~~ {include="missing_parentheses_in_call_to_print"}
-    ~~~~
+  ~~~~ {include="missing_parentheses_in_call_to_print"}
+  ~~~~
 
 2. *SyntaxError: can't assign to literal*
 
-    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
+  There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
 
-    ~~~~ {include="assignment_to_literal"}
-    ~~~~
+  ~~~~ {include="assignment_to_literal"}
+  ~~~~
 
 3. *SyntaxError: invalid syntax*
 
-    Some of the common causes of this error include:
+  Some of the common causes of this error include:
 
-    a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+  a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
 
-        ~~~~ {include="missing_colon"}
-        ~~~~
+    ~~~~ {include="missing_colon"}
+    ~~~~
 
-    b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+  b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
 
-        ~~~~ {include="assignment_inside_condition"}
-        ~~~~
+    ~~~~ {include="assignment_inside_condition"}
+    ~~~~
 
-    c. Missing quote at the beginning or the end of a string literal.
+  c. Missing quote at the beginning or the end of a string literal.
 
-        ~~~~ {include="missing_quote"}
-        ~~~~
+    ~~~~ {include="missing_quote"}
+    ~~~~
 
-    d. Assignment to a Python keyword.
+  d. Assignment to a Python keyword.
 
-        ~~~~ {include="assignment_to_keyword"}
-        ~~~~
+    ~~~~ {include="assignment_to_keyword"}
+    ~~~~
 
-        The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
+    The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
 
-        ```
-        False      class      finally    is         return
-        None       continue   for        lambda     try
-        True       def        from       nonlocal   while
-        and        del        global     not        with
-        as         elif       if         or         yield
-        assert     else       import     pass
-        break      except     in         raise
-        ```
+    ```
+    False      class      finally    is         return
+    None       continue   for        lambda     try
+    True       def        from       nonlocal   while
+    and        del        global     not        with
+    as         elif       if         or         yield
+    assert     else       import     pass
+    break      except     in         raise
+    ```
 
-    f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+  f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
 
-        ~~~~ {include="undefined_operator"}
-        ~~~~
+    ~~~~ {include="undefined_operator"}
+    ~~~~
 
 ### Indentation Error (E0002) {#E0002}
 
 1. *IndentationError: unindent does not match any outer indentation level*
 
-    You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
+  You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
-    ~~~~ {include="unindent_does_not_match_indentation"}
-    ~~~~
+  ~~~~ {include="unindent_does_not_match_indentation"}
+  ~~~~
 
-    Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
+  Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
 2. *IndentationError: unexpected indent*
 
-    In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
+  In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
-    ~~~~ {include="unexpected_indent"}
-    ~~~~
+  ~~~~ {include="unexpected_indent"}
+  ~~~~
 
 
 <!-- Python objects -->
@@ -1477,9 +1477,9 @@ def check(condition, message):
 [Binary arithmetic operations]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
 [Compound statements]: https://docs.python.org/3/reference/compound_stmts.html
 [Keywords]: https://docs.python.org/3/reference/lexical_analysis.html#keywords
-[Literals]: https://docs.python.org/3/reference/lexical_analysis.html#literals
+<!-- [Literals]: https://docs.python.org/3/reference/lexical_analysis.html#literals
 [Operators]: https://docs.python.org/3/reference/lexical_analysis.html#operators
-[Delimiters]: https://docs.python.org/3/reference/lexical_analysis.html#delimiters
+[Delimiters]: https://docs.python.org/3/reference/lexical_analysis.html#delimiters -->
 [String and Bytes literals]: https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
 
 [Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
