@@ -353,8 +353,8 @@ def drop_none(lst: List[TN]) -> List[T]:
     return new_lst
 
 
-def cross_join(x_list: List[TN], y_list: List[TN],
-               z_list: List[TN]) -> List[Tuple[T, T, T]]:
+def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
+               z_list: List[Optional[T]]) -> List[Tuple[T, T, T]]:
     cross_join_list = []
     for x in drop_none(x_list):
         for y in drop_none(y_list):
@@ -366,8 +366,8 @@ def cross_join(x_list: List[TN], y_list: List[TN],
 or using list comprehension:
 
 ```python
-def cross_join(x_list: List[TN], y_list: List[TN],
-               z_list: List[TN]) -> List[Tuple[T, T, T]]:
+def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
+               z_list: List[Optional[T]]) -> List[Tuple[T, T, T]]:
     cross_join_list = [
         (x, y, z)
         for x in x_list
