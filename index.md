@@ -31,39 +31,36 @@ was defined.
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
 
-Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. This practice is discouraged, however, as it can lead to obscure and hard-to-detect bugs. For more information, see the Eli Bendersky's blog post: [The scope of index variables in Python's for loops].
+Python, unlike many other languages (e.g. C, C++, Java), allows loop variables to be accessed outside the loop in which they were defined. However, this practice is discouraged, as it can lead to obscure and hard-to-detect bugs.
+
+**See also**:
+
+- [The scope of index variables in Python's for loops]
 
 
 ### Not in loop (E0103) {#E0103}
 
-This error occurs when the `break` or `continue` keyword is used outside a loop.
-The keyword `break` is used to exit a loop early and the keyword `continue` is
-used to skip an iteration in a loop. Hence both the keywords only belong inside
-loops.
-
-A common source of this error is when the `break` or `continue` is not indented
-properly (it must be indented to be considered part of the loop body).
+This error occurs when the `break` or `continue` keyword is used outside of a loop. The keyword `break` is used to exit a loop early and the keyword `continue` is used to skip an iteration in a loop. Hence both the keywords only belong inside loops.
 
 ~~~~ {include="E0103_not_in_loop"}
 ~~~~
 
+A common source of this error is when the `break` or `continue` is not indented properly (it must be indented to be considered part of the loop body).
+
 
 ### Return outside function (E0104) {#E0104}
 
-This error occurs when a `return` statement is found outside a function or
-method.
-A common source of this error is when the `return` is not indented
-properly (it must be indented to be considered part of the loop body).
+This error occurs when a `return` statement is found outside a function or method.
 
 ~~~~ {include="E0104_return_outside_function"}
 ~~~~
 
+A common source of this error is when the `return` is not indented properly (it must be indented to be considered part of the loop body).
+
 
 ### Unreachable (W0101) {#W0101}
 
-This error occurs when there is some code after a `return` or `raise`
-statement. This code will never be run, and so either it should be removed,
-or the function is returning too early.
+This error occurs when there is some code after a `return` or `raise` statement. This code will never be run, so either it should be removed, or the function is returning too early.
 
 ~~~~ {include="W0101_unreachable"}
 ~~~~
@@ -73,14 +70,11 @@ or the function is returning too early.
 
 This error occurs when a dictionary literal sets the same key multiple times.
 
-Dictionaries map unique keys to values. When different values are assigned to the same key, the last assignment takes precedence. This is rarely what the user wants when they are constructing a dictionary.
-
 ~~~~ {include="W0109_duplicate_key"}
 ~~~~
 
-```python
-print(ex)  # prints {'runner1': '7km'}
-```
+Dictionaries map unique keys to values. When different values are assigned to the same key, the last assignment takes precedence. This is rarely what the user wants when they are constructing a dictionary.
+
 
 ## Type errors
 
@@ -92,8 +86,8 @@ They generally have to do with using a value of one type where another type is r
 This error occurs when you use dot notation (`my_var.x`) to access an attribute
 or to call a method which does not exist for the given object.
 
-This can happen for both built-in types like `str`, as well as classes that you define yourself.
-This error often results in an **AttributeError** when you run your program.
+This can happen both for built-in types like `str` and for classes that you define yourself.
+This error often results in an [**AttributeError**][AttributeError] when you run your program.
 
 ~~~~ {include="E1101_no_member"}
 ~~~~
@@ -110,20 +104,21 @@ In the following example, we should not call `x()` because `x` refers to an inte
 
 ### Assignment from no return (E1111) {#E1111}
 
-This error occurs when you assign a variable to the return value of a function call, but the function never returns anything. This error is similar to [E1128](#E1128).
-
-In the following example, `add_fruit` mutates `fruit_basket` and does not return anything. As a result, `new_fruit_basket` always gets the value `None`.
+This error occurs when you assign a variable to the return value of a function call, but the function never returns anything. In the following example, `add_fruit` mutates `fruit_basket` instead of returning a new list. As a result, `new_fruit_basket` always gets the value `None`.
 
 ~~~~ {include="E1111_assignment_from_no_return"}
 ~~~~
 
-We should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
+You should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
+
+**See also**:
+
+- [E1128](#E1128)
+
 
 ### No value for parameter (E1120) {#E1120}
 
-A function must be called with one argument value per parameter in its header.
-This error indicates you called a function with too few arguments.
-In the following example, there should be three values passed to the function
+A function must be called with one argument value per parameter in its header. This error indicates you called a function with too few arguments. In the following example, there should be *three* values passed to the function
 instead of two.
 
 ~~~~ {include="E1120_no_value_for_parameter"}
@@ -138,8 +133,9 @@ get_sum(1, 2, 3)
 
 ### Too many function args (E1121) {#E1121}
 
-A function must be called with one argument value per parameter in its header.
-This error indicates you called a function with too many arguments.
+A function must be called with one argument value per parameter in its header. This error indicates you called a function with too many arguments. In the following example, there should be *two* values passed to the function instead of three.
+
+
 
 ~~~~ {include="E1121_too_many_function_args"}
 ~~~~
@@ -191,12 +187,14 @@ print(a[0:3])
 
 ### Assignment from None (E1128) {#E1128}
 
-This error occurs when you assign a variable the return value of a function call, but the function always returns `None`. This error is similar to [E1111](#E1111).
-
-In the following example, `add_fruit` always returns `None`.  As a result, `new_fruit_basket` will always get the value `None`.
+This error occurs when you assign a variable the return value of a function call, but the function always returns `None`. In the following example, `add_fruit` always returns `None`.  As a result, `new_fruit_basket` will always get the value `None`.
 
 ~~~~ {include="E1128_assignment_from_none"}
 ~~~~
+
+**See also**:
+
+- [E1111](#E1111)
 
 
 ### Invalid unary operand type (E1130) {#E1130}
@@ -217,11 +215,9 @@ This error occurs when you use a [binary arithmetic operator][Binary arithmetic 
 
 ### Unsupported membership test (E1135) {#E1135}
 
-This error occurs when you use the membership test `a in b`, but the type of `b`
-does not support membership tests.
+This error occurs when you use the membership test `a in b`, but the type of `b` does not support membership tests.
 
-The standard Python types which support membership tests are strings, lists, tuples,
-and dictionaries.
+The standard Python types which support membership tests are strings, lists, tuples, and dictionaries.
 
 ~~~~ {include="E1135_unsupported_membership_test"}
 ~~~~
@@ -269,8 +265,8 @@ This error occurs when you have an `if ... else` statement that can be simplifie
 The above example can be simplified to:
 
 ```python
-def is_even(num):
-    """Return whether <num> is even or odd."""
+def is_even(num: int) -> bool:
+    """Return whether <num> is even."""
     return num % 2 == 0
 ```
 
@@ -297,8 +293,7 @@ else:
 
 ### Singleton comparison (C0121) {#C0121}
 
-This is an error that occurs when an expression is compared to singleton values
-like True, False or None.
+This error occurs when an expression is compared to singleton values like `True`, `False` or `None`.
 
 ~~~~ {include="C0121_singleton_comparison"}
 ~~~~
@@ -320,10 +315,7 @@ def square(number):
 
 ### Using constant test (W0125) {#W0125}
 
-This error occurs when a conditional statement like an `if` statement uses a
-constant value for its test. This is bad as the conditional statements using a
-constant test always evaluate to the same value. In such a case, a conditional
-statement should not be used, because the same branch will always execute.
+This error occurs when a conditional statement (like an `if` statement) uses a constant value for its test. In such a case, a conditional statement is not necessary, as it will always result in the same path of execution.
 
 ~~~~ {include="W0125_using_constant_test"}
 ~~~~
@@ -334,7 +326,7 @@ statement should not be used, because the same branch will always execute.
 The function or method has too many branches, making it hard to follow.
 This is a sign that the function/method is too complex, and should be split up.
 
-Note: the checker limit is 12 branches.
+**Note**: The checker limit is 12 branches.
 
 ~~~~ {include="R0912_too_many_branches"}
 ~~~~
@@ -345,7 +337,7 @@ Note: the checker limit is 12 branches.
 This error occurs when you have more than three levels of nested blocks in your code.
 Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
 
-**Note**: this checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
+**Note**: This checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
 ~~~~ {include="R0101_too_many_nested_blocks"}
 ~~~~
@@ -353,7 +345,7 @@ Deep nesting is a sign that your function or method is too complex, and should b
 The code above can be fixed using a helper function:
 
 ```python
-def drop_none(lst):
+def drop_none(lst: List[TN]) -> List[T]:
     new_lst = []
     for element in lst:
         if element is not None:
@@ -361,7 +353,8 @@ def drop_none(lst):
     return new_lst
 
 
-def cross_join(x_list, y_list, z_list):
+def cross_join(x_list: List[TN], y_list: List[TN],
+               z_list: List[TN]) -> List[Tuple[T, T, T]]:
     cross_join_list = []
     for x in drop_none(x_list):
         for y in drop_none(y_list):
@@ -373,7 +366,8 @@ def cross_join(x_list, y_list, z_list):
 or using list comprehension:
 
 ```python
-def cross_join(x_list, y_list, z_list):
+def cross_join(x_list: List[TN], y_list: List[TN],
+               z_list: List[TN]) -> List[Tuple[T, T, T]]:
     cross_join_list = [
         (x, y, z)
         for x in x_list
@@ -391,7 +385,7 @@ def cross_join(x_list, y_list, z_list):
 The function or method is defined with too many arguments.
 This is a sign that the function/method is too complex, and should be split up, or that some of the arguments are related, and should be combined and passed as a single object.
 
-Note: the checker limit is 5 arguments.
+**Note**: The checker limit is 5 arguments.
 
 ~~~~ {include="R0913_too_many_arguments"}
 ~~~~
@@ -401,7 +395,7 @@ Note: the checker limit is 5 arguments.
 
 The function or method has too many local variables.
 
-Note: the checker limit is 15 local variables.
+**Note**: The checker limit is 15 local variables.
 
 ~~~~ {include="R0914_too_many_locals"}
 ~~~~
@@ -409,12 +403,12 @@ Note: the checker limit is 15 local variables.
 
 ### Too many statements (R0915) {#R0915}
 
-The function or method has too many statements. You should then split it
-in smaller functions/methods.
+The function or method has too many statements. You should split it into smaller functions/methods.
 
-Note: comments do not count as statements.
+**Note**:
 
-Note: the checker limit is 50 statements.
+- The checker limit is 50 statements.
+- Comments do not count as statements.
 
 ~~~~ {include="R0915_too_many_statements"}
 ~~~~
@@ -441,7 +435,6 @@ This error occurs when a function argument is never used in the function.
 This error occurs when a statement doesn't have any effect.
 This means that the statement could be removed without changing the behaviour
 of the program.
-This is likely not what was intended.
 
 ~~~~ {include="W0104_pointless_statement"}
 ~~~~
@@ -449,13 +442,17 @@ This is likely not what was intended.
 
 ### Unnecessary pass (W0107) {#W0107}
 
-This error occurs when a [`pass` statement][`pass` statements] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python. Some examples of appropriate uses of `pass` can be found [here][StackOverflow: How To Use The Pass Statement In Python].
+This error occurs when a [`pass` statement][`pass` statements] is used that can be avoided (or has no effect). `pass` statements should only be used to fill what would otherwise be an empty code block, since code blocks cannot be empty in Python.
 
 ~~~~ {include="W0107_unnecessary_pass"}
 ~~~~
 
 In the above example, the `pass` statement is "unnecessary" as the program's
 effect is not changed if `pass` is removed.
+
+**See also:**
+
+- [StackOverflow: How To Use The Pass Statement In Python]
 
 
 ## Documentation and naming
@@ -467,7 +464,7 @@ as well as a basic check on the formatting of your identifiers.
 ### Missing Docstring (C0111) {#C0111}
 
 This error occurs when a module, function, class or method has no docstring.
-Special methods like `__init__` don't require a docstring.
+Special methods like `__init__` do not require a docstring.
 
 ~~~~ {include="C0111_missing_docstring"}
 ~~~~
@@ -478,11 +475,6 @@ Special methods like `__init__` don't require a docstring.
 This error occurs when a module, function, class or method has an empty
 docstring.
 
-```python
-"""
-"""
-```
-
 ~~~~ {include="C0112_empty_docstring"}
 ~~~~
 
@@ -492,12 +484,12 @@ docstring.
 This error occurs when a variable name is chosen to be a typical generic name,
 rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
-- foo
-- bar
-- baz
-- toto
-- tutu
-- tata
+- `foo`
+- `bar`
+- `baz`
+- `toto`
+- `tutu`
+- `tata`
 
 ~~~~ {include="C0102_blacklisted_name"}
 ~~~~
@@ -533,7 +525,7 @@ you define have different names.
 ### Duplicate argument name (E0108) {#E0108}
 
 This error occurs if there are duplicate parameter names in function
-definitions. All parameters must have distinct names so you can refer to each
+definitions. All parameters must have distinct names, so that you can refer to each
 one separately in the function body.
 
 ~~~~ {include="E0108_duplicate_argument_name"}
@@ -542,12 +534,9 @@ one separately in the function body.
 
 ### Redefined outer name (W0621) {#W0621}
 
-This error occurs when you are trying to redefine a variable name that has
-already been defined in the outer scope. For example, this error will occur
-when you have a local name identical to a global name. The local name takes
-precedence, but it hides the global name, making it no longer accessible.
+This error occurs when you are trying to redefine a variable name that has already been defined in the outer scope.
 
-Note that the outer name is not accessible *anywhere* in the function where it is redefined, even before the redefinition.
+For example, this error will occur when you have a local name identical to a global name. The local name takes precedence, but it hides the global name, making it no longer accessible. Note that the global name is not accessible *anywhere* in the function where it is redefined, even before the redefinition.
 
 ~~~~ {include="W0621_redefined_outer_name"}
 ~~~~
@@ -555,11 +544,30 @@ Note that the outer name is not accessible *anywhere* in the function where it i
 
 ### Redefined builtin (W0622) {#W0622}
 
-This error occurs when you are trying to redefine a [built-in function][Built-in Functions].
+This error occurs when you are trying to redefine a built-in function, constant, class, or exception.
 
 ~~~~ {include="W0622_redefined_builtin"}
 ~~~~
 
+The following is a list of [builtin functions][Built-in Functions] in Python 3.6.
+
+```text
+abs                 all                 any                 ascii               bin
+bool                bytearray           bytes               callable            chr
+classmethod         compile             complex             copyright           credits
+delattr             dict                dir                 divmod              dreload
+enumerate           eval                exec                filter              float
+format              frozenset           get_ipython         getattr             globals
+hasattr             hash                help                hex                 id
+input               int                 isinstance          issubclass          iter
+len                 license             list                locals              map
+max                 memoryview          min                 next                object
+oct                 open                ord                 pow                 print
+property            range               repr                reversed            round
+set                 setattr             slice               sorted              staticmethod
+str                 sum                 super               tuple               type
+vars                zip
+```
 
 ## Imports
 
@@ -589,8 +597,7 @@ whether the module is in the correct directory.
 ~~~~ {include="E0401_import_error"}
 ~~~~
 
-There are other forms of import statements that may cause this error, for
-example:
+There are other forms of import statements that may cause this error. For example:
 
 ```python
 import missing_module as foo  # this module does not exist
@@ -608,11 +615,12 @@ module, but that variable name could not be found in that referenced module.
 
 ### Import self (W0406) {#W0406}
 
-A module should not import itself. So for example, if the module is named
-`W0406_import_self` you cannot import it as follows:
+A module should not import itself. For example, if you have a module named `W0406_import_self`, it should not import a module with the same name.
 
 ~~~~ {include="W0406_import_self"}
 ~~~~
+
+This error can occur when the name of your python file conflicts with the name of a module which you would like to import. For example, if you have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *your* `math.py` file, and not the [`math` module] from the standard library.
 
 
 ### Reimported (W0404) {#W0404}
@@ -625,12 +633,12 @@ A module should not be imported more than once.
 
 ### Wildcard import (W0401) {#W0401}
 
-Only import what you need. Wildcard imports (shown below) are generally discouraged, as they add all the objects from the imported module into the global namespace, and make it difficult to tell in which module a particular class, function or constant was defined. This may cause problems, for example, when multiple modules have objects with identical names.
+Only import what you need. Wildcard imports (shown below) are generally discouraged, as they add all objects from the imported module into the global namespace. This makes it difficult to tell in which module a particular class, function or constant was defined, and may cause problems, for example, when multiple modules have objects with identical names.
 
 ~~~~ {include="W0401_wildcard_import"}
 ~~~~
 
-Rather than importing everything with wildcard *, specify the names of the objects which you would like to import:
+Rather than importing everything with wildcard `*`, specify the names of the objects which you would like to import:
 
 ```python
 from module_name import SOME_CONSTANT, SomeClass, some_function
@@ -656,8 +664,7 @@ then third-party libraries, then local imports).
 
 ### Wrong import position (C0413) {#C0413}
 
-Imports should be placed at the top of the module above any other code,
-but below the module docstring.
+Imports should be placed at the top of the module, above any other code, but below the module docstring.
 
 ~~~~ {include="C0413_wrong_import_position"}
 ~~~~
@@ -685,18 +692,17 @@ Don't import multiple modules on one line.
 ~~~~ {include="C0410_multiple_imports"}
 ~~~~
 
-Do this instead:
+Rather, each module should be imported on a separate line.
 
 ```python
 import sys
 import math
 ```
 
-Although, note that you can import multiple functions on a line, when they are
-from the same module, for example:
+Note, however, that you can import multiple functions, classes, or constants on one line, as long as they are from the same module.
 
 ```python
-from sys import byteorder, stdin
+from shutil import copy, SameFileError
 ```
 
 
@@ -714,39 +720,36 @@ This error occurs when you import a module which is not used anywhere in your co
 
 The class has too many instance attributes, which suggests that it is too complicated and tries to do too many things.
 
-**Note**: the checker limit is 7 instance attributes.
+**Note**: The checker limit is 7 instance attributes.
 
 ~~~~ {include="R0902_too_many_instance_attributes"}
 ~~~~
 
 One solution is to logically decompose the class into multiple classes, each with fewer
-instance attributes. Then we can use composition to access those attributes in
-another class.
+instance attributes. You can then use composition to access those attributes in
+a different class.
 
 ```python
 class Edible(object):
-    """Example with fewer instance attributes."""
+    """Class with a few instance attributes."""
 
-    def __init__(self):
-        """Below are the instance attributes:"""
+    def __init__(self) -> None:
         self.bread = "Sourdough"
         self.liquid = "Water"
 
 
 class Ownership(object):
-    """Example with fewer instance attributes."""
+    """Class with a few instance attributes."""
 
-    def __init__(self):
-        """Below are the instance attributes:"""
+    def __init__(self) -> None:
         self.animal = "Dog"
         self.clothing = "Shirt"
 
 
 class Description(object):
-    """Example with fewer instance attributes."""
+    """Class with a few instance attributes."""
 
-    def __init__(self):
-        """Below are the instance attributes:"""
+    def __init__(self) -> None:
         self.colour = "Black"
         self.shape = "Circle"
         self.direction = "Up"
@@ -754,12 +757,18 @@ class Description(object):
 
 
 class Composition(object):
-    """Example showing composition of other classes into instance attributes."""
+    """Class using composition to leverage other classes.
 
-    def __init__(self):
-        """Construct instance attributes. For example,
-        self.ownership.animal is "Dog"
-        """
+    Example
+    -------
+    >>> comp = Composition()
+    >>> isinstance(comp.ownership, Ownership)
+    True
+    >>> comp.description.colour
+    'Black'
+    """
+
+    def __init__(self) -> None:
         self.edible = Edible()
         self.ownership = Ownership()
         self.description = Description()
@@ -796,7 +805,7 @@ Private attributes and methods can be modified, added, or removed by the maintai
 
 ### Bad parent init (W0233) {#W0233}
 
-You should call the `__init__` method of the parent, not of some unrelated class.
+When using inheritance, you should call the `__init__` method of the parent class, and not of some unrelated class.
 
 ~~~~ {include="W0233_non_parent_init"}
 ~~~~
@@ -806,12 +815,12 @@ To fix this, call the `__init__` method of the parent class, or use [`super()`][
 ```python
 # Call the `__init__` method on the correct parent class
 class Child(Parent):
-    def __init__(self):
+    def __init__(self) -> None:
         Parent.__init__(self)
 
 # Or use `super()`
 class Child(Parent):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 ```
 
@@ -835,11 +844,11 @@ You should do this instead:
 
 ```python
 class MyClass:
-    def __init__(self):
+    def __init__(self) -> None:
         self.num = 1
         self.other_num = None
 
-    def set_other_num(self, other_num):
+    def set_other_num(self, other_num) -> None:
         self.other_num = other_num
 ```
 
@@ -862,10 +871,10 @@ to raise an error.
 
 ```python
 class Example:
-    def field(self, num):
+    def field(self, num: float) -> float:
         return num
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.field = 'Masking the function with this string'
 
 e = Example()
@@ -925,10 +934,10 @@ put `self` in the parenthesis for the method call.
 
 ```python
 class MyClass:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def method():
+    def method(self) -> None:
         print('Missing argument for method definition')
 ```
 
@@ -971,11 +980,11 @@ to avoid confusion.
 
 ```python
 class C:
-    def __init__(self):
+    def __init__(self) -> None:
         self.num = 5
 
     @staticmethod
-    def method(self):  # Static methods do not have a 'self'
+    def method(self) -> int:  # Static methods do not have a 'self'
         self.num += 1
 ```
 
@@ -1059,7 +1068,7 @@ be done for program integrity that an exception would break). You can do this
 by calling _raise_ on its own without a class as follows:
 
 ```python
-def func():
+def func() -> None:
     try:
         raise MyException()
     except MyException:
@@ -1069,10 +1078,10 @@ def func():
 ```
 
 If you call _raise_ outside of an 'except' block, it can't work because there
-is no exception to throw as seen in the following example:
+is no exception to throw, as seen in the following example:
 
 ```python
-def bad_raise()
+def bad_raise() -> None:
     # Bad example, needs to be in an 'except' block:
     raise
 ```
@@ -1298,12 +1307,8 @@ This error occurs when `type` is used instead of `isinstance` to perform a type 
 The above can be modified to:
 
 ```python
-def is_int(obj):
-    """Check if the given object is of type 'int'.
-
-    @type obj: object
-    @rtype: bool
-    """
+def is_int(obj: Union[int, float, str]) -> bool:
+    """Check if the given object is of type 'int'."""
     return isinstance(obj, int)
 ```
 
@@ -1334,7 +1339,9 @@ However, the actual output is:
 If you want to prevent this surprising behavior, you should use `None` as the default argument, and then check for `None` inside the function body. For example, the following code prints the expected output:
 
 ```python
-def make_list(n, lst=None):
+from typing import List, Optional
+
+def make_list(n: int, lst: Optional[List[int]]=None) -> List[int]:
     if lst is None:
         lst = []
     for i in range(n):
@@ -1361,7 +1368,7 @@ This error occurs when an `assert` statement is called with a tuple as the first
 If you would like to assert multiple conditions, you should join those conditions using the `and` operator, or use individual `assert` statements for each condition.
 
 ```python
-def check(condition1, condition2, condition3):
+def check(condition1: bool, condition2: bool, condition3: bool) -> None:
     # Option 1
     assert (condition1 and condition2 and condition3)
     # Option 2
@@ -1384,76 +1391,76 @@ def check(condition, message):
 
 1. *SyntaxError: Missing parentheses in call to 'print'*
 
-  In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
+    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
 
-  ~~~~ {include="missing_parentheses_in_call_to_print"}
-  ~~~~
+    ~~~~ {include="missing_parentheses_in_call_to_print"}
+    ~~~~
 
 2. *SyntaxError: can't assign to literal*
 
-  There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
+    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
 
-  ~~~~ {include="assignment_to_literal"}
-  ~~~~
+    ~~~~ {include="assignment_to_literal"}
+    ~~~~
 
 3. *SyntaxError: invalid syntax*
 
-  Some of the common causes of this error include:
+    Some of the common causes of this error include:
 
-  a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+    a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
 
-    ~~~~ {include="missing_colon"}
-    ~~~~
+        ~~~~ {include="missing_colon"}
+        ~~~~
 
-  b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+    b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
 
-    ~~~~ {include="assignment_inside_condition"}
-    ~~~~
+        ~~~~ {include="assignment_inside_condition"}
+        ~~~~
 
-  c. Missing quote at the beginning or the end of a string literal.
+    c. Missing quote at the beginning or the end of a string literal.
 
-    ~~~~ {include="missing_quote"}
-    ~~~~
+        ~~~~ {include="missing_quote"}
+        ~~~~
 
-  d. Assignment to a Python keyword.
+    d. Assignment to a Python keyword.
 
-    ~~~~ {include="assignment_to_keyword"}
-    ~~~~
+        ~~~~ {include="assignment_to_keyword"}
+        ~~~~
 
-    The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
+        The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
 
-    ```
-    False      class      finally    is         return
-    None       continue   for        lambda     try
-    True       def        from       nonlocal   while
-    and        del        global     not        with
-    as         elif       if         or         yield
-    assert     else       import     pass
-    break      except     in         raise
-    ```
+        ```
+        False      class      finally    is         return
+        None       continue   for        lambda     try
+        True       def        from       nonlocal   while
+        and        del        global     not        with
+        as         elif       if         or         yield
+        assert     else       import     pass
+        break      except     in         raise
+        ```
 
-  f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+    f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
 
-    ~~~~ {include="undefined_operator"}
-    ~~~~
+        ~~~~ {include="undefined_operator"}
+        ~~~~
 
 ### Indentation Error (E0002) {#E0002}
 
 1. *IndentationError: unindent does not match any outer indentation level*
 
-  You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
+    You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
-  ~~~~ {include="unindent_does_not_match_indentation"}
-  ~~~~
+    ~~~~ {include="unindent_does_not_match_indentation"}
+    ~~~~
 
-  Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
+    Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
 2. *IndentationError: unexpected indent*
 
-  In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
+    In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
-  ~~~~ {include="unexpected_indent"}
-  ~~~~
+    ~~~~ {include="unexpected_indent"}
+    ~~~~
 
 
 <!-- Python objects -->
@@ -1483,6 +1490,8 @@ def check(condition, message):
 [String and Bytes literals]: https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
 
 [Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
+[`math` module]: https://docs.python.org/3/library/math.html
+[AttributeError]: https://docs.python.org/3/library/exceptions.html#AttributeError
 
 <!-- PEP8 -->
 [PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
