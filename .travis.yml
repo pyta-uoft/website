@@ -12,7 +12,11 @@ install:
   - pip2 install git+git://github.com/linkcheck/linkchecker.git@8dc2963264b84babca3d501c195d470a58006ac0
   # Node.js
   - nvm install --lts
-  - npm install -g 'remark@^8.0.0' 'remark-cli@^4.0.0' 'remark-lint@^6.0.0' 'remark-preset-lint-recommended@^3.0.0' remark-lint-list-item-indent remark-lint-no-shortcut-reference-link remark-lint-fenced-code-marker 'gh-pages@^1.0.0'
+  - |
+    npm install -g remark remark-cli remark-lint \
+    remark-preset-lint-recommended remark-preset-lint-consistent \
+    remark-lint-list-item-indent remark-lint-no-shortcut-reference-link remark-lint-fenced-code-marker remark-validate-links \
+    gh-pages
 script:
   - (cd .. && git clone https://github.com/pyta-uoft/pyta)
   - python build.py
