@@ -500,9 +500,7 @@ rather than a meaningful one. Here are some of the blacklisted names to avoid:
 This error occurs when a name does not follow the [Python Naming Convention] associated with its type (constant, variable, etc.).
 
 - Names of variables, attributes, methods, and arguments should be in **`lowercase_with_underscores`**.
-
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
-
 - Names of classes should be in **`CamelCase`**.
 
 A special character accepted in all types of names is '_'.
@@ -1047,9 +1045,9 @@ may catch other types as well.
 
 The proper way to have an except block catch multiple exceptions is to have
 the exception classes in a tuple. You can incorrectly write an except block
-in Python with multiple classes separated by an _or_ (see example). If you do
-it the second way, the _or_ binary operator will not do what you think it does
--- in fact, the exception on the right side of the _or_ will not be caught and
+in Python with multiple classes separated by an *or* (see example). If you do
+it the second way, the *or* binary operator will not do what you think it does
+-- in fact, the exception on the right side of the *or* will not be caught and
 proceed to be passed up the call stack (which likely will yield an uncaught
 exception, terminating your program).
 
@@ -1059,13 +1057,13 @@ exception, terminating your program).
 
 ### Misplaced bare raise (E0704) {#E0704}
 
-When you call _raise_, it's usually to throw an exception. If you are inside
+When you call *raise*, it's usually to throw an exception. If you are inside
 an 'except' block after you catch an exception, you can continue to pass on
 the exception to later code. You may want to do this if your intention is to
 capture a generated exception, then do something before passing it onwards
 (such as maybe closing a file or some other sensitive operation that must
 be done for program integrity that an exception would break). You can do this
-by calling _raise_ on its own without a class as follows:
+by calling *raise* on its own without a class as follows:
 
 ```python
 def func() -> None:
@@ -1077,7 +1075,7 @@ def func() -> None:
         raise
 ```
 
-If you call _raise_ outside of an 'except' block, it can't work because there
+If you call *raise* outside of an 'except' block, it can't work because there
 is no exception to throw, as seen in the following example:
 
 ```python
@@ -1389,40 +1387,40 @@ def check(condition, message):
 
 ### Syntax Error (E0001) {#E0001}
 
-1. *SyntaxError: Missing parentheses in call to 'print'*
+1.  *SyntaxError: Missing parentheses in call to 'print'*
 
     In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
 
     ~~~~ {include="missing_parentheses_in_call_to_print"}
     ~~~~
 
-2. *SyntaxError: can't assign to literal*
+2.  *SyntaxError: can't assign to literal*
 
     There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
 
     ~~~~ {include="assignment_to_literal"}
     ~~~~
 
-3. *SyntaxError: invalid syntax*
+3.  *SyntaxError: invalid syntax*
 
     Some of the common causes of this error include:
 
-    a. Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+    a.  Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
 
         ~~~~ {include="missing_colon"}
         ~~~~
 
-    b. Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+    b.  Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
 
         ~~~~ {include="assignment_inside_condition"}
         ~~~~
 
-    c. Missing quote at the beginning or the end of a string literal.
+    c.  Missing quote at the beginning or the end of a string literal.
 
         ~~~~ {include="missing_quote"}
         ~~~~
 
-    d. Assignment to a Python keyword.
+    d.  Assignment to a Python keyword.
 
         ~~~~ {include="assignment_to_keyword"}
         ~~~~
@@ -1439,14 +1437,14 @@ def check(condition, message):
         break      except     in         raise
         ```
 
-    f. Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+    f.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
 
         ~~~~ {include="undefined_operator"}
         ~~~~
 
 ### Indentation Error (E0002) {#E0002}
 
-1. *IndentationError: unindent does not match any outer indentation level*
+1.  *IndentationError: unindent does not match any outer indentation level*
 
     You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
@@ -1455,7 +1453,7 @@ def check(condition, message):
 
     Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
-2. *IndentationError: unexpected indent*
+2.  *IndentationError: unexpected indent*
 
     In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
@@ -1504,7 +1502,7 @@ def check(condition, message):
 [StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
 
 <!-- everything else -->
-[Common Gotchas - Mutable Default Arguments]: http://python-guide-pt-br.readthedocs.io/en/latest/writing/gotchas/#mutable-default-arguments
+[Common Gotchas - Mutable Default Arguments]: http://docs.python-guide.org/en/latest/writing/gotchas/#mutable-default-arguments
 [Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
 [list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
 [Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
