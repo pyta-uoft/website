@@ -1405,22 +1405,22 @@ def check(condition, message):
 
     Some of the common causes of this error include:
 
-    a.  Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+    1.  Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
 
         ~~~~ {include="missing_colon"}
         ~~~~
 
-    b.  Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+    2.  Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
 
         ~~~~ {include="assignment_inside_condition"}
         ~~~~
 
-    c.  Missing quote at the beginning or the end of a string literal.
+    3.  Missing quote at the beginning or the end of a string literal.
 
         ~~~~ {include="missing_quote"}
         ~~~~
 
-    d.  Assignment to a Python keyword.
+    4.  Assignment to a Python keyword.
 
         ~~~~ {include="assignment_to_keyword"}
         ~~~~
@@ -1437,7 +1437,7 @@ def check(condition, message):
         break      except     in         raise
         ```
 
-    f.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+    5.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
 
         ~~~~ {include="undefined_operator"}
         ~~~~
