@@ -345,7 +345,7 @@ Deep nesting is a sign that your function or method is too complex, and should b
 The code above can be fixed using a helper function:
 
 ```python
-def drop_none(lst: List[TN]) -> List[T]:
+def drop_none(lst: List[Optional[int]]) -> List[int]:
     new_lst = []
     for element in lst:
         if element is not None:
@@ -353,8 +353,8 @@ def drop_none(lst: List[TN]) -> List[T]:
     return new_lst
 
 
-def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
-               z_list: List[Optional[T]]) -> List[Tuple[T, T, T]]:
+def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
+               z_list: List[Optional[int]]) -> List[Tuple[int, int, int]]:
     cross_join_list = []
     for x in drop_none(x_list):
         for y in drop_none(y_list):
@@ -366,8 +366,8 @@ def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
 or using list comprehension:
 
 ```python
-def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
-               z_list: List[Optional[T]]) -> List[Tuple[T, T, T]]:
+def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
+               z_list: List[Optional[int]]) -> List[Tuple[int, int, int]]:
     cross_join_list = [
         (x, y, z)
         for x in x_list
