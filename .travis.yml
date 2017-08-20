@@ -15,14 +15,11 @@ install:
   - |
     npm install -g remark remark-cli remark-lint \
     remark-preset-lint-recommended remark-preset-lint-consistent \
-    remark-lint-list-item-indent remark-lint-no-shortcut-reference-link remark-lint-fenced-code-marker remark-validate-links \
-    gh-pages
+    remark-lint-list-item-indent remark-lint-no-shortcut-reference-link remark-lint-fenced-code-marker remark-validate-links
 script:
   - (cd .. && git clone https://github.com/pyta-uoft/pyta)
   - python build.py
   - remark index.md -f >/dev/null
   - linkchecker -v --check-extern gen/index.html
-after_success:
-  - gh-pages -d gen
 notifications:
   email: false
