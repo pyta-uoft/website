@@ -1461,6 +1461,324 @@ def check(condition, message):
     ~~~~
 
 
+
+## New errors {#new}
+
+### Consider iterating dictionary (C0201) {#C0201}
+
+:consider-iterating-dictionary (C0201): *Consider iterating the dictionary directly instead of calling .keys()*
+  Emitted when the keys of a dictionary are iterated through the .keys() method.
+  It is enough to just iterate through the dictionary itself, as in "for key in
+  dictionary". This message belongs to the refactoring checker.
+
+~~~~ {include="C0201_consider_iterating_dictionary"}
+~~~~
+
+Corrected version:
+
+```python
+for item in menu:
+    print("My store sells {}.".format(item))
+```
+
+### Superfluous parens (C0325) {#C0325}
+
+:superfluous-parens (C0325): *Unnecessary parens after %r keyword*
+  Used when a single item in parentheses follows an if, for, or other keyword.
+  This message belongs to the format checker.
+
+~~~~ {include="C0325_superfluous_parens"}
+~~~~
+
+Corrected version:
+
+```python
+if 'anchovies' in pizza_toppings:  # Error on this line
+    print("Awesome!")
+```
+
+### Literal comparison (R0123) {#R0123}
+
+:literal-comparison (R0123): *Comparison to literal*
+  Used when comparing an object to a literal, which is usually what you do not
+  want to do, since you can compare to a different literal than what was
+  expected altogether. This message belongs to the basic checker.
+
+~~~~ {include="R0123_literal_comparison"}
+~~~~
+
+Corrected version:
+
+```python
+if text == "It was the best of times":  # Note the use of `==`
+    print("Nope, worst of times!")
+
+if answer_to_the_ultimate_question == 42:  # Note the use of `==`
+    print("You have it all figured out!")
+```
+
+### Invalid length returned (E0303) {#E0303}
+
+:invalid-length-returned (E0303): *__len__ does not return non-negative integer*
+  Used when an __len__ method returns something which is not a non-negative
+  integer This message belongs to the classes checker.
+
+~~~~ {include="E0303_invalid_length_returned"}
+~~~~
+
+Corrected version:
+
+```python
+class Company:
+
+    def __init__(self, employees: List[str]) -> None:
+        self._employees = employees
+
+    def __len__(self) -> int:
+        return len(self._employees)
+```
+
+### Trailing comma tuple (R1707) {#R1707}
+
+:trailing-comma-tuple (R1707): *Disallow trailing comma tuple*
+  In Python, a tuple is actually created by the comma symbol, not by the
+  parentheses. Unfortunately, one can actually create a tuple by misplacing a
+  trailing comma, which can lead to potential weird bugs in your code. You
+  should always use parentheses explicitly for creating a tuple. This message
+  belongs to the refactoring checker. It can't be emitted when using Python <
+  3.0.
+
+~~~~ {include="R1707_trailing_comma_tuple"}
+~~~~
+
+Corrected version:
+
+```python
+my_lucky_number = 7
+print(my_lucky_number)  # Prints 7
+```
+
+### Bad whitespace (C0326) {#C0326}
+
+:bad-whitespace (C0326): *%s space %s %s %s*
+  Used when a wrong number of spaces is used around an operator, bracket or
+  block opener. This message belongs to the format checker.
+
+~~~~ {include="C0326_bad_whitespace"}
+~~~~
+
+Corrected version:
+
+```python
+def func(temp: int) -> bool:
+    """Return whether <temp> is greater than 0."""
+    return temp > 0
+```
+
+### Mixed indentation (W0312) {#W0312}
+
+:mixed-indentation (W0312): *Found indentation with %ss instead of %ss*
+  Used when there are some mixed tabs and spaces in a module. This message
+  belongs to the format checker.
+
+~~~~ {include="W0312_mixed_indentation"}
+~~~~
+
+Corrected version:
+
+```python
+def hello_world() -> None:
+    """Greet the universe with a friendly 'Hello World!'."""
+    print("Hello World!")
+```
+
+### Unsupported assignment operation (E1137) {#E1137}
+
+:unsupported-assignment-operation (E1137): *%r does not support item assignment*
+  Emitted when an object does not support item assignment (i.e. doesn't define
+  __setitem__ method) This message belongs to the typecheck checker.
+
+~~~~ {include="E1137_unsupported_assignment_operation"}
+~~~~
+
+### Abstract method (W0223) {#W0223}
+
+:abstract-method (W0223): *Method %r is abstract in class %r but is not overridden*
+  Used when an abstract method (i.e. raise `NotImplementedError`) is not
+  overridden in concrete class. This message belongs to the classes checker.
+
+~~~~ {include="W0223_abstract_method"}
+~~~~
+
+Corrected version:
+
+```python
+class Cat(Animal):  # Error on this line
+
+    def make_sound(self) -> str:
+        return 'Miew'
+```
+
+### Expression not assigned (W0106) {#W0106}
+
+:expression-not-assigned (W0106): *Expression "%s" is assigned to nothing*
+  Used when an expression that is not a function call is assigned to nothing.
+  Probably something else was intended. This message belongs to the basic
+  checker.
+
+~~~~ {include="W0106_expression_not_assigned"}
+~~~~
+
+```python
+def greet_person(name, friends) -> None:
+    print("My name is {}".format(name))
+    for friend in friends:  # Error on this line
+        print("I am friends with {}".format(friend))
+```
+
+### Redefined argument from local (R1704) {#R1704}
+
+:redefined-argument-from-local (R1704): *Redefining argument with the local name %r*
+  Used when a local name is redefining an argument, which might suggest a
+  potential error. This is taken in account only for a handful of name binding
+  operations, such as for iteration, with statement assignment and exception
+  handler assignment. This message belongs to the refactoring checker.
+
+~~~~ {include="R1704_redefined_argument_from_local"}
+~~~~
+
+### Too many nested blocks (R1702) {#R1702}
+
+:too-many-nested-blocks (R1702): *Too many nested blocks (%s/%s)*
+  Used when a function or a method has too many nested blocks. This makes the
+  code less understandable and maintainable. This message belongs to the
+  refactoring checker.
+
+~~~~ {include="R1702_too_many_nested_blocks"}
+~~~~
+
+### Bad indentation (W0311) {#W0311}
+
+:bad-indentation (W0311): *Bad indentation. Found %s %s, expected %s*
+  Used when an unexpected number of indentation's tabulations or spaces has been
+  found. This message belongs to the format checker.
+
+~~~~ {include="W0311_bad_indentation"}
+~~~~
+
+### Arguments differ (W0221) {#W0221}
+
+:arguments-differ (W0221): *Parameters differ from %s %r method*
+  Used when a method has a different number of arguments than in the implemented
+  interface or in an overridden method. This message belongs to the classes
+  checker.
+
+~~~~ {include="W0221_arguments_differ"}
+~~~~
+
+### Multiple statements (C0321) {#C0321}
+
+:multiple-statements (C0321): *More than one statement on a single line*
+  Used when more than on statement are found on the same line. This message
+  belongs to the format checker.
+
+~~~~ {include="C0321_multiple_statements"}
+~~~~
+
+### Unnecessary semicolon (W0301) {#W0301}
+
+:unnecessary-semicolon (W0301): *Unnecessary semicolon*
+  Used when a statement is ended by a semi-colon (";"), which isn't necessary
+  (that's python, not C ;). This message belongs to the format checker.
+
+~~~~ {include="W0301_unnecessary_semicolon"}
+~~~~
+
+### Missing final newline (C0304) {#C0304}
+
+:missing-final-newline (C0304): *Final newline missing*
+  Used when the last line in a file is missing a newline. This message belongs
+  to the format checker.
+
+~~~~ {include="C0304_missing_final_newline"}
+~~~~
+
+### Trailing newlines (C0305) {#C0305}
+
+:trailing-newlines (C0305): *Trailing newlines*
+  Used when there are trailing blank lines in a file. This message belongs to
+  the format checker.
+
+~~~~ {include="C0305_trailing_newlines"}
+~~~~
+
+### Bad continuation (C0330) {#C0330}
+
+:bad-continuation (C0330): *Wrong %s indentation%s%s.*
+  TODO This message belongs to the format checker.
+
+~~~~ {include="C0330_bad_continuation"}
+~~~~
+
+### Nonexistent operator (E0107) {#E0107}
+
+:nonexistent-operator (E0107): *Use of the non-existent %s operator*
+  Used when you attempt to use the C-style pre-increment orpre-decrement
+  operator -- and ++, which doesn't exist in Python. This message belongs to the
+  basic checker.
+
+~~~~ {include="E0107_nonexistent_operator"}
+~~~~
+
+### Used prior global declaration (E0118) {#E0118}
+
+:used-prior-global-declaration (E0118): *Name %r is used prior to global declaration*
+  Emitted when a name is used prior a global declaration, which results in an
+  error since Python 3.6. This message belongs to the basic checker. It can't be
+  emitted when using Python < 3.6.
+
+~~~~ {include="E0118_used_prior_global_declaration"}
+~~~~
+
+### Not an iterable (E1133) {#E1133}
+
+:not-an-iterable (E1133): *Non-iterable value %s is used in an iterating context*
+  Used when a non-iterable value is used in place where iterable is expected
+  This message belongs to the iterable_check checker.
+
+~~~~ {include="E1133_not_an_iterable"}
+~~~~
+
+### Unexpected keyword arg (E1123) {#E1123}
+
+:unexpected-keyword-arg (E1123): *Unexpected keyword argument %r in %s call*
+  Used when a function call passes a keyword argument that doesn't correspond to
+  one of the function's parameter names. This message belongs to the typecheck
+  checker.
+
+~~~~ {include="E1123_unexpected_keyword_arg"}
+~~~~
+
+### Line too long (C0301) {#C0301}
+
+:line-too-long (C0301): *Line too long (%s/%s)*
+  Used when a line is longer than a given number of characters. This message
+  belongs to the format checker.
+
+~~~~ {include="C0301_line_too_long"}
+~~~~
+
+### Unsupported delete operation (E1138) {#E1138}
+
+:unsupported-delete-operation (E1138): *%r does not support item deletion*
+  Emitted when an object does not support item deletion (i.e. doesn't define
+  __delitem__ method) This message belongs to the typecheck checker.
+
+~~~~ {include="E1138_unsupported_delete_operation"}
+~~~~
+
+
+
 <!-- Python objects -->
 [`__init__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
 [`__new__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
