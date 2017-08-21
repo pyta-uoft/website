@@ -1,0 +1,25 @@
+language: python
+python:
+  - "3.6"
+before_install:
+  - sudo apt-get -qq update
+install:
+  # Packages for building the website
+  - sudo apt-get install -y pandoc
+  - pip3 install pandocfilters pylint
+  # Need a newer version of linkchecker then available from the apt channel
+  - sudo apt install python-pip python-setuptools
+  - pip2 install git+git://github.com/linkcheck/linkchecker.git@8dc2963264b84babca3d501c195d470a58006ac0
+  # Node.js
+  - nvm install --lts
+  - |
+    npm install -g remark remark-cli remark-lint \
+    remark-preset-lint-recommended remark-preset-lint-consistent \
+    remark-lint-list-item-indent remark-lint-no-shortcut-reference-link remark-lint-fenced-code-marker remark-validate-links
+script:
+  - (cd .. && git clone https://github.com/pyta-uoft/pyta)
+  - python build.py
+  - remark index.md -f >/dev/null
+  - linkchecker -v --check-extern gen/index.html
+notifications:
+  email: false
