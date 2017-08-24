@@ -332,14 +332,14 @@ This is a sign that the function/method is too complex, and should be split up.
 ~~~~
 
 
-### Too many nested blocks (R0101) {#R0101}
+### Too many nested blocks (R1702) {#R1702}
 
 This error occurs when you have more than three levels of nested blocks in your code.
 Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
 
 **Note**: This checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
-~~~~ {include="R0101_too_many_nested_blocks"}
+~~~~ {include="R1702_too_many_nested_blocks"}
 ~~~~
 
 The code above can be fixed using a helper function:
@@ -1437,14 +1437,7 @@ def check(condition, message):
         break      except     in         raise
         ```
 
-    5.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
-
-        ~~~~ {include="undefined_operator"}
-        ~~~~
-
-### Indentation Error (E0002) {#E0002}
-
-1.  *IndentationError: unindent does not match any outer indentation level*
+4.  *IndentationError: unindent does not match any outer indentation level*
 
     You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
@@ -1453,7 +1446,7 @@ def check(condition, message):
 
     Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
-2.  *IndentationError: unexpected indent*
+5.  *IndentationError: unexpected indent*
 
     In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
@@ -1461,15 +1454,11 @@ def check(condition, message):
     ~~~~
 
 
-
 ## New errors {#new}
 
 ### Consider iterating dictionary (C0201) {#C0201}
 
-:consider-iterating-dictionary (C0201): *Consider iterating the dictionary directly instead of calling .keys()*
-  Emitted when the keys of a dictionary are iterated through the .keys() method.
-  It is enough to just iterate through the dictionary itself, as in "for key in
-  dictionary". This message belongs to the refactoring checker.
+It is more *pythonic* to iterate through a dictionary directly, without calling the `.keys` method.
 
 ~~~~ {include="C0201_consider_iterating_dictionary"}
 ~~~~
@@ -1483,9 +1472,7 @@ for item in menu:
 
 ### Superfluous parens (C0325) {#C0325}
 
-:superfluous-parens (C0325): *Unnecessary parens after %r keyword*
-  Used when a single item in parentheses follows an if, for, or other keyword.
-  This message belongs to the format checker.
+This error occurs when an `if`, `for`, or other keyword is followed by a single item enclosed in parentheses. In such a case, parentheses are not necessary.
 
 ~~~~ {include="C0325_superfluous_parens"}
 ~~~~
@@ -1499,23 +1486,63 @@ if 'anchovies' in pizza_toppings:  # Error on this line
 
 ### Literal comparison (R0123) {#R0123}
 
-:literal-comparison (R0123): *Comparison to literal*
-  Used when comparing an object to a literal, which is usually what you do not
-  want to do, since you can compare to a different literal than what was
-  expected altogether. This message belongs to the basic checker.
+This error occurs when we use the identity operator `is` to compare Python literals.
+
+Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
 
 ~~~~ {include="R0123_literal_comparison"}
+~~~~
+
+To prevent the confusion, it is advisable to use the equality operator `==` instead.
+
+```python
+num = 256
+assert num == 256
+
+num = 257
+assert num == 257  # Assertion fails if typed into a Python interpreter
+
+chars = 'this_string_passes'
+assert chars == 'this_string_passes'
+
+chars = 'this string fails'
+assert chars == 'this string fails'  # Assertion fails if typed into a Python interpreter
+```
+
+**See also**:
+
+- [Literally Literals and Other Number Oddities In Python]
+- [StackOverflow: About the changing id of an immutable string]
+- [StackOverflow: When does Python allocate new memory for identical strings?]
+
+### Unsupported assignment operation (E1137) {#E1137}
+
+:unsupported-assignment-operation (E1137): *%r does not support item assignment*
+  Emitted when an object does not support item assignment (i.e. doesn't define
+  __setitem__ method) This message belongs to the typecheck checker.
+
+~~~~ {include="E1137_unsupported_assignment_operation"}
+~~~~
+
+### Expression not assigned (W0106) {#W0106}
+
+:expression-not-assigned (W0106): *Expression "%s" is assigned to nothing*
+  Used when an expression that is not a function call is assigned to nothing.
+  Probably something else was intended. This message belongs to the basic
+  checker.
+
+~~~~ {include="W0106_expression_not_assigned"}
 ~~~~
 
 Corrected version:
 
 ```python
-if text == "It was the best of times":  # Note the use of `==`
-    print("Nope, worst of times!")
-
-if answer_to_the_ultimate_question == 42:  # Note the use of `==`
-    print("You have it all figured out!")
+lst = [1, 2, 3]
+lst.append(4)
+print("This string is ok...")
 ```
+
+-------------------------------------------------------------------------------
 
 ### Invalid length returned (E0303) {#E0303}
 
@@ -1592,15 +1619,6 @@ def hello_world() -> None:
     print("Hello World!")
 ```
 
-### Unsupported assignment operation (E1137) {#E1137}
-
-:unsupported-assignment-operation (E1137): *%r does not support item assignment*
-  Emitted when an object does not support item assignment (i.e. doesn't define
-  __setitem__ method) This message belongs to the typecheck checker.
-
-~~~~ {include="E1137_unsupported_assignment_operation"}
-~~~~
-
 ### Abstract method (W0223) {#W0223}
 
 :abstract-method (W0223): *Method %r is abstract in class %r but is not overridden*
@@ -1619,23 +1637,6 @@ class Cat(Animal):  # Error on this line
         return 'Miew'
 ```
 
-### Expression not assigned (W0106) {#W0106}
-
-:expression-not-assigned (W0106): *Expression "%s" is assigned to nothing*
-  Used when an expression that is not a function call is assigned to nothing.
-  Probably something else was intended. This message belongs to the basic
-  checker.
-
-~~~~ {include="W0106_expression_not_assigned"}
-~~~~
-
-```python
-def greet_person(name, friends) -> None:
-    print("My name is {}".format(name))
-    for friend in friends:  # Error on this line
-        print("I am friends with {}".format(friend))
-```
-
 ### Redefined argument from local (R1704) {#R1704}
 
 :redefined-argument-from-local (R1704): *Redefining argument with the local name %r*
@@ -1647,15 +1648,14 @@ def greet_person(name, friends) -> None:
 ~~~~ {include="R1704_redefined_argument_from_local"}
 ~~~~
 
-### Too many nested blocks (R1702) {#R1702}
+Corrected version:
 
-:too-many-nested-blocks (R1702): *Too many nested blocks (%s/%s)*
-  Used when a function or a method has too many nested blocks. This makes the
-  code less understandable and maintainable. This message belongs to the
-  refactoring checker.
-
-~~~~ {include="R1702_too_many_nested_blocks"}
-~~~~
+```python
+def greet_person(name, friends) -> None:
+    print("My name is {}".format(name))
+    for friend in friends:
+        print("I am friends with {}".format(friend))
+```
 
 ### Bad indentation (W0311) {#W0311}
 
@@ -1665,6 +1665,13 @@ def greet_person(name, friends) -> None:
 
 ~~~~ {include="W0311_bad_indentation"}
 ~~~~
+
+Corrected version:
+
+```python
+def print_greeting(name: str) -> None:
+    print('Hello {}!'.format(name))
+```
 
 ### Arguments differ (W0221) {#W0221}
 
@@ -1676,6 +1683,19 @@ def greet_person(name, friends) -> None:
 ~~~~ {include="W0221_arguments_differ"}
 ~~~~
 
+Corrected version:
+
+```python
+class Dog(Animal):
+    """Class representing a dog."""
+
+    def make_sound(self, mood: str) -> None:
+        if state == 'happy':
+            print("Woof Woof!")
+        elif state == 'angry':
+            print("Grrrrrrr!!")
+```
+
 ### Multiple statements (C0321) {#C0321}
 
 :multiple-statements (C0321): *More than one statement on a single line*
@@ -1685,32 +1705,60 @@ def greet_person(name, friends) -> None:
 ~~~~ {include="C0321_multiple_statements"}
 ~~~~
 
+Corrected version:
+
+```python
+def pos(temp: int) -> str:
+    if temp > 0:
+      return 'positive'
+    else:
+        return 'negative'
+```
+
 ### Unnecessary semicolon (W0301) {#W0301}
 
 :unnecessary-semicolon (W0301): *Unnecessary semicolon*
   Used when a statement is ended by a semi-colon (";"), which isn't necessary
   (that's python, not C ;). This message belongs to the format checker.
 
+This error appears when a Python statement is ended by a semi-colon (`;`). For example:
+
 ~~~~ {include="W0301_unnecessary_semicolon"}
 ~~~~
 
+Corrected version:
+
+```python
+print("Hello World!");
+```
+
+There is never a good reason to use a semicolon in Python (unlike C or Java).
+
 ### Missing final newline (C0304) {#C0304}
 
-:missing-final-newline (C0304): *Final newline missing*
-  Used when the last line in a file is missing a newline. This message belongs
-  to the format checker.
+This error appears when a file is missing a trailing newline character. For example, if we represent a (typically invisible) newline character as `¬`, the following file would raise this error:
 
 ~~~~ {include="C0304_missing_final_newline"}
 ~~~~
 
+while the corrected file which contains a trailing newline character would not:
+
+```python
+print("Hello World!")  # Trailing newline is present:  ¬
+```
+
 ### Trailing newlines (C0305) {#C0305}
 
-:trailing-newlines (C0305): *Trailing newlines*
-  Used when there are trailing blank lines in a file. This message belongs to
-  the format checker.
+This error appears when a file ends with more than one newline character (i.e. when a file contains trailing blank lines). For example:
 
 ~~~~ {include="C0305_trailing_newlines"}
 ~~~~
+
+Corrected version:
+
+```python
+print("Hello World!")  # This file ends with a single newline character! :)
+```
 
 ### Bad continuation (C0330) {#C0330}
 
@@ -1720,15 +1768,65 @@ def greet_person(name, friends) -> None:
 ~~~~ {include="C0330_bad_continuation"}
 ~~~~
 
+Corrected version:
+
+```python
+def print_address(recipient_name: str,
+                  street_number_and_name: str,
+                  city: str,
+                  province: str,
+                  country: str) -> None:
+    """Print the provided address in a clean format."""
+    address_string = (
+        "{recipient_name}\n{street_number_and_name}\n{city}, {province}\n{country}".
+        format(recipient_name=recipient_name,
+               street_number_and_name=street_number_and_name,
+               city=city,  # Error on this line: Wrong indentation
+               province=province,  # Error on this line: Wrong indentation
+               country=country))  # Error on this line: Wrong indentation
+    print(address_string)
+```
+
+Or:
+
+```python
+def print_address(
+        recipient_name: str,
+        street_number_and_name: str,
+        city: str,
+        province: str,
+        country: str) -> None:
+    """Print the provided address in a clean format."""
+    address_string = (
+        "{recipient_name}\n{street_number_and_name}\n{city}, {province}\n{country}".
+        format(
+            recipient_name=recipient_name,
+            street_number_and_name=street_number_and_name,
+            city=city,  # Error on this line: Wrong indentation
+            province=province,  # Error on this line: Wrong indentation
+            country=country))  # Error on this line: Wrong indentation
+    print(address_string)
+```
+
 ### Nonexistent operator (E0107) {#E0107}
 
 :nonexistent-operator (E0107): *Use of the non-existent %s operator*
-  Used when you attempt to use the C-style pre-increment orpre-decrement
+  Used when you attempt to use the C-style pre-increment or pre-decrement
   operator -- and ++, which doesn't exist in Python. This message belongs to the
   basic checker.
 
+  There are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+
 ~~~~ {include="E0107_nonexistent_operator"}
 ~~~~
+
+Corrected version:
+
+```python
+spam = 0
+spam += 1
+spam -= 1
+```
 
 ### Used prior global declaration (E0118) {#E0118}
 
@@ -1740,6 +1838,16 @@ def greet_person(name, friends) -> None:
 ~~~~ {include="E0118_used_prior_global_declaration"}
 ~~~~
 
+Corrected version:
+
+```python
+def timestep() -> None:
+    """Increment global time by 1."""
+    global TIME
+    print(TIME)
+    TIME += 1
+```
+
 ### Not an iterable (E1133) {#E1133}
 
 :not-an-iterable (E1133): *Non-iterable value %s is used in an iterating context*
@@ -1748,6 +1856,13 @@ def greet_person(name, friends) -> None:
 
 ~~~~ {include="E1133_not_an_iterable"}
 ~~~~
+
+Corrected version:
+
+```python
+for number in [1, 2, 3]:
+    print(number)
+```
 
 ### Unexpected keyword arg (E1123) {#E1123}
 
@@ -1758,6 +1873,12 @@ def greet_person(name, friends) -> None:
 
 ~~~~ {include="E1123_unexpected_keyword_arg"}
 ~~~~
+
+Corrected version:
+
+```python
+print_greeting(name="Arthur")
+```
 
 ### Line too long (C0301) {#C0301}
 
@@ -1776,6 +1897,24 @@ def greet_person(name, friends) -> None:
 
 ~~~~ {include="E1138_unsupported_delete_operation"}
 ~~~~
+
+Corrected version:
+
+```python
+class NamedList:
+
+    ...  # Same as in the code above
+
+    def __delitem__(self, name: str) -> None:
+        idx = self._names.index(name)
+        del self._names[idx]
+        del self._values[idx]
+
+named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
+print('c' in named_list)  # Prints True
+del named_list['c']
+print('c' in named_list)  # Prints False
+```
 
 
 
@@ -1818,11 +1957,14 @@ def greet_person(name, friends) -> None:
 [StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
 [StackOverflow: What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
 [StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
+[StackOverflow: About the changing id of an immutable string]: https://stackoverflow.com/questions/24245324/about-the-changing-id-of-an-immutable-string
+[StackOverflow: When does Python allocate new memory for identical strings?]: https://stackoverflow.com/questions/2123925/when-does-python-allocate-new-memory-for-identical-strings
 
 <!-- everything else -->
 [Common Gotchas - Mutable Default Arguments]: http://docs.python-guide.org/en/latest/writing/gotchas/#mutable-default-arguments
 [Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
 [list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
+[Literally Literals and Other Number Oddities In Python]: https://www.everymundo.com/literals-other-number-oddities-python/
 [Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
 [Python's Super Considered Harmful]: https://fuhm.net/super-harmful/
 [Super Considered Super!]: https://youtu.be/EiOglTERPEo
