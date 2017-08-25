@@ -1434,6 +1434,11 @@ def check(condition, message):
         break      except     in         raise
         ```
 
+    5.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+
+        ~~~~ {include="undefined_operator"}
+        ~~~~
+
 4.  *IndentationError: unindent does not match any outer indentation level*
 
     You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
@@ -1772,7 +1777,7 @@ def print_address(recipient_name: str,
 
 ### Nonexistent operator (E0107) {#E0107}
 
-This error occurs when we attempt to use C-style "increment by one" or "decrement by one" operators `++` and `--`, which do not exist in Python.
+This error occurs when we attempt to use C-style "pre-increment" or "pre-decrement" operators `++` and `--`, which do not exist in Python.
 
 ~~~~ {include="E0107_nonexistent_operator"}
 ~~~~
