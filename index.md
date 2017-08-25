@@ -1,13 +1,11 @@
 % PyTA Help Documentation
 
-Welcome to the **PyTA documentation website**, which describes in greater detail the errors that PyTA checks for.
-If anything is unclear, incorrect, or missing, please don't hesitate to send an email to \[david at cs dot toronto dot edu\].
+Welcome to the **PyTA documentation website**, which describes in greater detail the errors that PyTA checks for. If anything is unclear, incorrect, or missing, please don't hesitate to send an email to \[david at cs dot toronto dot edu\].
 
 
 ## Improper Python usage
 
-These errors generally indicate a misuse of variables, control flow, or
-other Python features in your code.
+These errors generally indicate a misuse of variables, control flow, or other Python features in your code.
 
 ### Used before assignment (E0601) {#E0601}
 
@@ -25,8 +23,7 @@ This error occurs when you are using a variable that has not been defined.
 
 ### Undefined loop variable (W0631) {#W0631}
 
-This error occurs when a loop variable is used outside the `for` loop where it
-was defined.
+This error occurs when a loop variable is used outside the `for` loop where it was defined.
 
 ~~~~ {include="W0631_undefined_loop_variable"}
 ~~~~
@@ -78,16 +75,13 @@ Dictionaries map unique keys to values. When different values are assigned to th
 
 ## Type errors
 
-These errors are some of the most common errors we encounter in Python.
-They generally have to do with using a value of one type where another type is required.
+These errors are some of the most common errors we encounter in Python. They generally have to do with using a value of one type where another type is required.
 
 ### No member (E1101) {#E1101}
 
-This error occurs when you use dot notation (`my_var.x`) to access an attribute
-or to call a method which does not exist for the given object.
+This error occurs when you use dot notation (`my_var.x`) to access an attribute or to call a method which does not exist for the given object.
 
-This can happen both for built-in types like `str` and for classes that you define yourself.
-This error often results in an [**AttributeError**][AttributeError] when you run your program.
+This can happen both for built-in types like `str` and for classes that you define yourself. This error often results in an [**AttributeError**][AttributeError] when you run your program.
 
 ~~~~ {include="E1101_no_member"}
 ~~~~
@@ -95,8 +89,7 @@ This error often results in an [**AttributeError**][AttributeError] when you run
 
 ### Not callable (E1102) {#E1102}
 
-This error occurs when you try to call a value which is not a function, method, or callable object.
-In the following example, we should not call `x()` because `x` refers to an integer, and calling an integer has no meaning.
+This error occurs when you try to call a value which is not a function, method, or callable object. In the following example, we should not call `x()` because `x` refers to an integer, and calling an integer has no meaning.
 
 ~~~~ {include="E1102_not_callable"}
 ~~~~
@@ -147,8 +140,7 @@ get_sum(1, 2)
 
 ### Invalid sequence index (E1126) {#E1126}
 
-This error occurs when a list or tuple is indexed using the square bracket notation
-`my_list[...]`, but the value of the index is not an integer.
+This error occurs when a list or tuple is indexed using the square bracket notation `my_list[...]`, but the value of the index is not an integer.
 
 Remember that the index indicates the *position* of the item in the list/tuple.
 
@@ -165,12 +157,9 @@ print(a[0])
 
 ### Invalid slice index (E1127) {#E1127}
 
-This error occurs when a list or tuple is sliced using the square bracket notation
-`my_list[... : ...]`, but the two values on the left and right of the colon
-are not integers.
+This error occurs when a list or tuple is sliced using the square bracket notation `my_list[... : ...]`, but the two values on the left and right of the colon are not integers.
 
-Remember that the slice numbers indicate the *start* and *stop* positions for
-the slice in the list/tuple.
+Remember that the slice numbers indicate the *start* and *stop* positions for the slice in the list/tuple.
 
 ~~~~ {include="E1127_invalid_slice_index"}
 ~~~~
@@ -223,11 +212,9 @@ The standard Python types which support membership tests are strings, lists, tup
 
 ### Unsubscriptable object (E1136) {#E1136}
 
-This error occurs when you try to index a value using square brackets (`a[...]`),
-but the type of `a` does not support indexing (or "subscripting").
+This error occurs when you try to index a value using square brackets (`a[...]`), but the type of `a` does not support indexing (or "subscripting").
 
-The standard Python types which support indexing are strings, lists, tuples,
-and dictionaries.
+The standard Python types which support indexing are strings, lists, tuples, and dictionaries.
 
 ~~~~ {include="E1136_unsubscriptable_object"}
 ~~~~
@@ -235,8 +222,7 @@ and dictionaries.
 
 ### Unbalanced tuple unpacking (E0632) {#E0632}
 
-This error occurs when you are trying to assign to multiple variables at once,
-but the right side has too few or too many values in the sequence.
+This error occurs when you are trying to assign to multiple variables at once, but the right side has too few or too many values in the sequence.
 
 ~~~~ {include="E0632_unbalanced_tuple_unpacking"}
 ~~~~
@@ -244,8 +230,7 @@ but the right side has too few or too many values in the sequence.
 
 ### Unpacking non-sequence (E0633) {#E0633}
 
-This error occurs when you are trying to assign to multiple variables at once,
-but the right side is not a sequence, and so can't be unpacked.
+This error occurs when you are trying to assign to multiple variables at once, but the right side is not a sequence, and so can't be unpacked.
 
 ~~~~ {include="E0633_unpacking_non_sequence"}
 ~~~~
@@ -271,9 +256,7 @@ def is_even(num: int) -> bool:
 
 ### Unneeded not (C0113) {#C0113}
 
-This error occurs when a boolean expression contains an unneeded negation. If
-you are getting this error, the expression can be simplified to not use a
-negation.
+This error occurs when a boolean expression contains an unneeded negation. If you are getting this error, the expression can be simplified to not use a negation.
 
 ~~~~ {include="C0113_unneeded_not"}
 ~~~~
@@ -321,8 +304,7 @@ This error occurs when a conditional statement (like an `if` statement) uses a c
 
 ### Too many branches (R0912) {#R0912}
 
-The function or method has too many branches, making it hard to follow.
-This is a sign that the function/method is too complex, and should be split up.
+The function or method has too many branches, making it hard to follow. This is a sign that the function/method is too complex, and should be split up.
 
 **Note**: The checker limit is 12 branches.
 
@@ -332,8 +314,7 @@ This is a sign that the function/method is too complex, and should be split up.
 
 ### Too many nested blocks (R1702) {#R1702}
 
-This error occurs when you have more than three levels of nested blocks in your code.
-Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
+This error occurs when you have more than three levels of nested blocks in your code. Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
 
 **Note**: This checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
@@ -380,8 +361,7 @@ def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
 
 ### Too many arguments (R0913) {#R0913}
 
-The function or method is defined with too many arguments.
-This is a sign that the function/method is too complex, and should be split up, or that some of the arguments are related, and should be combined and passed as a single object.
+The function or method is defined with too many arguments. This is a sign that the function/method is too complex, and should be split up, or that some of the arguments are related, and should be combined and passed as a single object.
 
 **Note**: The checker limit is 5 arguments.
 
@@ -430,9 +410,7 @@ This error occurs when a function argument is never used in the function.
 
 ### Pointless statement (W0104) {#W0104}
 
-This error occurs when a statement doesn't have any effect.
-This means that the statement could be removed without changing the behaviour
-of the program.
+This error occurs when a statement doesn't have any effect. This means that the statement could be removed without changing the behaviour of the program.
 
 ~~~~ {include="W0104_pointless_statement"}
 ~~~~
@@ -445,8 +423,7 @@ This error occurs when a [`pass` statement][`pass` statements] is used that can 
 ~~~~ {include="W0107_unnecessary_pass"}
 ~~~~
 
-In the above example, the `pass` statement is "unnecessary" as the program's
-effect is not changed if `pass` is removed.
+In the above example, the `pass` statement is "unnecessary" as the program's effect is not changed if `pass` is removed.
 
 **See also:**
 
@@ -455,14 +432,11 @@ effect is not changed if `pass` is removed.
 
 ## Documentation and naming
 
-Good documentation and identifiers are essential for writing software.
-PyTA helps check to make sure you haven't forgotten to document anything,
-as well as a basic check on the formatting of your identifiers.
+Good documentation and identifiers are essential for writing software. PyTA helps check to make sure you haven't forgotten to document anything, as well as a basic check on the formatting of your identifiers.
 
 ### Missing Docstring (C0111) {#C0111}
 
-This error occurs when a module, function, class or method has no docstring.
-Special methods like `__init__` do not require a docstring.
+This error occurs when a module, function, class or method has no docstring. Special methods like `__init__` do not require a docstring.
 
 ~~~~ {include="C0111_missing_docstring"}
 ~~~~
@@ -470,8 +444,7 @@ Special methods like `__init__` do not require a docstring.
 
 ### Empty Docstring (C0112) {#C0112}
 
-This error occurs when a module, function, class or method has an empty
-docstring.
+This error occurs when a module, function, class or method has an empty docstring.
 
 ~~~~ {include="C0112_empty_docstring"}
 ~~~~
@@ -479,8 +452,7 @@ docstring.
 
 ### Blacklisted name (C0102) {#C0102}
 
-This error occurs when a variable name is chosen to be a typical generic name,
-rather than a meaningful one. Here are some of the blacklisted names to avoid:
+This error occurs when a variable name is chosen to be a typical generic name, rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
 - `foo`
 - `bar`
@@ -501,8 +473,7 @@ This error occurs when a name does not follow the [Python Naming Convention][PEP
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
 - Names of classes should be in **`CamelCase`**.
 
-A special character accepted in all types of names is '_'.
-Numbers are allowed in all names, but names must not begin with a number.
+A special character accepted in all types of names is '_'. Numbers are allowed in all names, but names must not begin with a number.
 
 ~~~~ {include="C0103_invalid_name"}
 ~~~~
@@ -510,9 +481,7 @@ Numbers are allowed in all names, but names must not begin with a number.
 
 ### Function redefined (E0102) {#E0102}
 
-This error occurs when a function, class or method is redefined. If you are
-getting this error, you should make sure all the functions, methods and classes
-you define have different names.
+This error occurs when a function, class or method is redefined. If you are getting this error, you should make sure all the functions, methods and classes you define have different names.
 
 ~~~~ {include="E0102_function_redefined"}
 ~~~~
@@ -520,9 +489,7 @@ you define have different names.
 
 ### Duplicate argument name (E0108) {#E0108}
 
-This error occurs if there are duplicate parameter names in function
-definitions. All parameters must have distinct names, so that you can refer to each
-one separately in the function body.
+This error occurs if there are duplicate parameter names in function definitions. All parameters must have distinct names, so that you can refer to each one separately in the function body.
 
 ~~~~ {include="E0108_duplicate_argument_name"}
 ~~~~
@@ -567,15 +534,11 @@ vars                zip
 
 ## Imports
 
-There are standards governing how you should organize your imports,
-or even possibly which modules you may import at all.
+There are standards governing how you should organize your imports, or even possibly which modules you may import at all.
 
 ### Forbidden imports (E9999) {#E9999}
 
-For your work in CSC148, we expect you to use only the Python language
-features we have covered in lectures, or ones that we have explicitly
-mentioned for an exercise/lab/assignment. No other external libraries
-may be used.
+For your work in CSC148, we expect you to use only the Python language features we have covered in lectures, or ones that we have explicitly mentioned for an exercise/lab/assignment. No other external libraries may be used.
 
 ~~~~ {include="E9999_forbidden_imports"}
 ~~~~
@@ -583,8 +546,7 @@ may be used.
 
 ### Import error (E0401) {#E0401}
 
-The module is unable to be imported. Check the spelling of the module name, or
-whether the module is in the correct directory.
+The module is unable to be imported. Check the spelling of the module name, or whether the module is in the correct directory.
 
 ~~~~ {include="E0401_import_error"}
 ~~~~
@@ -598,8 +560,7 @@ import missing_module as foo  # this module does not exist
 
 ### No name in module (E0611) {#E0611}
 
-This error occurs when you are trying to access a variable from an imported
-module, but that variable name could not be found in that referenced module.
+This error occurs when you are trying to access a variable from an imported module, but that variable name could not be found in that referenced module.
 
 ~~~~ {include="E0611_no_name_in_module"}
 ~~~~
@@ -647,8 +608,7 @@ c = module_name.SomeClass()
 
 ### Wrong import order (C0411) {#C0411}
 
-Used when [PEP8 import order][PEP8 Imports] is not respected (do the standard library imports first,
-then third-party libraries, then local imports).
+Used when [PEP8 import order][PEP8 Imports] is not respected (do the standard library imports first, then third-party libraries, then local imports).
 
 ~~~~ {include="C0411_wrong_import_order"}
 ~~~~
@@ -717,9 +677,7 @@ The class has too many instance attributes, which suggests that it is too compli
 ~~~~ {include="R0902_too_many_instance_attributes"}
 ~~~~
 
-One solution is to logically decompose the class into multiple classes, each with fewer
-instance attributes. You can then use composition to access those attributes in
-a different class.
+One solution is to logically decompose the class into multiple classes, each with fewer instance attributes. You can then use composition to access those attributes in a different class.
 
 ```python
 class Edible(object):
@@ -825,9 +783,7 @@ class Child(Parent):
 
 ### Attribute defined outside init (W0201) {#W0201}
 
-Any attribute you define for a class should be created inside the `__init__`
-method. Defining it outside this method is considered bad practice,
-as it makes it harder to keep track of what attributes the class actually has.
+Any attribute you define for a class should be created inside the `__init__` method. Defining it outside this method is considered bad practice, as it makes it harder to keep track of what attributes the class actually has.
 
 ~~~~ {include="W0201_attribute_defined_outside_init"}
 ~~~~
@@ -847,8 +803,7 @@ class MyClass:
 
 ### Access to member before definition (E0203) {#E0203}
 
-Before trying to use a member of a class, it should have been defined at
-some point. If you try to use it before assigning to it, an error will occur.
+Before trying to use a member of a class, it should have been defined at some point. If you try to use it before assigning to it, an error will occur.
 
 ~~~~ {include="E0203_access_member_before_definition"}
 ~~~~
@@ -872,10 +827,7 @@ Occurs when a special method (aka ["dunder method"][Python double-under, double-
 
 ### Inheriting from a non-class (E0239) {#E0239}
 
-When you inherit, it must come from a class. If you use something that is
-not a class, you won't be able to inherit from it. In the following example,
-trying to inherit from a string is not allowed. While a string is a class,
-this is passing in an object rather than the actual class itself.
+When you inherit, it must come from a class. If you use something that is not a class, you won't be able to inherit from it. In the following example, trying to inherit from a string is not allowed. While a string is a class, this is passing in an object rather than the actual class itself.
 
 ~~~~ {include="E0239_inherit_non_class"}
 ~~~~
@@ -883,8 +835,7 @@ this is passing in an object rather than the actual class itself.
 
 ### Duplicate bases (E0241) {#E0241}
 
-When inheriting, you should only specify a class once to inherit from,
-multiple times is an error:
+When inheriting, you should only specify a class once to inherit from, multiple times is an error:
 
 ~~~~ {include="E0241_duplicate_bases"}
 ~~~~
@@ -892,20 +843,14 @@ multiple times is an error:
 
 ### No method argument (E0211) {#E0211}
 
-Each method in a class needs to have at least one argument (which is usually
-`self`). Python uses this to call methods, and the first argument is populated
-with the object that is calling the method. This is what allows you to access
-the calling object.
+Each method in a class needs to have at least one argument (which is usually `self`). Python uses this to call methods, and the first argument is populated with the object that is calling the method. This is what allows you to access the calling object.
 
 For example, the following two are equivalent:
 
 ~~~~ {include="E0211_no_method_argument"}
 ~~~~
 
-
-Therefore, if you do not provide any arguments, then Python does not know
-how to pass the object to the method, and it will error out. To fix this,
-put `self` in the parenthesis for the method call.
+Therefore, if you do not provide any arguments, then Python does not know how to pass the object to the method, and it will error out. To fix this, put `self` in the parenthesis for the method call.
 
 ```python
 class MyClass:
@@ -919,11 +864,7 @@ class MyClass:
 
 ### `self` as the first argument (E0213) {#E0213}
 
-The first parameter should be the exact word `self`.
-Naming the first parameter something else is not technically an error,
-but using "self" is such a common practice that PyTA checks for this.
-The
-following is an example of a good, and bad example:
+The first parameter should be the exact word `self`. Naming the first parameter something else is not technically an error, but using "self" is such a common practice that PyTA checks for this. The following is an example of a good, and bad example:
 
 ~~~~ {include="E0213_no_self_argument"}
 ~~~~
@@ -931,10 +872,7 @@ following is an example of a good, and bad example:
 
 ### No self use (R0201) {#R0201}
 
-If a method (a function in a class) does not make use of the 'self' (or
-first) argument, that means the function is not performing anything that
-is related to the object itself. This means the function could be moved
-outside of the class since none of the code inside makes use of anything
+If a method (a function in a class) does not make use of the 'self' (or first) argument, that means the function is not performing anything that is related to the object itself. This means the function could be moved outside of the class since none of the code inside makes use of anything
 inside the class it's defined.
 
 ~~~~ {include="R0201_no_self_use"}
@@ -943,15 +881,9 @@ inside the class it's defined.
 
 ### Bad static member (W0211) {#W0211}
 
-Static methods are methods that do not operate on instances. Including
-one inside a class can be done if you feel the logic belongs inside the
-class and should be encapsulated by it for clarity, but static methods
-mean they do not operate on classes, and therefore 'self' is very likely
-a programming error unless you know what you are doing (and even then,
-it is a bad practice).
+Static methods are methods that do not operate on instances. Including one inside a class can be done if you feel the logic belongs inside the class and should be encapsulated by it for clarity, but static methods mean they do not operate on classes, and therefore 'self' is very likely a programming error unless you know what you are doing (and even then, it is a bad practice).
 
-When you make a static method, you should not name any variable 'self'
-to avoid confusion.
+When you make a static method, you should not name any variable 'self' to avoid confusion.
 
 ~~~~ {include="W0211_bad_staticmethod_argument"}
 ~~~~
@@ -962,9 +894,7 @@ to avoid confusion.
 
 ### Bare exception (W0702) {#W0702}
 
-While you can catch any exception without specifying a class to catch after
-the `except` keyword, this is bad practice since it will mask other exceptions
-that could appear which you do not want to catch.
+While you can catch any exception without specifying a class to catch after the `except` keyword, this is bad practice since it will mask other exceptions that could appear which you do not want to catch.
 
 Always explicitly name the classes you expect to catch.
 
@@ -974,10 +904,7 @@ Always explicitly name the classes you expect to catch.
 
 ### Exception is too generic (W0703) {#W0703}
 
-Similar to exception error W0702, if your exception is too generic then you
-may end up burying errors since they will be always caught. Because of this,
-you should not be using `except Exception` as your except block since it can
-catch exceptions you do not want caught.
+Similar to exception error W0702, if your exception is too generic then you may end up burying errors since they will be always caught. Because of this, you should not be using `except Exception` as your except block since it can catch exceptions you do not want caught.
 
 ~~~~ {include="W0703_broad_except"}
 ~~~~
@@ -985,11 +912,7 @@ catch exceptions you do not want caught.
 
 ### Duplicate except blocks (W0705) {#W0705}
 
-When you list an exception to be caught, you should not list it again. Only
-have one block for each exception. This does not include having child and
-parent exceptions, but rather it means don't have `exception MyException`,
-and then later on when listing exceptions you have `exception MyException`
-again.
+When you list an exception to be caught, you should not list it again. Only have one block for each exception. This does not include having child and parent exceptions, but rather it means don't have `exception MyException`, and then later on when listing exceptions you have `exception MyException` again.
 
 ~~~~ {include="W0705_duplicate_except"}
 ~~~~
@@ -997,15 +920,9 @@ again.
 
 ### Bad exception order (E0701) {#E0701}
 
-Except blocks are analyzed sequentially (from top to bottom) and the
-block that meets the criteria for catching the exception first will be
-used. This means if you have a more generic exception type before a
-specific exception type, you will never trigger the code in the block
-that is hidden by the generic exception.
+Except blocks are analyzed sequentially (from top to bottom) and the block that meets the criteria for catching the exception first will be used. This means if you have a more generic exception type before a specific exception type, you will never trigger the code in the block that is hidden by the generic exception.
 
-It is also good practice since you want to narrow down the exception
-type to be as specific as possible, since the more generic exception
-may catch other types as well.
+It is also good practice since you want to narrow down the exception type to be as specific as possible, since the more generic exception may catch other types as well.
 
 ~~~~ {include="E0701_bad_except_order"}
 ~~~~
@@ -1013,13 +930,7 @@ may catch other types as well.
 
 ### Binary op exception (W0711) {#W0711}
 
-The proper way to have an except block catch multiple exceptions is to have
-the exception classes in a tuple. You can incorrectly write an except block
-in Python with multiple classes separated by an *or* (see example). If you do
-it the second way, the *or* binary operator will not do what you think it does
--- in fact, the exception on the right side of the *or* will not be caught and
-proceed to be passed up the call stack (which likely will yield an uncaught
-exception, terminating your program).
+The proper way to have an except block catch multiple exceptions is to have the exception classes in a tuple. You can incorrectly write an except block in Python with multiple classes separated by an *or* (see example). If you do it the second way, the *or* binary operator will not do what you think it does -- in fact, the exception on the right side of the *or* will not be caught and proceed to be passed up the call stack (which likely will yield an uncaught exception, terminating your program).
 
 ~~~~ {include="W0711_binary_op_exception"}
 ~~~~
@@ -1027,19 +938,12 @@ exception, terminating your program).
 
 ### Misplaced bare raise (E0704) {#E0704}
 
-When you call *raise*, it's usually to throw an exception. If you are inside
-an 'except' block after you catch an exception, you can continue to pass on
-the exception to later code. You may want to do this if your intention is to
-capture a generated exception, then do something before passing it onwards
-(such as maybe closing a file or some other sensitive operation that must
-be done for program integrity that an exception would break). You can do this
-by calling *raise* on its own without a class as follows:
+When you call *raise*, it's usually to throw an exception. If you are inside an 'except' block after you catch an exception, you can continue to pass on the exception to later code. You may want to do this if your intention is to capture a generated exception, then do something before passing it onwards (such as maybe closing a file or some other sensitive operation that must be done for program integrity that an exception would break). You can do this by calling *raise* on its own without a class as follows:
 
 ~~~~ {include="E0704_misplaced_bare_raise"}
 ~~~~
 
-If you call *raise* outside of an 'except' block, it can't work because there
-is no exception to throw, as seen in the following example:
+If you call *raise* outside of an 'except' block, it can't work because there is no exception to throw, as seen in the following example:
 
 ```python
 def bad_raise() -> None:
@@ -1050,10 +954,7 @@ def bad_raise() -> None:
 
 ### Raising bad type (E0702) {#E0702}
 
-You have to raise an object that is an exception, you can't raise anything
-like a number. If it does not descend at some point from an Exception class,
-it should not be raised. To solve this issue, extend a new class from the
-Exception class, name it appropriately, and raise that.
+You have to raise an object that is an exception, you can't raise anything like a number. If it does not descend at some point from an Exception class, it should not be raised. To solve this issue, extend a new class from the Exception class, name it appropriately, and raise that.
 
 ~~~~ {include="E0702_raising_bad_type"}
 ~~~~
@@ -1061,12 +962,9 @@ Exception class, name it appropriately, and raise that.
 
 ### Raising non-exception (E0710) {#E0710}
 
-You cannot raise an object that is not a descendant of Exception (which implies
-being a child of BaseException). Anything you raise must at some point descend
-from a class that inherits exception.
+You cannot raise an object that is not a descendant of Exception (which implies being a child of BaseException). Anything you raise must at some point descend from a class that inherits exception.
 
-The solution is either to create your own exception, or to find a proper
-exception that best describes the problem.
+The solution is either to create your own exception, or to find a proper exception that best describes the problem.
 
 ~~~~ {include="E0710_raising_non_exception"}
 ~~~~
@@ -1074,13 +972,9 @@ exception that best describes the problem.
 
 ### NotImplemented raised (E0711) {#E0711}
 
-`NotImplemented` is intended to be a return value for methods, such as when you
-create your own comparisons (ex: using `__eq__`), when what you actually want
-is to throw the exception. Forgetting the suffix 'Error' is a common mistake
-and do what you intended.
+`NotImplemented` is intended to be a return value for methods, such as when you create your own comparisons (ex: using `__eq__`), when what you actually want is to throw the exception. Forgetting the suffix 'Error' is a common mistake and do what you intended.
 
-This is also related to another error where raising a non-exception is not
-allowed.
+This is also related to another error where raising a non-exception is not allowed.
 
 ~~~~ {include="E0711_notimplemented_raised"}
 ~~~~
@@ -1088,12 +982,7 @@ allowed.
 
 ### Catching non-exception (E0712) {#E0712}
 
-If your 'except' class uses a class that does not inherit from BaseException
-at some point, then you are trying to catch an exception that is not a
-well-defined exception. Your code should only try to catch exceptions
-that extend from BaseException. Python requires you to raise exceptions
-that derive from BaseException, and having a class type that does not extend
-from this and being raised will cause a problem.
+If your 'except' class uses a class that does not inherit from BaseException at some point, then you are trying to catch an exception that is not a well-defined exception. Your code should only try to catch exceptions that extend from BaseException. Python requires you to raise exceptions that derive from BaseException, and having a class type that does not extend from this and being raised will cause a problem.
 
 ~~~~ {include="E0712_catching_non_exception"}
 ~~~~
@@ -1155,8 +1044,7 @@ This error is similar to [E1121](#E1121).
 
 ### Too few format args (E1306) {#E1306}
 
-This error occurs when you use the `format` method on a string, but call it
-with fewer arguments than the number of `{}` in the string.
+This error occurs when you use the `format` method on a string, but call it with fewer arguments than the number of `{}` in the string.
 
 ~~~~ {include="E1306_too_few_format_args"}
 ~~~~
@@ -1246,13 +1134,9 @@ print('This is not an escape sequence: \\d')
 
 ### Redundant unittest assert (W1503) {#W1503}
 
-The first argument of `assertTrue` and `assertFalse` is a "condition", which should
-evaluate to True or False.
+The first argument of `assertTrue` and `assertFalse` is a "condition", which should evaluate to True or False.
 
-These methods evaluate the condition to check whether the test passes or fails.
-The conditions should depend on the code that you are testing, and should not
-be a constant literal like `True` or `4`. Otherwise, the test will always have
-the same result, regardless of whether your code is correct.
+These methods evaluate the condition to check whether the test passes or fails. The conditions should depend on the code that you are testing, and should not be a constant literal like `True` or `4`. Otherwise, the test will always have the same result, regardless of whether your code is correct.
 
 ~~~~ {include="W1503_redundant_unittest_assert"}
 ~~~~
