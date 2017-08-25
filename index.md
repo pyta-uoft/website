@@ -1822,16 +1822,14 @@ for number in [1, 2, 3]:
 
 ### Line too long (C0301) {#C0301}
 
-:line-too-long (C0301): *Line too long (%s/%s)*
-  Used when a line is longer than a given number of characters. This message
-  belongs to the format checker.
+This error occurs when a line is longer than a predefined number of characters. In `CSC148`, we should limit all lines to be less than 80 characters long.
 
 ~~~~ {include="C0301_line_too_long"}
 ~~~~
 
 ### Unsupported delete operation (E1138) {#E1138}
 
-This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion.
+This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion (i.e. an object that does not define the `__delitem__` special method).
 
 ~~~~ {include="E1138_unsupported_delete_operation"}
 ~~~~
