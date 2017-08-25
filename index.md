@@ -957,7 +957,7 @@ The Python `except` statement can catch multiple exceptions, if those exceptions
 Corrected version:
 
 ```python
-def divide_and_square(numerator: float, denominator: float) -> Optional[float]:
+def divide_and_square(numerator: float, denominator: float) -> float:
     """Divide the numerator by the denominator and square the result."""
     try:
         return (numerator / denominator) ** 2
