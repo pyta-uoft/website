@@ -5,18 +5,18 @@ Welcome to the **PyTA documentation website**, which describes in greater detail
 
 ## Improper Python usage
 
-These errors generally indicate a misuse of variables, control flow, or other Python features in your code.
+These errors generally indicate a misuse of variables, control flow, or other Python features in our code.
 
 ### Used before assignment (E0601) {#E0601}
 
-This error occurs when you are using a variable before it has been assigned a value.
+This error occurs when we are using a variable before it has been assigned a value.
 
 ~~~~ {include="E0601_used_before_assignment"}
 ~~~~
 
 ### Undefined variable (E0602) {#E0602}
 
-This error occurs when you are using a variable that has not been defined.
+This error occurs when we are using a variable that has not been defined.
 
 ~~~~ {include="E0602_undefined_variable"}
 ~~~~
@@ -79,9 +79,7 @@ These errors are some of the most common errors we encounter in Python. They gen
 
 ### No member (E1101) {#E1101}
 
-This error occurs when you use dot notation (`my_var.x`) to access an attribute or to call a method which does not exist for the given object.
-
-This can happen both for built-in types like `str` and for classes that you define yourself. This error often results in an [**AttributeError**][AttributeError] when you run your program.
+This error occurs when we use dot notation (`my_var.x`) to access an attribute or to call a method which does not exist for the given object. This can happen both for built-in types like `str` and for classes that we define ourselves. This error often results in an [`AttributeError`][AttributeError] when we run the code.
 
 ~~~~ {include="E1101_no_member"}
 ~~~~
@@ -89,7 +87,7 @@ This can happen both for built-in types like `str` and for classes that you defi
 
 ### Not callable (E1102) {#E1102}
 
-This error occurs when you try to call a value which is not a function, method, or callable object. In the following example, we should not call `x()` because `x` refers to an integer, and calling an integer has no meaning.
+This error occurs when we try to call a value which is not a function, method, or callable object. In the following example, we should not call `x()` because `x` refers to an integer, and calling an integer has no meaning.
 
 ~~~~ {include="E1102_not_callable"}
 ~~~~
@@ -97,21 +95,25 @@ This error occurs when you try to call a value which is not a function, method, 
 
 ### Assignment from no return (E1111) {#E1111}
 
-This error occurs when you assign a variable to the return value of a function call, but the function never returns anything. In the following example, `add_fruit` mutates `fruit_basket` instead of returning a new list. As a result, `new_fruit_basket` always gets the value `None`.
+This error occurs when we assign a variable to the return value of a function call, but the function never returns anything. In the following example, `add_fruit` mutates `fruit_basket` instead of returning a new list. As a result, `new_fruit_basket` always gets the value `None`.
 
 ~~~~ {include="E1111_assignment_from_no_return"}
 ~~~~
 
-You should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
+We should either modify `add_fruit` to return a new list, or call `add_fruit` without assigning the return value to a variable.
 
-**See also**:
 
-- [E1128](#E1128)
+### Assignment from None (E1128) {#E1128}
+
+This error occurs when we assign a variable the return value of a function call, but the function always returns `None`. In the following example, `add_fruit` always returns `None`.  As a result, `new_fruit_basket` will always get the value `None`.
+
+~~~~ {include="E1128_assignment_from_none"}
+~~~~
 
 
 ### No value for parameter (E1120) {#E1120}
 
-A function must be called with one argument value per parameter in its header. This error indicates you called a function with too few arguments. In the following example, there should be *three* values passed to the function
+A function must be called with one argument value per parameter in its header. This error indicates that we called a function with too few arguments. In the following example, there should be *three* values passed to the function
 instead of two.
 
 ~~~~ {include="E1120_no_value_for_parameter"}
@@ -126,7 +128,7 @@ get_sum(1, 2, 3)
 
 ### Too many function args (E1121) {#E1121}
 
-A function must be called with one argument value per parameter in its header. This error indicates you called a function with too many arguments. In the following example, there should be *two* values passed to the function instead of three.
+A function must be called with one argument value per parameter in its header. This error indicates that we called a function with too many arguments. In the following example, there should be *two* values passed to the function instead of three.
 
 ~~~~ {include="E1121_too_many_function_args"}
 ~~~~
@@ -172,21 +174,9 @@ print(a[0:3])
 ```
 
 
-### Assignment from None (E1128) {#E1128}
-
-This error occurs when you assign a variable the return value of a function call, but the function always returns `None`. In the following example, `add_fruit` always returns `None`.  As a result, `new_fruit_basket` will always get the value `None`.
-
-~~~~ {include="E1128_assignment_from_none"}
-~~~~
-
-**See also**:
-
-- [E1111](#E1111)
-
-
 ### Invalid unary operand type (E1130) {#E1130}
 
-This error occurs when you use a [unary operator][Unary arithmetic and bitwise operations] (`+`, `-`, `~`) on an object which does not support this operator. For example, a list does not support negation.
+This error occurs when we use a [unary operator][Unary arithmetic and bitwise operations] (`+`, `-`, `~`) on an object which does not support this operator. For example, a list does not support negation.
 
 ~~~~ {include="E1130_invalid_unary_operand_type"}
 ~~~~
@@ -194,7 +184,7 @@ This error occurs when you use a [unary operator][Unary arithmetic and bitwise o
 
 ### Unsupported binary operation (E1131) {#E1131}
 
-This error occurs when you use a [binary arithmetic operator][Binary arithmetic operations] like `+` or `*`, but the left and right sides are not compatible types. For example, a dictionary cannot be added to a list.
+This error occurs when we use a [binary arithmetic operator][Binary arithmetic operations] like `+` or `*`, but the left and right sides are not compatible types. For example, a dictionary cannot be added to a list.
 
 ~~~~ {include="E1131_unsupported_binary_operation"}
 ~~~~
@@ -202,7 +192,7 @@ This error occurs when you use a [binary arithmetic operator][Binary arithmetic 
 
 ### Unsupported membership test (E1135) {#E1135}
 
-This error occurs when you use the membership test `a in b`, but the type of `b` does not support membership tests.
+This error occurs when we use the membership test `a in b`, but the type of `b` does not support membership tests.
 
 The standard Python types which support membership tests are strings, lists, tuples, and dictionaries.
 
@@ -212,7 +202,7 @@ The standard Python types which support membership tests are strings, lists, tup
 
 ### Unsubscriptable object (E1136) {#E1136}
 
-This error occurs when you try to index a value using square brackets (`a[...]`), but the type of `a` does not support indexing (or "subscripting").
+This error occurs when we try to index a value using square brackets (`a[...]`), but the type of `a` does not support indexing (or "subscripting").
 
 The standard Python types which support indexing are strings, lists, tuples, and dictionaries.
 
@@ -222,7 +212,7 @@ The standard Python types which support indexing are strings, lists, tuples, and
 
 ### Unbalanced tuple unpacking (E0632) {#E0632}
 
-This error occurs when you are trying to assign to multiple variables at once, but the right side has too few or too many values in the sequence.
+This error occurs when we are trying to assign to multiple variables at once, but the right side has too few or too many values in the sequence.
 
 ~~~~ {include="E0632_unbalanced_tuple_unpacking"}
 ~~~~
@@ -230,7 +220,7 @@ This error occurs when you are trying to assign to multiple variables at once, b
 
 ### Unpacking non-sequence (E0633) {#E0633}
 
-This error occurs when you are trying to assign to multiple variables at once, but the right side is not a sequence, and so can't be unpacked.
+This error occurs when we are trying to assign to multiple variables at once, but the right side is not a sequence, and so can't be unpacked.
 
 ~~~~ {include="E0633_unpacking_non_sequence"}
 ~~~~
@@ -240,7 +230,7 @@ This error occurs when you are trying to assign to multiple variables at once, b
 
 ### Simplifiable if statement (R0102) {#R0102}
 
-This error occurs when you have an `if ... else` statement that can be simplified by using the value of the condition instead of additional `True` and `False` literals.
+This error occurs when we have an `if ... else` statement that can be simplified by using the value of the condition instead of additional `True` and `False` literals.
 
 ~~~~ {include="R0102_simplifiable_if_statement"}
 ~~~~
@@ -256,7 +246,7 @@ def is_even(num: int) -> bool:
 
 ### Unneeded not (C0113) {#C0113}
 
-This error occurs when a boolean expression contains an unneeded negation. If you are getting this error, the expression can be simplified to not use a negation.
+This error occurs when a boolean expression contains an unneeded negation. If we are getting this error, the expression can be simplified to not use a negation.
 
 ~~~~ {include="C0113_unneeded_not"}
 ~~~~
@@ -282,7 +272,8 @@ This error occurs when an expression is compared to singleton values like `True`
 The above can be modified to:
 
 ```python
-def square(number):
+def square(number: Optional[float]) -> Optional[float]:
+    """Return the square of the number."""
     if number is None:
         return None
     else:
@@ -314,7 +305,7 @@ The function or method has too many branches, making it hard to follow. This is 
 
 ### Too many nested blocks (R1702) {#R1702}
 
-This error occurs when you have more than three levels of nested blocks in your code. Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
+This error occurs when we have more than three levels of nested blocks in our code. Deep nesting is a sign that our function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
 
 **Note**: This checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
@@ -325,6 +316,7 @@ The code above can be fixed using a helper function:
 
 ```python
 def drop_none(lst: List[Optional[int]]) -> List[int]:
+    """Return a copy of `lst` with all `None` elements removed."""
     new_lst = []
     for element in lst:
         if element is not None:
@@ -334,6 +326,7 @@ def drop_none(lst: List[Optional[int]]) -> List[int]:
 
 def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
                z_list: List[Optional[int]]) -> List[Tuple[int, int, int]]:
+    """Perform an all-by-all join of all elements in the input lists."""
     cross_join_list = []
     for x in drop_none(x_list):
         for y in drop_none(y_list):
@@ -347,6 +340,7 @@ or using list comprehension:
 ```python
 def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
                z_list: List[Optional[int]]) -> List[Tuple[int, int, int]]:
+    """Perform an all-by-all join of all elements in the input lists."""
     cross_join_list = [
         (x, y, z)
         for x in x_list
@@ -381,7 +375,7 @@ The function or method has too many local variables.
 
 ### Too many statements (R0915) {#R0915}
 
-The function or method has too many statements. You should split it into smaller functions/methods.
+The function or method has too many statements. We should split it into smaller functions/methods.
 
 **Note**:
 
@@ -394,7 +388,7 @@ The function or method has too many statements. You should split it into smaller
 
 ### Unused variable (W0612) {#W0612}
 
-This error occurs when you have a defined variable that is never used.
+This error occurs when we have a defined variable that is never used.
 
 ~~~~ {include="W0612_unused_variable"}
 ~~~~
@@ -432,7 +426,7 @@ In the above example, the `pass` statement is "unnecessary" as the program's eff
 
 ## Documentation and naming
 
-Good documentation and identifiers are essential for writing software. PyTA helps check to make sure you haven't forgotten to document anything, as well as a basic check on the formatting of your identifiers.
+Good documentation and identifiers are essential for writing software. PyTA helps check to make sure we haven't forgotten to document anything, as well as a basic check on the formatting of our identifiers.
 
 ### Missing Docstring (C0111) {#C0111}
 
@@ -481,7 +475,7 @@ A special character accepted in all types of names is '_'. Numbers are allowed i
 
 ### Function redefined (E0102) {#E0102}
 
-This error occurs when a function, class or method is redefined. If you are getting this error, you should make sure all the functions, methods and classes you define have different names.
+This error occurs when a function, class or method is redefined. If we are getting this error, we should make sure all the functions, methods and classes that we define have different names.
 
 ~~~~ {include="E0102_function_redefined"}
 ~~~~
@@ -489,7 +483,7 @@ This error occurs when a function, class or method is redefined. If you are gett
 
 ### Duplicate argument name (E0108) {#E0108}
 
-This error occurs if there are duplicate parameter names in function definitions. All parameters must have distinct names, so that you can refer to each one separately in the function body.
+This error occurs if there are duplicate parameter names in function definitions. All parameters must have distinct names, so that we can refer to each one separately in the function body.
 
 ~~~~ {include="E0108_duplicate_argument_name"}
 ~~~~
@@ -497,9 +491,9 @@ This error occurs if there are duplicate parameter names in function definitions
 
 ### Redefined outer name (W0621) {#W0621}
 
-This error occurs when you are trying to redefine a variable name that has already been defined in the outer scope.
+This error occurs when we are trying to redefine a variable name that has already been defined in the outer scope.
 
-For example, this error will occur when you have a local name identical to a global name. The local name takes precedence, but it hides the global name, making it no longer accessible. Note that the global name is not accessible *anywhere* in the function where it is redefined, even before the redefinition.
+For example, this error will occur when we have a local name identical to a global name. The local name takes precedence, but it hides the global name, making it no longer accessible. Note that the global name is not accessible *anywhere* in the function where it is redefined, even before the redefinition.
 
 ~~~~ {include="W0621_redefined_outer_name"}
 ~~~~
@@ -507,7 +501,7 @@ For example, this error will occur when you have a local name identical to a glo
 
 ### Redefined builtin (W0622) {#W0622}
 
-This error occurs when you are trying to redefine a built-in function, constant, class, or exception.
+This error occurs when we are trying to redefine a built-in function, constant, class, or exception.
 
 ~~~~ {include="W0622_redefined_builtin"}
 ~~~~
@@ -534,11 +528,11 @@ vars                zip
 
 ## Imports
 
-There are standards governing how you should organize your imports, or even possibly which modules you may import at all.
+There are standards governing how we should organize our imports, or even possibly which modules we may import at all.
 
 ### Forbidden imports (E9999) {#E9999}
 
-For your work in CSC148, we expect you to use only the Python language features we have covered in lectures, or ones that we have explicitly mentioned for an exercise/lab/assignment. No other external libraries may be used.
+In CSC148, we should only use the Python language features we have covered in lectures, or ones that we have explicitly mentioned for an exercise/lab/assignment. No other external libraries may be used.
 
 ~~~~ {include="E9999_forbidden_imports"}
 ~~~~
@@ -560,7 +554,7 @@ import missing_module as foo  # this module does not exist
 
 ### No name in module (E0611) {#E0611}
 
-This error occurs when you are trying to access a variable from an imported module, but that variable name could not be found in that referenced module.
+This error occurs when we are trying to access a variable from an imported module, but that variable name could not be found in that referenced module.
 
 ~~~~ {include="E0611_no_name_in_module"}
 ~~~~
@@ -568,12 +562,12 @@ This error occurs when you are trying to access a variable from an imported modu
 
 ### Import self (W0406) {#W0406}
 
-A module should not import itself. For example, if you have a module named `W0406_import_self`, it should not import a module with the same name.
+A module should not import itself. For example, if we have a module named `W0406_import_self`, it should not import a module with the same name.
 
 ~~~~ {include="W0406_import_self"}
 ~~~~
 
-This error can occur when the name of your python file conflicts with the name of a module which you would like to import. For example, if you have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *your* `math.py` file, and not the [`math` module] from the standard library.
+This error can occur when the name of our Python file conflicts with the name of a module which we would like to import. For example, if yweou have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *our* `math.py` file, and not the [`math` module] from the standard library.
 
 
 ### Reimported (W0404) {#W0404}
@@ -586,18 +580,18 @@ A module should not be imported more than once.
 
 ### Wildcard import (W0401) {#W0401}
 
-Only import what you need. Wildcard imports (shown below) are generally discouraged, as they add all objects from the imported module into the global namespace. This makes it difficult to tell in which module a particular class, function or constant was defined, and may cause problems, for example, when multiple modules have objects with identical names.
+We should only import what we need. Wildcard imports (shown below) are generally discouraged, as they add all objects from the imported module into the global namespace. This makes it difficult to tell in which module a particular class, function or constant was defined, and may cause problems, for example, when multiple modules have objects with identical names.
 
 ~~~~ {include="W0401_wildcard_import"}
 ~~~~
 
-Rather than importing everything with wildcard `*`, specify the names of the objects which you would like to import:
+Rather than importing everything with wildcard `*`, specify the names of the objects which we would like to import:
 
 ```python
 from module_name import SOME_CONSTANT, SomeClass, some_function
 ```
 
-Or, if you need to import many objects from a particular module, import the module itself, and use it as a namespace for the required objects:
+Or, if we need to import many objects from a particular module, we can import the module itself, and use it as a namespace for the required objects:
 
 ```python
 import module_name
@@ -651,7 +645,7 @@ import sys
 import math
 ```
 
-Note, however, that you can import multiple functions, classes, or constants on one line, as long as they are from the same module.
+Note, however, that we can import multiple functions, classes, or constants on one line, as long as they are from the same module.
 
 ```python
 from shutil import copy, SameFileError
@@ -660,7 +654,7 @@ from shutil import copy, SameFileError
 
 ### Unused import (W0611) {#W0611}
 
-This error occurs when you import a module which is not used anywhere in your code.
+This error occurs when we import a module which is not used anywhere in our code.
 
 ~~~~ {include="W0611_unused_import"}
 ~~~~
@@ -677,7 +671,7 @@ The class has too many instance attributes, which suggests that it is too compli
 ~~~~ {include="R0902_too_many_instance_attributes"}
 ~~~~
 
-One solution is to logically decompose the class into multiple classes, each with fewer instance attributes. You can then use composition to access those attributes in a different class.
+One solution is to logically decompose the class into multiple classes, each with fewer instance attributes. We can then use composition to access those attributes in a different class.
 
 ```python
 class Edible(object):
@@ -707,16 +701,7 @@ class Description(object):
 
 
 class Composition(object):
-    """Class using composition to leverage other classes.
-
-    Example
-    -------
-    >>> comp = Composition()
-    >>> isinstance(comp.ownership, Ownership)
-    True
-    >>> comp.description.colour
-    'Black'
-    """
+    """Class using composition to leverage other classes."""
 
     def __init__(self) -> None:
         self.edible = Edible()
@@ -727,10 +712,20 @@ class Composition(object):
 
 ### Different method signature (W0222) {#W0222}
 
-When a child class overrides a method of the parent class, the new method should have the same signature as the method which it is overriding. In other words, the names and the order of the parameters should be the same in the two methods.
+When a child class overrides a method of the parent class, the new method should have the same signature as the method which it is overriding. In other words, the names and the order of the parameters should be the same in the two methods. Furthermore, if a parameter in the parent method has a default argument, it must also have a default argument in the child method.
 
 ~~~~ {include="W0222_signature_differs"}
 ~~~~
+
+Corrected version:
+
+```python
+class PremiumBankAccount(StandardBankAccount):
+    ...
+
+    def withdraw(self, ammount: float = 200) -> float:  # Note the default argument
+        ...
+```
 
 
 ### Return in `__init__` (E0101) {#E0101}
@@ -755,21 +750,27 @@ Private attributes and methods can be modified, added, or removed by the maintai
 
 ### Bad parent init (W0233) {#W0233}
 
-When using inheritance, you should call the `__init__` method of the parent class, and not of some unrelated class.
+When using inheritance, we should call the `__init__` method of the parent class, and not of some unrelated class.
 
 ~~~~ {include="W0233_non_parent_init"}
 ~~~~
 
-To fix this, call the `__init__` method of the parent class, or use [`super()`][super].
+To fix this, call the `__init__` method of the parent class.
 
 ```python
-# Call the `__init__` method on the correct parent class
 class Child(Parent):
+    """A child class."""
+
     def __init__(self) -> None:
         Parent.__init__(self)
+```
 
-# Or use `super()`
+Another option is to use [`super()`][super].
+
+```python
 class Child(Parent):
+    """A child class."""
+
     def __init__(self) -> None:
         super().__init__()
 ```
@@ -783,27 +784,29 @@ class Child(Parent):
 
 ### Attribute defined outside init (W0201) {#W0201}
 
-Any attribute you define for a class should be created inside the `__init__` method. Defining it outside this method is considered bad practice, as it makes it harder to keep track of what attributes the class actually has.
+Any attribute we define for a class should be created inside the `__init__` method. Defining it outside this method is considered bad practice, as it makes it harder to keep track of what attributes the class actually has.
 
 ~~~~ {include="W0201_attribute_defined_outside_init"}
 ~~~~
 
-You should do this instead:
+We should do this instead:
 
 ```python
-class MyClass:
+class SomeNumbers:
+    """A class to store some numbers."""
+
     def __init__(self) -> None:
         self.num = 1
         self.other_num = None
 
-    def set_other_num(self, other_num) -> None:
+    def set_other_num(self, other_num: int) -> None:
         self.other_num = other_num
 ```
 
 
 ### Access to member before definition (E0203) {#E0203}
 
-Before trying to use a member of a class, it should have been defined at some point. If you try to use it before assigning to it, an error will occur.
+Before trying to use a member of a class, it should have been defined at some point. If we try to use it before assigning to it, an error will occur.
 
 ~~~~ {include="E0203_access_member_before_definition"}
 ~~~~
@@ -811,7 +814,7 @@ Before trying to use a member of a class, it should have been defined at some po
 
 ### Method hidden (E0202) {#E0202}
 
-If you accidentally hide a method with an attribute, it can cause other code to attempt to invoke what it believes to be a method, which will fail since it has become an attribute instead. This will cause the program to raise an error.
+If we accidentally hide a method with an attribute, it can cause other code to attempt to invoke what it believes to be a method, which will fail since it has become an attribute instead. This will cause the program to raise an error.
 
 ~~~~ {include="E0202_method_hidden"}
 ~~~~
@@ -824,18 +827,39 @@ Occurs when a special method (aka ["dunder method"][Python double-under, double-
 ~~~~ {include="E0302_unexpected_special_method_signature"}
 ~~~~
 
+Corrected version:
+
+```python
+class Animal:
+    """A carbon-based life form."""
+
+    def __init__(self, name: str) -> None:
+        self._name = name
+
+    def __str__(self) -> str:
+        return '<Animal({})>'.format(self._name)
+```
+
 
 ### Inheriting from a non-class (E0239) {#E0239}
 
-When you inherit, it must come from a class. If you use something that is not a class, you won't be able to inherit from it. In the following example, trying to inherit from a string is not allowed. While a string is a class, this is passing in an object rather than the actual class itself.
+When we inherit, it must come from a class. If we use something that is not a class, we won't be able to inherit from it. In the following example, trying to inherit from a string is not allowed. While a string is a class, this is passing in an object rather than the actual class itself.
 
 ~~~~ {include="E0239_inherit_non_class"}
 ~~~~
 
+Corrected version:
+
+```python
+class FancyFloat(float):
+    """A fancy floating point number."""
+    pass
+```
+
 
 ### Duplicate bases (E0241) {#E0241}
 
-When inheriting, you should only specify a class once to inherit from, multiple times is an error:
+We should not be inheriting from the same class multiple times.
 
 ~~~~ {include="E0241_duplicate_bases"}
 ~~~~
@@ -843,14 +867,14 @@ When inheriting, you should only specify a class once to inherit from, multiple 
 
 ### No method argument (E0211) {#E0211}
 
-Each method in a class needs to have at least one argument (which is usually `self`). Python uses this to call methods, and the first argument is populated with the object that is calling the method. This is what allows you to access the calling object.
+Each method in a class needs to have at least one argument (which is usually `self`). Python uses this to call methods, and the first argument is populated with the object that is calling the method. This is what allows us to access the calling object.
 
 For example, the following two are equivalent:
 
 ~~~~ {include="E0211_no_method_argument"}
 ~~~~
 
-Therefore, if you do not provide any arguments, then Python does not know how to pass the object to the method, and it will error out. To fix this, put `self` in the parenthesis for the method call.
+Therefore, if we do not provide any arguments, then Python does not know how to pass the object to the method, and it will error out. To fix this, put `self` in the parenthesis for the method call.
 
 ```python
 class MyClass:
@@ -881,9 +905,9 @@ inside the class it's defined.
 
 ### Bad static member (W0211) {#W0211}
 
-Static methods are methods that do not operate on instances. Including one inside a class can be done if you feel the logic belongs inside the class and should be encapsulated by it for clarity, but static methods mean they do not operate on classes, and therefore 'self' is very likely a programming error unless you know what you are doing (and even then, it is a bad practice).
+Static methods are methods that do not operate on instances. Including one inside a class can be done if we feel the logic belongs inside the class and should be encapsulated by it for clarity, but static methods mean they do not operate on classes, and therefore 'self' is very likely a programming error unless we know what we are doing (and even then, it is a bad practice).
 
-When you make a static method, you should not name any variable 'self' to avoid confusion.
+When we make a static method, we should not name any variable 'self' to avoid confusion.
 
 ~~~~ {include="W0211_bad_staticmethod_argument"}
 ~~~~
@@ -891,12 +915,9 @@ When you make a static method, you should not name any variable 'self' to avoid 
 
 ## Exceptions
 
-
 ### Bare exception (W0702) {#W0702}
 
-While you can catch any exception without specifying a class to catch after the `except` keyword, this is bad practice since it will mask other exceptions that could appear which you do not want to catch.
-
-Always explicitly name the classes you expect to catch.
+If the `except` keyword is used without being passed an exception, *all exceptions will be caught*. This is not good practice, since we may catch exceptions that we do not want to catch. For example, we typically do not want to catch the [`KeyboardInterrupt`][Python Documentation: KeyboardInterrupt] exception, which is thrown when a user attempts to exist the program by typing `Ctrl-C`.
 
 ~~~~ {include="W0702_bare_except"}
 ~~~~
@@ -904,7 +925,7 @@ Always explicitly name the classes you expect to catch.
 
 ### Exception is too generic (W0703) {#W0703}
 
-Similar to exception error W0702, if your exception is too generic then you may end up burying errors since they will be always caught. Because of this, you should not be using `except Exception` as your except block since it can catch exceptions you do not want caught.
+Using `except Exception:` is only slightly more specific than `except:` and should also be avoided (see [W0702](#W0702)). Since most builtin exceptions, and all user-defined exceptions, are derived from the `Exception` class, using `except Exception:` provides no information regarding which exception actually occurred. Exceptions which we do not expect can go unnoticed, which may lead to bugs.
 
 ~~~~ {include="W0703_broad_except"}
 ~~~~
@@ -912,7 +933,7 @@ Similar to exception error W0702, if your exception is too generic then you may 
 
 ### Duplicate except blocks (W0705) {#W0705}
 
-When you list an exception to be caught, you should not list it again. Only have one block for each exception. This does not include having child and parent exceptions, but rather it means don't have `exception MyException`, and then later on when listing exceptions you have `exception MyException` again.
+This error occurs when we try to catch the same exception multiple times. Only the first `except` block for a particular exception will be reached.
 
 ~~~~ {include="W0705_duplicate_except"}
 ~~~~
@@ -920,9 +941,7 @@ When you list an exception to be caught, you should not list it again. Only have
 
 ### Bad exception order (E0701) {#E0701}
 
-Except blocks are analyzed sequentially (from top to bottom) and the block that meets the criteria for catching the exception first will be used. This means if you have a more generic exception type before a specific exception type, you will never trigger the code in the block that is hidden by the generic exception.
-
-It is also good practice since you want to narrow down the exception type to be as specific as possible, since the more generic exception may catch other types as well.
+Except blocks are analyzed sequentially (from top to bottom) and the first block that meets the criteria for catching the exception will be used. This means that if we have a generic exception type before a specific exception type, the code for the specific exception type will never be reached.
 
 ~~~~ {include="E0701_bad_except_order"}
 ~~~~
@@ -930,31 +949,46 @@ It is also good practice since you want to narrow down the exception type to be 
 
 ### Binary op exception (W0711) {#W0711}
 
-The proper way to have an except block catch multiple exceptions is to have the exception classes in a tuple. You can incorrectly write an except block in Python with multiple classes separated by an *or* (see example). If you do it the second way, the *or* binary operator will not do what you think it does -- in fact, the exception on the right side of the *or* will not be caught and proceed to be passed up the call stack (which likely will yield an uncaught exception, terminating your program).
+The Python `except` statement can catch multiple exceptions, if those exceptions are passed as a tuple. It is possible (but incorrect!) to pass `except` an expression containing the exception classes separated by a binary operator such as `and` or `or`. In this case, only one of the exceptions will be caught!
 
 ~~~~ {include="W0711_binary_op_exception"}
 ~~~~
 
+Corrected version:
+
+```python
+def divide_and_square(numerator: float, denominator: float) -> Optional[float]:
+    """Divide the numerator by the denominator and square the result."""
+    try:
+        return (numerator / denominator) ** 2
+    except (ZeroDivisionError, OverflowError):
+        return float('nan')
+```
+
 
 ### Misplaced bare raise (E0704) {#E0704}
 
-When you call *raise*, it's usually to throw an exception. If you are inside an 'except' block after you catch an exception, you can continue to pass on the exception to later code. You may want to do this if your intention is to capture a generated exception, then do something before passing it onwards (such as maybe closing a file or some other sensitive operation that must be done for program integrity that an exception would break). You can do this by calling *raise* on its own without a class as follows:
+The Python `raise` statement can be used without an expression only inside an `except` block. In this case, it will re-raise the exception that was caught by the `except` block. This may be useful if, for example, we wish to do some cleanup (e.g. close file handles), or print an error message, before passing the exception up the call stack.
 
 ~~~~ {include="E0704_misplaced_bare_raise"}
 ~~~~
 
-If you call *raise* outside of an 'except' block, it can't work because there is no exception to throw, as seen in the following example:
+Corrected version:
 
 ```python
-def bad_raise() -> None:
-    # Bad example, needs to be in an 'except' block:
-    raise
+def divide(numerator: float, denominator: float) -> float:
+  """Divide the numerator by the denominator."""
+    try:
+        return numerator / denominator
+    except ZeroDivisionError:
+        print("Can't divide by 0!")
+        raise
 ```
 
 
 ### Raising bad type (E0702) {#E0702}
 
-You have to raise an object that is an exception, you can't raise anything like a number. If it does not descend at some point from an Exception class, it should not be raised. To solve this issue, extend a new class from the Exception class, name it appropriately, and raise that.
+The Python `raise` statement expects an object that is derived from the [`BaseException`][Python Documentation: BaseException] class. We cannot call `raise` on integers or strings.
 
 ~~~~ {include="E0702_raising_bad_type"}
 ~~~~
@@ -962,9 +996,7 @@ You have to raise an object that is an exception, you can't raise anything like 
 
 ### Raising non-exception (E0710) {#E0710}
 
-You cannot raise an object that is not a descendant of Exception (which implies being a child of BaseException). Anything you raise must at some point descend from a class that inherits exception.
-
-The solution is either to create your own exception, or to find a proper exception that best describes the problem.
+The Python `raise` statement expects an object that is derived from the [`BaseException`][Python Documentation: BaseException] class. All user-defined exceptions should inherit from the [`Exception`][Python Documentation: Exception] class (which will make them indirect descendents of the `BaseException` class). Attempting to raise any other object will lead to an error.
 
 ~~~~ {include="E0710_raising_non_exception"}
 ~~~~
@@ -972,9 +1004,7 @@ The solution is either to create your own exception, or to find a proper excepti
 
 ### NotImplemented raised (E0711) {#E0711}
 
-`NotImplemented` is intended to be a return value for methods, such as when you create your own comparisons (ex: using `__eq__`), when what you actually want is to throw the exception. Forgetting the suffix 'Error' is a common mistake and do what you intended.
-
-This is also related to another error where raising a non-exception is not allowed.
+[`NotImplemented`][Python Documentation: NotImplemented] should only be used as a return value for binary special methods, such as `__eq__`, `__lt__`, `__add__`, etc., to indicate that the operation is not implemented with respect to the other type. It is *not interchangeable* with [`NotImplementedError`][Python Documentation: NotImplementedError], which should be used to indicate that the abstract method must be implemented the derived class.
 
 ~~~~ {include="E0711_notimplemented_raised"}
 ~~~~
@@ -982,7 +1012,7 @@ This is also related to another error where raising a non-exception is not allow
 
 ### Catching non-exception (E0712) {#E0712}
 
-If your 'except' class uses a class that does not inherit from BaseException at some point, then you are trying to catch an exception that is not a well-defined exception. Your code should only try to catch exceptions that extend from BaseException. Python requires you to raise exceptions that derive from BaseException, and having a class type that does not extend from this and being raised will cause a problem.
+The Python `raise` statement expects an object that is derived from the [`BaseException`][Python Documentation: BaseException] class (see [E0710](#E0710)). Accordingly, the Python `except` statement also expects objects that are derived from the [`BaseException`][Python Documentation: BaseException] class. Attempting to call `except` on any other object will lead to an error.
 
 ~~~~ {include="E0712_catching_non_exception"}
 ~~~~
@@ -993,14 +1023,14 @@ If your 'except' class uses a class that does not inherit from BaseException at 
 
 ### Forbidden IO function (E9998) {#E9998}
 
-We do not expect to see I/O functions ([`input`], [`open`] and [`print`]) in your code in this course unless explicitly required. If you use print statements to debug your code, make sure to remove them before submission.
+We do not expect to see I/O functions ([`input`], [`open`] and [`print`]) in our code in this course unless explicitly required. If we use print statements to debug our code, make sure to remove them before submission.
 
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
 ### Always returning in a loop (E9996) {#E9996}
 
-This error occurs when you *always* return something inside a loop body, which makes the loop execute only once.
+This error occurs when we *always* return something inside a loop body, which makes the loop execute only once.
 
 ~~~~ {include="always_returning_example"}
 ~~~~
@@ -1022,7 +1052,7 @@ Use of builtin functions [`exec`], [`eval`], and [`compile`] is not allowed.
 
 ### Too many format args (E1305) {#E1305}
 
-This error occurs when you use the `format` method on a string, but call it
+This error occurs when we use the `format` method on a string, but call it
 with more arguments than the number of `{}` in the string.
 
 ~~~~ {include="E1305_too_many_format_args"}
@@ -1044,7 +1074,7 @@ This error is similar to [E1121](#E1121).
 
 ### Too few format args (E1306) {#E1306}
 
-This error occurs when you use the `format` method on a string, but call it with fewer arguments than the number of `{}` in the string.
+This error occurs when we use the `format` method on a string, but call it with fewer arguments than the number of `{}` in the string.
 
 ~~~~ {include="E1306_too_few_format_args"}
 ~~~~
@@ -1076,13 +1106,13 @@ This error is similar to [E1120](#E1120) and [E1306](#E1120).
 
 ### Bad str strip call (E1310) {#E1310}
 
-This error occurs when you call [`strip`][str.strip], [`lstrip`][str.lstrip], or [`rstrip`][str.rstrip], but pass an argument string which contains duplicate characters. The argument string should contain the *distinct* characters that you want to remove from the end(s) of a string.
+This error occurs when we call [`strip`][str.strip], [`lstrip`][str.lstrip], or [`rstrip`][str.rstrip], but pass an argument string which contains duplicate characters. The argument string should contain the *distinct* characters that we want to remove from the end(s) of a string.
 
 ~~~~ {include="E1310_bad_str_strip_call"}
 ~~~~
 
 It is a common mistake to think that `mystring.strip(chars)` removes the substring `chars` from the beginning and end of `mystring`. It actually removes all characters in `chars` from the beginning and end of `mystring`, *irrespective of their order*!
-If you pass an argument string with duplicate characters to `mystring.strip`, you are likely misinterpreting what this method is doing.
+If we pass an argument string with duplicate characters to `mystring.strip`, we are likely misinterpreting what this method is doing.
 
 
 ### Format combined specification (W1305) {#W1305}
@@ -1123,7 +1153,7 @@ The following is a [list of recognized escape sequences][String and Bytes litera
 \"          \n          \ooo        \Uxxxxxxxx
 ```
 
-If a backslash character is not used to start one of the escape sequences listed above, you should make this explicit by escaping the backslash with another backslash.
+If a backslash character is not used to start one of the escape sequences listed above, we should make this explicit by escaping the backslash with another backslash.
 
 ```python
 print('This is a tab: \t')
@@ -1136,7 +1166,7 @@ print('This is not an escape sequence: \\d')
 
 The first argument of `assertTrue` and `assertFalse` is a "condition", which should evaluate to True or False.
 
-These methods evaluate the condition to check whether the test passes or fails. The conditions should depend on the code that you are testing, and should not be a constant literal like `True` or `4`. Otherwise, the test will always have the same result, regardless of whether your code is correct.
+These methods evaluate the condition to check whether the test passes or fails. The conditions should depend on the code that we are testing, and should not be a constant literal like `True` or `4`. Otherwise, the test will always have the same result, regardless of whether our code is correct.
 
 ~~~~ {include="W1503_redundant_unittest_assert"}
 ~~~~
@@ -1181,7 +1211,7 @@ However, the actual output is:
 [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
 ```
 
-If you want to prevent this surprising behavior, you should use `None` as the default argument, and then check for `None` inside the function body. For example, the following code prints the expected output:
+If we want to prevent this surprising behavior, we should use `None` as the default argument, and then check for `None` inside the function body. For example, the following code prints the expected output:
 
 ```python
 from typing import List, Optional
@@ -1211,7 +1241,7 @@ This error occurs when an `assert` statement is called with a tuple as the first
 ~~~~ {include="W0199_assert_on_tuple"}
 ~~~~
 
-If you would like to assert multiple conditions, you should join those conditions using the `and` operator, or use individual `assert` statements for each condition.
+If we would like to assert multiple conditions, we should join those conditions using the `and` operator, or use individual `assert` statements for each condition.
 
 ```python
 def check(condition1: bool, condition2: bool, condition3: bool) -> None:
@@ -1223,7 +1253,7 @@ def check(condition1: bool, condition2: bool, condition3: bool) -> None:
     assert condition3
 ```
 
-If you would like `assert` to show a special error message when the assertion fails, you should provide that message as the second argument.
+If we would like `assert` to show a special error message when the assertion fails, we should provide that message as the second argument.
 
 ```python
 def check(condition, message):
@@ -1244,7 +1274,7 @@ def check(condition, message):
 
 2.  *SyntaxError: can't assign to literal*
 
-    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). You cannot assign to a string or numeric literal.
+    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). We cannot assign to a string or numeric literal.
 
     ~~~~ {include="assignment_to_literal"}
     ~~~~
@@ -1292,16 +1322,16 @@ def check(condition, message):
 
 4.  *IndentationError: unindent does not match any outer indentation level*
 
-    You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
+    We must use a constant number of whitespace characters for each level of indentation. If we start a code block using four spaces for indentation, we must use four spaces throughout that code block.
 
     ~~~~ {include="unindent_does_not_match_indentation"}
     ~~~~
 
-    Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
+    Note that it is **strongly recommended** that we [**always use four spaces per indentation level**][PEP8: Indentation] throughout our code.
 
 5.  *IndentationError: unexpected indent*
 
-    In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
+    In Python, the only time we would increase the indentation level of our code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
     ~~~~ {include="unexpected_indent"}
     ~~~~
@@ -1533,7 +1563,7 @@ def hello_world() -> None:
 
 ### Bad indentation (W0311) {#W0311}
 
-This error occurs when an unexpected number of tabs or spaces is used to indent the code. It is recommended that you use [*four spaces per indentation level*][PEP8: Indentation] throughout your code.
+This error occurs when an unexpected number of tabs or spaces is used to indent the code. It is recommended that we use [*four spaces per indentation level*][PEP8: Indentation] throughout our code.
 
 ~~~~ {include="W0311_bad_indentation"}
 ~~~~
@@ -1542,6 +1572,7 @@ Corrected version:
 
 ```python
 def print_greeting(name: str) -> None:
+    """Print a greeting message."""
     print('Hello {}!'.format(name))
 ```
 
@@ -1556,9 +1587,10 @@ This error occurs when we write more than one statement on a single line. Accord
 Corrected version:
 
 ```python
-def pos(temp: int) -> str:
-    if temp > 0:
-        return 'positive'
+def pos(number: int) -> str:
+    """Return whether the number is 'positive' or 'negative'."""
+    if number > 0:
+      return 'positive'
     else:
         return 'negative'
 ```
@@ -1741,8 +1773,13 @@ print('c' in named_list)  # Prints False
 
 <!-- Python docs -->
 [Python Documentation: Glossary]: https://docs.python.org/3/glossary.html
+[Python Documentation: Exception]: https://docs.python.org/3/library/exceptions.html#Exception
+[Python Documentation: BaseException]: https://docs.python.org/3/library/exceptions.html#BaseException
+[Python Documentation: NotImplemented]:https://docs.python.org/3/library/constants.html#NotImplemented
+[Python Documentation: NotImplementedError]:https://docs.python.org/3/library/constants.html#NotImplementedError
 [`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
 [Built-in Functions]: https://docs.python.org/3/library/functions.html
+[Python Documentation: KeyboardInterrupt]: https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt
 
 [Binary arithmetic operations]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
 [Compound statements]: https://docs.python.org/3/reference/compound_stmts.html
