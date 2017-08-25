@@ -497,7 +497,7 @@ rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
 ### Invalid name (C0103) {#C0103}
 
-This error occurs when a name does not follow the [Python Naming Convention] associated with its type (constant, variable, etc.).
+This error occurs when a name does not follow the [Python Naming Convention][PEP8: Naming Conventions] associated with its type (constant, variable, etc.).
 
 - Names of variables, attributes, methods, and arguments should be in **`lowercase_with_underscores`**.
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
@@ -862,10 +862,7 @@ some point. If you try to use it before assigning to it, an error will occur.
 
 ### Method hidden (E0202) {#E0202}
 
-If you accidentally mask a method with an attribute, it can cause other code
-to attempt to invoke what it believes to be a method, which will fail since
-it has become an attribute instead. This will cause the program
-to raise an error.
+If you accidentally hide a method with an attribute, it can cause other code to attempt to invoke what it believes to be a method, which will fail since it has become an attribute instead. This will cause the program to raise an error.
 
 ```python
 class Example:
@@ -873,10 +870,10 @@ class Example:
         return num
 
     def __init__(self) -> None:
-        self.field = 'Masking the function with this string'
+        self.field = 'Hiding the function with this string'
 
 e = Example()
-e.field(num)   # Error since we masked it
+e.field(num)   # Error on this line
 ```
 
 
@@ -1472,7 +1469,7 @@ for item in menu:
 
 ### Superfluous parens (C0325) {#C0325}
 
-This error occurs when an `if`, `for`, or other keyword is followed by a single item enclosed in parentheses. In such a case, parentheses are not necessary.
+This error occurs when a keyword, such as `if` or `for`, is followed by a single item enclosed in parentheses. In such a case, parentheses are not necessary.
 
 ~~~~ {include="C0325_superfluous_parens"}
 ~~~~
@@ -1486,14 +1483,12 @@ if 'anchovies' in pizza_toppings:  # Error on this line
 
 ### Literal comparison (R0123) {#R0123}
 
-This error occurs when we use the identity operator `is` to compare Python literals.
-
-Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
+This error occurs when we use the identity operator `is` to compare Python literals. Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
 
 ~~~~ {include="R0123_literal_comparison"}
 ~~~~
 
-To prevent the confusion, it is advisable to use the equality operator `==` instead.
+To prevent the confusion, it is advisable to use the equality operator `==` when comparing objects with Python literals.
 
 ```python
 num = 256
@@ -1517,19 +1512,22 @@ assert chars == 'this string fails'  # Assertion fails if typed into a Python in
 
 ### Unsupported assignment operation (E1137) {#E1137}
 
-:unsupported-assignment-operation (E1137): *%r does not support item assignment*
-  Emitted when an object does not support item assignment (i.e. doesn't define
-  __setitem__ method) This message belongs to the typecheck checker.
+This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
 
 ~~~~ {include="E1137_unsupported_assignment_operation"}
 ~~~~
 
+While we cannot mutate an immutable object, often, we can create a new object instead.
+
+```python
+my_string = "Hello World!"
+my_string = my_string[:6] + "Universe!"
+print(my_string)  # Prints 'Hello Universe!'
+```
+
 ### Expression not assigned (W0106) {#W0106}
 
-:expression-not-assigned (W0106): *Expression "%s" is assigned to nothing*
-  Used when an expression that is not a function call is assigned to nothing.
-  Probably something else was intended. This message belongs to the basic
-  checker.
+This error occurs when an expression that is not a function call is not assigned to a variable. Typically, this indicates that we were indenting to do something else.
 
 ~~~~ {include="W0106_expression_not_assigned"}
 ~~~~
@@ -1539,16 +1537,12 @@ Corrected version:
 ```python
 lst = [1, 2, 3]
 lst.append(4)
-print("This string is ok...")
+print("Appended 4 to my list!")
 ```
-
--------------------------------------------------------------------------------
 
 ### Invalid length returned (E0303) {#E0303}
 
-:invalid-length-returned (E0303): *__len__ does not return non-negative integer*
-  Used when an __len__ method returns something which is not a non-negative
-  integer This message belongs to the classes checker.
+This error occurs when the `__len__` special method returns something other than a non-negative integer.
 
 ~~~~ {include="E0303_invalid_length_returned"}
 ~~~~
@@ -1565,15 +1559,74 @@ class Company:
         return len(self._employees)
 ```
 
+### Abstract method (W0223) {#W0223}
+
+This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a concrete class.
+
+~~~~ {include="W0223_abstract_method"}
+~~~~
+
+Corrected version:
+
+```python
+class Cat(Animal):
+
+    def make_sound(self) -> str:
+        return 'Miew...'
+```
+
+### Arguments differ (W0221) {#W0221}
+
+This error occurs when a method takes a different number of arguments than the interface that it implements or the method that it overrides.
+
+~~~~ {include="W0221_arguments_differ"}
+~~~~
+
+Corrected version:
+
+```python
+class Dog(Animal):
+    """Class representing a dog."""
+
+    def make_sound(self, mood: str) -> None:
+        if mood == 'happy':
+            print("Woof Woof!")
+        elif mood == 'angry':
+            print("Grrrrrrr!!")
+```
+
+### Unexpected keyword arg (E1123) {#E1123}
+
+This error occurs when a function call passes a keyword argument which does not match the signature of the function being called.
+
+~~~~ {include="E1123_unexpected_keyword_arg"}
+~~~~
+
+Corrected version:
+
+```python
+print_greeting(name="Arthur")
+```
+
+### Redefined argument from local (R1704) {#R1704}
+
+This error occurs when a local name is redefining the name of a parameter. We should avoid reusing the name of a parameter in binding operations such as for iteration, with statement assignment, and exception handler assignment, as this needlessly obfuscates the code.
+
+~~~~ {include="R1704_redefined_argument_from_local"}
+~~~~
+
+Corrected version:
+
+```python
+def greet_person(name, friends) -> None:
+    print("My name is {}".format(name))
+    for friend in friends:
+        print("I am friends with {}".format(friend))
+```
+
 ### Trailing comma tuple (R1707) {#R1707}
 
-:trailing-comma-tuple (R1707): *Disallow trailing comma tuple*
-  In Python, a tuple is actually created by the comma symbol, not by the
-  parentheses. Unfortunately, one can actually create a tuple by misplacing a
-  trailing comma, which can lead to potential weird bugs in your code. You
-  should always use parentheses explicitly for creating a tuple. This message
-  belongs to the refactoring checker. It can't be emitted when using Python <
-  3.0.
+This error occurs when a Python expression is terminated by a comma. In Python, a tuple is created by the comma symbol, not by parentheses. This makes it easy to create a tuple accidentally, by misplacing a comma, which can lead to obscure bugs. In order to make our intention clear, we should always use parentheses when creating a tuple, and we should never leave a trailing comma in our code.
 
 ~~~~ {include="R1707_trailing_comma_tuple"}
 ~~~~
@@ -1587,9 +1640,7 @@ print(my_lucky_number)  # Prints 7
 
 ### Bad whitespace (C0326) {#C0326}
 
-:bad-whitespace (C0326): *%s space %s %s %s*
-  Used when a wrong number of spaces is used around an operator, bracket or
-  block opener. This message belongs to the format checker.
+This error occurs when we include a wrong number of spaces around an operator, bracket, or block opener. We should aim to follow the [PEP8 convention on whitespace in expressions and statements][PEP8: Whitespace in Expressions and Statements].
 
 ~~~~ {include="C0326_bad_whitespace"}
 ~~~~
@@ -1604,9 +1655,7 @@ def func(temp: int) -> bool:
 
 ### Mixed indentation (W0312) {#W0312}
 
-:mixed-indentation (W0312): *Found indentation with %ss instead of %ss*
-  Used when there are some mixed tabs and spaces in a module. This message
-  belongs to the format checker.
+This error occurs when the code is indented with a mix of tabs and spaces. Please note that [*spaces are the preferred indentation method*][PEP8: Tabs or Spaces?].
 
 ~~~~ {include="W0312_mixed_indentation"}
 ~~~~
@@ -1619,49 +1668,9 @@ def hello_world() -> None:
     print("Hello World!")
 ```
 
-### Abstract method (W0223) {#W0223}
-
-:abstract-method (W0223): *Method %r is abstract in class %r but is not overridden*
-  Used when an abstract method (i.e. raise `NotImplementedError`) is not
-  overridden in concrete class. This message belongs to the classes checker.
-
-~~~~ {include="W0223_abstract_method"}
-~~~~
-
-Corrected version:
-
-```python
-class Cat(Animal):  # Error on this line
-
-    def make_sound(self) -> str:
-        return 'Miew'
-```
-
-### Redefined argument from local (R1704) {#R1704}
-
-:redefined-argument-from-local (R1704): *Redefining argument with the local name %r*
-  Used when a local name is redefining an argument, which might suggest a
-  potential error. This is taken in account only for a handful of name binding
-  operations, such as for iteration, with statement assignment and exception
-  handler assignment. This message belongs to the refactoring checker.
-
-~~~~ {include="R1704_redefined_argument_from_local"}
-~~~~
-
-Corrected version:
-
-```python
-def greet_person(name, friends) -> None:
-    print("My name is {}".format(name))
-    for friend in friends:
-        print("I am friends with {}".format(friend))
-```
-
 ### Bad indentation (W0311) {#W0311}
 
-:bad-indentation (W0311): *Bad indentation. Found %s %s, expected %s*
-  Used when an unexpected number of indentation's tabulations or spaces has been
-  found. This message belongs to the format checker.
+This error occurs when an unexpected number of tabs or spaces is used to indent the code. It is recommended that you use [*four spaces per indentation level*][PEP8: Indentation] throughout your code.
 
 ~~~~ {include="W0311_bad_indentation"}
 ~~~~
@@ -1673,34 +1682,10 @@ def print_greeting(name: str) -> None:
     print('Hello {}!'.format(name))
 ```
 
-### Arguments differ (W0221) {#W0221}
-
-:arguments-differ (W0221): *Parameters differ from %s %r method*
-  Used when a method has a different number of arguments than in the implemented
-  interface or in an overridden method. This message belongs to the classes
-  checker.
-
-~~~~ {include="W0221_arguments_differ"}
-~~~~
-
-Corrected version:
-
-```python
-class Dog(Animal):
-    """Class representing a dog."""
-
-    def make_sound(self, mood: str) -> None:
-        if state == 'happy':
-            print("Woof Woof!")
-        elif state == 'angry':
-            print("Grrrrrrr!!")
-```
 
 ### Multiple statements (C0321) {#C0321}
 
-:multiple-statements (C0321): *More than one statement on a single line*
-  Used when more than on statement are found on the same line. This message
-  belongs to the format checker.
+This error occurs when we write more than one statement on a single line. According to PEP8, [*multiple statements on the same line are discouraged*][PEP8: Other Recommendations].
 
 ~~~~ {include="C0321_multiple_statements"}
 ~~~~
@@ -1717,11 +1702,7 @@ def pos(temp: int) -> str:
 
 ### Unnecessary semicolon (W0301) {#W0301}
 
-:unnecessary-semicolon (W0301): *Unnecessary semicolon*
-  Used when a statement is ended by a semi-colon (";"), which isn't necessary
-  (that's python, not C ;). This message belongs to the format checker.
-
-This error appears when a Python statement is ended by a semi-colon (`;`). For example:
+This error occurs when we end a Python statement with a semicolon. There is no good reason to ever use a semicolon in Python.
 
 ~~~~ {include="W0301_unnecessary_semicolon"}
 ~~~~
@@ -1729,14 +1710,13 @@ This error appears when a Python statement is ended by a semi-colon (`;`). For e
 Corrected version:
 
 ```python
-print("Hello World!");
+print("Hello World!")
 ```
 
-There is never a good reason to use a semicolon in Python (unlike C or Java).
 
 ### Missing final newline (C0304) {#C0304}
 
-This error appears when a file is missing a trailing newline character. For example, if we represent a (typically invisible) newline character as `¬`, the following file would raise this error:
+This error occurs when a file is missing a trailing newline character. For example, if we represent a (typically invisible) newline character as `¬`, the following file would raise this error:
 
 ~~~~ {include="C0304_missing_final_newline"}
 ~~~~
@@ -1749,7 +1729,7 @@ print("Hello World!")  # Trailing newline is present:  ¬
 
 ### Trailing newlines (C0305) {#C0305}
 
-This error appears when a file ends with more than one newline character (i.e. when a file contains trailing blank lines). For example:
+This error occurs when a file ends with more than one newline character (i.e. when a file contains trailing blank lines). For example:
 
 ~~~~ {include="C0305_trailing_newlines"}
 ~~~~
@@ -1762,8 +1742,7 @@ print("Hello World!")  # This file ends with a single newline character! :)
 
 ### Bad continuation (C0330) {#C0330}
 
-:bad-continuation (C0330): *Wrong %s indentation%s%s.*
-  TODO This message belongs to the format checker.
+This error occurs when we use an inconsistent number of spaces to indent arguments or parameters in function and method calls or definitions.
 
 ~~~~ {include="C0330_bad_continuation"}
 ~~~~
@@ -1776,46 +1755,24 @@ def print_address(recipient_name: str,
                   city: str,
                   province: str,
                   country: str) -> None:
-    """Print the provided address in a clean format."""
+    """Print the provided address in a standardized format."""
     address_string = (
-        "{recipient_name}\n{street_number_and_name}\n{city}, {province}\n{country}".
-        format(recipient_name=recipient_name,
-               street_number_and_name=street_number_and_name,
-               city=city,  # Error on this line: Wrong indentation
-               province=province,  # Error on this line: Wrong indentation
-               country=country))  # Error on this line: Wrong indentation
-    print(address_string)
-```
-
-Or:
-
-```python
-def print_address(
-        recipient_name: str,
-        street_number_and_name: str,
-        city: str,
-        province: str,
-        country: str) -> None:
-    """Print the provided address in a clean format."""
-    address_string = (
-        "{recipient_name}\n{street_number_and_name}\n{city}, {province}\n{country}".
-        format(
+        "{recipient_name}\n"
+        "{street_number_and_name}\n"
+        "{city}, {province}\n"
+        "{country}"
+        .format(
             recipient_name=recipient_name,
             street_number_and_name=street_number_and_name,
-            city=city,  # Error on this line: Wrong indentation
-            province=province,  # Error on this line: Wrong indentation
-            country=country))  # Error on this line: Wrong indentation
+            city=city,
+            province=province,
+            country=country))
     print(address_string)
 ```
 
 ### Nonexistent operator (E0107) {#E0107}
 
-:nonexistent-operator (E0107): *Use of the non-existent %s operator*
-  Used when you attempt to use the C-style pre-increment or pre-decrement
-  operator -- and ++, which doesn't exist in Python. This message belongs to the
-  basic checker.
-
-  There are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+This error occurs when we attempt to use C-style "increment by one" or "decrement by one" operators `++` and `--`, which do not exist in Python.
 
 ~~~~ {include="E0107_nonexistent_operator"}
 ~~~~
@@ -1830,10 +1787,7 @@ spam -= 1
 
 ### Used prior global declaration (E0118) {#E0118}
 
-:used-prior-global-declaration (E0118): *Name %r is used prior to global declaration*
-  Emitted when a name is used prior a global declaration, which results in an
-  error since Python 3.6. This message belongs to the basic checker. It can't be
-  emitted when using Python < 3.6.
+This error occurs when we use a global name prior to the global declaration.
 
 ~~~~ {include="E0118_used_prior_global_declaration"}
 ~~~~
@@ -1850,9 +1804,7 @@ def timestep() -> None:
 
 ### Not an iterable (E1133) {#E1133}
 
-:not-an-iterable (E1133): *Non-iterable value %s is used in an iterating context*
-  Used when a non-iterable value is used in place where iterable is expected
-  This message belongs to the iterable_check checker.
+This error occurs when a non-iterable value is used in a place where an iterable is expected. An iterable is an object capable of returning its members one at a time. Examples of iterables include sequence types such as `list`, `str`, and `tuple`, some non-sequence types such as `dict`, and instances of other classes which define the `__iter__` or `__getitem__` special methods.
 
 ~~~~ {include="E1133_not_an_iterable"}
 ~~~~
@@ -1864,21 +1816,9 @@ for number in [1, 2, 3]:
     print(number)
 ```
 
-### Unexpected keyword arg (E1123) {#E1123}
+**See also**:
 
-:unexpected-keyword-arg (E1123): *Unexpected keyword argument %r in %s call*
-  Used when a function call passes a keyword argument that doesn't correspond to
-  one of the function's parameter names. This message belongs to the typecheck
-  checker.
-
-~~~~ {include="E1123_unexpected_keyword_arg"}
-~~~~
-
-Corrected version:
-
-```python
-print_greeting(name="Arthur")
-```
+- [Python Documentation: Glossary]
 
 ### Line too long (C0301) {#C0301}
 
@@ -1891,9 +1831,7 @@ print_greeting(name="Arthur")
 
 ### Unsupported delete operation (E1138) {#E1138}
 
-:unsupported-delete-operation (E1138): *%r does not support item deletion*
-  Emitted when an object does not support item deletion (i.e. doesn't define
-  __delitem__ method) This message belongs to the typecheck checker.
+This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion.
 
 ~~~~ {include="E1138_unsupported_delete_operation"}
 ~~~~
@@ -1916,8 +1854,6 @@ del named_list['c']
 print('c' in named_list)  # Prints False
 ```
 
-
-
 <!-- Python objects -->
 [`__init__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
 [`__new__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
@@ -1933,6 +1869,7 @@ print('c' in named_list)  # Prints False
 [`compile`]: https://docs.python.org/3/library/functions.html#compile
 
 <!-- Python docs -->
+[Python Documentation: Glossary]: https://docs.python.org/3/glossary.html
 [`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
 [Built-in Functions]: https://docs.python.org/3/library/functions.html
 
@@ -1951,7 +1888,10 @@ print('c' in named_list)  # Prints False
 <!-- PEP8 -->
 [PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
 [PEP8: Indentation]: https://www.python.org/dev/peps/pep-0008/#indentation
-[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
+[PEP8: Naming Conventions]: https://www.python.org/dev/peps/pep-0008/#naming-conventions
+[PEP8: Other Recommendations]: https://www.python.org/dev/peps/pep-0008/#other-recommendations
+[PEP8: Tabs or Spaces?]: https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
+[PEP8: Whitespace in Expressions and Statements]: https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements
 
 <!-- StackOverflow -->
 [StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
