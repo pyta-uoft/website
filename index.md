@@ -491,7 +491,7 @@ This error occurs if there are duplicate parameter names in function definitions
 
 ### Redefined outer name (W0621) {#W0621}
 
-This error occurs when we are trying to redefine a variable name that has already been defined in the outer scope.
+This error occurs when we are redefining a variable name that has already been defined in the outer scope.
 
 For example, this error will occur when we have a local name identical to a global name. The local name takes precedence, but it hides the global name, making it no longer accessible. Note that the global name is not accessible *anywhere* in the function where it is redefined, even before the redefinition.
 
@@ -501,7 +501,7 @@ For example, this error will occur when we have a local name identical to a glob
 
 ### Redefined builtin (W0622) {#W0622}
 
-This error occurs when we are trying to redefine a built-in function, constant, class, or exception.
+This error occurs when we are redefining a built-in function, constant, class, or exception.
 
 ~~~~ {include="W0622_redefined_builtin"}
 ~~~~
@@ -1023,14 +1023,14 @@ The Python `raise` statement expects an object that is derived from the [`BaseEx
 
 ### Forbidden IO function (E9998) {#E9998}
 
-We do not expect to see I/O functions ([`input`], [`open`] and [`print`]) in our code in this course unless explicitly required. If we use print statements to debug our code, make sure to remove them before submission.
+Input / output functions ([`input`], [`open`] and [`print`]) should not be used in this course unless explicitly required. If `print` statements are used to debug the code, they should be removed prior to submission.
 
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
 ### Always returning in a loop (E9996) {#E9996}
 
-This error occurs when we *always* return something inside a loop body, which makes the loop execute only once.
+This error occurs when we *always* return something inside a loop body. This means that the loop will execute only once.
 
 ~~~~ {include="always_returning_example"}
 ~~~~
@@ -1111,8 +1111,7 @@ This error occurs when we call [`strip`][str.strip], [`lstrip`][str.lstrip], or 
 ~~~~ {include="E1310_bad_str_strip_call"}
 ~~~~
 
-It is a common mistake to think that `mystring.strip(chars)` removes the substring `chars` from the beginning and end of `mystring`. It actually removes all characters in `chars` from the beginning and end of `mystring`, *irrespective of their order*!
-If we pass an argument string with duplicate characters to `mystring.strip`, we are likely misinterpreting what this method is doing.
+It is a common mistake to think that `mystring.strip(chars)` removes the substring `chars` from the beginning and end of `mystring`. It actually removes all characters in `chars` from the beginning and end of `mystring`, *irrespective of their order*! If we pass an argument string with duplicate characters to `mystring.strip`, we are likely misinterpreting what this method is doing.
 
 
 ### Format combined specification (W1305) {#W1305}
@@ -1164,7 +1163,7 @@ print('This is not an escape sequence: \\d')
 
 ### Redundant unittest assert (W1503) {#W1503}
 
-The first argument of `assertTrue` and `assertFalse` is a "condition", which should evaluate to True or False.
+The first argument of `assertTrue` and `assertFalse` is a "condition", which should evaluate to `True` or `False`.
 
 These methods evaluate the condition to check whether the test passes or fails. The conditions should depend on the code that we are testing, and should not be a constant literal like `True` or `4`. Otherwise, the test will always have the same result, regardless of whether our code is correct.
 
