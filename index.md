@@ -37,7 +37,7 @@ Python, unlike many other languages (e.g. C, C++, Java), allows loop variables t
 
 ### Not in loop (E0103) {#E0103}
 
-This error occurs when the `break` or `continue` keyword is used outside of a loop. The keyword `break` is used to exit a loop early and the keyword `continue` is used to skip an iteration in a loop. Hence both the keywords only belong inside loops.
+This error occurs when the `break` or `continue` keyword is used outside of a loop. The keyword `break` is used to exit a loop early and the keyword `continue` is used to skip an iteration in a loop. Hence, both keywords only belong inside loops.
 
 ~~~~ {include="E0103_not_in_loop"}
 ~~~~
