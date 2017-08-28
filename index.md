@@ -854,14 +854,12 @@ A class should not inherit from a different class multiple times.
 
 ### No method argument (E0211) {#E0211}
 
-Each method in a class needs to have at least one argument (which is usually `self`). Python uses this to call methods, and the first argument is populated with the object that is calling the method. This is what allows us to access the calling object.
-
-For example, the following two are equivalent:
+Each method in a class needs to have at least one argument, which by convention we call `self`. When we create an instance of a class and call an instance method, Python automatically passes the class instance as the first argument to the method. If a method does not expect any arguments, this will result in an error.
 
 ~~~~ {include="E0211_no_method_argument"}
 ~~~~
 
-Therefore, if we do not provide any arguments, then Python does not know how to pass the object to the method, and it will error out. To fix this, put `self` in the parenthesis for the method call.
+Corrected version:
 
 ```python
 class MyClass:
