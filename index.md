@@ -228,22 +228,6 @@ This error occurs when we are trying to assign to multiple variables at once, bu
 
 ## Code complexity
 
-### Simplifiable if statement (R1703) {#R1703}
-
-This error occurs when we have an `if ... else` statement that can be simplified by using the value of the condition instead of additional `True` and `False` literals.
-
-~~~~ {include="R1703_simplifiable_if_statement"}
-~~~~
-
-The above example can be simplified to:
-
-```python
-def is_even(num: int) -> bool:
-    """Return whether <num> is even."""
-    return num % 2 == 0
-```
-
-
 ### Unneeded not (C0113) {#C0113}
 
 This error occurs when a boolean expression contains an unneeded negation. If we are getting this error, the expression can be simplified to not use a negation.
