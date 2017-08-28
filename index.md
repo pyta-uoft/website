@@ -248,7 +248,7 @@ else:
 
 ### Singleton comparison (C0121) {#C0121}
 
-This error occurs when an expression is compared to singleton values like `True`, `False` or `None`.
+This error occurs when an expression is compared to a singleton value like `True`, `False` or `None`.
 
 ~~~~ {include="C0121_singleton_comparison"}
 ~~~~
@@ -388,7 +388,7 @@ This error occurs when a function argument is never used in the function.
 
 ### Pointless statement (W0104) {#W0104}
 
-This error occurs when a statement doesn't have any effect. This means that the statement could be removed without changing the behaviour of the program.
+This error occurs when a statement does not have any effect. This means that the statement could be removed without changing the behaviour of the program.
 
 ~~~~ {include="W0104_pointless_statement"}
 ~~~~
@@ -532,7 +532,7 @@ The module is unable to be imported. Check the spelling of the module name, or w
 There are other forms of import statements that may cause this error. For example:
 
 ```python
-import missing_module as foo  # this module does not exist
+import missing_module as foo  # This module does not exist
 ```
 
 
@@ -551,7 +551,7 @@ A module should not import itself. For example, if we have a module named `W0406
 ~~~~ {include="W0406_import_self"}
 ~~~~
 
-This error can occur when the name of our Python file conflicts with the name of a module which we would like to import. For example, if yweou have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *our* `math.py` file, and not the [`math` module] from the standard library.
+This error can occur when the name of our Python file conflicts with the name of a module which we would like to import. For example, if we have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *our* `math.py` file, and not the [`math` module] from the standard library.
 
 
 ### Reimported (W0404) {#W0404}
@@ -564,12 +564,12 @@ A module should not be imported more than once.
 
 ### Wildcard import (W0401) {#W0401}
 
-We should only import what we need. Wildcard imports (shown below) are generally discouraged, as they add all objects from the imported module into the global namespace. This makes it difficult to tell in which module a particular class, function or constant was defined, and may cause problems, for example, when multiple modules have objects with identical names.
+We should only import what we need. Wildcard imports (shown below) are generally discouraged, as they add all objects from the imported module into the global namespace. This makes it difficult to tell in which module a particular class, function or constant is defined, and may cause problems, for example, when multiple modules have objects with identical names.
 
 ~~~~ {include="W0401_wildcard_import"}
 ~~~~
 
-Rather than importing everything with wildcard `*`, specify the names of the objects which we would like to import:
+Rather than importing everything with wildcard `*`, we should specify the names of the objects which we would like to import:
 
 ```python
 from module_name import SOME_CONSTANT, SomeClass, some_function
@@ -586,7 +586,7 @@ c = module_name.SomeClass()
 
 ### Wrong import order (C0411) {#C0411}
 
-Used when [PEP8 import order][PEP8 Imports] is not respected (do the standard library imports first, then third-party libraries, then local imports).
+This error occurs when the [PEP8 import order][PEP8 Imports] is not respected. We should do standard library imports first, then third-party libraries, then local imports.
 
 ~~~~ {include="C0411_wrong_import_order"}
 ~~~~
@@ -602,7 +602,7 @@ Imports should be placed at the top of the module, above any other code, but bel
 
 ### Ungrouped imports (C0412) {#C0412}
 
-Imports should be grouped by packages.
+Imports should be grouped by package.
 
 ~~~~ {include="C0412_ungrouped_imports"}
 ~~~~
@@ -610,14 +610,14 @@ Imports should be grouped by packages.
 Corrected version:
 
 ```python
-from sys import byteorder, stdin  # same packages should be grouped
+from sys import byteorder, stdin  # Same packages should be grouped
 from math import floor
 ```
 
 
 ### Multiple imports (C0410) {#C0410}
 
-Don't import multiple modules on one line.
+Different modules should not be imported on a single line.
 
 ~~~~ {include="C0410_multiple_imports"}
 ~~~~
@@ -693,6 +693,9 @@ class Composition(object):
         self.description = Description()
 ```
 
+**See also**:
+
+- [R0914](#R0914)
 
 ### Different method signature (W0222) {#W0222}
 
@@ -734,7 +737,7 @@ Private attributes and methods can be modified, added, or removed by the maintai
 
 ### Bad parent init (W0233) {#W0233}
 
-When using inheritance, we should call the `__init__` method of the parent class, and not of some unrelated class.
+When using inheritance, we should call the `__init__` method of the parent class and not of some unrelated class.
 
 ~~~~ {include="W0233_non_parent_init"}
 ~~~~
@@ -806,7 +809,7 @@ If we accidentally hide a method with an attribute, it can cause other code to a
 
 ### Unexpected special method signature (E0302) {#E0302}
 
-Occurs when a special method (aka ["dunder method"][Python double-under, double-wonder], because it has double underscores or "dunders" on both sides) does not have the expected number of parameters. Special methods have an expected signature, and if we create a method with the same name and a different number of parameters, it can break existing code and lead to exceptions.
+This error occurs when a special method (also known as a ["dunder method"][Python double-under, double-wonder], because it has double underscores or "dunders" on both sides) does not have the expected number of parameters. Special methods have an expected signature, and if we create a method with the same name and a different number of parameters, it can break existing code and lead to errors.
 
 ~~~~ {include="E0302_unexpected_special_method_signature"}
 ~~~~
@@ -827,7 +830,7 @@ class Animal:
 
 ### Inheriting from a non-class (E0239) {#E0239}
 
-When we inherit, it must come from a class. If we use something that is not a class, we won't be able to inherit from it. In the following example, trying to inherit from a string is not allowed. While a string is a class, this is passing in an object rather than the actual class itself.
+A new class can only inherit from a different class (i.e. a Python object which defines the *type* of an object). It cannot inherit from an instance of a class or from a Python literal such as a string, list, or dictionary literal.
 
 ~~~~ {include="E0239_inherit_non_class"}
 ~~~~
@@ -843,7 +846,7 @@ class FancyFloat(float):
 
 ### Duplicate bases (E0241) {#E0241}
 
-We should not be inheriting from the same class multiple times.
+A class should not inherit from a different class multiple times.
 
 ~~~~ {include="E0241_duplicate_bases"}
 ~~~~
