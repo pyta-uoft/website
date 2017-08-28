@@ -228,11 +228,11 @@ This error occurs when we are trying to assign to multiple variables at once, bu
 
 ## Code complexity
 
-### Simplifiable if statement (R0102) {#R0102}
+### Simplifiable if statement (R1703) {#R1703}
 
 This error occurs when we have an `if ... else` statement that can be simplified by using the value of the condition instead of additional `True` and `False` literals.
 
-~~~~ {include="R0102_simplifiable_if_statement"}
+~~~~ {include="R1703_simplifiable_if_statement"}
 ~~~~
 
 The above example can be simplified to:
