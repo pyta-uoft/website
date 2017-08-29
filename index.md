@@ -135,8 +135,6 @@ get_sum(1, 2, 3)
 
 A function must be called with one argument value per parameter in its header. This error indicates you called a function with too many arguments. In the following example, there should be *two* values passed to the function instead of three.
 
-
-
 ~~~~ {include="E1121_too_many_function_args"}
 ~~~~
 
@@ -497,7 +495,7 @@ rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
 ### Invalid name (C0103) {#C0103}
 
-This error occurs when a name does not follow the [Python Naming Convention][PEP8: Naming Conventions] associated with its type (constant, variable, etc.).
+This error occurs when a name does not follow the [Python Naming Convention][PEP8: Naming Conventions] associated with its role (constant, variable, etc.).
 
 - Names of variables, attributes, methods, and arguments should be in **`lowercase_with_underscores`**.
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
@@ -579,12 +577,8 @@ features we have covered in lectures, or ones that we have explicitly
 mentioned for an exercise/lab/assignment. No other external libraries
 may be used.
 
-```python
-import copy   # Error on this line
-
-x = [1, 2, 3]
-y = copy.copy(x)
-```
+~~~~ {include="E9999_forbidden_imports"}
+~~~~
 
 
 ### Import error (E0401) {#E0401}
@@ -864,17 +858,8 @@ some point. If you try to use it before assigning to it, an error will occur.
 
 If you accidentally hide a method with an attribute, it can cause other code to attempt to invoke what it believes to be a method, which will fail since it has become an attribute instead. This will cause the program to raise an error.
 
-```python
-class Example:
-    def field(self, num: float) -> float:
-        return num
-
-    def __init__(self) -> None:
-        self.field = 'Hiding the function with this string'
-
-e = Example()
-e.field(num)   # Error on this line
-```
+~~~~ {include="E0202_method_hidden"}
+~~~~
 
 
 ### Unexpected special method signature (E0302) {#E0302}
@@ -901,13 +886,8 @@ this is passing in an object rather than the actual class itself.
 When inheriting, you should only specify a class once to inherit from,
 multiple times is an error:
 
-```python
-class A:
-    pass
-
-class B(A, A):  # Only include A once to inherit properly
-    pass
-```
+~~~~ {include="E0241_duplicate_bases"}
+~~~~
 
 
 ### No method argument (E0211) {#E0211}
@@ -973,15 +953,8 @@ it is a bad practice).
 When you make a static method, you should not name any variable 'self'
 to avoid confusion.
 
-```python
-class C:
-    def __init__(self) -> None:
-        self.num = 5
-
-    @staticmethod
-    def method(self) -> int:  # Static methods do not have a 'self'
-        self.num += 1
-```
+~~~~ {include="W0211_bad_staticmethod_argument"}
+~~~~
 
 
 ## Exceptions
@@ -1062,15 +1035,8 @@ capture a generated exception, then do something before passing it onwards
 be done for program integrity that an exception would break). You can do this
 by calling *raise* on its own without a class as follows:
 
-```python
-def func() -> None:
-    try:
-        raise MyException()
-    except MyException:
-        # Do something important here (if needed).
-        # Now, raise again what we just caught.
-        raise
-```
+~~~~ {include="E0704_misplaced_bare_raise"}
+~~~~
 
 If you call *raise* outside of an 'except' block, it can't work because there
 is no exception to throw, as seen in the following example:
@@ -1353,6 +1319,7 @@ print(make_list(5))
 - [Common Gotchas - Mutable Default Arguments]
 - [Default Parameter Values in Python]
 
+
 ### Assert on tuple (W0199) {#W0199}
 
 This error occurs when an `assert` statement is called with a tuple as the first argument. `assert` acting on a tuple passes if and only if the tuple is non-empty. This is likely *not* what the programmer had intended.
@@ -1472,6 +1439,7 @@ for item in menu:
     print("My store sells {}.".format(item))
 ```
 
+
 ### Superfluous parens (C0325) {#C0325}
 
 This error occurs when a keyword, such as `if` or `for`, is followed by a single item enclosed in parentheses. In such a case, parentheses are not necessary.
@@ -1486,9 +1454,10 @@ if 'anchovies' in pizza_toppings:  # Error on this line
     print("Awesome!")
 ```
 
+
 ### Literal comparison (R0123) {#R0123}
 
-This error occurs when we use the identity operator `is` to compare Python literals. Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
+This error occurs when we use the identity operator `is` to compare non-boolean Python literals. Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
 
 ~~~~ {include="R0123_literal_comparison"}
 ~~~~
@@ -1500,13 +1469,13 @@ num = 256
 assert num == 256
 
 num = 257
-assert num == 257  # Assertion fails if typed into a Python interpreter
+assert num == 257
 
 chars = 'this_string_passes'
 assert chars == 'this_string_passes'
 
 chars = 'this string fails'
-assert chars == 'this string fails'  # Assertion fails if typed into a Python interpreter
+assert chars == 'this string fails'
 ```
 
 **See also**:
@@ -1515,6 +1484,7 @@ assert chars == 'this string fails'  # Assertion fails if typed into a Python in
 - [StackOverflow: About the changing id of an immutable string]
 - [StackOverflow: When does Python allocate new memory for identical strings?]
 
+
 ### Unsupported assignment operation (E1137) {#E1137}
 
 This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
@@ -1522,17 +1492,10 @@ This error occurs when we assign something to an object which does not support a
 ~~~~ {include="E1137_unsupported_assignment_operation"}
 ~~~~
 
-While we cannot mutate an immutable object, often, we can create a new object instead.
-
-```python
-my_string = "Hello World!"
-my_string = my_string[:6] + "Universe!"
-print(my_string)  # Prints 'Hello Universe!'
-```
 
 ### Expression not assigned (W0106) {#W0106}
 
-This error occurs when an expression that is not a function call is not assigned to a variable. Typically, this indicates that we were indenting to do something else.
+This error occurs when an expression that is not a function call is not assigned to a variable. Typically, this indicates that we were intending to do something else.
 
 ~~~~ {include="W0106_expression_not_assigned"}
 ~~~~
@@ -1544,6 +1507,7 @@ lst = [1, 2, 3]
 lst.append(4)
 print("Appended 4 to my list!")
 ```
+
 
 ### Invalid length returned (E0303) {#E0303}
 
@@ -1564,6 +1528,7 @@ class Company:
         return len(self._employees)
 ```
 
+
 ### Abstract method (W0223) {#W0223}
 
 This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a concrete class.
@@ -1579,6 +1544,7 @@ class Cat(Animal):
     def make_sound(self) -> str:
         return 'Miew...'
 ```
+
 
 ### Arguments differ (W0221) {#W0221}
 
@@ -1600,6 +1566,7 @@ class Dog(Animal):
             print("Grrrrrrr!!")
 ```
 
+
 ### Unexpected keyword arg (E1123) {#E1123}
 
 This error occurs when a function call passes a keyword argument which does not match the signature of the function being called.
@@ -1613,9 +1580,10 @@ Corrected version:
 print_greeting(name="Arthur")
 ```
 
+
 ### Redefined argument from local (R1704) {#R1704}
 
-This error occurs when a local name is redefining the name of a parameter. We should avoid reusing the name of a parameter in binding operations such as for iteration, with statement assignment, and exception handler assignment, as this needlessly obfuscates the code.
+This error occurs when a local name is redefining the name of a parameter.
 
 ~~~~ {include="R1704_redefined_argument_from_local"}
 ~~~~
@@ -1628,6 +1596,9 @@ def greet_person(name, friends) -> None:
     for friend in friends:
         print("I am friends with {}".format(friend))
 ```
+
+**See also**: [W0621](#W0621)
+
 
 ### Trailing comma tuple (R1707) {#R1707}
 
@@ -1642,6 +1613,7 @@ Corrected version:
 my_lucky_number = 7
 print(my_lucky_number)  # Prints 7
 ```
+
 
 ### Bad whitespace (C0326) {#C0326}
 
@@ -1673,6 +1645,7 @@ def hello_world() -> None:
     print("Hello World!")
 ```
 
+
 ### Bad indentation (W0311) {#W0311}
 
 This error occurs when an unexpected number of tabs or spaces is used to indent the code. It is recommended that you use [*four spaces per indentation level*][PEP8: Indentation] throughout your code.
@@ -1700,10 +1673,11 @@ Corrected version:
 ```python
 def pos(temp: int) -> str:
     if temp > 0:
-      return 'positive'
+        return 'positive'
     else:
         return 'negative'
 ```
+
 
 ### Unnecessary semicolon (W0301) {#W0301}
 
@@ -1732,6 +1706,7 @@ while the corrected file which contains a trailing newline character would not:
 print("Hello World!")  # Trailing newline is present:  ¬
 ```
 
+
 ### Trailing newlines (C0305) {#C0305}
 
 This error occurs when a file ends with more than one newline character (i.e. when a file contains trailing blank lines). For example:
@@ -1744,6 +1719,7 @@ Corrected version:
 ```python
 print("Hello World!")  # This file ends with a single newline character! :)
 ```
+
 
 ### Bad continuation (C0330) {#C0330}
 
@@ -1775,6 +1751,7 @@ def print_address(recipient_name: str,
     print(address_string)
 ```
 
+
 ### Nonexistent operator (E0107) {#E0107}
 
 This error occurs when we attempt to use C-style "pre-increment" or "pre-decrement" operators `++` and `--`, which do not exist in Python.
@@ -1789,6 +1766,7 @@ spam = 0
 spam += 1
 spam -= 1
 ```
+
 
 ### Used prior global declaration (E0118) {#E0118}
 
@@ -1806,6 +1784,7 @@ def timestep() -> None:
     print(TIME)
     TIME += 1
 ```
+
 
 ### Not an iterable (E1133) {#E1133}
 
@@ -1825,12 +1804,14 @@ for number in [1, 2, 3]:
 
 - [Python Documentation: Glossary]
 
+
 ### Line too long (C0301) {#C0301}
 
 This error occurs when a line is longer than a predefined number of characters. In `CSC148`, we should limit all lines to be less than 80 characters long.
 
 ~~~~ {include="C0301_line_too_long"}
 ~~~~
+
 
 ### Unsupported delete operation (E1138) {#E1138}
 
@@ -1851,11 +1832,13 @@ class NamedList:
         del self._names[idx]
         del self._values[idx]
 
+
 named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
 print('c' in named_list)  # Prints True
 del named_list['c']
 print('c' in named_list)  # Prints False
 ```
+
 
 <!-- Python objects -->
 [`__init__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
