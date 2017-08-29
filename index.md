@@ -1014,7 +1014,7 @@ Corrected version:
 
 ```python
 def divide(numerator: float, denominator: float) -> float:
-  """Divide the numerator by the denominator."""
+    """Divide the numerator by the denominator."""
     try:
         return numerator / denominator
     except ZeroDivisionError:
@@ -1629,7 +1629,7 @@ Corrected version:
 def is_positive(number: int) -> str:
     """Return whether the number is 'positive' or 'negative'."""
     if number > 0:
-      return 'positive'
+        return 'positive'
     else:
         return 'negative'
 ```
