@@ -332,20 +332,20 @@ This is a sign that the function/method is too complex, and should be split up.
 ~~~~
 
 
-### Too many nested blocks (R0101) {#R0101}
+### Too many nested blocks (R1702) {#R1702}
 
 This error occurs when you have more than three levels of nested blocks in your code.
 Deep nesting is a sign that your function or method is too complex, and should be broken down using helper functions or rewritten as a [list comprehension][list comprehensions tutorial].
 
 **Note**: This checker does not count function, method, or class definitions as blocks, so the example below is considered to have *six* nested blocks, not seven.
 
-~~~~ {include="R0101_too_many_nested_blocks"}
+~~~~ {include="R1702_too_many_nested_blocks"}
 ~~~~
 
 The code above can be fixed using a helper function:
 
 ```python
-def drop_none(lst: List[TN]) -> List[T]:
+def drop_none(lst: List[Optional[int]]) -> List[int]:
     new_lst = []
     for element in lst:
         if element is not None:
@@ -353,8 +353,8 @@ def drop_none(lst: List[TN]) -> List[T]:
     return new_lst
 
 
-def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
-               z_list: List[Optional[T]]) -> List[Tuple[T, T, T]]:
+def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
+               z_list: List[Optional[int]]) -> List[Tuple[int, int, int]]:
     cross_join_list = []
     for x in drop_none(x_list):
         for y in drop_none(y_list):
@@ -366,8 +366,8 @@ def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
 or using list comprehension:
 
 ```python
-def cross_join(x_list: List[Optional[T]], y_list: List[Optional[T]],
-               z_list: List[Optional[T]]) -> List[Tuple[T, T, T]]:
+def cross_join(x_list: List[Optional[int]], y_list: List[Optional[int]],
+               z_list: List[Optional[int]]) -> List[Tuple[int, int, int]]:
     cross_join_list = [
         (x, y, z)
         for x in x_list
@@ -497,7 +497,7 @@ rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
 ### Invalid name (C0103) {#C0103}
 
-This error occurs when a name does not follow the [Python Naming Convention] associated with its type (constant, variable, etc.).
+This error occurs when a name does not follow the [Python Naming Convention][PEP8: Naming Conventions] associated with its role (constant, variable, etc.).
 
 - Names of variables, attributes, methods, and arguments should be in **`lowercase_with_underscores`**.
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
@@ -862,10 +862,7 @@ some point. If you try to use it before assigning to it, an error will occur.
 
 ### Method hidden (E0202) {#E0202}
 
-If you accidentally mask a method with an attribute, it can cause other code
-to attempt to invoke what it believes to be a method, which will fail since
-it has become an attribute instead. This will cause the program
-to raise an error.
+If you accidentally hide a method with an attribute, it can cause other code to attempt to invoke what it believes to be a method, which will fail since it has become an attribute instead. This will cause the program to raise an error.
 
 ```python
 class Example:
@@ -873,10 +870,10 @@ class Example:
         return num
 
     def __init__(self) -> None:
-        self.field = 'Masking the function with this string'
+        self.field = 'Hiding the function with this string'
 
 e = Example()
-e.field(num)   # Error since we masked it
+e.field(num)   # Error on this line
 ```
 
 
@@ -1442,9 +1439,7 @@ def check(condition, message):
         ~~~~ {include="undefined_operator"}
         ~~~~
 
-### Indentation Error (E0002) {#E0002}
-
-1.  *IndentationError: unindent does not match any outer indentation level*
+4.  *IndentationError: unindent does not match any outer indentation level*
 
     You must use a constant number of whitespace characters for each level of indentation. If you start a code block using four spaces for indentation, you must use four spaces throughout that code block.
 
@@ -1453,13 +1448,411 @@ def check(condition, message):
 
     Note that it is **strongly recommended** that you [**always use four spaces per indentation level**][PEP8: Indentation] throughout your code.
 
-2.  *IndentationError: unexpected indent*
+5.  *IndentationError: unexpected indent*
 
     In Python, the only time you would increase the indentation level of your code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
 
     ~~~~ {include="unexpected_indent"}
     ~~~~
 
+
+## New errors {#new}
+
+### Consider iterating dictionary (C0201) {#C0201}
+
+It is more *pythonic* to iterate through a dictionary directly, without calling the `.keys` method.
+
+~~~~ {include="C0201_consider_iterating_dictionary"}
+~~~~
+
+Corrected version:
+
+```python
+for item in menu:
+    print("My store sells {}.".format(item))
+```
+
+### Superfluous parens (C0325) {#C0325}
+
+This error occurs when a keyword, such as `if` or `for`, is followed by a single item enclosed in parentheses. In such a case, parentheses are not necessary.
+
+~~~~ {include="C0325_superfluous_parens"}
+~~~~
+
+Corrected version:
+
+```python
+if 'anchovies' in pizza_toppings:  # Error on this line
+    print("Awesome!")
+```
+
+### Literal comparison (R0123) {#R0123}
+
+This error occurs when we use the identity operator `is` to compare non-boolean Python literals. Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
+
+~~~~ {include="R0123_literal_comparison"}
+~~~~
+
+To prevent the confusion, it is advisable to use the equality operator `==` when comparing objects with Python literals.
+
+```python
+num = 256
+assert num == 256
+
+num = 257
+assert num == 257
+
+chars = 'this_string_passes'
+assert chars == 'this_string_passes'
+
+chars = 'this string fails'
+assert chars == 'this string fails'
+```
+
+**See also**:
+
+- [Literally Literals and Other Number Oddities In Python]
+- [StackOverflow: About the changing id of an immutable string]
+- [StackOverflow: When does Python allocate new memory for identical strings?]
+
+### Unsupported assignment operation (E1137) {#E1137}
+
+This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
+
+~~~~ {include="E1137_unsupported_assignment_operation"}
+~~~~
+
+
+### Expression not assigned (W0106) {#W0106}
+
+This error occurs when an expression that is not a function call is not assigned to a variable. Typically, this indicates that we were intending to do something else.
+
+~~~~ {include="W0106_expression_not_assigned"}
+~~~~
+
+Corrected version:
+
+```python
+lst = [1, 2, 3]
+lst.append(4)
+print("Appended 4 to my list!")
+```
+
+### Invalid length returned (E0303) {#E0303}
+
+This error occurs when the `__len__` special method returns something other than a non-negative integer.
+
+~~~~ {include="E0303_invalid_length_returned"}
+~~~~
+
+Corrected version:
+
+```python
+class Company:
+
+    def __init__(self, employees: List[str]) -> None:
+        self._employees = employees
+
+    def __len__(self) -> int:
+        return len(self._employees)
+```
+
+### Abstract method (W0223) {#W0223}
+
+This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a concrete class.
+
+~~~~ {include="W0223_abstract_method"}
+~~~~
+
+Corrected version:
+
+```python
+class Cat(Animal):
+
+    def make_sound(self) -> str:
+        return 'Miew...'
+```
+
+### Arguments differ (W0221) {#W0221}
+
+This error occurs when a method takes a different number of arguments than the interface that it implements or the method that it overrides.
+
+~~~~ {include="W0221_arguments_differ"}
+~~~~
+
+Corrected version:
+
+```python
+class Dog(Animal):
+    """Class representing a dog."""
+
+    def make_sound(self, mood: str) -> None:
+        if mood == 'happy':
+            print("Woof Woof!")
+        elif mood == 'angry':
+            print("Grrrrrrr!!")
+```
+
+### Unexpected keyword arg (E1123) {#E1123}
+
+This error occurs when a function call passes a keyword argument which does not match the signature of the function being called.
+
+~~~~ {include="E1123_unexpected_keyword_arg"}
+~~~~
+
+Corrected version:
+
+```python
+print_greeting(name="Arthur")
+```
+
+### Redefined argument from local (R1704) {#R1704}
+
+This error occurs when a local name is redefining the name of a parameter.
+
+~~~~ {include="R1704_redefined_argument_from_local"}
+~~~~
+
+Corrected version:
+
+```python
+def greet_person(name, friends) -> None:
+    print("My name is {}".format(name))
+    for friend in friends:
+        print("I am friends with {}".format(friend))
+```
+
+**See also**: [W0621](#W0621)
+
+
+### Trailing comma tuple (R1707) {#R1707}
+
+This error occurs when a Python expression is terminated by a comma. In Python, a tuple is created by the comma symbol, not by parentheses. This makes it easy to create a tuple accidentally, by misplacing a comma, which can lead to obscure bugs. In order to make our intention clear, we should always use parentheses when creating a tuple, and we should never leave a trailing comma in our code.
+
+~~~~ {include="R1707_trailing_comma_tuple"}
+~~~~
+
+Corrected version:
+
+```python
+my_lucky_number = 7
+print(my_lucky_number)  # Prints 7
+```
+
+### Bad whitespace (C0326) {#C0326}
+
+This error occurs when we include a wrong number of spaces around an operator, bracket, or block opener. We should aim to follow the [PEP8 convention on whitespace in expressions and statements][PEP8: Whitespace in Expressions and Statements].
+
+~~~~ {include="C0326_bad_whitespace"}
+~~~~
+
+Corrected version:
+
+```python
+def func(temp: int) -> bool:
+    """Return whether <temp> is greater than 0."""
+    return temp > 0
+```
+
+### Mixed indentation (W0312) {#W0312}
+
+This error occurs when the code is indented with a mix of tabs and spaces. Please note that [*spaces are the preferred indentation method*][PEP8: Tabs or Spaces?].
+
+~~~~ {include="W0312_mixed_indentation"}
+~~~~
+
+Corrected version:
+
+```python
+def hello_world() -> None:
+    """Greet the universe with a friendly 'Hello World!'."""
+    print("Hello World!")
+```
+
+### Bad indentation (W0311) {#W0311}
+
+This error occurs when an unexpected number of tabs or spaces is used to indent the code. It is recommended that you use [*four spaces per indentation level*][PEP8: Indentation] throughout your code.
+
+~~~~ {include="W0311_bad_indentation"}
+~~~~
+
+Corrected version:
+
+```python
+def print_greeting(name: str) -> None:
+    print('Hello {}!'.format(name))
+```
+
+
+### Multiple statements (C0321) {#C0321}
+
+This error occurs when we write more than one statement on a single line. According to PEP8, [*multiple statements on the same line are discouraged*][PEP8: Other Recommendations].
+
+~~~~ {include="C0321_multiple_statements"}
+~~~~
+
+Corrected version:
+
+```python
+def pos(temp: int) -> str:
+    if temp > 0:
+        return 'positive'
+    else:
+        return 'negative'
+```
+
+### Unnecessary semicolon (W0301) {#W0301}
+
+This error occurs when we end a Python statement with a semicolon. There is no good reason to ever use a semicolon in Python.
+
+~~~~ {include="W0301_unnecessary_semicolon"}
+~~~~
+
+Corrected version:
+
+```python
+print("Hello World!")
+```
+
+
+### Missing final newline (C0304) {#C0304}
+
+This error occurs when a file is missing a trailing newline character. For example, if we represent a (typically invisible) newline character as `¬`, the following file would raise this error:
+
+~~~~ {include="C0304_missing_final_newline"}
+~~~~
+
+while the corrected file which contains a trailing newline character would not:
+
+```python
+print("Hello World!")  # Trailing newline is present:  ¬
+```
+
+### Trailing newlines (C0305) {#C0305}
+
+This error occurs when a file ends with more than one newline character (i.e. when a file contains trailing blank lines). For example:
+
+~~~~ {include="C0305_trailing_newlines"}
+~~~~
+
+Corrected version:
+
+```python
+print("Hello World!")  # This file ends with a single newline character! :)
+```
+
+### Bad continuation (C0330) {#C0330}
+
+This error occurs when we use an inconsistent number of spaces to indent arguments or parameters in function and method calls or definitions.
+
+~~~~ {include="C0330_bad_continuation"}
+~~~~
+
+Corrected version:
+
+```python
+def print_address(recipient_name: str,
+                  street_number_and_name: str,
+                  city: str,
+                  province: str,
+                  country: str) -> None:
+    """Print the provided address in a standardized format."""
+    address_string = (
+        "{recipient_name}\n"
+        "{street_number_and_name}\n"
+        "{city}, {province}\n"
+        "{country}"
+        .format(
+            recipient_name=recipient_name,
+            street_number_and_name=street_number_and_name,
+            city=city,
+            province=province,
+            country=country))
+    print(address_string)
+```
+
+### Nonexistent operator (E0107) {#E0107}
+
+This error occurs when we attempt to use C-style "pre-increment" or "pre-decrement" operators `++` and `--`, which do not exist in Python.
+
+~~~~ {include="E0107_nonexistent_operator"}
+~~~~
+
+Corrected version:
+
+```python
+spam = 0
+spam += 1
+spam -= 1
+```
+
+### Used prior global declaration (E0118) {#E0118}
+
+This error occurs when we use a global name prior to the global declaration.
+
+~~~~ {include="E0118_used_prior_global_declaration"}
+~~~~
+
+Corrected version:
+
+```python
+def timestep() -> None:
+    """Increment global time by 1."""
+    global TIME
+    print(TIME)
+    TIME += 1
+```
+
+### Not an iterable (E1133) {#E1133}
+
+This error occurs when a non-iterable value is used in a place where an iterable is expected. An iterable is an object capable of returning its members one at a time. Examples of iterables include sequence types such as `list`, `str`, and `tuple`, some non-sequence types such as `dict`, and instances of other classes which define the `__iter__` or `__getitem__` special methods.
+
+~~~~ {include="E1133_not_an_iterable"}
+~~~~
+
+Corrected version:
+
+```python
+for number in [1, 2, 3]:
+    print(number)
+```
+
+**See also**:
+
+- [Python Documentation: Glossary]
+
+### Line too long (C0301) {#C0301}
+
+This error occurs when a line is longer than a predefined number of characters. In `CSC148`, we should limit all lines to be less than 80 characters long.
+
+~~~~ {include="C0301_line_too_long"}
+~~~~
+
+### Unsupported delete operation (E1138) {#E1138}
+
+This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion (i.e. an object that does not define the `__delitem__` special method).
+
+~~~~ {include="E1138_unsupported_delete_operation"}
+~~~~
+
+Corrected version:
+
+```python
+class NamedList:
+
+    ...  # Same as in the code above
+
+    def __delitem__(self, name: str) -> None:
+        idx = self._names.index(name)
+        del self._names[idx]
+        del self._values[idx]
+
+
+named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
+print('c' in named_list)  # Prints True
+del named_list['c']
+print('c' in named_list)  # Prints False
+```
 
 <!-- Python objects -->
 [`__init__`]: https://docs.python.org/3/reference/datamodel.html#object.__init__
@@ -1476,6 +1869,7 @@ def check(condition, message):
 [`compile`]: https://docs.python.org/3/library/functions.html#compile
 
 <!-- Python docs -->
+[Python Documentation: Glossary]: https://docs.python.org/3/glossary.html
 [`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
 [Built-in Functions]: https://docs.python.org/3/library/functions.html
 
@@ -1494,17 +1888,23 @@ def check(condition, message):
 <!-- PEP8 -->
 [PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
 [PEP8: Indentation]: https://www.python.org/dev/peps/pep-0008/#indentation
-[Python Naming Convention]: https://www.python.org/dev/peps/pep-0008/#prescriptive-naming-conventions
+[PEP8: Naming Conventions]: https://www.python.org/dev/peps/pep-0008/#naming-conventions
+[PEP8: Other Recommendations]: https://www.python.org/dev/peps/pep-0008/#other-recommendations
+[PEP8: Tabs or Spaces?]: https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
+[PEP8: Whitespace in Expressions and Statements]: https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements
 
 <!-- StackOverflow -->
 [StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
 [StackOverflow: What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
 [StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
+[StackOverflow: About the changing id of an immutable string]: https://stackoverflow.com/questions/24245324/about-the-changing-id-of-an-immutable-string
+[StackOverflow: When does Python allocate new memory for identical strings?]: https://stackoverflow.com/questions/2123925/when-does-python-allocate-new-memory-for-identical-strings
 
 <!-- everything else -->
 [Common Gotchas - Mutable Default Arguments]: http://docs.python-guide.org/en/latest/writing/gotchas/#mutable-default-arguments
 [Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
 [list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
+[Literally Literals and Other Number Oddities In Python]: https://www.everymundo.com/literals-other-number-oddities-python/
 [Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
 [Python's Super Considered Harmful]: https://fuhm.net/super-harmful/
 [Super Considered Super!]: https://youtu.be/EiOglTERPEo
