@@ -497,7 +497,7 @@ rather than a meaningful one. Here are some of the blacklisted names to avoid:
 
 ### Invalid name (C0103) {#C0103}
 
-This error occurs when a name does not follow the [Python Naming Convention][PEP8: Naming Conventions] associated with its type (constant, variable, etc.).
+This error occurs when a name does not follow the [Python Naming Convention][PEP8: Naming Conventions] associated with its role (constant, variable, etc.).
 
 - Names of variables, attributes, methods, and arguments should be in **`lowercase_with_underscores`**.
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
@@ -1488,7 +1488,7 @@ if 'anchovies' in pizza_toppings:  # Error on this line
 
 ### Literal comparison (R0123) {#R0123}
 
-This error occurs when we use the identity operator `is` to compare Python literals. Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
+This error occurs when we use the identity operator `is` to compare non-boolean Python literals. Whether or not two literals representing the same value (e.g. two identical strings) have the same identity can vary, depending on the way the code is being executed, the code that has ran previously, and the version and implementation of the Python interpreter. For example, each of the following assertions pass if the lines are evaluated together from a Python file, but `assert num is 257` and `assert chars is 'this string fails'` fail if the lines are entered into a Python interpreter one-by-one.
 
 ~~~~ {include="R0123_literal_comparison"}
 ~~~~
@@ -1500,13 +1500,13 @@ num = 256
 assert num == 256
 
 num = 257
-assert num == 257  # Assertion fails if typed into a Python interpreter
+assert num == 257
 
 chars = 'this_string_passes'
 assert chars == 'this_string_passes'
 
 chars = 'this string fails'
-assert chars == 'this string fails'  # Assertion fails if typed into a Python interpreter
+assert chars == 'this string fails'
 ```
 
 **See also**:
@@ -1522,17 +1522,10 @@ This error occurs when we assign something to an object which does not support a
 ~~~~ {include="E1137_unsupported_assignment_operation"}
 ~~~~
 
-While we cannot mutate an immutable object, often, we can create a new object instead.
-
-```python
-my_string = "Hello World!"
-my_string = my_string[:6] + "Universe!"
-print(my_string)  # Prints 'Hello Universe!'
-```
 
 ### Expression not assigned (W0106) {#W0106}
 
-This error occurs when an expression that is not a function call is not assigned to a variable. Typically, this indicates that we were indenting to do something else.
+This error occurs when an expression that is not a function call is not assigned to a variable. Typically, this indicates that we were intending to do something else.
 
 ~~~~ {include="W0106_expression_not_assigned"}
 ~~~~
@@ -1615,7 +1608,7 @@ print_greeting(name="Arthur")
 
 ### Redefined argument from local (R1704) {#R1704}
 
-This error occurs when a local name is redefining the name of a parameter. We should avoid reusing the name of a parameter in binding operations such as for iteration, with statement assignment, and exception handler assignment, as this needlessly obfuscates the code.
+This error occurs when a local name is redefining the name of a parameter.
 
 ~~~~ {include="R1704_redefined_argument_from_local"}
 ~~~~
@@ -1628,6 +1621,9 @@ def greet_person(name, friends) -> None:
     for friend in friends:
         print("I am friends with {}".format(friend))
 ```
+
+**See also**: [W0621](#W0621)
+
 
 ### Trailing comma tuple (R1707) {#R1707}
 
@@ -1700,7 +1696,7 @@ Corrected version:
 ```python
 def pos(temp: int) -> str:
     if temp > 0:
-      return 'positive'
+        return 'positive'
     else:
         return 'negative'
 ```
@@ -1850,6 +1846,7 @@ class NamedList:
         idx = self._names.index(name)
         del self._names[idx]
         del self._values[idx]
+
 
 named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
 print('c' in named_list)  # Prints True
