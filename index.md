@@ -1744,7 +1744,7 @@ def timestep() -> None:
 
 ### Not an iterable (E1133) {#E1133}
 
-This error occurs when a non-iterable value is used in a place where an iterable is expected. An iterable is an object capable of returning its members one at a time. Examples of iterables include sequence types such as `list`, `str`, and `tuple`, some non-sequence types such as `dict`, and instances of other classes which define the `__iter__` or `__getitem__` special methods.
+This error occurs when a non-iterable value is used in a place where an iterable is expected. An [iterable][Python Documentation: iterable] is an object capable of returning its members one at a time. Examples of iterables include sequence types such as `list`, `str`, and `tuple`, some non-sequence types such as `dict`, and instances of other classes which define the `__iter__` or `__getitem__` special methods.
 
 ~~~~ {include="E1133_not_an_iterable"}
 ~~~~
@@ -1755,10 +1755,6 @@ Corrected version:
 for number in [1, 2, 3]:
     print(number)
 ```
-
-**See also**:
-
-- [Python Documentation: Glossary]
 
 
 ### Line too long (C0301) {#C0301}
@@ -1822,7 +1818,7 @@ print('c' in named_list)  # Prints False
 [Python Documentation: BaseException]: https://docs.python.org/3/library/exceptions.html#BaseException
 [Python Documentation: decorator]: https://docs.python.org/3/glossary.html#term-decorator
 [Python Documentation: Exception]: https://docs.python.org/3/library/exceptions.html#Exception
-[Python Documentation: Glossary]: https://docs.python.org/3/glossary.html
+[Python Documentation: iterable]: https://docs.python.org/3/glossary.html#term-iterable
 [Python Documentation: KeyboardInterrupt]: https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt
 [Python Documentation: NotImplemented]:https://docs.python.org/3/library/constants.html#NotImplemented
 [Python Documentation: NotImplementedError]:https://docs.python.org/3/library/constants.html#NotImplementedError
