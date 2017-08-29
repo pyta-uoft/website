@@ -710,7 +710,7 @@ Corrected version:
 class PremiumBankAccount(StandardBankAccount):
     ...
 
-    def withdraw(self, ammount: float = 200) -> float:  # Note the default argument
+    def withdraw(self, amount: float = 200) -> float:  # Note the default argument
         ...
 ```
 
@@ -818,7 +818,7 @@ Corrected version:
 
 ```python
 class Animal:
-    """A carbon-based life form."""
+    """A carbon-based life form that eats and moves around."""
 
     def __init__(self, name: str) -> None:
         self._name = name
@@ -854,7 +854,7 @@ A class should not inherit from a different class multiple times.
 
 ### No method argument (E0211) {#E0211}
 
-Each method in a class needs to have at least one argument, which by convention we call `self`. When we create an instance of a class and call an instance method, Python automatically passes the class instance as the first argument to the method. If a method does not expect any arguments, this will result in an error.
+Each method in a class needs to have at least one parameter, which by convention we name `self`. When we create an instance of a class and call an instance method, Python automatically passes the class instance as the first argument to the method. If a method does not expect any arguments, this will result in an error.
 
 ~~~~ {include="E0211_no_method_argument"}
 ~~~~
@@ -862,40 +862,92 @@ Each method in a class needs to have at least one argument, which by convention 
 Corrected version:
 
 ```python
-class MyClass:
-    def __init__(self) -> None:
-        pass
+class Saxophone:
+    """A jazzy musical instrument."""
 
-    def method(self) -> None:
-        print('Missing argument for method definition')
+    def __init__(self) -> None:
+        self._sound = "Saxamaphone...."
+
+    def make_sound(self) -> None:
+        print(self._sound)
 ```
 
 
 ### `self` as the first argument (E0213) {#E0213}
 
-The first parameter should be the exact word `self`. Naming the first parameter something else is not technically an error, but using "self" is such a common practice that PyTA checks for this. The following is an example of a good, and bad example:
+The first parameter of a method should always be called `self`. While it is possible to name the first parameter something else, using the word `self` is a convention that is strongly adhered to by the Python community and makes it clear that we did not simply forget to add `self` or accidentally indented a function as a method.
 
 ~~~~ {include="E0213_no_self_argument"}
 ~~~~
 
+Corrected version:
+
+```python
+class SecretKeeper:
+    """A class which stores a secret as a private attribute."""
+
+    def __init__(self, secret: str) -> None:
+        self._secret = secret
+
+    def guess_secret(self, secret) -> bool:
+        """Guess the private secret."""
+        return self._secret == secret
+```
 
 ### No self use (R0201) {#R0201}
 
-If a method (a function in a class) does not make use of the 'self' (or first) argument, that means the function is not performing anything that is related to the object itself. This means the function could be moved outside of the class since none of the code inside makes use of anything
-inside the class it's defined.
+If a method does not make use of the first argument `self`, it means that the task that the method is performing is not linked to the class of which it is a member. In such a case, we should rewrite the method as a function (by removing the first parameter `self`) and move it outside the class.
+
+In the following example, `add_small_coins` does not make use of the first parameter `self` and so can be moved outside the class as a function.
 
 ~~~~ {include="R0201_no_self_use"}
 ~~~~
 
+Corrected version:
+
+```python
+class CashRegister:
+    """A cash register for storing money and making change."""
+
+    def __init__(self, balance: float) -> None:
+        self._current_balance = balance
+
+
+def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0):
+    """Return the dollar value of the small coins."""
+    return 0.05 * nickels + 0.10 * dimes + 0.25 * quarters
+```
+
+**See also**:
+
+- [W0211](#W0211)
 
 ### Bad static member (W0211) {#W0211}
 
-Static methods are methods that do not operate on instances. Including one inside a class can be done if we feel the logic belongs inside the class and should be encapsulated by it for clarity, but static methods mean they do not operate on classes, and therefore 'self' is very likely a programming error unless we know what we are doing (and even then, it is a bad practice).
-
-When we make a static method, we should not name any variable 'self' to avoid confusion.
+This error occurs when a static method contains `self` as the first parameter. Static methods are methods that do not operate on instances. If we feel that the logic of a particular function belongs inside a class, we can move that function into the class and add a [`@staticmethod`][Python Documentation: staticmethod] [decorator][Python Documentation: decorator] to signal that the method is a static method which does not take a class instance as the first argument. If such a static method contains `self` as the first parameter, it suggests that we are erroneously expecting a class instance as the first argument to the method.
 
 ~~~~ {include="W0211_bad_staticmethod_argument"}
 ~~~~
+
+Corrected version:
+
+```python
+class CashRegister:
+    """A cash register for storing money and making change."""
+
+    def __init__(self, balance: float) -> None:
+        self._current_balance = balance
+
+    @staticmethod
+    def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0):
+        """Return the dollar value of the small coins."""
+        return 0.05 * nickels + 0.10 * dimes + 0.25 * quarters
+```
+
+**See also**:
+
+- [R0201](#R0201)
+- [StackOverflow: What is the difference between \@staticmethod and \@classmethod in Python?]
 
 
 ## Exceptions
@@ -910,7 +962,7 @@ If the `except` keyword is used without being passed an exception, *all exceptio
 
 ### Exception is too generic (W0703) {#W0703}
 
-Using `except Exception:` is only slightly more specific than `except:` and should also be avoided (see [W0702](#W0702)). Since most builtin exceptions, and all user-defined exceptions, are derived from the `Exception` class, using `except Exception:` provides no information regarding which exception actually occurred. Exceptions which we do not expect can go unnoticed, which may lead to bugs.
+Using `except Exception:` is only slightly more specific than `except:` and should also be avoided (see [W0702](#W0702)). Since most builtin exceptions, and all user-defined exceptions, are derived from the `Exception` class, using `except Exception:` provides no information regarding which exception actually occurred. Exceptions which we do not expect can go unnoticed, and this may lead to bugs.
 
 ~~~~ {include="W0703_broad_except"}
 ~~~~
@@ -934,7 +986,7 @@ Except blocks are analyzed sequentially (from top to bottom) and the first block
 
 ### Binary op exception (W0711) {#W0711}
 
-The Python `except` statement can catch multiple exceptions, if those exceptions are passed as a tuple. It is possible (but incorrect!) to pass `except` an expression containing the exception classes separated by a binary operator such as `and` or `or`. In this case, only one of the exceptions will be caught!
+The Python `except` statement can catch multiple exceptions, if those exceptions are passed as a tuple. It is possible (but incorrect!) to pass `except` an expression containing the exception classes separated by a binary operator such as `and` or `or`. In such a case, only one of the exceptions will be caught!
 
 ~~~~ {include="W0711_binary_op_exception"}
 ~~~~
@@ -978,6 +1030,8 @@ The Python `raise` statement expects an object that is derived from the [`BaseEx
 ~~~~ {include="E0702_raising_bad_type"}
 ~~~~
 
+**See also**: [E0710](#E0710)
+
 
 ### Raising non-exception (E0710) {#E0710}
 
@@ -989,7 +1043,7 @@ The Python `raise` statement expects an object that is derived from the [`BaseEx
 
 ### NotImplemented raised (E0711) {#E0711}
 
-[`NotImplemented`][Python Documentation: NotImplemented] should only be used as a return value for binary special methods, such as `__eq__`, `__lt__`, `__add__`, etc., to indicate that the operation is not implemented with respect to the other type. It is *not interchangeable* with [`NotImplementedError`][Python Documentation: NotImplementedError], which should be used to indicate that the abstract method must be implemented the derived class.
+[`NotImplemented`][Python Documentation: NotImplemented] should only be used as a return value for binary special methods, such as `__eq__`, `__lt__`, `__add__`, etc., to indicate that the operation is not implemented with respect to the other type. It is *not interchangeable* with [`NotImplementedError`][Python Documentation: NotImplementedError], which should be used to indicate that the abstract method must be implemented by the derived class.
 
 ~~~~ {include="E0711_notimplemented_raised"}
 ~~~~
@@ -1053,7 +1107,7 @@ country = "England"
 s = "{} who is {} lives in {}".format(name, age, country)
 ```
 
-This error is similar to [E1121](#E1121).
+**See also**: [E1121](#E1121)
 
 
 
@@ -1070,7 +1124,7 @@ Corrected version:
 s = "{} and {}".format("first", "second")
 ```
 
-This error is similar to [E1120](#E1120).
+**See also**: [E1120](#E1120)
 
 
 ### Missing format argument key (W1303) {#W1303}
@@ -1086,7 +1140,7 @@ Corrected version:
 s = '{last_name}, {fist_name} - {age}'.format(last_name='bond', first_name='james', age=37)
 ```
 
-This error is similar to [E1120](#E1120) and [E1306](#E1120).
+**See also**: [E1120](#E1120), [E1306](#E1120)
 
 
 ### Bad str strip call (E1310) {#E1310}
@@ -1148,9 +1202,7 @@ print('This is not an escape sequence: \\d')
 
 ### Redundant unittest assert (W1503) {#W1503}
 
-The first argument of `assertTrue` and `assertFalse` is a "condition", which should evaluate to `True` or `False`.
-
-These methods evaluate the condition to check whether the test passes or fails. The conditions should depend on the code that we are testing, and should not be a constant literal like `True` or `4`. Otherwise, the test will always have the same result, regardless of whether our code is correct.
+The first argument of `assertTrue` and `assertFalse` is a "condition", which should evaluate to `True` or `False`. These methods evaluate the condition to check whether the test passes or fails. The conditions should depend on the code that we are testing, and should not be a constant literal like `True` or `4`. Otherwise, the test will always have the same result, regardless of whether our code is correct.
 
 ~~~~ {include="W1503_redundant_unittest_assert"}
 ~~~~
@@ -1171,7 +1223,7 @@ def is_int(obj: Union[int, float, str]) -> bool:
     return isinstance(obj, int)
 ```
 
-This error is similar to [C0121](#C0121).
+**See also**: [C0121](#C0121)
 
 
 ### Dangerous default value (W0102) {#W0102}
@@ -1348,7 +1400,7 @@ This error occurs when a keyword, such as `if` or `for`, is followed by a single
 Corrected version:
 
 ```python
-if 'anchovies' in pizza_toppings:  # Error on this line
+if 'anchovies' in pizza_toppings:
     print("Awesome!")
 ```
 
@@ -1419,6 +1471,7 @@ Corrected version:
 
 ```python
 class Company:
+    """A company with some employees."""
 
     def __init__(self, employees: List[str]) -> None:
         self._employees = employees
@@ -1439,6 +1492,7 @@ Corrected version:
 
 ```python
 class Cat(Animal):
+    """A worthy companion."""
 
     def make_sound(self) -> str:
         return 'Miew...'
@@ -1456,7 +1510,7 @@ Corrected version:
 
 ```python
 class Dog(Animal):
-    """Class representing a dog."""
+    """A man's best friend."""
 
     def make_sound(self, mood: str) -> None:
         if mood == 'happy':
@@ -1491,6 +1545,7 @@ Corrected version:
 
 ```python
 def greet_person(name, friends) -> None:
+    """Print the name of a person and all their friends."""
     print("My name is {}".format(name))
     for friend in friends:
         print("I am friends with {}".format(friend))
@@ -1556,7 +1611,7 @@ Corrected version:
 
 ```python
 def print_greeting(name: str) -> None:
-    """Print a greeting message."""
+    """Print a greeting to the person with the given name."""
     print('Hello {}!'.format(name))
 ```
 
@@ -1571,7 +1626,7 @@ This error occurs when we write more than one statement on a single line. Accord
 Corrected version:
 
 ```python
-def pos(number: int) -> str:
+def is_positive(number: int) -> str:
     """Return whether the number is 'positive' or 'negative'."""
     if number > 0:
       return 'positive'
@@ -1756,26 +1811,24 @@ print('c' in named_list)  # Prints False
 [`compile`]: https://docs.python.org/3/library/functions.html#compile
 
 <!-- Python docs -->
-[Python Documentation: Glossary]: https://docs.python.org/3/glossary.html
-[Python Documentation: Exception]: https://docs.python.org/3/library/exceptions.html#Exception
-[Python Documentation: BaseException]: https://docs.python.org/3/library/exceptions.html#BaseException
-[Python Documentation: NotImplemented]:https://docs.python.org/3/library/constants.html#NotImplemented
-[Python Documentation: NotImplementedError]:https://docs.python.org/3/library/constants.html#NotImplementedError
-[`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
-[Built-in Functions]: https://docs.python.org/3/library/functions.html
-[Python Documentation: KeyboardInterrupt]: https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt
 
+[`math` module]: https://docs.python.org/3/library/math.html
+[`pass` statements]: https://docs.python.org/3/tutorial/controlflow.html#pass-statements
+[AttributeError]: https://docs.python.org/3/library/exceptions.html#AttributeError
 [Binary arithmetic operations]: https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations
+[Built-in Functions]: https://docs.python.org/3/library/functions.html
 [Compound statements]: https://docs.python.org/3/reference/compound_stmts.html
 [Keywords]: https://docs.python.org/3/reference/lexical_analysis.html#keywords
-<!-- [Literals]: https://docs.python.org/3/reference/lexical_analysis.html#literals
-[Operators]: https://docs.python.org/3/reference/lexical_analysis.html#operators
-[Delimiters]: https://docs.python.org/3/reference/lexical_analysis.html#delimiters -->
+[Python Documentation: BaseException]: https://docs.python.org/3/library/exceptions.html#BaseException
+[Python Documentation: decorator]: https://docs.python.org/3/glossary.html#term-decorator
+[Python Documentation: Exception]: https://docs.python.org/3/library/exceptions.html#Exception
+[Python Documentation: Glossary]: https://docs.python.org/3/glossary.html
+[Python Documentation: KeyboardInterrupt]: https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt
+[Python Documentation: NotImplemented]:https://docs.python.org/3/library/constants.html#NotImplemented
+[Python Documentation: NotImplementedError]:https://docs.python.org/3/library/constants.html#NotImplementedError
+[Python Documentation: staticmethod]: https://docs.python.org/3/library/functions.html#staticmethod
 [String and Bytes literals]: https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
-
 [Unary arithmetic and bitwise operations]: https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations
-[`math` module]: https://docs.python.org/3/library/math.html
-[AttributeError]: https://docs.python.org/3/library/exceptions.html#AttributeError
 
 <!-- PEP8 -->
 [PEP8 Imports]: https://www.python.org/dev/peps/pep-0008/#imports
@@ -1786,10 +1839,11 @@ print('c' in named_list)  # Prints False
 [PEP8: Whitespace in Expressions and Statements]: https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements
 
 <!-- StackOverflow -->
+[StackOverflow: About the changing id of an immutable string]: https://stackoverflow.com/questions/24245324/about-the-changing-id-of-an-immutable-string
 [StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
 [StackOverflow: What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
+[StackOverflow: What is the difference between \@staticmethod and \@classmethod in Python?]: https://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python
 [StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
-[StackOverflow: About the changing id of an immutable string]: https://stackoverflow.com/questions/24245324/about-the-changing-id-of-an-immutable-string
 [StackOverflow: When does Python allocate new memory for identical strings?]: https://stackoverflow.com/questions/2123925/when-does-python-allocate-new-memory-for-identical-strings
 
 <!-- everything else -->
