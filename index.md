@@ -451,7 +451,7 @@ This error occurs when a name does not follow the [Python Naming Convention][PEP
 - Names of constants should be in **`ALL_CAPS_WITH_UNDERSCORES`**.
 - Names of classes should be in **`CamelCase`**.
 
-A special character accepted in all types of names is '_'. Numbers are allowed in all names, but names must not begin with a number.
+A special character accepted in all types of names is `_`. Numbers are allowed in all names, but names must not begin with a number.
 
 ~~~~ {include="C0103_invalid_name"}
 ~~~~
@@ -516,7 +516,7 @@ There are standards governing how we should organize our imports, or even possib
 
 ### Forbidden imports (E9999) {#E9999}
 
-In CSC148, we should only use the Python language features we have covered in lectures, or ones that we have explicitly mentioned for an exercise/lab/assignment. No other external libraries may be used.
+In CSC108/CSC148, we should only use the Python language features we have covered in lectures, or ones that we have explicitly mentioned for an exercise/lab/assignment. No other external libraries may be used.
 
 ~~~~ {include="E9999_forbidden_imports"}
 ~~~~
@@ -875,7 +875,7 @@ class Saxophone:
 
 ### `self` as the first argument (E0213) {#E0213}
 
-The first parameter of a method should always be called `self`. While it is possible to name the first parameter something else, using the word `self` is a convention that is strongly adhered to by the Python community and makes it clear that we did not simply forget to add `self` or accidentally indented a function as a method.
+The first parameter of a method should always be called `self`. While it is possible to name the first parameter something else, using the word `self` is a convention that is strongly adhered to by the Python community and makes it clear that we did not simply forget to add `self` or accidentally intended a function as a method.
 
 ~~~~ {include="E0213_no_self_argument"}
 ~~~~
@@ -1759,7 +1759,7 @@ for number in [1, 2, 3]:
 
 ### Line too long (C0301) {#C0301}
 
-This error occurs when a line is longer than a predefined number of characters. In `CSC148`, we should limit all lines to be less than 80 characters long.
+This error occurs when a line is longer than a predefined number of characters. Our default limit for all lines is 80 characters.
 
 ~~~~ {include="C0301_line_too_long"}
 ~~~~
