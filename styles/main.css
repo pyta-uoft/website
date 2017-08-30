@@ -63,7 +63,7 @@ div.panel.show {
 
 body {
   background-color: #fafafa;
-  font-family: avenir, sans-serif;
+  font-family: 'Nunito', sans-serif;
   color: #444;
   font-size: 14px;
   line-height: 1.3;
@@ -183,34 +183,12 @@ fieldset {
 
 /* Fonts */
 strong {
-  font-family: avenir-bold, sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 em {
-  font-family: avenir-italics, sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
-
-@font-face {
-  font-family: 'avenir';
-  src: url('https://daks2k3a4ib2z.cloudfront.net/565a4953875a63ba7177173e/565c7242672cf3850db660d9_AvenirNextLTPro-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'avenir-italic';
-  src: url('https://daks2k3a4ib2z.cloudfront.net/565a4953875a63ba7177173e/566ae7bab6f5566825851d69_AvenirNextLTPro-It.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'avenir-bold';
-  src: url('https://daks2k3a4ib2z.cloudfront.net/565a4953875a63ba7177173e/566ae7ba0c0df85f253e6958_AvenirNextLTPro-Bold.otf') format('opentype');
-  font-weight: 800;
-  font-style: normal;
-}
-
 
 /* Side Navigation */
 nav#side {
