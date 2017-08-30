@@ -13,17 +13,30 @@ In PyCharm:
 4. Click on the green **+** icon on the right side.
 5. Search for `python-ta`, and press "Install Package".
 
-In the command line:
+In the command-line:
 
 1. Simply do `pip install python-ta` (or `pip3`, if you have `pip` targetting a Python 2 installation).
 
 ## Starting out
 
-To load PyTA, start the Python interpreter (in PyCharm, this is called the
+The easiest way to run PyTA on a file is very similar to `doctest`.
+Include the following lines in the `if __name__ == '__main__'` block of your file:
+
+```python
+if __name__ == '__main__':
+    import python_ta
+    python_ta.check_all()
+```
+
+Then when you run the file, PyTA will check your code in that file.
+
+### Running PyTA in the Python interpreter
+
+You can also run PyTA in the Python interpreter (in PyCharm, this is called the
 Python Console) and run the following command:
 
 ```python
->>> import python-ta
+>>> import python_ta
 ```
 
 Then you can begin checking Python modules.
@@ -44,7 +57,7 @@ On Windows, use double backslashes to separate folders:
 >>> python_ta.check_all('subfolder1\\sub2\\a\\my_file.py')
 ```
 
-On Macs/Unix, use a forward slash instead:
+On OSX/Unix, use a forward slash instead:
 
 ```python
 >>> python_ta.check_all('subfolder1/sub2/a/my_file.py')
@@ -57,21 +70,12 @@ PyTA distinguishes between two types of checks:
 - logical errors and use of forbidden language features
 - style errors or violating chosen conventions
 
-The output of `python_ta.check_all` divides the messages into two sections:
-
-```
-=== Code errors/forbidden usage (fix these right away!) ===
-...
-
-=== Style/convention errors (fix these before submission) ===
-...
-```
-
-Note: the headings will always appear, even if you don't have any errors.
+The output of `python_ta.check_all` divides the messages into two sections.
+Note that the headings will always appear, even if you don't have any errors.
 If there aren't any errors listed, the sections will simply be empty.
 
 If you want to only see the logical errors and forbidden features
-(useful for debugging purposes), use `python_ta.check_errors` instead:
+(useful for debugging purposes), use `python_ta.check_errors` instead of `python_ta.check_all`:
 
 ```python
 >>> python_ta.check_errors('hello.py')
