@@ -73,6 +73,46 @@ This error occurs when a dictionary literal sets the same key multiple times.
 Dictionaries map unique keys to values. When different values are assigned to the same key, the last assignment takes precedence. This is rarely what the user wants when they are constructing a dictionary.
 
 
+### Unexpected keyword arg (E1123) {#E1123}
+
+This error occurs when a function call passes a keyword argument which does not match the signature of the function being called.
+
+~~~~ {include="E1123_unexpected_keyword_arg"}
+~~~~
+
+Corrected version:
+
+```python
+print_greeting(name="Arthur")
+```
+
+
+### Used prior global declaration (E0118) {#E0118}
+
+This error occurs when we use a global name prior to the global declaration.
+
+~~~~ {include="E0118_used_prior_global_declaration"}
+~~~~
+
+Corrected version:
+
+```python
+def timestep() -> None:
+    """Increment global time by 1."""
+    global TIME
+    print(TIME)
+    TIME += 1
+```
+
+
+### Unsupported assignment operation (E1137) {#E1137}
+
+This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
+
+~~~~ {include="E1137_unsupported_assignment_operation"}
+~~~~
+
+
 ## Type errors
 
 These errors are some of the most common errors we encounter in Python. They generally have to do with using a value of one type where another type is required.
@@ -224,6 +264,48 @@ This error occurs when we are trying to assign to multiple variables at once, bu
 
 ~~~~ {include="E0633_unpacking_non_sequence"}
 ~~~~
+
+
+### Not an iterable (E1133) {#E1133}
+
+This error occurs when a non-iterable value is used in a place where an iterable is expected. An [iterable][Python Documentation: iterable] is an object capable of returning its members one at a time. Examples of iterables include sequence types such as `list`, `str`, and `tuple`, some non-sequence types such as `dict`, and instances of other classes which define the `__iter__` or `__getitem__` special methods.
+
+~~~~ {include="E1133_not_an_iterable"}
+~~~~
+
+Corrected version:
+
+```python
+for number in [1, 2, 3]:
+    print(number)
+```
+
+
+### Unsupported delete operation (E1138) {#E1138}
+
+This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion (i.e. an object that does not define the `__delitem__` special method).
+
+~~~~ {include="E1138_unsupported_delete_operation"}
+~~~~
+
+Corrected version:
+
+```python
+class NamedList:
+
+    ...  # Same as in the code above
+
+    def __delitem__(self, name: str) -> None:
+        idx = self._names.index(name)
+        del self._names[idx]
+        del self._values[idx]
+
+
+named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
+print('c' in named_list)  # Prints True
+del named_list['c']
+print('c' in named_list)  # Prints False
+```
 
 
 ## Code complexity
@@ -473,6 +555,26 @@ This error occurs if there are duplicate parameter names in function definitions
 ~~~~
 
 
+### Redefined argument from local (R1704) {#R1704}
+
+This error occurs when a local name is redefining the name of a parameter.
+
+~~~~ {include="R1704_redefined_argument_from_local"}
+~~~~
+
+Corrected version:
+
+```python
+def greet_person(name, friends) -> None:
+    """Print the name of a person and all their friends."""
+    print("My name is {}".format(name))
+    for friend in friends:
+        print("I am friends with {}".format(friend))
+```
+
+**See also**: [W0621](#W0621)
+
+
 ### Redefined outer name (W0621) {#W0621}
 
 This error occurs when we are redefining a variable name that has already been defined in the outer scope.
@@ -693,9 +795,47 @@ class Composition(object):
         self.description = Description()
 ```
 
-**See also**:
+**See also**: [R0914](#R0914)
 
-- [R0914](#R0914)
+
+### Abstract method (W0223) {#W0223}
+
+This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a concrete class.
+
+~~~~ {include="W0223_abstract_method"}
+~~~~
+
+Corrected version:
+
+```python
+class Cat(Animal):
+    """A worthy companion."""
+
+    def make_sound(self) -> str:
+        return 'Miew...'
+```
+
+
+### Arguments differ (W0221) {#W0221}
+
+This error occurs when a method takes a different number of arguments than the interface that it implements or the method that it overrides.
+
+~~~~ {include="W0221_arguments_differ"}
+~~~~
+
+Corrected version:
+
+```python
+class Dog(Animal):
+    """A man's best friend."""
+
+    def make_sound(self, mood: str) -> None:
+        if mood == 'happy':
+            print("Woof Woof!")
+        elif mood == 'angry':
+            print("Grrrrrrr!!")
+```
+
 
 ### Different method signature (W0222) {#W0222}
 
@@ -1110,7 +1250,6 @@ s = "{} who is {} lives in {}".format(name, age, country)
 **See also**: [E1121](#E1121)
 
 
-
 ### Too few format args (E1306) {#E1306}
 
 This error occurs when we use the `format` method on a string, but call it with fewer arguments than the number of `{}` in the string.
@@ -1270,111 +1409,6 @@ print(make_list(5))
 - [Default Parameter Values in Python]
 
 
-### Assert on tuple (W0199) {#W0199}
-
-This error occurs when an `assert` statement is called with a tuple as the first argument. `assert` acting on a tuple passes if and only if the tuple is non-empty. This is likely *not* what the programmer had intended.
-
-~~~~ {include="W0199_assert_on_tuple"}
-~~~~
-
-If we would like to assert multiple conditions, we should join those conditions using the `and` operator, or use individual `assert` statements for each condition.
-
-```python
-def check(condition1: bool, condition2: bool, condition3: bool) -> None:
-    # Option 1
-    assert (condition1 and condition2 and condition3)
-    # Option 2
-    assert condition1
-    assert condition2
-    assert condition3
-```
-
-If we would like `assert` to show a special error message when the assertion fails, we should provide that message as the second argument.
-
-```python
-def check(condition, message):
-    assert condition, message  # the message is optional
-```
-
-
-## Syntax errors {#syntax}
-
-### Syntax Error (E0001) {#E0001}
-
-1.  *SyntaxError: Missing parentheses in call to 'print'*
-
-    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
-
-    ~~~~ {include="missing_parentheses_in_call_to_print"}
-    ~~~~
-
-2.  *SyntaxError: can't assign to literal*
-
-    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). We cannot assign to a string or numeric literal.
-
-    ~~~~ {include="assignment_to_literal"}
-    ~~~~
-
-3.  *SyntaxError: invalid syntax*
-
-    Some of the common causes of this error include:
-
-    1.  Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
-
-        ~~~~ {include="missing_colon"}
-        ~~~~
-
-    2.  Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
-
-        ~~~~ {include="assignment_inside_condition"}
-        ~~~~
-
-    3.  Missing quote at the beginning or the end of a string literal.
-
-        ~~~~ {include="missing_quote"}
-        ~~~~
-
-    4.  Assignment to a Python keyword.
-
-        ~~~~ {include="assignment_to_keyword"}
-        ~~~~
-
-        The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
-
-        ```
-        False      class      finally    is         return
-        None       continue   for        lambda     try
-        True       def        from       nonlocal   while
-        and        del        global     not        with
-        as         elif       if         or         yield
-        assert     else       import     pass
-        break      except     in         raise
-        ```
-
-    5.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
-
-        ~~~~ {include="undefined_operator"}
-        ~~~~
-
-4.  *IndentationError: unindent does not match any outer indentation level*
-
-    We must use a constant number of whitespace characters for each level of indentation. If we start a code block using four spaces for indentation, we must use four spaces throughout that code block.
-
-    ~~~~ {include="unindent_does_not_match_indentation"}
-    ~~~~
-
-    Note that it is **strongly recommended** that we [**always use four spaces per indentation level**][PEP8: Indentation] throughout our code.
-
-5.  *IndentationError: unexpected indent*
-
-    In Python, the only time we would increase the indentation level of our code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
-
-    ~~~~ {include="unexpected_indent"}
-    ~~~~
-
-
-## New errors {#new}
-
 ### Consider iterating dictionary (C0201) {#C0201}
 
 It is more *pythonic* to iterate through a dictionary directly, without calling the `.keys` method.
@@ -1402,6 +1436,48 @@ Corrected version:
 ```python
 if 'anchovies' in pizza_toppings:
     print("Awesome!")
+```
+
+
+### Trailing comma tuple (R1707) {#R1707}
+
+This error occurs when a Python expression is terminated by a comma. In Python, a tuple is created by the comma symbol, not by parentheses. This makes it easy to create a tuple accidentally, by misplacing a comma, which can lead to obscure bugs. In order to make our intention clear, we should always use parentheses when creating a tuple, and we should never leave a trailing comma in our code.
+
+~~~~ {include="R1707_trailing_comma_tuple"}
+~~~~
+
+Corrected version:
+
+```python
+my_lucky_number = 7
+print(my_lucky_number)  # Prints 7
+```
+
+
+### Assert on tuple (W0199) {#W0199}
+
+This error occurs when an `assert` statement is called with a tuple as the first argument. `assert` acting on a tuple passes if and only if the tuple is non-empty. This is likely *not* what the programmer had intended.
+
+~~~~ {include="W0199_assert_on_tuple"}
+~~~~
+
+If we would like to assert multiple conditions, we should join those conditions using the `and` operator, or use individual `assert` statements for each condition.
+
+```python
+def check(condition1: bool, condition2: bool, condition3: bool) -> None:
+    # Option 1
+    assert (condition1 and condition2 and condition3)
+    # Option 2
+    assert condition1
+    assert condition2
+    assert condition3
+```
+
+If we would like `assert` to show a special error message when the assertion fails, we should provide that message as the second argument.
+
+```python
+def check(condition, message):
+    assert condition, message  # the message is optional
 ```
 
 
@@ -1433,15 +1509,6 @@ assert chars == 'this string fails'
 - [Literally Literals and Other Number Oddities In Python]
 - [StackOverflow: About the changing id of an immutable string]
 - [StackOverflow: When does Python allocate new memory for identical strings?]
-
-
-### Unsupported assignment operation (E1137) {#E1137}
-
-This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
-
-~~~~ {include="E1137_unsupported_assignment_operation"}
-~~~~
-
 
 
 ### Expression not assigned (W0106) {#W0106}
@@ -1481,93 +1548,7 @@ class Company:
 ```
 
 
-### Abstract method (W0223) {#W0223}
-
-This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a concrete class.
-
-~~~~ {include="W0223_abstract_method"}
-~~~~
-
-Corrected version:
-
-```python
-class Cat(Animal):
-    """A worthy companion."""
-
-    def make_sound(self) -> str:
-        return 'Miew...'
-```
-
-
-### Arguments differ (W0221) {#W0221}
-
-This error occurs when a method takes a different number of arguments than the interface that it implements or the method that it overrides.
-
-~~~~ {include="W0221_arguments_differ"}
-~~~~
-
-Corrected version:
-
-```python
-class Dog(Animal):
-    """A man's best friend."""
-
-    def make_sound(self, mood: str) -> None:
-        if mood == 'happy':
-            print("Woof Woof!")
-        elif mood == 'angry':
-            print("Grrrrrrr!!")
-```
-
-
-### Unexpected keyword arg (E1123) {#E1123}
-
-This error occurs when a function call passes a keyword argument which does not match the signature of the function being called.
-
-~~~~ {include="E1123_unexpected_keyword_arg"}
-~~~~
-
-Corrected version:
-
-```python
-print_greeting(name="Arthur")
-```
-
-
-### Redefined argument from local (R1704) {#R1704}
-
-This error occurs when a local name is redefining the name of a parameter.
-
-~~~~ {include="R1704_redefined_argument_from_local"}
-~~~~
-
-Corrected version:
-
-```python
-def greet_person(name, friends) -> None:
-    """Print the name of a person and all their friends."""
-    print("My name is {}".format(name))
-    for friend in friends:
-        print("I am friends with {}".format(friend))
-```
-
-**See also**: [W0621](#W0621)
-
-
-### Trailing comma tuple (R1707) {#R1707}
-
-This error occurs when a Python expression is terminated by a comma. In Python, a tuple is created by the comma symbol, not by parentheses. This makes it easy to create a tuple accidentally, by misplacing a comma, which can lead to obscure bugs. In order to make our intention clear, we should always use parentheses when creating a tuple, and we should never leave a trailing comma in our code.
-
-~~~~ {include="R1707_trailing_comma_tuple"}
-~~~~
-
-Corrected version:
-
-```python
-my_lucky_number = 7
-print(my_lucky_number)  # Prints 7
-```
-
+## Style errors {#style}
 
 ### Bad whitespace (C0326) {#C0326}
 
@@ -1708,6 +1689,90 @@ def print_address(recipient_name: str,
 ```
 
 
+### Line too long (C0301) {#C0301}
+
+This error occurs when a line is longer than a predefined number of characters. Our default limit for all lines is 80 characters.
+
+~~~~ {include="C0301_line_too_long"}
+~~~~
+
+
+## Syntax errors {#syntax}
+
+### Syntax Error (E0001) {#E0001}
+
+1.  *SyntaxError: Missing parentheses in call to 'print'*
+
+    In Python 3, `print` is a builtin *function*, and should be called like any other function, with arguments inside parentheses. In previous versions of Python, `print` had been a keyword.
+
+    ~~~~ {include="missing_parentheses_in_call_to_print"}
+    ~~~~
+
+2.  *SyntaxError: can't assign to literal*
+
+    There must always be a variable on the left-hand side of the equals sign (where the term "variable" can refer to a single identifier `a = 10`, multiple identifiers `a, b = 10, 20`, a dictionary element `foo['a'] = 10`, a class attribute `foo.bar = 10`, etc.). We cannot assign to a string or numeric literal.
+
+    ~~~~ {include="assignment_to_literal"}
+    ~~~~
+
+3.  *SyntaxError: invalid syntax*
+
+    Some of the common causes of this error include:
+
+    1.  Missing colon at the end of an `if`, `elif`, `else`, `for`, `while`, `class`, or `def` statement.
+
+        ~~~~ {include="missing_colon"}
+        ~~~~
+
+    2.  Assignment operator `=` used inside a condition expression (likely in place of the equality operator `==`).
+
+        ~~~~ {include="assignment_inside_condition"}
+        ~~~~
+
+    3.  Missing quote at the beginning or the end of a string literal.
+
+        ~~~~ {include="missing_quote"}
+        ~~~~
+
+    4.  Assignment to a Python keyword.
+
+        ~~~~ {include="assignment_to_keyword"}
+        ~~~~
+
+        The following is a [list of Python keywords][Keywords] which cannot be used as variable names:
+
+        ```
+        False      class      finally    is         return
+        None       continue   for        lambda     try
+        True       def        from       nonlocal   while
+        and        del        global     not        with
+        as         elif       if         or         yield
+        assert     else       import     pass
+        break      except     in         raise
+        ```
+
+    5.  Use of an undefined operator. For example, there are no "increment by one" `++` or "decrement by one" `--` operators in Python.
+
+        ~~~~ {include="undefined_operator"}
+        ~~~~
+
+4.  *IndentationError: unindent does not match any outer indentation level*
+
+    We must use a constant number of whitespace characters for each level of indentation. If we start a code block using four spaces for indentation, we must use four spaces throughout that code block.
+
+    ~~~~ {include="unindent_does_not_match_indentation"}
+    ~~~~
+
+    Note that it is **strongly recommended** that we [**always use four spaces per indentation level**][PEP8: Indentation] throughout our code.
+
+5.  *IndentationError: unexpected indent*
+
+    In Python, the only time we would increase the indentation level of our code is to define a new code block after a [compound statement][Compound statements] such as `for`, `if`, `def`, or `class`.
+
+    ~~~~ {include="unexpected_indent"}
+    ~~~~
+
+
 ### Nonexistent operator (E0107) {#E0107}
 
 This error occurs when we attempt to use C-style "pre-increment" or "pre-decrement" operators `++` and `--`, which do not exist in Python.
@@ -1721,74 +1786,6 @@ Corrected version:
 spam = 0
 spam += 1
 spam -= 1
-```
-
-
-### Used prior global declaration (E0118) {#E0118}
-
-This error occurs when we use a global name prior to the global declaration.
-
-~~~~ {include="E0118_used_prior_global_declaration"}
-~~~~
-
-Corrected version:
-
-```python
-def timestep() -> None:
-    """Increment global time by 1."""
-    global TIME
-    print(TIME)
-    TIME += 1
-```
-
-
-### Not an iterable (E1133) {#E1133}
-
-This error occurs when a non-iterable value is used in a place where an iterable is expected. An [iterable][Python Documentation: iterable] is an object capable of returning its members one at a time. Examples of iterables include sequence types such as `list`, `str`, and `tuple`, some non-sequence types such as `dict`, and instances of other classes which define the `__iter__` or `__getitem__` special methods.
-
-~~~~ {include="E1133_not_an_iterable"}
-~~~~
-
-Corrected version:
-
-```python
-for number in [1, 2, 3]:
-    print(number)
-```
-
-
-### Line too long (C0301) {#C0301}
-
-This error occurs when a line is longer than a predefined number of characters. Our default limit for all lines is 80 characters.
-
-~~~~ {include="C0301_line_too_long"}
-~~~~
-
-
-### Unsupported delete operation (E1138) {#E1138}
-
-This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion (i.e. an object that does not define the `__delitem__` special method).
-
-~~~~ {include="E1138_unsupported_delete_operation"}
-~~~~
-
-Corrected version:
-
-```python
-class NamedList:
-
-    ...  # Same as in the code above
-
-    def __delitem__(self, name: str) -> None:
-        idx = self._names.index(name)
-        del self._names[idx]
-        del self._values[idx]
-
-
-named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
-print('c' in named_list)  # Prints True
-del named_list['c']
-print('c' in named_list)  # Prints False
 ```
 
 
