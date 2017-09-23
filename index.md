@@ -105,14 +105,6 @@ def timestep() -> None:
 ```
 
 
-### Unsupported assignment operation (E1137) {#E1137}
-
-This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
-
-~~~~ {include="E1137_unsupported_assignment_operation"}
-~~~~
-
-
 ## Type errors
 
 These errors are some of the most common errors we encounter in Python. They generally have to do with using a value of one type where another type is required.
@@ -250,6 +242,41 @@ The standard Python types which support indexing are strings, lists, tuples, and
 ~~~~
 
 
+### Unsupported assignment operation (E1137) {#E1137}
+
+This error occurs when we assign something to an object which does not support assignment (i.e. an object which does not define the `__setitem__` method).
+
+~~~~ {include="E1137_unsupported_assignment_operation"}
+~~~~
+
+
+### Unsupported delete operation (E1138) {#E1138}
+
+This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion (i.e. an object that does not define the `__delitem__` special method).
+
+~~~~ {include="E1138_unsupported_delete_operation"}
+~~~~
+
+Corrected version:
+
+```python
+class NamedList:
+
+    ...  # Same as in the code above
+
+    def __delitem__(self, name: str) -> None:
+        idx = self._names.index(name)
+        del self._names[idx]
+        del self._values[idx]
+
+
+named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
+print('c' in named_list)  # Prints True
+del named_list['c']
+print('c' in named_list)  # Prints False
+```
+
+
 ### Unbalanced tuple unpacking (E0632) {#E0632}
 
 This error occurs when we are trying to assign to multiple variables at once, but the right side has too few or too many values in the sequence.
@@ -278,33 +305,6 @@ Corrected version:
 ```python
 for number in [1, 2, 3]:
     print(number)
-```
-
-
-### Unsupported delete operation (E1138) {#E1138}
-
-This error occurs when the `del` keyword is used to delete an item from an object which does not support item deletion (i.e. an object that does not define the `__delitem__` special method).
-
-~~~~ {include="E1138_unsupported_delete_operation"}
-~~~~
-
-Corrected version:
-
-```python
-class NamedList:
-
-    ...  # Same as in the code above
-
-    def __delitem__(self, name: str) -> None:
-        idx = self._names.index(name)
-        del self._names[idx]
-        del self._values[idx]
-
-
-named_list = NamedList(['a', 'b', 'c'], [1, 2, 3])
-print('c' in named_list)  # Prints True
-del named_list['c']
-print('c' in named_list)  # Prints False
 ```
 
 
