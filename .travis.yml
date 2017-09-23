@@ -9,7 +9,7 @@ install:
   - pip3 install pandocfilters pylint
   # Need a newer version of linkchecker then available from the apt channel
   - sudo apt install python-pip python-setuptools
-  - pip2 install git+git://github.com/linkcheck/linkchecker.git@8dc2963264b84babca3d501c195d470a58006ac0
+  - sudo pip2 install git+git://github.com/linkcheck/linkchecker.git@9af06b968ba84b7f0a5bf9a566bf95ea4bbf9cae
   # Node.js
   - nvm install --lts
   - |
