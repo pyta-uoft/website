@@ -1225,6 +1225,25 @@ Use of builtin functions [`exec`], [`eval`], and [`compile`] is not allowed.
 
 - [StackOverflow: What's the difference between eval, exec, and compile in Python?]
 
+### Unnecessary Indexing (E9994) {E9994}
+
+The iteration variable in a for loop was used unnecessarily.
+
+~~~~ {include="unnecessary_indexing_example"}
+~~~~
+
+Corrected version:
+
+```python
+def sum_items(lst: List[int]) -> int:
+    """Return the sum of a list of numbers."""
+    s = 0
+    for x in lst:
+        s += x
+
+    return s
+```
+
 
 ## Miscellaneous
 
