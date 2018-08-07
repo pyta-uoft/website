@@ -1253,7 +1253,7 @@ Example:
 ```python
 def f(lst):
     s = 0
-    for i in range(len(lst)):  # Checker will detect an unnecessary indexing error on this line even though there is none.
+    for i in range(len(lst)):  # Checker will detect an error on this line even though there is none.
         lst = [i for i in range(i)]
         for x in lst:
             s += x
