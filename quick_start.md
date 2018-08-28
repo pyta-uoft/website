@@ -93,3 +93,5 @@ and call the function:
 ```
 
 The corresponding entry for this error code will appear on the documentation page.
+
+Or go to [PyTA documentation website](http://www.cs.toronto.edu/~david/pyta/)
