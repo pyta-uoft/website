@@ -472,6 +472,22 @@ In the above example, the `pass` statement is "unnecessary" as the program's eff
 - [StackOverflow: How To Use The Pass Statement In Python]
 
 
+### Inconsistent return statements (R1710) {#R1710}
+
+This error occurs when you have a function that sometimes returns a non-`None` value and sometimes *implicitly* returns `None`.
+This is an issue because in Python, we prefer making code explicit rather than implicit.
+
+~~~~ {include="R1710_inconsistent_return_statements"}
+~~~~
+
+In `add_sqrts`, we should change `return` into `return None` to make better contrast the return value with the other branch.
+In the other two functions, it's possible that none of the `return` statements will execute, and so the end of the function body will be reached, causing a `None` to be returned implicitly.
+(Forgetting about this behaviour actually is a common source of bugs in student code!)
+In both cases, you can fix the problem by adding an explicit `return None` to the end of the function body.
+
+In CSC148, you may sometimes choose resolve this error by instead *raising an error* rather than returning `None`.
+
+
 ## Documentation and naming
 
 Good documentation and identifiers are essential for writing software. PyTA helps check to make sure we haven't forgotten to document anything, as well as a basic check on the formatting of our identifiers.
