@@ -1209,7 +1209,7 @@ Input / output functions ([`input`], [`open`] and [`print`]) should not be used 
 
 ### Loop Iterates Only Once (E9996) {#E9996}
 
-This error occurs if the loop will iterate only once. This could occur because of a combination of the *break* and *return* statement within the loop body.
+This error occurs if the loop will iterate only once. This could occur because of a combination of the *break* and *return* statements within the loop body.
 
 ~~~~ {include="one_iteration_example"}
 ~~~~
