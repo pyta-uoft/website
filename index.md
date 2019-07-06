@@ -1207,11 +1207,11 @@ Input / output functions ([`input`], [`open`] and [`print`]) should not be used 
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
-### Always returning in a loop (E9996) {#E9996}
+### Loop Iterates Only Once (E9996) {#E9996}
 
-This error occurs when we *always* return something inside a loop body. This means that the loop will execute only once.
+This error occurs if the loop will iterate only once. This could occur because of a combination of the *break* and *return* statement within the loop body.
 
-~~~~ {include="always_returning_example"}
+~~~~ {include="one_iteration_example"}
 ~~~~
 
 ### Dynamic Execution (E9991) {#E9991}
