@@ -1865,7 +1865,7 @@ spam -= 1
 [Default Parameter Values in Python]: http://effbot.org/zone/default-values.htm
 [list comprehensions tutorial]: https://www.digitalocean.com/community/tutorials/understanding-list-comprehensions-in-python-3
 [Literally Literals and Other Number Oddities In Python]: https://www.everymundo.com/literals-other-number-oddities-python/
-[Python double-under, double-wonder]: http://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
+[Python double-under, double-wonder]: https://www.pixelmonkey.org/2013/04/11/python-double-under-double-wonder
 [Python's Super Considered Harmful]: https://fuhm.net/super-harmful/
 [Super Considered Super!]: https://youtu.be/EiOglTERPEo
 [The scope of index variables in Python's for loops]: http://eli.thegreenplace.net/2015/the-scope-of-index-variables-in-pythons-for-loops/
