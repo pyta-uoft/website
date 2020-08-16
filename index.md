@@ -87,24 +87,6 @@ print_greeting(name="Arthur")
 ```
 
 
-### Used prior global declaration (E0118) {#E0118}
-
-This error occurs when we use a global name prior to the global declaration.
-
-~~~~ {include="E0118_used_prior_global_declaration"}
-~~~~
-
-Corrected version:
-
-```python
-def timestep() -> None:
-    """Increment global time by 1."""
-    global TIME
-    print(TIME)
-    TIME += 1
-```
-
-
 ## Type errors
 
 These errors are some of the most common errors we encounter in Python. They generally have to do with using a value of one type where another type is required.
@@ -494,14 +476,6 @@ In the above example, the `pass` statement is "unnecessary" as the program's eff
 
 Good documentation and identifiers are essential for writing software. PyTA helps check to make sure we haven't forgotten to document anything, as well as a basic check on the formatting of our identifiers.
 
-### Missing Docstring (C0111) {#C0111}
-
-This error occurs when a module, function, class or method has no docstring. Special methods like `__init__` do not require a docstring.
-
-~~~~ {include="C0111_missing_docstring"}
-~~~~
-
-
 ### Empty Docstring (C0112) {#C0112}
 
 This error occurs when a module, function, class or method has an empty docstring.
@@ -646,24 +620,6 @@ This error occurs when we are trying to access a variable from an imported modul
 ~~~~
 
 
-### Import self (W0406) {#W0406}
-
-A module should not import itself. For example, if we have a module named `W0406_import_self`, it should not import a module with the same name.
-
-~~~~ {include="W0406_import_self"}
-~~~~
-
-This error can occur when the name of our Python file conflicts with the name of a module which we would like to import. For example, if we have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *our* `math.py` file, and not the [`math` module] from the standard library.
-
-
-### Reimported (W0404) {#W0404}
-
-A module should not be imported more than once.
-
-~~~~ {include="W0404_reimported"}
-~~~~
-
-
 ### Wildcard import (W0401) {#W0401}
 
 We should only import what we need. Wildcard imports (shown below) are generally discouraged, as they add all objects from the imported module into the global namespace. This makes it difficult to tell in which module a particular class, function or constant is defined, and may cause problems, for example, when multiple modules have objects with identical names.
@@ -686,35 +642,22 @@ c = module_name.SomeClass()
 ```
 
 
-### Wrong import order (C0411) {#C0411}
+### Reimported (W0404) {#W0404}
 
-This error occurs when the [PEP8 import order][PEP8 Imports] is not respected. We should do standard library imports first, then third-party libraries, then local imports.
+A module should not be imported more than once.
 
-~~~~ {include="C0411_wrong_import_order"}
+~~~~ {include="W0404_reimported"}
 ~~~~
 
 
-### Wrong import position (C0413) {#C0413}
+### Import self (W0406) {#W0406}
 
-Imports should be placed at the top of the module, above any other code, but below the module docstring.
+A module should not import itself. For example, if we have a module named `W0406_import_self`, it should not import a module with the same name.
 
-~~~~ {include="C0413_wrong_import_position"}
+~~~~ {include="W0406_import_self"}
 ~~~~
 
-
-### Ungrouped imports (C0412) {#C0412}
-
-Imports should be grouped by package.
-
-~~~~ {include="C0412_ungrouped_imports"}
-~~~~
-
-Corrected version:
-
-```python
-from sys import byteorder, stdin  # Same packages should be grouped
-from math import floor
-```
+This error can occur when the name of our Python file conflicts with the name of a module which we would like to import. For example, if we have a Python file named `math.py`, calling `import math` from within that file (or from within *any* Python file in the same directory) will import *our* `math.py` file, and not the [`math` module] from the standard library.
 
 
 ### Multiple imports (C0410) {#C0410}
@@ -736,6 +679,37 @@ Note, however, that we can import multiple functions, classes, or constants on o
 ```python
 from shutil import copy, SameFileError
 ```
+
+
+### Wrong import order (C0411) {#C0411}
+
+This error occurs when the [PEP8 import order][PEP8 Imports] is not respected. We should do standard library imports first, then third-party libraries, then local imports.
+
+~~~~ {include="C0411_wrong_import_order"}
+~~~~
+
+
+### Ungrouped imports (C0412) {#C0412}
+
+Imports should be grouped by package.
+
+~~~~ {include="C0412_ungrouped_imports"}
+~~~~
+
+Corrected version:
+
+```python
+from sys import byteorder, stdin  # Same packages should be grouped
+from math import floor
+```
+
+
+### Wrong import position (C0413) {#C0413}
+
+Imports should be placed at the top of the module, above any other code, but below the module docstring.
+
+~~~~ {include="C0413_wrong_import_position"}
+~~~~
 
 
 ### Unused import (W0611) {#W0611}
@@ -800,7 +774,7 @@ class Composition(object):
 
 ### Abstract method (W0223) {#W0223}
 
-This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a concrete class.
+This error occurs when an abstract method (i.e. a method with a `raise NotImplementedError` statement) is not overridden inside a subclass of the abstract class.
 
 ~~~~ {include="W0223_abstract_method"}
 ~~~~
@@ -931,19 +905,19 @@ class SomeNumbers:
 ```
 
 
-### Access to member before definition (E0203) {#E0203}
-
-Before trying to use a member of a class, it should have been defined at some point. If we try to use it before assigning to it, an error will occur.
-
-~~~~ {include="E0203_access_member_before_definition"}
-~~~~
-
-
 ### Method hidden (E0202) {#E0202}
 
 If we accidentally hide a method with an attribute, it can cause other code to attempt to invoke what it believes to be a method, which will fail since it has become an attribute instead. This will cause the program to raise an error.
 
 ~~~~ {include="E0202_method_hidden"}
+~~~~
+
+
+### Access to member before definition (E0203) {#E0203}
+
+Before trying to use a member of a class, it should have been defined at some point. If we try to use it before assigning to it, an error will occur.
+
+~~~~ {include="E0203_access_member_before_definition"}
 ~~~~
 
 
@@ -959,6 +933,7 @@ Corrected version:
 ```python
 class Animal:
     """A carbon-based life form that eats and moves around."""
+    _name: str
 
     def __init__(self, name: str) -> None:
         self._name = name
@@ -1048,12 +1023,13 @@ Corrected version:
 ```python
 class CashRegister:
     """A cash register for storing money and making change."""
+    _current_balance: float
 
     def __init__(self, balance: float) -> None:
         self._current_balance = balance
 
 
-def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0):
+def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0) -> float:
     """Return the dollar value of the small coins."""
     return 0.05 * nickels + 0.10 * dimes + 0.25 * quarters
 ```
@@ -1062,9 +1038,9 @@ def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0):
 
 - [W0211](#W0211)
 
-### Bad static member (W0211) {#W0211}
+### Bad static method argument (W0211) {#W0211}
 
-This error occurs when a static method contains `self` as the first parameter. Static methods are methods that do not operate on instances. If we feel that the logic of a particular function belongs inside a class, we can move that function into the class and add a [`@staticmethod`][Python Documentation: staticmethod] [decorator][Python Documentation: decorator] to signal that the method is a static method which does not take a class instance as the first argument. If such a static method contains `self` as the first parameter, it suggests that we are erroneously expecting a class instance as the first argument to the method.
+This error occurs when a static method has `self` as the first parameter. Static methods are methods that do not operate on instances. If we feel that the logic of a particular function belongs inside a class, we can move that function into the class and add a [`@staticmethod`][Python Documentation: staticmethod] [decorator][Python Documentation: decorator] to signal that the method is a static method which does not take a class instance as the first argument. If such a static method contains `self` as the first parameter, it suggests that we are erroneously expecting a class instance as the first argument to the method.
 
 ~~~~ {include="W0211_bad_staticmethod_argument"}
 ~~~~
@@ -1074,12 +1050,13 @@ Corrected version:
 ```python
 class CashRegister:
     """A cash register for storing money and making change."""
+    _current_balance: float
 
     def __init__(self, balance: float) -> None:
         self._current_balance = balance
 
     @staticmethod
-    def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0):
+    def add_small_coins(nickels: int = 0, dimes: int = 0, quarters: int = 0) -> float:
         """Return the dollar value of the small coins."""
         return 0.05 * nickels + 0.10 * dimes + 0.25 * quarters
 ```
@@ -1087,7 +1064,7 @@ class CashRegister:
 **See also**:
 
 - [R0201](#R0201)
-- [StackOverflow: What is the difference between \@staticmethod and \@classmethod in Python?]
+- [StackOverflow: What is the difference between `@staticmethod` and `@classmethod` in Python?]
 
 
 ## Exceptions
@@ -1207,23 +1184,20 @@ Input / output functions ([`input`], [`open`] and [`print`]) should not be used 
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
-### Loop Iterates Only Once (E9996) {#E9996}
+### Loop iterates only once (E9996) {#E9996}
 
-This error occurs if the loop will iterate only once. This could occur because of a combination of the *break* and *return* statements within the loop body.
+This error occurs when the loop will only ever iterate once.
+This usually occurs when every possible execution path through the loop body ends in a `return` or `break` statement.
 
-~~~~ {include="one_iteration_example"}
-~~~~
-
-### Dynamic Execution (E9991) {#E9991}
-
-Use of builtin functions [`exec`], [`eval`], and [`compile`] is not allowed.
-
-~~~~ {include="dynamic_execution_example"}
-~~~~
-
-**See also**:
-
-- [StackOverflow: What's the difference between eval, exec, and compile in Python?]
+```python
+def all_even(nums: List[int]) -> bool:
+    """Return whether nums contains only even numbers."""
+    for num in nums:
+        if num % 2 == 0:
+            return True
+        else:
+            return False
+```
 
 ### Unnecessary Indexing (E9994) {E9994}
 
@@ -1402,21 +1376,21 @@ def is_int(obj: Union[int, float, str]) -> bool:
 
 ### Dangerous default value (W0102) {#W0102}
 
-This warning occurs when a mutable object, such as a list or dictionary, is provided as a default argument inside a function or a method definition. Default arguments are instantiated only once, at the time when the function or the method is defined (i.e. when the interpreter parses the `def ...` block). If the default argument is modified, it will remain modified in all subsequent calls of the function or method. This leads to a common "gotcha" in Python, where an "empty" list or dictionary, specified as the default argument, starts containing values on calls other than the first call.
+This warning occurs when a mutable object, such as a list or dictionary, is provided as a default argument in a function definition. Default arguments are instantiated only once, at the time when the function is defined (i.e. when the interpreter encounters the `def ...` block). If the default argument is mutated when the function is called, it will remain modified for all subsequent function calls. This leads to a common "gotcha" in Python, where an "empty" list or dictionary, specified as the default argument, starts containing values on calls other than the first call.
 
 ~~~~ {include="W0102_dangerous_default_value"}
 ~~~~
 
 Many new users of Python would expect the output of the code above to be:
 
-```
+```python
 [0, 1, 2, 3, 4]
 [0, 1, 2, 3, 4]
 ```
 
 However, the actual output is:
 
-```
+```python
 [0, 1, 2, 3, 4]
 [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
 ```
@@ -1600,22 +1574,6 @@ def func(temp: int) -> bool:
     return temp > 0
 ```
 
-### Mixed indentation (W0312) {#W0312}
-
-This error occurs when the code is indented with a mix of tabs and spaces. Please note that [*spaces are the preferred indentation method*][PEP8: Tabs or Spaces?].
-
-~~~~ {include="W0312_mixed_indentation"}
-~~~~
-
-Corrected version:
-
-```python
-def hello_world() -> None:
-    """Greet the universe with a friendly 'Hello World!'."""
-    print("Hello World!")
-```
-
-
 ### Bad indentation (W0311) {#W0311}
 
 This error occurs when an unexpected number of tabs or spaces is used to indent the code. It is recommended that we use [*four spaces per indentation level*][PEP8: Indentation] throughout our code.
@@ -1629,6 +1587,22 @@ Corrected version:
 def print_greeting(name: str) -> None:
     """Print a greeting to the person with the given name."""
     print('Hello {}!'.format(name))
+```
+
+
+### Mixed indentation (W0312) {#W0312}
+
+This error occurs when the code is indented with a mix of tabs and spaces. Please note that [*spaces are the preferred indentation method*][PEP8: Tabs or Spaces?].
+
+~~~~ {include="W0312_mixed_indentation"}
+~~~~
+
+Corrected version:
+
+```python
+def hello_world() -> None:
+    """Greet the universe with a friendly 'Hello World!'."""
+    print("Hello World!")
 ```
 
 
@@ -1834,9 +1808,6 @@ spam -= 1
 [`input`]: https://docs.python.org/3/library/functions.html#input
 [`open`]: https://docs.python.org/3/library/functions.html#open
 [`print`]: https://docs.python.org/3/library/functions.html#print
-[`exec`]: https://docs.python.org/3/library/functions.html#exec
-[`eval`]: https://docs.python.org/3/library/functions.html#eval
-[`compile`]: https://docs.python.org/3/library/functions.html#compile
 
 <!-- Python docs -->
 
@@ -1870,8 +1841,7 @@ spam -= 1
 [StackOverflow: About the changing id of an immutable string]: https://stackoverflow.com/questions/24245324/about-the-changing-id-of-an-immutable-string
 [StackOverflow: How To Use The Pass Statement In Python]: https://stackoverflow.com/a/22612774/2063031
 [StackOverflow: What does 'super' do in Python?]: https://stackoverflow.com/q/222877/2063031
-[StackOverflow: What is the difference between \@staticmethod and \@classmethod in Python?]: https://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python
-[StackOverflow: What's the difference between eval, exec, and compile in Python?]: https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
+[StackOverflow: What is the difference between `@staticmethod` and `@classmethod` in Python?]: https://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python
 [StackOverflow: When does Python allocate new memory for identical strings?]: https://stackoverflow.com/questions/2123925/when-does-python-allocate-new-memory-for-identical-strings
 
 <!-- everything else -->
