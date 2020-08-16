@@ -1184,10 +1184,10 @@ Input / output functions ([`input`], [`open`] and [`print`]) should not be used 
 ~~~~ {include="E9998_forbidden_io_function"}
 ~~~~
 
-### Only one loop iteration (E9996) {#E9996}
+### Loop iterates only once (E9996) {#E9996}
 
-This error occurs when the loop body only ever executes once.
-This usually occurs when every possible execution path through the body ends in a `return` statement.
+This error occurs when the loop will only ever iterate once.
+This usually occurs when every possible execution path through the loop body ends in a `return` or `break` statement.
 
 ```python
 def all_even(nums: List[int]) -> bool:
