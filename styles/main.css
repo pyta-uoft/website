@@ -1,5 +1,7 @@
 /* Basic */
-*, ::after, ::before {
+*,
+::after,
+::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -box-sizing: border-box;
@@ -20,17 +22,19 @@ button.accordion {
   margin-bottom: 10px;
   margin-left: 5px;
   font-size: 120%;
+  transition: all 0.36s ease;
 }
 
-button.accordion.active, button.accordion:hover {
+button.accordion.active,
+button.accordion:hover {
   background-color: rgba(216, 231, 241, 0.95);
+  transition: all 0.36s ease;
 }
-
 
 button.accordion:after {
-  content: '\02795';
+  content: "\02795";
   font-size: 13px;
-  color: #3399FF;
+  color: #3399ff;
   float: right;
   margin-left: 5px;
 }
@@ -63,7 +67,7 @@ div.panel.show {
 
 body {
   background-color: #fafafa;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #444;
   font-size: 14px;
   line-height: 1.3;
@@ -87,7 +91,12 @@ body {
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 300;
   margin: 20px 0 10px 0;
   padding-top: 10px;
@@ -110,12 +119,13 @@ a {
   padding: 2px 0;
   border-radius: 4px;
   text-decoration: none;
-  transition: 0.1s;
+  transition: all 0.36s ease;
 }
 
-a:hover, a:focus {
-  background: #E9F6FB;
-  transition: 0s;
+a:hover,
+a:focus {
+  background: #e9f6fb;
+  transition: all 0.36s ease;
 }
 
 a:link {
@@ -127,20 +137,21 @@ a:link {
 a:visited {
   color: black;
   background-color: transparent;
-  text-decoration: none
+  text-decoration: none;
 }
 
 a:hover {
-  color:black;
+  color: black;
   font-weight: bold;
   background-color: aliceblue;
   text-decoration: underline;
+  transition: all 0.36s ease;
 }
 
 a:active {
   color: #fafafa;
-  background-color:transparent;
-  text-decoration: underline
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 .clear {
@@ -148,16 +159,16 @@ a:active {
 }
 
 code {
-  font-family: 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
   font-size: 14px;
   padding: 1px 2px;
   border-radius: 2px;
-  background: #F4F4F4;
+  background: #f4f4f4;
   white-space: pre;
 }
 
 pre code {
-  font-family: 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
   font-size: 14px;
   padding: 6px;
   border-radius: 4px;
@@ -167,7 +178,8 @@ pre code {
   overflow-x: auto;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   font-size: 16px;
   border: 1px solid grey;
   border-radius: 4px;
@@ -180,14 +192,13 @@ fieldset {
   border: 1px solid transparent;
 }
 
-
 /* Fonts */
 strong {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 em {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 /* Side Navigation */
@@ -214,7 +225,7 @@ nav#side li {
 
 nav#side a {
   display: block;
-  padding: 2px 10px;;
+  padding: 2px 10px;
 }
 
 nav#side li.navCategory a {
@@ -231,10 +242,12 @@ nav#side li.navCategory a {
   height: 27px;
   display: flex;
   margin: 10px 10px 0 10px;
+  transition: all 0.3s ease;
 }
 
 #toggleButton:hover span {
   opacity: 1;
+  transition: all 0.3s ease;
 }
 
 #toggleButton span,
@@ -247,7 +260,7 @@ nav#side li.navCategory a {
   background: #85ccff;
   position: absolute;
   display: block;
-  content: '';
+  content: "";
   opacity: 0.7;
   transition: all 200ms ease-in-out;
 }
@@ -281,7 +294,6 @@ nav#side li.navCategory a {
   transform-origin: 5.5px -6px;
 }
 
-
 /* Footer */
 footer {
   margin-top: 30px;
@@ -297,7 +309,6 @@ footer {
   }
 }
 
-
 .logo-pyta {
   max-height: 100px;
 }
@@ -306,18 +317,14 @@ footer {
   margin: 10px;
   border: 1px solid transparent;
   border-radius: 10px;
-  transition: 0.5s;
+  transition: all 0.4s ease;
 }
 
 .logo:hover {
-  border: 1px solid #3399FF;
+  border: 1px solid #3399ff;
   border-radius: 10px;
-  transition: 0s;
+  transition: all 0.1.9s ease;
 }
-
-
-
-
 
 /* Tables */
 table {
@@ -360,7 +367,6 @@ table li {
   line-height: 1.1em;
 }
 
-
 /* Different screen sizes */
 @media (max-width: 768px) {
   .nav-button {
@@ -368,7 +374,12 @@ table li {
   }
 
   /* Table */
-  table, thead, tbody, th, td, tr {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
@@ -376,12 +387,14 @@ table li {
     display: none;
   }
 
-  tr { border: 1px solid #B4A2D3; }
+  tr {
+    border: 1px solid #b4a2d3;
+  }
 
   td {
     /* Behave  like a "row" */
     border: none;
-    border-bottom: 1px solid #B4A2D3;
+    border-bottom: 1px solid #b4a2d3;
     position: relative;
     padding-left: 37%;
     width: 100%;
