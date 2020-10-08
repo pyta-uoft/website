@@ -314,6 +314,8 @@ else:
 
 This error occurs when an expression is compared to a singleton value like `True`, `False` or `None`.
 
+Here is an example involving a comparison to `None`:
+
 ~~~~ {include="C0121_singleton_comparison"}
 ~~~~
 
@@ -325,8 +327,28 @@ def square(number: Optional[float]) -> Optional[float]:
     if number is None:
         return None
     else:
-        return number**2
+        return number ** 2
 ```
+
+On the other hand, if you are comparing a boolean value to `True` or `False`, you can actually omit the comparison entirely:
+
+```python
+# Bad
+def square_if_even(number: int) -> int:
+    if (number % 2 == 0) == True:
+        return number ** 2
+    else:
+        return number
+
+
+# Good
+def square_if_even(number: int) -> int:
+    if number % 2 == 0:
+        return number ** 2
+    else:
+        return number
+```
+
 
 **See also**:
 
