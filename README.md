@@ -1,3 +1,6 @@
+# This repo is now archived, and the PyTA documentation is now part of https://github.com/pyta-uoft/pyta.
+
+
 <p align="center">
     <img src="./images/pyta_logo_markdown.png?raw=true" alt="pyta logo" width="120">
 </p>
